@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h> 
 
 // Exercicio 1
 void vetorIntercalado(){
@@ -37,14 +38,16 @@ void vetorIntercalado(){
 // Exercicio 2
 void lancamentoDados() { 
   const int quantidadeLancamentos = 100, faceDados = 6;
-  int lançamentos[quantidadeLancamentos];
+  int lancamentos[quantidadeLancamentos];
   int valores[faceDados] = {0};
 
+  srand(time(NULL)); 
+  
  for (int x = 0; x < quantidadeLancamentos; x++){
-    int lançamento = (random() % faceDados) + 1;
+    int lancamento = (random() % faceDados) + 1;
     
-    lançamentos[x] = lançamento;
-    valores[lançamento - 1] += 1;
+    lancamentos[x] = lancamento;
+    valores[lancamento - 1] += 1;
   }
 
   for (int x = 0; x < faceDados; x++)
