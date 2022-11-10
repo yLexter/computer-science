@@ -22,12 +22,12 @@ void areaPerimetroCirculo(float *raio){
    printf("Perimetro: %.2f\n", perimetro); 
 }
 // Desafio 1
-void total_Vogal_Consoantes(char *palavra) {
+void total_vogal_consoantes(char *palavra) {
     int totalVogais = 0, totalConsoantes = 0;
     char alfabeto[26] = "aeioubcdfgjklmnpqrstvwxyz";
 
     while(*palavra != '\0'){
-      
+        
       for(int x = 0; x < 25; x++) {
         char letra = alfabeto[x];
   
@@ -35,6 +35,7 @@ void total_Vogal_Consoantes(char *palavra) {
            x <= 4 ? totalVogais++ : totalConsoantes++;
            break;
         }
+          
       }  
       
       palavra++;
