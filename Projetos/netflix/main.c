@@ -127,10 +127,10 @@ char melhoresSemana[1000][1000] = {
 };
 
 char opcoes[100][100] = {
-"Ver Catalogo", 
-"Ver Favoritos",
-"Ver Melhores da Semana",
-"Sair"
+    "Ver Catalogo", 
+    "Ver Favoritos",
+    "Ver Melhores da Semana",
+    "Sair"
 };
 
 void cabecalho() {
