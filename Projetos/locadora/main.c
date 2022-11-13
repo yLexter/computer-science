@@ -16,7 +16,7 @@ void alugarFilme()
     return;
 
   if (verificarFilmeAlugado(filmeEscolhido))
-    return msgEntreCabecalho("Este filme já esta alugado.", true, false);
+    return msgEnstreCabecalho("Este filme já esta alugado.", true, false);
 
   salvarFilmeCliente(clientEscolhido, filmeEscolhido);
   msgEntreCabecalho("Filme alugado com sucesso.", true, false);
@@ -33,7 +33,7 @@ void cadastroCliente()
   limparTela();
 
   if (!nomeValido(client.nome))
-    return msgEntreCabecalho("Você precisa informar um nome apenas com letras e espaços", true, false);
+    return msgEntreCabecalho("Informe um nome apenas com letras e espaços", true, false);
 
   gerarIdCliente(client.id);
   formatarNome(client.nome);
@@ -67,27 +67,6 @@ void removerCliente()
   printf("O cliente %s(%s) foi removido com sucesso.\n", clientRemovido->nome, clientRemovido->id);
 }
 
-void mostrarFilmesAlugados()
-{
-  FilmeAlugado filmes[tamanhoArray];
-  int total;
-
-  getFilmesAlugados(filmes, &total);
-
-  if (!total)
-    return msgEntreCabecalho("Não existe filmes alugado no momento", true, false);
-
-  cabecalho();
-  textoCentralizado("Filmes Alugados");
-
-  for (int x = 0; x < total; x++)
-  {
-    printf("%d.\n", x + 1);
-    infoFilmeAlugado(filmes[x]);
-    quebraLinha(1);
-  }
-}
-
 void deletarFilme()
 {
   Filme *filmeDeletado = getFilmeByUser();
@@ -101,13 +80,13 @@ void deletarFilme()
 
 void menuInicial()
 {
-  const int lenOpcoes = sizeof(opcoes) / sizeof(opcoes[0]);
+  const int ultimaOpcao = sizeof(opcoes) / sizeof(opcoes[0]);
   int opcaoSelecionada;
 
   cabecalho();
   textoCentralizado("Menu Inicial");
 
-  for (int x = 0; x < lenOpcoes; x++)
+  for (int x = 0; x < ultimaOpcao; x++)
     printf("%d. %s\n", x + 1, opcoes[x]);
 
   msgEntreCabecalho("Digite a opção que deseja ", true, false);
@@ -118,7 +97,7 @@ void menuInicial()
   switch (opcaoSelecionada)
   {
   case 1:
-    verFilmes();
+    mostrarFilmes();
     break;
   case 2:
     alugarFilme();
@@ -138,7 +117,7 @@ void menuInicial()
   case 7:
     deletarFilme();
     break;
-  case lenOpcoes:
+  case ultimaOpcao:
     encerrarProgama("Você finalizou o progama.");
     break;
   default:

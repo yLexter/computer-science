@@ -12,16 +12,17 @@
 // Constantes
 //------------------------------------------------------
 
-const int tamanhoArray = 1000;
-const int tamanhoIdFilme = 10;
-const int tamanhoLinha = 500;
-const int tamanhoNomeCliente = 21;
-const int tamanhoIdCliente = 10;
-const int prefixoIdCliente = 2;
-const char diretorioClientes[50] = "geral/clientes.txt";
-const char diretorioFilmes[50] = "geral/filmes.txt";
-const char charDivisor[2] = "-";
-const char espacoBranco = '_';
+#define tamanhoArray 1000
+#define tamanhoIdFilme 10
+#define tamanhoIdCliente 10
+#define tamanhoLinha 500
+#define tamanhoNomeCliente 50
+#define prefixoIdCliente 2
+#define charDivisor "-"
+#define espacoBranco '_'
+#define diretorioClientes "geral/clientes.txt"
+#define diretorioFilmes "geral/filmes.txt"
+
 const char opcoes[8][1000] = {
     "Ver Filmes",
     "Alugar Filme",
@@ -56,6 +57,24 @@ typedef struct
   char autor[tamanhoNomeCliente];
   char idAutor[tamanhoIdCliente];
 } FilmeAlugado;
+
+typedef struct
+{
+  Filme filmes[tamanhoArray];
+  int total;
+} StructFilmes;
+
+typedef struct
+{
+  Client clientes[tamanhoArray];
+  int total;
+} StructClientes;
+
+typedef struct
+{
+  FilmeAlugado filmes[tamanhoArray];
+  int total;
+} StructFA;
 
 // -----------------------------------------------------
 // Funções utieis no geral
@@ -185,7 +204,6 @@ FILE *abrirArquivo(char *nome, char *tipo, bool encerrar)
 
 void removerLinhaEspecifica(char *diretorio, char *idLinha)
 {
-  char nomeTemporario[10] = "temp.txt";
   char **infoDiretorio = strsplit(diretorio, "/");
   char linha[tamanhoLinha];
   char *linhasNovoArquivo[tamanhoArray];
@@ -205,7 +223,7 @@ void removerLinhaEspecifica(char *diretorio, char *idLinha)
     }
   }
 
-  snprintf(diretorioNovoArquivo, tamanhoLinha, "%s/%s", infoDiretorio[0], nomeTemporario);
+  snprintf(diretorioNovoArquivo, tamanhoLinha, "%s/%s", infoDiretorio[0], "temp.txt");
 
   FILE *novoArquivo = abrirArquivo(diretorioNovoArquivo, "a+", true);
 
@@ -217,53 +235,57 @@ void removerLinhaEspecifica(char *diretorio, char *idLinha)
   rename(diretorioNovoArquivo, diretorio);
 }
 
-void getClientes(Client *Clientes, int *total)
+StructClientes getClientes()
 {
   Client client;
-
-  int totalClientes = 0;
   char linha[tamanhoLinha];
+  StructClientes clientes;
+  FILE *arquivoClientes = abrirArquivo(diretorioClientes, "rt", true);
 
-  FILE *clientes = abrirArquivo(diretorioClientes, "rt", true);
+  clientes.total = 0;
 
-  while (fscanf(clientes, "%s\n", linha) > 0)
+  while (fscanf(arquivoClientes, "%s\n", linha) > 0)
   {
     char **dadosCliente = strsplit(linha, charDivisor);
 
     snprintf(client.nome, tamanhoNomeCliente, "%s", dadosCliente[0]);
     snprintf(client.id, tamanhoIdCliente, "%s", dadosCliente[1]);
 
-    Clientes[totalClientes++] = client;
+    clientes.clientes[clientes.total++] = client;
   }
 
-  fclose(clientes);
-  *total = totalClientes;
+  fclose(arquivoClientes);
+
+  return clientes;
 }
 
-void getFilmes(Filme *arrayFilmes, int *total)
+StructFilmes getFilmes()
 {
-  FILE *filmes = abrirArquivo(diretorioFilmes, "rt", true);
   char linha[tamanhoLinha];
-  int i = 0;
+  StructFilmes Filmes;
+  Filme novoFilme;
 
-  while (fscanf(filmes, "%s\n", linha) > 0)
+  FILE *arquivoFilmes = abrirArquivo(diretorioFilmes, "rt", true);
+
+  Filmes.total = 0;
+
+  while (fscanf(arquivoFilmes, "%s\n", linha) > 0)
   {
-    Filme newFilme;
-
     char **dadosFilme = strsplit(linha, charDivisor);
 
-    snprintf(newFilme.id, tamanhoIdFilme, dadosFilme[0]);
-    snprintf(newFilme.titulo, tamanhoLinha, dadosFilme[1]);
-    snprintf(newFilme.duracao, tamanhoLinha, dadosFilme[2]);
-    snprintf(newFilme.nota, tamanhoLinha, dadosFilme[3]);
-    snprintf(newFilme.genero, tamanhoLinha, dadosFilme[4]);
-    snprintf(newFilme.classificacao, tamanhoLinha, dadosFilme[5]);
+    snprintf(novoFilme.id, tamanhoIdFilme, dadosFilme[0]);
+    snprintf(novoFilme.titulo, tamanhoLinha, dadosFilme[1]);
+    snprintf(novoFilme.duracao, tamanhoLinha, dadosFilme[2]);
+    snprintf(novoFilme.nota, tamanhoLinha, dadosFilme[3]);
+    snprintf(novoFilme.genero, tamanhoLinha, dadosFilme[4]);
+    snprintf(novoFilme.classificacao, tamanhoLinha, dadosFilme[5]);
 
-    arrayFilmes[i++] = newFilme;
+    Filmes.filmes[Filmes.total++] = novoFilme;
   }
 
-  fclose(filmes);
-  *total = i;
+  fclose(arquivoFilmes);
+
+  return Filmes;
 }
 
 void gerarId(char *varId, int prefixo, int quantidade)
@@ -275,7 +297,7 @@ void gerarId(char *varId, int prefixo, int quantidade)
   for (int x = 1; x < quantidade - 1; x++)
     varId[x] = (rand() % 10) + '0';
 
-  varId[quantidade] = '\0';
+  varId[quantidade - 1] = '\0';
 }
 
 void formatarNome(char *nome)
@@ -302,59 +324,60 @@ void mostrarInfoFilme(Filme filme)
   printf("Classificação: %s\n", filme.classificacao);
 }
 
-void verFilmes()
+StructFilmes mostrarFilmes()
 {
-  Filme filmes[tamanhoArray];
-  int totalFilmes;
+  StructFilmes filmes = getFilmes();
 
-  getFilmes(filmes, &totalFilmes);
-
-  if (!totalFilmes)
-    return msgEntreCabecalho("Não existe filmes cadastrados no momento.", true, false);
+  if (!filmes.total)
+  {
+    msgEntreCabecalho("Não existe filmes cadastrados no momento.", true, false);
+    return filmes;
+  }
 
   cabecalho();
   textoCentralizado("Todos os Filmes");
 
-  for (int x = 0; x < totalFilmes; x++)
+  for (int x = 0; x < filmes.total; x++)
   {
-    Filme filme = filmes[x];
     printf("%d.\n", x + 1);
-    mostrarInfoFilme(filme);
+    mostrarInfoFilme(filmes.filmes[x]);
     quebraLinha(1);
   }
+
+  return filmes;
 }
 
 Filme *getFilmeByUser()
 {
-  int totalFilmes;
   int indiceFilme;
-  Filme filmes[tamanhoArray];
+  StructFilmes Filmes = mostrarFilmes();
 
-  getFilmes(filmes, &totalFilmes);
-
-  if (!totalFilmes)
+  if (!Filmes.total)
     return NULL;
-
-  verFilmes();
 
   msgEntreCabecalho("Digite o indíce do filme", true, false);
   scanf("%d", &indiceFilme);
   limparBuffer();
   limparTela();
 
-  if (indiceFilme < 1 || indiceFilme > totalFilmes)
+  if (indiceFilme < 1 || indiceFilme > Filmes.total)
+  {
+    msgEntreCabecalho("A opção escolhida é invalida", true, false);
     return NULL;
+  }
 
-  return &filmes[indiceFilme - 1];
+  return &Filmes.filmes[indiceFilme - 1];
 }
 
-void getFilmesAlugados(FilmeAlugado *FilmesAlugados, int *var)
+StructFA getFilmesAlugados()
 {
-  FilmeAlugado filmeAlugado;
   char diretorio[tamanhoArray];
   char linha[tamanhoLinha];
+  FilmeAlugado filmeAlugado;
+  StructFA Filmes;
   struct dirent *arquivo;
-  int totalFilmes = 0;
+
+  Filmes.total = 0;
 
   DIR *dir = opendir("clientes");
 
@@ -363,7 +386,6 @@ void getFilmesAlugados(FilmeAlugado *FilmesAlugados, int *var)
 
   while ((arquivo = readdir(dir)) != NULL)
   {
-
     if (!strcmp(arquivo->d_name, ".") || !strcmp(arquivo->d_name, ".."))
       continue;
 
@@ -380,26 +402,24 @@ void getFilmesAlugados(FilmeAlugado *FilmesAlugados, int *var)
       snprintf(filmeAlugado.autor, tamanhoNomeCliente, "%s", split[2]);
       snprintf(filmeAlugado.idAutor, tamanhoIdCliente, "%s", split[3]);
 
-      FilmesAlugados[totalFilmes++] = filmeAlugado;
+      Filmes.filmes[Filmes.total++] = filmeAlugado;
     }
 
     fclose(bufferArquivo);
   }
 
   closedir(dir);
-  *var = totalFilmes;
+
+  return Filmes;
 }
 
 bool verificarFilmeAlugado(Filme *filme)
 {
-  FilmeAlugado filmes[tamanhoArray];
-  int totalFilmes;
+  StructFA Filmes = getFilmesAlugados();
 
-  getFilmesAlugados(filmes, &totalFilmes);
-
-  for (int x = 0; x < totalFilmes; x++)
+  for (int x = 0; x < Filmes.total; x++)
   {
-    if (!strcmp(filmes[x].idFilme, filme->id))
+    if (!strcmp(Filmes.filmes[x].idFilme, filme->id))
       return true;
   }
 
@@ -415,6 +435,29 @@ void infoFilmeAlugado(FilmeAlugado filme)
   printf("ID: %s\n", filme.idFilme);
 }
 
+StructFA mostrarFilmesAlugados()
+{
+  StructFA Filmes = getFilmesAlugados();
+
+  if (!Filmes.total)
+  {
+    msgEntreCabecalho("Não existe filmes alugado no momento", true, false);
+    return Filmes;
+  }
+
+  cabecalho();
+  textoCentralizado("Filmes Alugados");
+
+  for (int x = 0; x < Filmes.total; x++)
+  {
+    printf("%d.\n", x + 1);
+    infoFilmeAlugado(Filmes.filmes[x]);
+    quebraLinha(1);
+  }
+
+  return Filmes;
+}
+
 // ----------------------------------------------------
 // Funções referente ao cliente
 //-----------------------------------------------------
@@ -423,45 +466,38 @@ void gerarIdCliente(char *varId)
 {
   gerarId(varId, prefixoIdCliente, tamanhoIdCliente);
 
-  Client clientes[tamanhoArray];
-  int totalClientes;
+  StructClientes Clientes = getClientes();
 
-  getClientes(clientes, &totalClientes);
-
-  for (int x = 0; x < totalClientes; x++)
+  for (int x = 0; x < Clientes.total; x++)
   {
-    if (!strcmp(clientes[x].id, varId))
+    if (!strcmp(Clientes.clientes[x].id, varId))
       return gerarIdCliente(varId);
   }
 }
-
 bool cadastrarCliente(Client client)
 {
-  Client clientes[tamanhoArray];
   char diretorioCliente[tamanhoLinha];
   char nomeMinusculo[tamanhoNomeCliente];
-  int totalClientes;
-
-  getClientes(clientes, &totalClientes);
+  StructClientes Clientes = getClientes();
 
   strcpy(nomeMinusculo, client.nome);
   toLowerCase(nomeMinusculo);
 
-  for (int x = 0; x < totalClientes; x++)
+  for (int x = 0; x < Clientes.total; x++)
   {
-    toLowerCase(clientes[x].nome);
+    toLowerCase(Clientes.clientes[x].nome);
 
-    if (!strcmp(nomeMinusculo, clientes[x].nome))
+    if (!strcmp(nomeMinusculo, Clientes.clientes[x].nome))
       return false;
   }
 
   getDiretorioCliente(diretorioCliente, client.id, true);
 
   FILE *arquivoCliente = abrirArquivo(diretorioCliente, "a+", true);
-  fclose(arquivoCliente);
-
   FILE *todosClientes = abrirArquivo(diretorioClientes, "a+", true);
+
   fprintf(todosClientes, "%s%s%s\n", client.nome, charDivisor, client.id);
+  fclose(arquivoCliente);
   fclose(todosClientes);
 
   return true;
@@ -495,53 +531,47 @@ void mostrarInfoCliente(Client client)
   printf("Nome: %s\nID: %s\n", client.nome, client.id);
 }
 
-void mostrarClientes()
+StructClientes mostrarClientes()
 {
-  Client clientes[tamanhoArray];
-  int totalClientes;
+  StructClientes clientes = getClientes();
 
-  getClientes(clientes, &totalClientes);
-
-  if (!totalClientes)
-    return msgEntreCabecalho("Não existe clientes cadastrados no momento.", true, false);
+  if (!clientes.total)
+  {
+    msgEntreCabecalho("Não existe clientes cadastrados no momento", true, false);
+    return clientes;
+  }
 
   cabecalho();
   textoCentralizado("Todos os Clientes \n");
 
-  for (int x = 0; x < totalClientes; x++)
+  for (int x = 0; x < clientes.total; x++)
   {
     printf("%d.\n", x + 1);
-    mostrarInfoCliente(clientes[x]);
+    mostrarInfoCliente(clientes.clientes[x]);
     quebraLinha(1);
   }
+
+  return clientes;
 }
 
 Client *getClienteByUser()
 {
-  Client clientes[tamanhoArray];
-  int totalClientes;
   int indiceCliente;
+  StructClientes Clientes = mostrarClientes();
 
-  getClientes(clientes, &totalClientes);
-
-  if (!totalClientes)
-  {
-    msgEntreCabecalho("Não existe clientes cadastrados no momento", true, false);
+  if (!Clientes.total)
     return NULL;
-  }
-
-  mostrarClientes();
 
   msgEntreCabecalho("Digite o número referente ao cliente", false, true);
   scanf("%d", &indiceCliente);
   limparBuffer();
   limparTela();
 
-  if (indiceCliente < 1 || indiceCliente > totalClientes)
+  if (indiceCliente < 1 || indiceCliente > Clientes.total)
   {
     msgEntreCabecalho("A opção escolhida é invalida", true, false);
     return NULL;
   }
 
-  return &clientes[indiceCliente - 1];
+  return &Clientes.clientes[indiceCliente - 1];
 }
