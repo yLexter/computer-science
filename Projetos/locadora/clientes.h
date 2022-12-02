@@ -17,17 +17,24 @@ int nomesClientesDecrescente(Client *c1, Client *c2){
   return (-1) * strcmp(c1->nome, c2->nome); 
 }
 
+// Ordenar pela idade do cliente (Decrescente)
+int idadeCliente(Client *c1, Client *c2){
+  return c2->idade - c1->idade;
+}
+
 // Opções para ordenar os clientes
-char opcoesOrdenar[3][1000] = {
+char opcoesOrdenar[4][1000] = {
   "Crescente",
   "Decrescente",
+  "Idade",
   "Nenhuma"
 };
 
 //  array com as funções de ordenação
-funcaoOrdenarCliente funcoesCliente[2] = {
+funcaoOrdenarCliente funcoesCliente[3] = {
    nomesClientesCrescente,
-   nomesClientesDecrescente
+   nomesClientesDecrescente,
+   idadeCliente  
 };
 
 // Ordena os clientes de acordo coma opção escolhida do cliente
@@ -60,7 +67,7 @@ bool nomeClienteValido(char *nome) {
   //  caso o nome contenha um caractere q n seja uma letra do alfabeto ou espaço
   //  retorna false
   while (*nome != '\0') {
-    if (!isalpha(*nome) && *nome != espacoBranco)
+    if (!isalpha(*nome) && *nome != ' ')
       return false;
     nome++;
   }
@@ -105,7 +112,7 @@ bool cadastrarCliente(Client client) {
   FILE *arquivoCliente = abrirArquivo(diretorioCliente, "a+", true);
   FILE *todosClientes = abrirArquivo(diretorioClientes, "a+", true);
 
-  fprintf(todosClientes, "%s%s%s\n", client.nome, charDivisor, client.id);
+  fprintf(todosClientes, "%s%s%s%s%d\n", client.nome, charDivisor, client.id, charDivisor, client.idade);
   fclose(arquivoCliente);
   fclose(todosClientes);
 
@@ -114,9 +121,9 @@ bool cadastrarCliente(Client client) {
 
 //  mostra as informações de um cliente
 void mostrarInfoCliente(Client client) {
-  nomeComEspaco(client.nome);
   printf("Nome: %s\n", client.nome);
   printf("ID: %s\n", client.id);
+  printf("Idade: %d\n", client.idade);
 }
 
 // Mostra todos os clientes e as funções de ordenação (opcional)

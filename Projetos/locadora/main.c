@@ -1,5 +1,6 @@
 #include "clientes.h"
 
+
 // Função para alugar um filme
 void alugarFilme() {
 
@@ -16,10 +17,15 @@ void alugarFilme() {
   if (filmeEscolhido == NULL)
     return;
 
+   limparTela();
+  
   // caso o filme esteja alugado retorna true
   if (verificarFilmeAlugado(filmeEscolhido))
     return msgEntreCabecalho("Este filme já esta alugado.", true, false);
 
+  if(clientEscolhido->idade < filmeEscolhido->classificacao)
+    return msgEntreCabecalho("Este Filme não é apropiado para este cliente", true, false);
+  
   // salva o filme na lista de filmes alugados do cliente
   salvarFilmeCliente(clientEscolhido, filmeEscolhido);
   // salva o registro de alugação para a lista de mais populares
@@ -34,15 +40,20 @@ void cadastroCliente() {
 
   cabecalho();
   textoCentralizado("Tela de Cadastro");
-  printf("Digite seu nome: ");
+  printf("Digite seu nome: \n");
   scanf("%[^\n]", client.nome);
+
+  quebraLinha(1);
+  
+  printf("Digite a sua idade \n");
+  scanf("%d", &client.idade);
   limparTela();
 
   // gera umd id aleatorio
   gerarIdCliente(client.id);
   // formata o nome para tirar os espaços e cada letra inicial maiuscula
   formatarNome(client.nome);
-
+  
   bool cadastradoComSucesso = cadastrarCliente(client);
 
   // caso o cadastro seja realizado com sucesso retorna true
@@ -71,9 +82,6 @@ void removerCliente() {
 
   // Remove o cliente da lista de clientes
   deletarLinha(diretorioClientes, clientRemovido->id);
-
-  // formata o nome para deixa-lo com espaços
-  nomeComEspaco(clientRemovido->nome);
 
   cabecalho();
   printf("O cliente %s (%s) foi removido.\n", clientRemovido->nome, clientRemovido->id);
@@ -140,7 +148,7 @@ void cadastrarFilme() {
   }
 
   printf("Informe o gênero do filme: \n");
-  scanf("%s", filme.genero);
+  scanf("%[^\n]", filme.genero);
   limparBuffer();
   quebraLinha(1);
 

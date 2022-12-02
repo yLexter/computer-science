@@ -17,13 +17,12 @@
 #define tamanhoArray 1000
 #define tamanhoIdFilme 10
 #define tamanhoIdCliente 10
-#define tamanhoLinha 500
+#define tamanhoLinha 200
 #define tamanhoNomeCliente 25
 #define tamanhoTituloFilme 80
 #define prefixoIdCliente 2
 #define prefixoIdFilme 4
 #define charDivisor "-"
-#define espacoBranco '_'
 #define diretorioClientes "geral/clientes.txt"
 #define diretorioFilmes "geral/filmes.txt"
 #define diretorioPopulares "geral/populares.txt"
@@ -41,7 +40,7 @@ enum {
   FL_classificacao,
   FL_total
 };
-enum { CL_id, CL_nome, CL_total };
+enum { CL_id, CL_nome, CL_idade, CL_total };
 enum { FA_id, FA_titulo, FA_autor, FA_idAutor, FA_total };
 
 // Structs de Filme, cliente e Filme Alugado
@@ -57,6 +56,7 @@ typedef struct {
 typedef struct {
   char nome[tamanhoNomeCliente];
   char id[tamanhoIdCliente];
+  int idade;
 } Client;
 
 typedef struct {
@@ -195,14 +195,6 @@ void getDiretorioCliente(char *var, char *id, bool extensao) {
   snprintf(var, tamanhoLinha, "%s/%s%s", pastaClientes, id, extensao ? ".txt" : "");
 }
 
-//Válida quando o título tem espaço em branco, substitui por "_"(espaço em branco)
-void nomeComEspaco(char *nome) {
-  while (*nome != '\0') {
-    if (*nome == espacoBranco)
-      *nome = ' ';
-    nome++;
-  }
-}
 //Mensagem que vai no meio do cabeçalho
 void msgEntreCabecalho(char *msg, bool superior, bool inferior) {
   if (superior)
@@ -248,7 +240,7 @@ void deletarLinha(char *diretorio, char *idLinha) {
 
    // pecorre todas as linha do arquivo caso o id linha esteja presente em umas das linha não
    // adiciona fazendo assim com o que a  linha seja excluida
-  while (fscanf(arq, "%s\n", linha) > 0) {
+  while (fgets(linha, tamanhoLinha - 1, arq) != NULL) {
     if (!strstr(linha, idLinha)) {
       linhasNovoArquivo = (char **)realloc(linhasNovoArquivo, (totalLinhas + 1) * sizeof(char *));
       *(linhasNovoArquivo + totalLinhas++) = strdup(linha);
@@ -268,7 +260,7 @@ void deletarLinha(char *diretorio, char *idLinha) {
 
    // escreve todas as linhas menos as que contenham a id linha no arquivo novo
   for (int x = 0; x < totalLinhas; x++)
-    fprintf(novoArquivo, "%s\n", linhasNovoArquivo[x]);
+    fprintf(novoArquivo, "%s", linhasNovoArquivo[x]);
 
   fclose(novoArquivo);
 
@@ -298,11 +290,9 @@ void formatarNome(char *nome) {
   bool letraMaiuscula = true;
 
   while (*nome != '\0') {
-
      // caso a letra seja um espaço a proxima sera transformada em maiuscula e remove e coloca um 
      // estiver na variavel espÇo em branco
     if (*nome == ' ') {
-      *nome = espacoBranco;
       letraMaiuscula = true;
       nome++;
       continue;
@@ -333,11 +323,12 @@ StructClientes getClientes() {
   clientes.clientes = (Client *)malloc(sizeof(Client));
 
   // um while em cada linha do arquivo
-  while (fscanf(arquivoClientes, "%s\n", linha) > 0) {
+  while (fgets(linha, tamanhoLinha - 1, arquivoClientes) != NULL) {
     char **dadosCliente = strsplit(linha, charDivisor);
 
     snprintf(client.nome, tamanhoNomeCliente, "%s", dadosCliente[CL_id]);
     snprintf(client.id, tamanhoIdCliente, "%s" , dadosCliente[CL_nome]);
+    client.idade = atoi(dadosCliente[CL_idade]);
 
      // guarda o cliente no array e soma mais um no total
     clientes.clientes[clientes.total++] = client;
@@ -364,7 +355,7 @@ StructFilmes getFilmes() {
   Filmes.filmes = (Filme *)malloc(sizeof(Filme));
 
    // um while para cada linha do arquivo
-  while (fscanf(arquivoFilmes, "%s\n", linha) > 0) {
+  while (fgets(linha, tamanhoLinha - 1, arquivoFilmes) != NULL) {
     char **dadosFilme = strsplit(linha, charDivisor);
 
     snprintf(novoFilme.id, tamanhoIdFilme, dadosFilme[FL_id]);
@@ -417,7 +408,7 @@ StructFA getFilmesAlugados() {
     FILE *arquivoCliente = abrirArquivo(diretorio, "rt", true);
 
     //while para cada linha , que são os filmes alugados no momento
-    while (fscanf(arquivoCliente, "%s\n", linha) > 0) {
+    while (fgets(linha, tamanhoLinha - 1, arquivoCliente) != NULL) {
       char **dadosFilmes = strsplit(linha, charDivisor);
 
       snprintf(filmeAlugado.idFilme, tamanhoIdFilme, "%s", dadosFilmes[FA_id]);

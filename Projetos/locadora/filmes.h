@@ -113,9 +113,6 @@ void mostrarInfoFilme(Filme filme) {
   char *duracaoFormatada = getDuracaoFormatada(filme.duracao);
   char *classificacaoFormatada = getClassificacaoFormatada(filme.classificacao);
 
-  nomeComEspaco(filme.genero);
-  nomeComEspaco(filme.titulo);
-
   printf("Titúlo: %s\n", filme.titulo);
   printf("Duração: %s\n", duracaoFormatada);
   printf("Nota: %.2f/%.2f\n", filme.nota, maiorNotaFilme);
@@ -214,8 +211,6 @@ bool verificarFilmeAlugado(Filme *filme) {
 
 // Printa informações formatadas dos filmes alugados
 void infoFilmeAlugado(FilmeAlugado filme) {
-  nomeComEspaco(filme.titulo);
-  nomeComEspaco(filme.autor);
   printf("Autor: %s (%s)\n", filme.autor, filme.idAutor);
   printf("Titulo: %s\n", filme.titulo);
   printf("ID: %s\n", filme.idFilme);
@@ -294,13 +289,13 @@ void inserirListaPopulares(ListaPopulares *raiz, char **dados) {
 }
 
 // Retorna a lista encadeada
-ListaPopulares *getListaPopulares() {
+ListaPopulares * getListaPopulares() {
   char linha[tamanhoLinha];
   ListaPopulares *raiz = NULL;
 
   FILE *arquivo = abrirArquivo(diretorioPopulares, "rt", true);
 
-  while (fscanf(arquivo, "%s\n", linha) > 0) {
+  while (fgets(linha, tamanhoLinha - 1, arquivo) > 0) {
     char **dados = strsplit(linha, charDivisor);
 
     // se a raiz for nula, ou seja, não tenha nada na lista cadastra o primeiro elemento
@@ -356,7 +351,6 @@ void mostrarPopulares() {
 
    // printa a lista encadeada dos filmes populares
   while (node != NULL) {
-    nomeComEspaco(node->titulo);
     printf("%d.\n", ++count);
     mostrarInfoFilmePopular(node);
     quebraLinha(1);
