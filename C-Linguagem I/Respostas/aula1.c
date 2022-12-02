@@ -33,7 +33,7 @@ int main1() {
   float alturaUser;
 
   printf("Digite o seu nome \n");
-  scanf("%s", &nomeUser);
+  scanf("%s", nomeUser);
 
   printf("Digite sua altura \n");
   scanf("%f.3f", &alturaUser);
@@ -74,4 +74,5 @@ int main1() {
   printf("Salario Bruto: R$ %.2f\nIR: R$ %.2f\nINSS: R$ %.2f\nSalário Liquido: R$ %.2f\n",salarioBruto, porcetagemImpostoRenda, porcetagem_inss, salarioLiquido);
 
   return 0;
+  
 }

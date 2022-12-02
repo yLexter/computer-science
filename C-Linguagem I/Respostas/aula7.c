@@ -57,10 +57,7 @@ void quantidadePrimos1_100(){
   printf("%d \n", count);
 }
 
-
-
-
-int main(){
+int main7(){
 
   return 0;
 }

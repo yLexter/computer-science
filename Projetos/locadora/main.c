@@ -1,29 +1,35 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
-#include "utils.c::"
+#include "clientes.h"
 
-void alugarFilme()
-{
+// Função para alugar um filme
+void alugarFilme() {
+
+  // Pega um cliente escolhido pelo usuário
   Client *clientEscolhido = getClienteByUser();
 
+  // caso a opção seja invalida retorna nulo e uma mensagem de erro
   if (clientEscolhido == NULL)
     return;
 
   Filme *filmeEscolhido = getFilmeByUser();
 
+  // caso a opção seja invalida retorna nulo e uma mensagem de erro
   if (filmeEscolhido == NULL)
     return;
 
+  // caso o filme esteja alugado retorna true
   if (verificarFilmeAlugado(filmeEscolhido))
-    return msgEnstreCabecalho("Este filme já esta alugado.", true, false);
+    return msgEntreCabecalho("Este filme já esta alugado.", true, false);
 
+  // salva o filme na lista de filmes alugados do cliente
   salvarFilmeCliente(clientEscolhido, filmeEscolhido);
+  // salva o registro de alugação para a lista de mais populares
+  salvarLog(clientEscolhido, filmeEscolhido);
+  
   msgEntreCabecalho("Filme alugado com sucesso.", true, false);
 }
 
-void cadastroCliente()
-{
+// Cadastra um cliente 
+void cadastroCliente() {
   Client client;
 
   cabecalho();
@@ -32,72 +38,188 @@ void cadastroCliente()
   scanf("%[^\n]", client.nome);
   limparTela();
 
-  if (!nomeValido(client.nome))
-    return msgEntreCabecalho("Informe um nome apenas com letras e espaços", true, false);
-
+  // gera umd id aleatorio
   gerarIdCliente(client.id);
+  // formata o nome para tirar os espaços e cada letra inicial maiuscula
   formatarNome(client.nome);
 
   bool cadastradoComSucesso = cadastrarCliente(client);
 
+  // caso o cadastro seja realizado com sucesso retorna true
   if (cadastradoComSucesso)
-  {
     msgEntreCabecalho("Cadastro realizado com sucesso", true, false);
-  }
-  else
-  {
-    msgEntreCabecalho("Já existe um cliente com este nome!", true, false);
-  }
 }
 
-void removerCliente()
-{
+// Remove um cliente
+void removerCliente() {
   char diretorioClienteRemovido[tamanhoArray];
 
+  // Pega um cliente escolhido pelo usuário
   Client *clientRemovido = getClienteByUser();
 
+  // caso o cliente escolhido seja invalido retorna nulo e uma mensagem de erro
   if (clientRemovido == NULL)
     return;
 
+  // pega o diretorio do cliente e remove o arquivo alem de remover da lista
+  // de clientes
   getDiretorioCliente(diretorioClienteRemovido, clientRemovido->id, true);
+
+   
+  // Exclui o arquivo do cliente
   remove(diretorioClienteRemovido);
-  removerLinhaEspecifica(diretorioClientes, clientRemovido->id);
+
+  // Remove o cliente da lista de clientes
+  deletarLinha(diretorioClientes, clientRemovido->id);
+
+  // formata o nome para deixa-lo com espaços
+  nomeComEspaco(clientRemovido->nome);
 
   cabecalho();
-  printf("O cliente %s(%s) foi removido com sucesso.\n", clientRemovido->nome, clientRemovido->id);
+  printf("O cliente %s (%s) foi removido.\n", clientRemovido->nome, clientRemovido->id);
 }
 
-void deletarFilme()
-{
+// Delete um filme e todos os seus dados escolhido pelo usuário
+void deletarFilme() {
+  // Pega um filme escolhido pelo usuário
   Filme *filmeDeletado = getFilmeByUser();
 
+  // caso a opção ecolhida seja invalida retorna null com uma mensagem de 
+  // erro
   if (filmeDeletado == NULL)
     return;
 
-  removerLinhaEspecifica(diretorioFilmes, filmeDeletado->id);
+  // deleta a linha que contenha o id do filme
+  deletarLinha(diretorioFilmes, filmeDeletado->id);
   msgEntreCabecalho("Filme deletado com sucesso", true, false);
 }
 
-void menuInicial()
-{
-  const int ultimaOpcao = sizeof(opcoes) / sizeof(opcoes[0]);
-  int opcaoSelecionada;
+// Cadastra filme
+void cadastrarFilme() {
+  Filme filme;
+  float duracaoFilme;
 
+  cabecalho();
+  quebraLinha(1);
+  textoCentralizado("Cadastrando Filme");
+  cabecalho();
+
+  printf("Informe o nome do filme. (Max: %d caracteres) \n", tamanhoTituloFilme);
+  scanf("%[^\n]", filme.titulo);
+  limparBuffer();
+  quebraLinha(1);
+
+  printf("Informe a duração do filme: (Ex: 2.5 = 2h30m)\n");
+  scanf("%f", &duracaoFilme);
+  limparBuffer();
+  quebraLinha(1);
+
+  printf("Informe a classificação do filme: 0(L),10,12,14,16 e 18\n");
+  scanf("%d", &filme.classificacao);
+  limparBuffer();
+  quebraLinha(1);
+
+  // caso a classificacao seja invalida retorna um erro
+  if (!classificacaoValida(filme.classificacao)) {
+    limparTela();
+    return msgEntreCabecalho("Classificacão inválida", true, false);
+  }
+
+  printf("Informe a nota do filme: \n");
+  scanf("%f", &filme.nota);
+  limparBuffer();
+  quebraLinha(1);
+
+  // caso a nota nao seja entre as 2 variavel definiida (maiorNota filme
+  // e menorNotaFilme) retorna um erro
+  if (filme.nota > maiorNotaFilme || filme.nota < menorNotaFilme) {
+    limparTela();
+    cabecalho();
+    printf("A Nota só pode ser entre %d e %.2f\n", menorNotaFilme, maiorNotaFilme);
+    return;
+  }
+
+  printf("Informe o gênero do filme: \n");
+  scanf("%s", filme.genero);
+  limparBuffer();
+  quebraLinha(1);
+
+  gerarIdFilme(filme.id);
+
+  filme.duracao = 3600 * duracaoFilme;
+
+  // Abre o arquivos dos filmes
+  FILE *arquivoFilmes = abrirArquivo(diretorioFilmes, "a+", true);
+
+  // formata o nome retirando os espaços e deixando cada letra inicial
+  // maiuscula
+  
+  formatarNome(filme.titulo);
+  formatarNome(filme.genero);
+
+  // cadastra o filme
+  fprintf(arquivoFilmes, "%s%s%s%s%d%s%.2f%s%s%s%d\n", filme.id, charDivisor,
+          filme.titulo, charDivisor, filme.duracao, charDivisor, filme.nota,
+          charDivisor, filme.genero, charDivisor, filme.classificacao);
+
+  fclose(arquivoFilmes);
+
+  limparTela();
+  msgEntreCabecalho("Filme cadastrado com sucesso", true, false);
+}
+
+// Função para devolver um filme 
+void devolverFilme() {
+  char diretorioCliente[tamanhoArray];
+  int indiceFilme;
+
+  StructFA filmesAlugados = mostrarFilmesAlugados();
+
+  // se o array estiver vazio apenas retorna printando a mensagem de erro
+  if (!filmesAlugados.total)
+    return;
+
+  msgEntreCabecalho("Digite o indice do filme", true, false);
+  scanf("%d", &indiceFilme);
+  limparTela();
+
+  // caso a opcao seja menor q 1 ou maior q o total a opção é invalida
+  if (inicioOpcoes > indiceFilme || indiceFilme > filmesAlugados.total)
+    return msgEntreCabecalho("Opcao invalida", true, false);
+
+  FilmeAlugado filmeDevolvido = filmesAlugados.filmes[indiceFilme - 1];
+
+  // pega o diretorio do cliente e remove a linha que contem o id ao filme
+  getDiretorioCliente(diretorioCliente, filmeDevolvido.idAutor, true);
+  deletarLinha(diretorioCliente, filmeDevolvido.idFilme);
+
+  msgEntreCabecalho("Filme devolvido com sucesso", true, false);
+}
+
+// Menu inicial, chama a função referida pela opção que o usuário digirar
+void menuInicial() {
+
+  // a ultima opção é a de saida sempre, aqui ele pega o tamanho 
+  // de opções existente sempre a de saida sendo o ultimo
+  const int ultimaOpcao = sizeof(opcoesMenu) / sizeof(opcoesMenu[0]);
+  int opcaoSelecionada;
+  
   cabecalho();
   textoCentralizado("Menu Inicial");
 
+  // Printa o menu inicial
   for (int x = 0; x < ultimaOpcao; x++)
-    printf("%d. %s\n", x + 1, opcoes[x]);
+    printf("[%d] %s\n", x + 1, opcoesMenu[x]);
 
-  msgEntreCabecalho("Digite a opção que deseja ", true, false);
+  msgEntreCabecalho("Digite a opção que deseja: ", true, false);
   scanf("%d", &opcaoSelecionada);
   limparBuffer();
   limparTela();
 
-  switch (opcaoSelecionada)
-  {
+  // switch para saber qual opção o usuario escolheu
+  switch (opcaoSelecionada) {
   case 1:
-    mostrarFilmes();
+    mostrarFilmes(true);
     break;
   case 2:
     alugarFilme();
@@ -106,7 +228,7 @@ void menuInicial()
     cadastroCliente();
     break;
   case 4:
-    mostrarClientes();
+    mostrarClientes(true);
     break;
   case 5:
     removerCliente();
@@ -117,8 +239,17 @@ void menuInicial()
   case 7:
     deletarFilme();
     break;
+  case 8:
+    cadastrarFilme();
+    break;
+  case 9:
+    devolverFilme();
+    break;
+  case 10:
+    mostrarPopulares();
+    break;
   case ultimaOpcao:
-    encerrarProgama("Você finalizou o progama.");
+    encerrarProgama("Progama encerrado com sucesso! Volte Sempre.");
     break;
   default:
     msgEntreCabecalho("A opção escolhida é invalida.", true, false);
@@ -126,8 +257,8 @@ void menuInicial()
   }
 }
 
-int main()
-{
+// função main q fica chamando o menu inicial "infinitamente"
+int main() {
 
   while (true)
     menuInicial();

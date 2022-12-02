@@ -30,13 +30,12 @@ int main4() {
   // Exercicio 2
 
   int totalProdutos = 3;
-
-  const char nomesProdutos[totalProdutos][50];
-  const float precosProdutos[totalProdutos];
+  char nomesProdutos[totalProdutos][50];
+  float precosProdutos[totalProdutos];
 
   for (int x = 0; x < totalProdutos; x++) {
     printf("Digite o nome do %d° primeiro \n", x + 1);
-    scanf("%s", &nomesProdutos[x]);
+    scanf("%s", nomesProdutos[x]);
 
     printf("Digite o preco do %d° produto \n", x + 1);
     scanf("%f", &precosProdutos[x]);
@@ -48,10 +47,9 @@ int main4() {
 
   for (int y = 0; y < totalProdutos; y++) {
 
-    if (precoIguais && maiorPreco != precosProdutos[y]) {
+    if (precoIguais && maiorPreco != precosProdutos[y]) 
       precoIguais = false;
-    }
-
+    
     if (precosProdutos[y] > maiorPreco) {
       maiorPreco = precosProdutos[y];
       indiceMaiorPreco = y;
@@ -68,27 +66,27 @@ int main4() {
  // Desafio 1 
 
   int totalLadosTriangulo = 3;
-  float ladosTriangulos[totalLadosTriangulo];
+  float lados[totalLadosTriangulo];
 
   for (int a = 0; a < totalLadosTriangulo; a++) {
     printf("Digite a medida do %d° triangulo \n", a + 1);
-    scanf("%f", &ladosTriangulos[a]);
+    scanf("%f", &lados[a]);
   }
 
   bool trianguloInvalido =
-      ladosTriangulos[0] > ladosTriangulos[1] + ladosTriangulos[2] ||
-      ladosTriangulos[1] > ladosTriangulos[0] + ladosTriangulos[2] ||
-      ladosTriangulos[2] > ladosTriangulos[1] + ladosTriangulos[0];
+      lados[0] > lados[1] + lados[2] ||
+      lados[1] > lados[0] + lados[2] ||
+      lados[2] > lados[1] + lados[0];
 
   bool trianguloEquilatero = 
-      ladosTriangulos[0] == ladosTriangulos[1] &&
-      ladosTriangulos[1] == ladosTriangulos[2] && 
-      ladosTriangulos[0] == ladosTriangulos[2];
+      lados[0] == lados[1] &&
+      lados[1] == lados[2] && 
+      lados[0] == lados[2];
 
   bool trianguloIsosceles = 
-     ladosTriangulos[0] == ladosTriangulos[1] ||
-     ladosTriangulos[1] == ladosTriangulos[2] || 
-     ladosTriangulos[0] == ladosTriangulos[2];
+     lados[0] == lados[1] ||
+     lados[1] == lados[2] || 
+     lados[0] == lados[2];
 
   if (trianguloInvalido) {
     printf("Medidas invalidas para formar um triangulo \n");
@@ -133,15 +131,15 @@ int main4() {
   int quantidadeMinisculas = 0;
 
   char vogais[5] = "aeiou";
-  char input[100];
+  char frase[100];
 
   printf("Digite uma frase \n");
-  scanf("%[^\n]", input);
+  scanf("%[^\n]", frase);
 
   for (int vog = 0; vog < strlen(vogais); vog++) {
 
-    for (int in = 0; in < strlen(input); in++) {
-      char letra = input[in];
+    for (int in = 0; in < strlen(frase); in++) {
+      char letra = frase[in];
       char vogal = vogais[vog];
 
       if (letra == vogal) quantidadeMinisculas++;

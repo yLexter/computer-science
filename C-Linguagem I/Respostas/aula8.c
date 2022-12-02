@@ -108,7 +108,13 @@ void pessoaCriminosa(){
 }
 // Desafio 2
 void valoresAleatorio(){
-  int quantidadeValores = 0, valorSaida = -1, acimaMedia = 0, abaixoSete = 0, numeroQualquer = 7; 
+  
+  int quantidadeValores = 0;
+  int valorSaida = -1;
+  int acimaMedia = 0;
+  int abaixoNumeroQualquer = 0;
+  int numeroQualquer = 7; 
+  
   float valorAtual, somaTotal = 0, mediaValores;
   float valoresLidos[1000];  
   
@@ -156,11 +162,11 @@ void valoresAleatorio(){
     for (int x = 0; x < quantidadeValores; x++){
       if(valoresLidos[x] < numeroQualquer){
         printf("Valor %.2f abaixo de %d \n", valoresLidos[x], numeroQualquer);
-        abaixoSete++;
+        abaixoNumeroQualquer++;
       } 
     }
   
-    printf("\nQuantidade abaixo de %d = %d\n\n",numeroQualquer, abaixoSete);
+    printf("\nQuantidade abaixo de %d = %d\n\n", numeroQualquer, abaixoNumeroQualquer);
   
 }
 // Desafio 3

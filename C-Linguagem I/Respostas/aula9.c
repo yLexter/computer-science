@@ -27,7 +27,7 @@ void total_vogal_consoantes(char *palavra) {
     char alfabeto[26] = "aeioubcdfgjklmnpqrstvwxyz";
 
     while(*palavra != '\0'){
-        
+      
       for(int x = 0; x < 25; x++) {
         char letra = alfabeto[x];
   
@@ -35,7 +35,6 @@ void total_vogal_consoantes(char *palavra) {
            x <= 4 ? totalVogais++ : totalConsoantes++;
            break;
         }
-          
       }  
       
       palavra++;

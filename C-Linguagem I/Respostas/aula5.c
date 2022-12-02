@@ -64,10 +64,9 @@ int main5() {
   printf("Digite o fatorial que deseja calcular \n");
   scanf("%d", &fatorialUser);
 
-  for (int z = fatorialUser; z > 1; z--) {
+  for (int z = fatorialUser; z > 1; z--) 
     fatorial *= z;
-  }
-
+  
   printf("O fatorial de %d é %d \n", fatorialUser, fatorial);
 
   // Exercicio 5
@@ -123,9 +122,8 @@ int main5() {
   printf("Digite o expoente \n");
   scanf("%d", &number2);
 
-  for (int m = number2; m > 0; m--) {
+  for (int m = number2; m > 0; m--) 
     resultado *= number1;
-  }
-
+  
   printf("%d elevado a %d é %d \n", number1, number2, resultado);
 }
