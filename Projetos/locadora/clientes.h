@@ -30,13 +30,15 @@ char opcoesOrdenar[4][1000] = {
     "Crescente",
     "Decrescente",
     "Idade",
-    "Nenhuma"};
+    "Nenhuma"
+};
 
 //  array com as funções de ordenação
 funcaoOrdenarCliente funcoesCliente[3] = {
     ordenarClientesPorOrdemCrescente,
     ordenarClientesPorOrdemDecrescente,
-    ordenarClientesPorIdadeDecrescente};
+    ordenarClientesPorIdadeDecrescente
+};
 
 // Ordena os clientes de acordo coma opção escolhida do cliente
 void ordenarClientes(StructClientes *clientes, int opcao)
