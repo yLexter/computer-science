@@ -61,7 +61,8 @@ funcaoOrdenarFilme funcoesFilme[6] = {
     ordenarFilmesPorDuracao,
     ordenarFilmesPorGenero,
     ordenarFilmesPorNota,
-    ordenarFilmesPorClassificacao};
+    ordenarFilmesPorClassificacao
+};
 
 // Função que ordena a partir de uma opção selecionada usuário
 void ordenarFilmes(StructFilmes *filmes, int opcao)
