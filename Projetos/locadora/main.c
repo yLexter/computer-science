@@ -111,6 +111,14 @@ void cadastrarFilme()
   scanf("%[^\n]", filme.titulo);
   limparBuffer();
   quebraLinha(1);
+  
+    // não permitir o caractere divisor pra não da problema 
+  if (strstr(filme.titulo, charDivisor)) {
+    limparTela();
+    cabecalho();
+    printf("O titulo não pode conter o caractere '%s'\n", charDivisor);
+    return;
+  }
 
   printf("Informe a duração do filme: (Ex: 2h0 = 2 Horas)\n");
   scanf("%s", stringDuracao);
@@ -155,6 +163,14 @@ void cadastrarFilme()
   scanf("%[^\n]", filme.genero);
   limparBuffer();
   limparTela();
+  
+   // não permitir o caractere divisor pra não da problema no banco de dados
+  if (strstr(filme.genero, charDivisor)) {
+    limparTela();
+    cabecalho();
+    printf("O gênero não pode conter o caractere '%s'\n", charDivisor);
+    return;
+  }
 
   // separa a horas dos minutos e converte tudo para segundos
   arrayDuracao = strsplit(stringDuracao, "h");
