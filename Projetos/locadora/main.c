@@ -1,41 +1,41 @@
 #include "clientes.h"
 
-
 // Função para alugar um filme
-void alugarFilme() {
+void alugarFilme()
+{
 
   // Pega um cliente escolhido pelo usuário
-  Client *clientEscolhido = getClienteByUser();
+  Client *clientEscolhido = getClientePorUsuario();
 
   // caso a opção seja invalida retorna nulo e uma mensagem de erro
   if (clientEscolhido == NULL)
     return;
 
-  Filme *filmeEscolhido = getFilmeByUser();
+  Filme *filmeEscolhido = getFilmePorUsuario();
 
   // caso a opção seja invalida retorna nulo e uma mensagem de erro
   if (filmeEscolhido == NULL)
     return;
 
-   limparTela();
-  
   // caso o filme esteja alugado retorna true
   if (verificarFilmeAlugado(filmeEscolhido))
     return msgEntreCabecalho("Este filme já esta alugado.", true, false);
 
-  if(clientEscolhido->idade < filmeEscolhido->classificacao)
+  // Verifica se a idade do cliente é apropiada pro filme
+  if (clientEscolhido->idade < filmeEscolhido->classificacao)
     return msgEntreCabecalho("Este Filme não é apropiado para este cliente", true, false);
-  
+
   // salva o filme na lista de filmes alugados do cliente
   salvarFilmeCliente(clientEscolhido, filmeEscolhido);
   // salva o registro de alugação para a lista de mais populares
   salvarLog(clientEscolhido, filmeEscolhido);
-  
+
   msgEntreCabecalho("Filme alugado com sucesso.", true, false);
 }
 
-// Cadastra um cliente 
-void cadastroCliente() {
+// Cadastra um cliente
+void cadastroCliente()
+{
   Client client;
 
   cabecalho();
@@ -44,16 +44,16 @@ void cadastroCliente() {
   scanf("%[^\n]", client.nome);
 
   quebraLinha(1);
-  
+
   printf("Digite a sua idade \n");
   scanf("%d", &client.idade);
   limparTela();
 
   // gera umd id aleatorio
   gerarIdCliente(client.id);
-  // formata o nome para tirar os espaços e cada letra inicial maiuscula
+  // formata o nome para deixar cada letra inicial maiuscula
   formatarNome(client.nome);
-  
+
   bool cadastradoComSucesso = cadastrarCliente(client);
 
   // caso o cadastro seja realizado com sucesso retorna true
@@ -62,50 +62,45 @@ void cadastroCliente() {
 }
 
 // Remove um cliente
-void removerCliente() {
-  char diretorioClienteRemovido[tamanhoArray];
+void removerCliente()
+{
 
   // Pega um cliente escolhido pelo usuário
-  Client *clientRemovido = getClienteByUser();
+  Client *clientRemovido = getClientePorUsuario();
 
   // caso o cliente escolhido seja invalido retorna nulo e uma mensagem de erro
   if (clientRemovido == NULL)
     return;
 
-  // pega o diretorio do cliente e remove o arquivo alem de remover da lista
-  // de clientes
-  getDiretorioCliente(diretorioClienteRemovido, clientRemovido->id, true);
-
-   
-  // Exclui o arquivo do cliente
-  remove(diretorioClienteRemovido);
-
-  // Remove o cliente da lista de clientes
-  deletarLinha(diretorioClientes, clientRemovido->id);
+  deletarClienteArquivo(clientRemovido);
 
   cabecalho();
   printf("O cliente %s (%s) foi removido.\n", clientRemovido->nome, clientRemovido->id);
 }
 
 // Delete um filme e todos os seus dados escolhido pelo usuário
-void deletarFilme() {
+void deletarFilme()
+{
   // Pega um filme escolhido pelo usuário
-  Filme *filmeDeletado = getFilmeByUser();
+  Filme *filmeDeletado = getFilmePorUsuario();
 
-  // caso a opção ecolhida seja invalida retorna null com uma mensagem de 
+  // caso a opção ecolhida seja invalida retorna null com uma mensagem de
   // erro
   if (filmeDeletado == NULL)
     return;
 
-  // deleta a linha que contenha o id do filme
-  deletarLinha(diretorioFilmes, filmeDeletado->id);
+  // deleta o filme do banco de dados
+  deletarFilmeArquivo(filmeDeletado);
+
   msgEntreCabecalho("Filme deletado com sucesso", true, false);
 }
 
 // Cadastra filme
-void cadastrarFilme() {
+void cadastrarFilme()
+{
   Filme filme;
-  float duracaoFilme;
+  char stringDuracao[tamanhoArray];
+  char **arrayDuracao;
 
   cabecalho();
   quebraLinha(1);
@@ -117,10 +112,17 @@ void cadastrarFilme() {
   limparBuffer();
   quebraLinha(1);
 
-  printf("Informe a duração do filme: (Ex: 2.5 = 2h30m)\n");
-  scanf("%f", &duracaoFilme);
+  printf("Informe a duração do filme: (Ex: 2h0 = 2 Horas)\n");
+  scanf("%s", stringDuracao);
   limparBuffer();
   quebraLinha(1);
+
+  // verifica se a duração informada é valida
+  if (!duracaoValidaFilme(stringDuracao))
+  {
+    limparTela();
+    return msgEntreCabecalho("A duração informa é invalida", true, false);
+  }
 
   printf("Informe a classificação do filme: 0(L),10,12,14,16 e 18\n");
   scanf("%d", &filme.classificacao);
@@ -128,19 +130,21 @@ void cadastrarFilme() {
   quebraLinha(1);
 
   // caso a classificacao seja invalida retorna um erro
-  if (!classificacaoValida(filme.classificacao)) {
+  if (!classificacaoValida(filme.classificacao))
+  {
     limparTela();
     return msgEntreCabecalho("Classificacão inválida", true, false);
   }
 
-  printf("Informe a nota do filme: \n");
+  printf("Informe a nota do filme: (Menor Nota: %d, Maior Nota: %.2f)\n", menorNotaFilme, maiorNotaFilme);
   scanf("%f", &filme.nota);
   limparBuffer();
   quebraLinha(1);
 
   // caso a nota nao seja entre as 2 variavel definiida (maiorNota filme
   // e menorNotaFilme) retorna um erro
-  if (filme.nota > maiorNotaFilme || filme.nota < menorNotaFilme) {
+  if (filme.nota > maiorNotaFilme || filme.nota < menorNotaFilme)
+  {
     limparTela();
     cabecalho();
     printf("A Nota só pode ser entre %d e %.2f\n", menorNotaFilme, maiorNotaFilme);
@@ -150,35 +154,21 @@ void cadastrarFilme() {
   printf("Informe o gênero do filme: \n");
   scanf("%[^\n]", filme.genero);
   limparBuffer();
-  quebraLinha(1);
+  limparTela();
+
+  // separa a horas dos minutos e converte tudo para segundos
+  arrayDuracao = strsplit(stringDuracao, "h");
+  filme.duracao = (3600 * atoi(arrayDuracao[0])) + (60 * atoi(arrayDuracao[1]));
 
   gerarIdFilme(filme.id);
+  cadastrarFilmeArquivo(filme);
 
-  filme.duracao = 3600 * duracaoFilme;
-
-  // Abre o arquivos dos filmes
-  FILE *arquivoFilmes = abrirArquivo(diretorioFilmes, "a+", true);
-
-  // formata o nome retirando os espaços e deixando cada letra inicial
-  // maiuscula
-  
-  formatarNome(filme.titulo);
-  formatarNome(filme.genero);
-
-  // cadastra o filme
-  fprintf(arquivoFilmes, "%s%s%s%s%d%s%.2f%s%s%s%d\n", filme.id, charDivisor,
-          filme.titulo, charDivisor, filme.duracao, charDivisor, filme.nota,
-          charDivisor, filme.genero, charDivisor, filme.classificacao);
-
-  fclose(arquivoFilmes);
-
-  limparTela();
   msgEntreCabecalho("Filme cadastrado com sucesso", true, false);
 }
 
-// Função para devolver um filme 
-void devolverFilme() {
-  char diretorioCliente[tamanhoArray];
+// Função para devolver um filme
+void devolverFilme()
+{
   int indiceFilme;
 
   StructFA filmesAlugados = mostrarFilmesAlugados();
@@ -197,21 +187,21 @@ void devolverFilme() {
 
   FilmeAlugado filmeDevolvido = filmesAlugados.filmes[indiceFilme - 1];
 
-  // pega o diretorio do cliente e remove a linha que contem o id ao filme
-  getDiretorioCliente(diretorioCliente, filmeDevolvido.idAutor, true);
-  deletarLinha(diretorioCliente, filmeDevolvido.idFilme);
+  // Exclui do banco de dados do cliente o filme devolvido
+  devolverFilmeAlugado(filmeDevolvido);
 
   msgEntreCabecalho("Filme devolvido com sucesso", true, false);
 }
 
 // Menu inicial, chama a função referida pela opção que o usuário digirar
-void menuInicial() {
+void menuInicial()
+{
 
-  // a ultima opção é a de saida sempre, aqui ele pega o tamanho 
+  // a ultima opção é a de saida sempre, aqui ele pega o tamanho
   // de opções existente sempre a de saida sendo o ultimo
   const int ultimaOpcao = sizeof(opcoesMenu) / sizeof(opcoesMenu[0]);
   int opcaoSelecionada;
-  
+
   cabecalho();
   textoCentralizado("Menu Inicial");
 
@@ -225,7 +215,8 @@ void menuInicial() {
   limparTela();
 
   // switch para saber qual opção o usuario escolheu
-  switch (opcaoSelecionada) {
+  switch (opcaoSelecionada)
+  {
   case 1:
     mostrarFilmes(true);
     break;
@@ -265,8 +256,33 @@ void menuInicial() {
   }
 }
 
+// Mensagem de boas vindas
+void telaInicial()
+{
+
+  srand(time(NULL));
+
+  int tempo = 6;
+
+  // um for que incrementa numeros aleatorio para simular
+  // uma tela de loading
+  for (int x = 0; x < 100; x += (rand() % 25) + 10)
+  {
+    cabecalho();
+    textoCentralizado("Locadora Arcade 8\n");
+    printf("- Seja Bem Vindo ao Nosso Sistema.\n\n");
+    cabecalho();
+    printf("Carregando Sistema: %d%\n\n", x);
+    sleep(tempo / 4);
+    limparTela();
+  }
+}
+
 // função main q fica chamando o menu inicial "infinitamente"
-int main() {
+int main()
+{
+
+  telaInicial();
 
   while (true)
     menuInicial();
