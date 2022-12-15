@@ -113,6 +113,14 @@ void cadastrarFilme()
   scanf("%[^\n]", filme.titulo);
   limparBuffer();
   quebraLinha(1);
+  
+    // não permitir o caractere divisor pra não da problema 
+  if (strstr(filme.titulo, charDivisor)) {
+    limparTela();
+    cabecalho();
+    printf("O titulo não pode conter o caractere '%s'\n", charDivisor);
+    return;
+  }
 
   // não permitir o caractere divisor pra não da problema
   if (strstr(filme.titulo, charDivisor))
@@ -177,6 +185,14 @@ void cadastrarFilme()
   scanf("%d", &filme.quantidade);
   limparBuffer();
   limparTela();
+  
+   // não permitir o caractere divisor pra não da problema no banco de dados
+  if (strstr(filme.genero, charDivisor)) {
+    limparTela();
+    cabecalho();
+    printf("O gênero não pode conter o caractere '%s'\n", charDivisor);
+    return;
+  }
 
   if (filme.quantidade < 1)
   {
