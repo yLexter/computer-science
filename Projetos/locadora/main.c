@@ -13,13 +13,12 @@ void alugarFilme()
 
   Filme *filmeEscolhido = getFilmePorUsuario();
 
+  if (filmeEscolhido->quantidade == 0)
+    return msgEntreCabecalho("Filme indisponivel no momento", true, false);
+
   // caso a opção seja invalida retorna nulo e uma mensagem de erro
   if (filmeEscolhido == NULL)
     return;
-
-  // caso o filme esteja alugado retorna true
-  if (verificarFilmeAlugado(filmeEscolhido))
-    return msgEntreCabecalho("Este filme já esta alugado.", true, false);
 
   // Verifica se a idade do cliente é apropiada pro filme
   if (clientEscolhido->idade < filmeEscolhido->classificacao)
@@ -29,6 +28,8 @@ void alugarFilme()
   salvarFilmeCliente(clientEscolhido, filmeEscolhido);
   // salva o registro de alugação para a lista de mais populares
   salvarLog(clientEscolhido, filmeEscolhido);
+  // subtrai 1 da quantidade de filmes disponivel
+  modificarQuantidadeFilme(filmeEscolhido->id, filmeEscolhido->quantidade - 1);
 
   msgEntreCabecalho("Filme alugado com sucesso.", true, false);
 }
@@ -100,6 +101,7 @@ void cadastrarFilme()
 {
   Filme filme;
   char stringDuracao[tamanhoArray];
+  char msgError[tamanhoArray];
   char **arrayDuracao;
 
   cabecalho();
@@ -111,6 +113,14 @@ void cadastrarFilme()
   scanf("%[^\n]", filme.titulo);
   limparBuffer();
   quebraLinha(1);
+
+  // não permitir o caractere divisor pra não da problema
+  if (strstr(filme.titulo, charDivisor))
+  {
+    limparTela();
+    snprintf(msgError, tamanhoArray, "O titulo não pode conter o caractere '%s'", charDivisor);
+    return msgEntreCabecalho(msgError, true, false);
+  }
 
   printf("Informe a duração do filme: (Ex: 2h0 = 2 Horas)\n");
   scanf("%s", stringDuracao);
@@ -146,20 +156,39 @@ void cadastrarFilme()
   if (filme.nota > maiorNotaFilme || filme.nota < menorNotaFilme)
   {
     limparTela();
-    cabecalho();
-    printf("A Nota só pode ser entre %d e %.2f\n", menorNotaFilme, maiorNotaFilme);
-    return;
+    snprintf(msgError, tamanhoArray, "A Nota só pode ser entre %d e %.2f\n", menorNotaFilme, maiorNotaFilme);
+    return msgEntreCabecalho(msgError, true, false);
   }
 
   printf("Informe o gênero do filme: \n");
   scanf("%[^\n]", filme.genero);
   limparBuffer();
+  quebraLinha(1);
+
+  // não permitir o caractere divisor pra não da problema no banco de dados
+  if (strstr(filme.genero, charDivisor))
+  {
+    limparTela();
+    snprintf(msgError, tamanhoArray, "O gênero não pode conter o caractere '%s'\n", charDivisor);
+    return msgEntreCabecalho(msgError, true, false);
+  }
+
+  printf("Informe a quantidade de filmes disponivel: \n");
+  scanf("%d", &filme.quantidade);
+  limparBuffer();
   limparTela();
+
+  if (filme.quantidade < 1)
+  {
+    limparTela();
+    return msgEntreCabecalho("A quantidade não pode ser menor que 1", true, false);
+  }
 
   // separa a horas dos minutos e converte tudo para segundos
   arrayDuracao = strsplit(stringDuracao, "h");
   filme.duracao = (3600 * atoi(arrayDuracao[0])) + (60 * atoi(arrayDuracao[1]));
 
+  // Gera o id e salva no arquivo
   gerarIdFilme(filme.id);
   cadastrarFilmeArquivo(filme);
 
@@ -189,8 +218,36 @@ void devolverFilme()
 
   // Exclui do banco de dados do cliente o filme devolvido
   devolverFilmeAlugado(filmeDevolvido);
+  // devolve ao estoque o filme
+  devolverFilmeEstoque(filmeDevolvido);
 
   msgEntreCabecalho("Filme devolvido com sucesso", true, false);
+}
+
+// Altera a quantidade de um filme
+void modificarQuantidade()
+{
+
+  char stringQuantidade[10];
+  int quantidade;
+
+  Filme *filme = getFilmePorUsuario();
+
+  if (filme == NULL)
+    return;
+
+  limparTela();
+  msgEntreCabecalho("Digite a quantidade que deseja adicionar (Valor Negativo =  subtrai)", true, false);
+  scanf("%d", &quantidade);
+  limparTela();
+
+  if (filme->quantidade + quantidade < 0)
+    return msgEntreCabecalho("A quantidade informada é maior do que a do estoque", true, false);
+
+  snprintf(stringQuantidade, 10, "%d", filme->quantidade + quantidade);
+  editarPropiedadeFilme(filme->id, FL_quantidade, stringQuantidade);
+
+  msgEntreCabecalho("Quantidade alterada com sucesso.", true, false);
 }
 
 // Menu inicial, chama a função referida pela opção que o usuário digirar
@@ -246,6 +303,9 @@ void menuInicial()
     break;
   case 10:
     mostrarPopulares();
+    break;
+  case 11:
+    modificarQuantidade();
     break;
   case ultimaOpcao:
     encerrarProgama("Progama encerrado com sucesso! Volte Sempre.");

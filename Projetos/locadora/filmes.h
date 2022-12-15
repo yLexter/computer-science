@@ -43,25 +43,33 @@ int ordenarFilmesPorClassificacao(Filme *f1, Filme *f2)
   return f1->classificacao - f2->classificacao;
 }
 
+// Função para ordenar os filmes pela quantidade disponivel em ordem crescente
+int ordenarFilmesPorQuantidade(Filme *f1, Filme *f2)
+{
+  return f1->quantidade - f2->quantidade;
+}
+
 // Opções de ordenação
-char opcoesOrdenacao[7][50] = {
+char opcoesOrdenacao[8][50] = {
     "Título (Crescente)",
     "Título (Decrescente)",
     "Duração",
     "Gênero",
     "Nota",
     "Classificação",
+    "Quantidade",
     "Nenhuma"};
 
 // Array que armazena as funções para ordenação de filmes
 // *A Posição de cada função deve estar de acordo com as opçoes de ordenação
-funcaoOrdenarFilme funcoesFilme[6] = {
+funcaoOrdenarFilme funcoesFilme[7] = {
     ordenarFilmesPorTituloCrescente,
     ordenarFilmesPorTituloDecrescente,
     ordenarFilmesPorDuracao,
     ordenarFilmesPorGenero,
     ordenarFilmesPorNota,
-    ordenarFilmesPorClassificacao};
+    ordenarFilmesPorClassificacao,
+    ordenarFilmesPorQuantidade};
 
 // Função que ordena a partir de uma opção selecionada usuário
 void ordenarFilmes(StructFilmes *filmes, int opcao)
@@ -126,6 +134,7 @@ void imprimirFilme(Filme filme)
   printf("Nota: %.2f/%.2f\n", filme.nota, maiorNotaFilme);
   printf("Genêro: %s\n", filme.genero);
   printf("Classificação: %s\n", classificacaoFormatada);
+  printf("Disponivel: %d\n", filme.quantidade);
 
   // Libera a memoria das variavel
   free(classificacaoFormatada);
@@ -208,22 +217,6 @@ Filme *getFilmePorUsuario()
   }
 
   return &Filmes.filmes[indiceFilme - 1];
-}
-
-// Verifica se um filme está alugado
-bool verificarFilmeAlugado(Filme *filme)
-{
-  StructFA Filmes = getFilmesAlugados();
-
-  // for q pecorre todos os filmes alugados existente e verifica
-  // se o que o usuário escolheu está alugado
-  for (int x = 0; x < Filmes.total; x++)
-  {
-    if (!strcmp(Filmes.filmes[x].idFilme, filme->id))
-      return true;
-  }
-
-  return false;
 }
 
 // Printa informações formatadas dos filmes alugados
@@ -429,9 +422,9 @@ void cadastrarFilmeArquivo(Filme filme)
   formatarNome(filme.genero);
 
   // cadastra o filme
-  fprintf(arquivoFilmes, "%s%s%s%s%d%s%.2f%s%s%s%d\n", filme.id, charDivisor,
+  fprintf(arquivoFilmes, "%s%s%s%s%d%s%.2f%s%s%s%d%s%d\n", filme.id, charDivisor,
           filme.titulo, charDivisor, filme.duracao, charDivisor, filme.nota,
-          charDivisor, filme.genero, charDivisor, filme.classificacao);
+          charDivisor, filme.genero, charDivisor, filme.classificacao, charDivisor, filme.quantidade);
 
   fclose(arquivoFilmes);
 }
@@ -488,4 +481,28 @@ void devolverFilmeAlugado(FilmeAlugado filme)
 void deletarFilmeArquivo(Filme *filme)
 {
   deletarLinhaArquivo(diretorioFilmes, filme->id);
+}
+
+// Devolve o filme para o estoque adicionado 1 a sua quantidade
+void devolverFilmeEstoque(FilmeAlugado filme)
+{
+
+  StructFilmes filmes = getFilmes();
+  Filme *filmeEscolhido = NULL;
+
+  // procura pelo filme escolhido
+  for (int x = 0; x < filmes.total; x++)
+  {
+    if (!strcmp(filme.idFilme, filmes.filmes[x].id))
+    {
+      filmeEscolhido = &filmes.filmes[x];
+      break;
+    }
+  }
+
+  // caso ele não exista apenas retorna
+  if (filmeEscolhido == NULL)
+    return;
+
+  modificarQuantidadeFilme(filmeEscolhido->id, filmeEscolhido->quantidade + 1);
 }

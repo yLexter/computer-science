@@ -40,6 +40,7 @@ enum
   FL_nota,
   FL_genero,
   FL_classificacao,
+  FL_quantidade,
   FL_total
 };
 enum
@@ -62,11 +63,12 @@ enum
 typedef struct
 {
   char id[tamanhoIdFilme];
-  char titulo[tamanhoLinha];
+  char titulo[tamanhoTituloFilme];
   int duracao;
   char genero[tamanhoLinha];
   float nota;
   int classificacao;
+  int quantidade;
 } Filme;
 
 typedef struct
@@ -93,7 +95,8 @@ typedef struct lista
   struct lista *prox;
 } ListaPopulares;
 
-// Structs q armazena um array de filmes, clientes ou filmes alugados e o total de elementos
+// Structs q armazena um array de filmes, clientes ou filmes alugados e o total
+// de elementos
 typedef struct
 {
   Filme *filmes;
@@ -113,7 +116,7 @@ typedef struct
 } StructFA;
 
 // Opções do menu inicial
-const char opcoesMenu[11][100] = {
+const char opcoesMenu[12][100] = {
     "Ver Filmes",
     "Alugar Filme",
     "Cadastrar Cliente",
@@ -124,6 +127,7 @@ const char opcoesMenu[11][100] = {
     "Cadastrar Filme",
     "Devolver Filme",
     "Mostrar Filmes Populares",
+    "Alterar quantidade dos filmes",
     "Sair",
 };
 
@@ -159,18 +163,19 @@ char **strsplit(const char *src, const char *delim)
   // caso esteja delim presente na string, o while ira rodando
   while (ptok)
   {
-    // pparr sera uma matriz de string e aqui realoca memoria para o total de delim encontrado
-    // mais um
+    // pparr sera uma matriz de string e aqui realoca memoria para o total de
+    // delim encontrado mais um
     pparr = (char **)realloc(pparr, (count + 1) * sizeof(char *));
-    // o ponteiro pparr + count sera a string ptok ja q a funcao strdup retorna um ponteiro
-    // para a string passada
+    // o ponteiro pparr + count sera a string ptok ja q a funcao strdup retorna
+    // um ponteiro para a string passada
     *(pparr + count++) = strdup(ptok);
 
     // redefinição para pegar a proxima palavra e não ficar em looping infinito
     ptok = strtok(NULL, delim);
   }
 
-  // alloca mais um espaço de memoria para para por o ponteiro nulo q sera a condição de parada
+  // alloca mais um espaço de memoria para para por o ponteiro nulo q sera a
+  // condição de parada
   pparr = (char **)realloc(pparr, (count + 1) * sizeof(char *));
   *(pparr + count) = NULL;
 
@@ -196,16 +201,10 @@ void limparBuffer()
 }
 
 // Limpa a tela
-void limparTela()
-{
-  system("clear");
-}
+void limparTela() { system("clear"); }
 
 // Centraliza o texto na tela
-void textoCentralizado(char *nome)
-{
-  printf("                %s\n\n", nome);
-}
+void textoCentralizado(char *nome) { printf("                %s\n\n", nome); }
 
 // Pula uma quantidade de linha
 void quebraLinha(int quantidade)
@@ -227,7 +226,8 @@ void toLowerCase(char *palavra)
 // Pega o diretório do cliente
 void getDiretorioCliente(char *var, char *id, bool extensao)
 {
-  snprintf(var, tamanhoLinha, "%s/%s%s", pastaClientes, id, extensao ? ".txt" : "");
+  snprintf(var, tamanhoLinha, "%s/%s%s", pastaClientes, id,
+           extensao ? ".txt" : "");
 }
 
 // Mensagem que vai no meio do cabeçalho
@@ -260,7 +260,8 @@ FILE *abrirArquivo(char *nome, char *tipo, bool encerrar)
   // caso nao consiga abrir o arquivo e deseje-se encerrar o progama
   if (arquivo == NULL && encerrar)
   {
-    snprintf(msgError, tamanhoArray, "Não foi possível abrir o arquivo %s", nome);
+    snprintf(msgError, tamanhoArray, "Não foi possível abrir o arquivo %s",
+             nome);
     encerrarProgama(msgError);
   }
 
@@ -275,25 +276,32 @@ void deletarLinhaArquivo(char *diretorio, char *idLinha)
   char linha[tamanhoLinha];
   char **linhasNovoArquivo = NULL;
   int totalLinhas = 0;
+  bool linhaEncontrada = false;
 
   FILE *arq = abrirArquivo(diretorio, "rt", true);
 
-  // pecorre todas as linha do arquivo caso o id linha esteja presente em umas das linha não
-  // adiciona fazendo assim com o que a  linha seja excluida
+  // pecorre todas as linha do arquivo caso o id linha esteja presente em umas
+  // das linha não adiciona fazendo assim com o que a  linha seja excluida
   while (fgets(linha, tamanhoLinha - 1, arq) != NULL)
   {
-    if (!strstr(linha, idLinha))
+
+    // caso houver ids repetido remover apenas 1
+    if (strstr(linha, idLinha) && !linhaEncontrada)
     {
-      linhasNovoArquivo = (char **)realloc(linhasNovoArquivo, (totalLinhas + 1) * sizeof(char *));
-      *(linhasNovoArquivo + totalLinhas++) = strdup(linha);
+      linhaEncontrada = true;
+      continue;
     }
+
+    linhasNovoArquivo = (char **)realloc(linhasNovoArquivo, (totalLinhas + 1) * sizeof(char *));
+    *(linhasNovoArquivo + totalLinhas++) = strdup(linha);
   }
 
   // verifica se o diretorio e uma pasta ou esta na raiz do projeto
   if (strstr(diretorio, "/"))
   {
     char **infoDiretorio = strsplit(diretorio, "/");
-    snprintf(diretorioNovoArquivo, tamanhoLinha, "%s/%s", infoDiretorio[0], nomeArquivoTemporario);
+    snprintf(diretorioNovoArquivo, tamanhoLinha, "%s/%s", infoDiretorio[0],
+             nomeArquivoTemporario);
   }
   else
   {
@@ -307,6 +315,7 @@ void deletarLinhaArquivo(char *diretorio, char *idLinha)
   for (int x = 0; x < totalLinhas; x++)
     fprintf(novoArquivo, "%s", linhasNovoArquivo[x]);
 
+  fclose(arq);
   fclose(novoArquivo);
 
   // remove o antigo arquivo e renomeia o novo para o nome do antigo
@@ -388,7 +397,8 @@ StructClientes getClientes()
     // guarda o cliente no array e soma mais um no total
     clientes.clientes[clientes.total++] = client;
     // realloca memoria do array para sempre o total de clientes presente + 1
-    clientes.clientes = (Client *)realloc(clientes.clientes, sizeof(Client) * (clientes.total + 1));
+    clientes.clientes = (Client *)realloc(
+        clientes.clientes, sizeof(Client) * (clientes.total + 1));
   }
 
   fclose(arquivoClientes);
@@ -421,11 +431,13 @@ StructFilmes getFilmes()
     novoFilme.duracao = atoi(dadosFilme[FL_duracao]);
     novoFilme.nota = atof(dadosFilme[FL_nota]);
     novoFilme.classificacao = atoi(dadosFilme[FL_classificacao]);
+    novoFilme.quantidade = atoi(dadosFilme[FL_quantidade]);
 
     // guarda o filme no array e soma o total + 1
     Filmes.filmes[Filmes.total++] = novoFilme;
     // reealoca memoria para para o total presente + 1
-    Filmes.filmes = (Filme *)realloc(Filmes.filmes, sizeof(Filme) * (Filmes.total + 1));
+    Filmes.filmes =
+        (Filme *)realloc(Filmes.filmes, sizeof(Filme) * (Filmes.total + 1));
   }
 
   fclose(arquivoFilmes);
@@ -472,14 +484,18 @@ StructFA getFilmesAlugados()
       char **dadosFilmes = strsplit(linha, charDivisor);
 
       snprintf(filmeAlugado.idFilme, tamanhoIdFilme, "%s", dadosFilmes[FA_id]);
-      snprintf(filmeAlugado.titulo, tamanhoTituloFilme, "%s", dadosFilmes[FA_titulo]);
-      snprintf(filmeAlugado.autor, tamanhoNomeCliente, "%s", dadosFilmes[FA_autor]);
-      snprintf(filmeAlugado.idAutor, tamanhoIdCliente, "%s", dadosFilmes[FA_idAutor]);
+      snprintf(filmeAlugado.titulo, tamanhoTituloFilme, "%s",
+               dadosFilmes[FA_titulo]);
+      snprintf(filmeAlugado.autor, tamanhoNomeCliente, "%s",
+               dadosFilmes[FA_autor]);
+      snprintf(filmeAlugado.idAutor, tamanhoIdCliente, "%s",
+               dadosFilmes[FA_idAutor]);
 
       // salva o filme alugado no array
       Filmes.filmes[Filmes.total++] = filmeAlugado;
       // realoca memoria para o total de filmes alugados + 1
-      Filmes.filmes = (FilmeAlugado *)realloc(Filmes.filmes, sizeof(FilmeAlugado) * (Filmes.total + 1));
+      Filmes.filmes = (FilmeAlugado *)realloc(
+          Filmes.filmes, sizeof(FilmeAlugado) * (Filmes.total + 1));
     }
 
     fclose(arquivoCliente);
@@ -488,4 +504,71 @@ StructFA getFilmesAlugados()
   closedir(dir);
 
   return Filmes;
+}
+
+// Edita uma propiedade de um filme no arquivo
+void editarPropiedadeFilme(char *id, int posicao, char *novoValor)
+{
+  char linhaAlterada[tamanhoLinha] = {""};
+  char diretorioNovoArquivo[tamanhoLinha] = "geral/temp.txt";
+  char linha[tamanhoLinha];
+  char **linhasNovoArquivo = NULL;
+  int totalLinhas = 0;
+
+  FILE *arq = abrirArquivo(diretorioFilmes, "rt", true);
+
+  // Ler todas as linha de um arquivo
+  while (fgets(linha, tamanhoLinha - 1, arq) != NULL)
+  {
+
+    char *novaLinha;
+
+    // Caso a linha contenha o id
+    if (strstr(linha, id))
+    {
+      char **dados = strsplit(linha, charDivisor);
+
+      snprintf(dados[posicao], tamanhoLinha, "%s", novoValor);
+
+      // pega todos os dados já com o valor alterado e concatena numa string
+      for (int x = 0; x < FL_total; x++)
+      {
+        strcat(linhaAlterada, dados[x]);
+
+        if (x != FL_total - 1)
+          strcat(linhaAlterada, charDivisor);
+      }
+
+      strcat(linhaAlterada, "\n");
+
+      novaLinha = linhaAlterada;
+    }
+    else
+    {
+      novaLinha = linha;
+    }
+
+    linhasNovoArquivo = (char **)realloc(linhasNovoArquivo, (totalLinhas + 1) * sizeof(char *));
+    *(linhasNovoArquivo + totalLinhas++) = strdup(novaLinha);
+  }
+
+  // escreve no novo arquivo e renomeia pro nome do antigo
+  FILE *novoArquivo = abrirArquivo(diretorioNovoArquivo, "a+", true);
+
+  for (int x = 0; x < totalLinhas; x++)
+    fprintf(novoArquivo, "%s", linhasNovoArquivo[x]);
+
+  fclose(arq);
+  fclose(novoArquivo);
+
+  remove(diretorioFilmes);
+  rename(diretorioNovoArquivo, diretorioFilmes);
+}
+
+// Modifica a quantidade de um filme
+void modificarQuantidadeFilme(char *id, int quantidade)
+{
+  char stringQuantidade[tamanhoArray];
+  snprintf(stringQuantidade, tamanhoArray, "%d", quantidade);
+  editarPropiedadeFilme(id, FL_quantidade, stringQuantidade);
 }
