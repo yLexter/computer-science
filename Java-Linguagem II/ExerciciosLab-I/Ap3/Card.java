@@ -1,4 +1,4 @@
-package Java.ExerciciosLab;
+package Java.ExerciciosLab.Ap3;
 
 // Exercicio 3
 public class Card {

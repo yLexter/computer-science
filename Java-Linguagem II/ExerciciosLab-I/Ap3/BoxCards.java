@@ -1,5 +1,6 @@
-package Java.ExerciciosLab;
-import java.util.Random;
+package Java.ExerciciosLab.Ap3;
+
+import java.security.SecureRandom;
 
 public class BoxCards {
 
@@ -7,7 +8,7 @@ public class BoxCards {
     private static Card box[] = new Card[BoxCards.totalCards];
 
     int randomNumber(int limit) {
-        return new Random().nextInt(limit);
+        return new SecureRandom().nextInt(limit);
     }
 
     BoxCards generateCards() {
@@ -26,7 +27,7 @@ public class BoxCards {
     BoxCards shuffleBox() {
 
         for (int x = 0; x < BoxCards.totalCards; x++) {
-            int radomNumber = new Random().nextInt(BoxCards.totalCards);
+            int radomNumber = new SecureRandom().nextInt(BoxCards.totalCards);
 
             Card copyCard = BoxCards.box[x];
 
@@ -52,16 +53,7 @@ public class BoxCards {
     }
 
 
-    public static void test() {
 
-        BoxCards box = new BoxCards();
-
-        box
-                .generateCards()
-                .shuffleBox()
-                .showBox();
-
-    }
 
     @Override
     public String toString() {

@@ -1,6 +1,6 @@
-package Java.ExerciciosLab;
+package Java.ExerciciosLab.Ap2;
 
-import java.util.Random;
+import java.security.*;
 
 // Exercicio 2
 public class Dice {
@@ -15,7 +15,7 @@ public class Dice {
 
     Dice rollDice() {
         for (int x = 0; x < 10000000; x++) {
-            int roll = new Random().nextInt(this.totalFaces) + 1;
+            int roll = new SecureRandom().nextInt(this.totalFaces) + 1;
             this.throwsDices[roll] += 1;
             this.totalSum += roll;
         }
@@ -25,18 +25,11 @@ public class Dice {
 
     void showRolls() {
 
-        for (int x = 1; x < this.throwsDices.length; x++)
-            System.out.printf("Face %d: %d\n", x, this.throwsDices[x]);
+        for (int x = 0; x < this.throwsDices.length; x++)
+            System.out.printf("Face %d: %d\n", x - 1, this.throwsDices[x]);
 
         System.out.printf("Soma total: %d", this.totalSum);
     }
 
-    public static void test() {
 
-        Dice dice = new Dice(20);
-
-        dice
-                .rollDice()
-                .showRolls();
-    }
 }

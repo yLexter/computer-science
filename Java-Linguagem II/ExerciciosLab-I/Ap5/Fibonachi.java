@@ -1,4 +1,4 @@
-package Java.ExerciciosLab;
+package Java.ExerciciosLab.Ap5;
 
 // Exercicio 6
 public class Fibonachi {
@@ -7,11 +7,7 @@ public class Fibonachi {
         if (number <= 2)
             return 1;
         return Fibonachi.getFibonachi(number - 1) +
-                Fibonachi.getFibonachi(number - 2);
-    }
-
-    public static void test() {
-        System.out.println(Fibonachi.getFibonachi(10));
+               Fibonachi.getFibonachi(number - 2);
     }
 
 

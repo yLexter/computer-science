@@ -1,6 +1,4 @@
-package Java.ExerciciosLab;
-
-import java.util.*;
+package Java.ExerciciosLab.Ap1;
 
 // Exercico 1 e questão 3 da prova
  public class Date {
@@ -41,12 +39,7 @@ import java.util.*;
       System.out.printf("%d de %s de %d", this.dia, mes, this.ano);
     }
   
-    public static void test() {
-  
-        new Date(2,2,2003).displayDate();
-        new Date(-2,-2,-2003).displayDate();
-          
-    }
+
   
   }
 
