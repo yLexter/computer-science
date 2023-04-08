@@ -1,16 +1,16 @@
 package Java.ExerciciosLab.Ap8;
 
+import java.util.Arrays;
+
 // Questão 7
 public class Palindrome {
 
-    // To-Do Arrajar uma forma de tirar os espaços
+    // ToDo Arrajar uma forma de tirar os espaços e acentos
 
-    public static boolean isPalindrome(String word) {
+    // Não recursivo
+    public static boolean isPalindrome(String word, int num) {
 
         char[] wordFormated = word.trim().toLowerCase().toCharArray();
-
-        if (wordFormated.length % 2 != 0)
-            return false;
 
         for (int x = 0; x < wordFormated.length / 2; x++) {
 
@@ -26,10 +26,30 @@ public class Palindrome {
 
     }
 
+    // Recursivo
+    public static boolean isPalindrome(String word) {
+
+        char[] wordFormatted = word.toLowerCase().toCharArray();
+        char firstChar = wordFormatted[0];
+        char lastChar = wordFormatted[wordFormatted.length - 1];
+
+        if (firstChar != lastChar)
+            return false;
+
+        if (wordFormatted.length <= 2)
+            return true;
+
+        String subWord = new String(Arrays.copyOfRange(wordFormatted, 1, wordFormatted.length - 1));
+
+        return isPalindrome(subWord);
+    }
 
     public static void main(String[] args) {
 
-        System.out.println(Palindrome.isPalindrome("lucas"));
+        System.out.println(isPalindrome("macaco"));
+        System.out.println(isPalindrome("subinoonibus"));
+        System.out.println(isPalindrome("radar"));
+        System.out.println(isPalindrome("renner"));
 
     }
 
