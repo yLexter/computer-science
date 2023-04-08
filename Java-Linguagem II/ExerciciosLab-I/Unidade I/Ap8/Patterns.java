@@ -17,7 +17,8 @@ public class Patterns {
 
         System.out.println();
 
-    }
+    } 
+
     public static void pattern2(int size) {
 
         for(int x = 1; x <= size; x++) {
@@ -41,6 +42,7 @@ public class Patterns {
         System.out.println();
 
     }
+
     public static void pattern3(int size) {
 
         for(int x = 1; x <= size; x++) {
@@ -64,6 +66,7 @@ public class Patterns {
         System.out.println();
 
     }
+
     public static void pattern4(int size) {
 
         for(int x = 1; x <= size; x++) {
@@ -86,7 +89,6 @@ public class Patterns {
         }
 
         System.out.println();
-
 
     }
 
