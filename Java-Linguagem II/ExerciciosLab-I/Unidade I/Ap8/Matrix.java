@@ -13,8 +13,8 @@ public class Matrix {
 
             for(int j = 0; j < size; j++) {
 
-                if(i >= j)
-                    auxiliaryMatrix[i][j] = 1;
+                if(i < j)
+                    auxiliaryMatrix[i][j] = 0;
 
             }
         }
@@ -31,8 +31,8 @@ public class Matrix {
 
             for(int j = 0; j < size; j++) {
 
-                if(i <= j)
-                    auxiliaryMatrix[i][j] = 1;
+                if(i > j)
+                    auxiliaryMatrix[i][j] = 0;
 
             }
         }
