@@ -25,6 +25,8 @@ public class TP092 {
 
         }
 
+        input.close();
+
         System.out.println();
     }
 
@@ -50,7 +52,7 @@ public class TP092 {
 
             int currentColumnSum = 0;
 
-            for (int j = 0; j < this.matrix.length; j++)
+            for (int j = 0; j < this.matrix[i].length; j++)
                 currentColumnSum += this.matrix[j][i];
 
             sumColumns[i] = currentColumnSum;
@@ -115,6 +117,7 @@ public class TP092 {
 
         TP092 matrix = new TP092(3);
         matrix.showResults();
+        
     }
 
 
