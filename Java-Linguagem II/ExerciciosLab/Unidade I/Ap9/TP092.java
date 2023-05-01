@@ -3,14 +3,16 @@ package Java.ExerciciosLab.Ap9;
 import java.util.*;
 
 public class TP092 {
+
     public int[][] matrix;
+
     public int size;
 
-    TP092(int size) {
+    public TP092(int size) {
         this.size = size;
         this.matrix = new int[size][size];
     }
-    
+
     public void fillMatrixByUser() {
 
         Scanner input = new Scanner(System.in);
@@ -85,6 +87,7 @@ public class TP092 {
         }
 
         return reverseMatrix;
+
     }
 
     public void showResults() {

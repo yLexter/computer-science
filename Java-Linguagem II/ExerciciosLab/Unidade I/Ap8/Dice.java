@@ -2,7 +2,6 @@ package Java.ExerciciosLab.Ap8;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
-
 public class Dice {
 
     private final int sizeDice;
@@ -43,7 +42,7 @@ public class Dice {
 
     public Dice computeRolls() {
 
-        for (int x = minimumSum; x < 36_000_000 ; x++) {
+        for (int x = minimumSum; x < 36_000 ; x++) {
             int roll1 = this.rollDice();
             int roll2 = this.rollDice();
 
