@@ -9,6 +9,10 @@ public class Queue2<T> extends ArrayList<T> {
     }
 
     public T deQueue() {
+
+        if(super.get(0) == null)
+            throw new RuntimeException("Lista Vazia");
+
         return super.remove(0);
     }
 
@@ -27,17 +31,20 @@ public class Queue2<T> extends ArrayList<T> {
     public static void main(String[] args) {
 
         SecureRandom random = new SecureRandom();
-        Queue2<Integer> q1 = new Queue2<>();
+        Queue q1 = new Queue();
+        int total = 10;
 
-        for(int x = 0; x < 25; x++)
+        for(int x = 0; x < total; x++) {
             q1.enQueue(random.nextInt(100));
+            q1.showQueue();
+        }
 
-        q1.showQueue();
+        System.out.println();
 
-        for(int x = 0; x < 25; x++)
+        for(int x = 0; x < total; x++) {
             q1.deQueue();
-
-        q1.showQueue();
+            q1.showQueue();
+        }
 
     }
 

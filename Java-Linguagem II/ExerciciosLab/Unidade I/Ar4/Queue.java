@@ -1,6 +1,7 @@
 package Java.ExerciciosLab.Ar4;
 
 import java.security.SecureRandom;
+import java.util.Arrays;
 
 public class Queue {
 
@@ -33,8 +34,9 @@ public class Queue {
 
     public void showQueue() {
 
-        for(Integer value : queue)
-            System.out.printf("%d ", value);
+        Arrays.stream(queue).forEach(x -> {
+            System.out.printf("%d ", x);
+        });
 
         System.out.println();
     }
@@ -58,10 +60,8 @@ public class Queue {
 
         Integer valueRemoved = queue[0];
 
-        if (valueRemoved == null) {
-            System.out.println("Fila Vazia");
-            return -1;
-        }
+        if (valueRemoved == null)
+            throw new RuntimeException("Lista Vazia");
 
         Integer[] newQueue = new Integer[queue.length];
 
@@ -84,17 +84,21 @@ public class Queue {
 
         SecureRandom random = new SecureRandom();
         Queue q1 = new Queue();
+        int total = 10;
 
-        for(int x = 0; x < 25; x++)
+        for(int x = 0; x < total; x++) {
             q1.enQueue(random.nextInt(100));
+            q1.showQueue();
+        }
 
+        System.out.println();
 
-        q1.showQueue();
-
-        for(int x = 0; x < 25; x++)
+        for(int x = 0; x < total; x++) {
             q1.deQueue();
+            q1.showQueue();
+        }
 
-        q1.showQueue();
+
     }
 
 

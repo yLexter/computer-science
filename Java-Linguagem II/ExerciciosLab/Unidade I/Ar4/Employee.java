@@ -1,22 +1,45 @@
 package Java.ExerciciosLab.Ar4;
-import Java.ExerciciosLab.Ap1.CustomDate;
 
 public class Employee extends Person {
 
-    private String room;
+    protected String office;
+    protected double salary;
+    protected String hireDate;
 
-    private double salary;
-
-    private CustomDate hiringDate;
-
-    Employee(String name, String adress, String telephone, String email) {
-        super(name, adress, telephone, email);
+    public Employee (String name, String address, String phoneNumber, String email, String office, double salary, String hireDate) {
+        super(name, address, phoneNumber, email);
+        this.office = office;
+        this.salary = salary;
+        this.hireDate = hireDate;
     }
 
-    @Override
+    public String getOffice() {
+        return office;
+    }
+
+    public void setOffice(String office) {
+        this.office = office;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public String getHireDate() {
+        return hireDate;
+    }
+
+    public void setHireDate(String hireDate) {
+        this.hireDate = hireDate;
+    }
+
+
     public String toString() {
-        return String.format("%s | %s", this.getClass().getSimpleName(), this.getName());
+        return "Employee: " + name;
     }
-
 
 }

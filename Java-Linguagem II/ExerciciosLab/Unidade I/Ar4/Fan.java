@@ -59,11 +59,17 @@ public class Fan {
     @Override
     public String toString() {
         return this.on ?
-                String.format("Velocidade: %d | Raio: %d | Cor: %s", currentVelocity, radius, color) :
-                String.format("Raio: %d | Cor: %s | Ventilador Desligado",  radius, color);
+                String.format("Velocidade: %d | Raio: %.2f | Cor: %s", currentVelocity, radius, color) :
+                String.format("Raio: %.2f | Cor: %s | Ventilador Desligado",  radius, color);
     }
 
     public static void main(String[] args) {
+
+        Fan fan1 = new Fan("Amarela", Fan.fast, 10.0, true);
+        Fan fan2 = new Fan("Azul", Fan.average,5.0, false );
+
+        System.out.println(fan1);
+        System.out.println(fan2);
 
     }
 

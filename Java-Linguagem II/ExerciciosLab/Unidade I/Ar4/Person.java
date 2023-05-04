@@ -2,21 +2,17 @@ package Java.ExerciciosLab.Ar4;
 
 public class Person {
 
-    private String name;
-    private String adress;
+    protected String name;
+    protected String address;
 
-    private String telephone;
-    private String email;
+    protected String phoneNumber;
+    protected String email;
 
-    public Person(String name, String adress, String telephone, String email) {
-        setName(name);
-        setAdress(adress);
-        setTelephone(telephone);
-        setEmail(email);
-    }
-
-    public Person() {
-
+    public Person(String name, String address, String phoneNumber, String email) {
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
     }
 
     public String getName() {
@@ -27,20 +23,20 @@ public class Person {
         this.name = name;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getTelephone() {
-        return telephone;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {
@@ -49,6 +45,10 @@ public class Person {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String toString() {
+        return "Person: " + name;
     }
 
 

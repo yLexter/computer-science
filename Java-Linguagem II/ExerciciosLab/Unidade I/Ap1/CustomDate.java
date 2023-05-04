@@ -1,13 +1,11 @@
 package Java.ExerciciosLab.Ap1;
 import java.util.*;
+import java.time.*;
 
 // Exercico 1 e questão 3 da prova
 public class CustomDate  {
     private int dia;
     private int mes;
-
-
-
     private int ano;
     public String[] meses = {
             "Janeiro",
@@ -31,7 +29,19 @@ public class CustomDate  {
     }
 
     public CustomDate () {
+        LocalDateTime now = LocalDateTime.now();
+        setDia(now.getDayOfMonth());
+        setMes(now.getMonth().getValue());
+        setAno(now.getYear());
+    }
 
+    public CustomDate(long timeUnix) {
+        Instant time = Instant.ofEpochMilli(timeUnix);
+        LocalDateTime date = LocalDateTime.ofInstant(time, ZoneId.systemDefault());
+
+        this.setDia(date.getDayOfMonth());
+        this.setMes(date.getMonth().getValue());
+        this.setAno(date.getYear());
     }
 
     public int getDia() {
@@ -67,7 +77,17 @@ public class CustomDate  {
     void displayDate() {
         String mes = this.mes == 0 ? this.meses[0] : this.meses[this.mes - 1];
 
-        System.out.printf("%d de %s de %d", this.dia, mes, this.ano);
+        System.out.printf("%d de %s de %d\n", this.dia, mes, this.ano);
+    }
+
+    public static void main(String[] args) {
+
+        CustomDate d1 = new CustomDate(893482340000L);
+        CustomDate d2 = new CustomDate();
+
+        d1.displayDate();
+        d2.displayDate();
+
     }
 
 

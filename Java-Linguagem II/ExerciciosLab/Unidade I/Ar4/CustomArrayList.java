@@ -27,15 +27,20 @@ public class CustomArrayList {
        return new ArrayList<T>(setArray);
     }
 
-    public static Integer sum(ArrayList<Integer> list) {
-        return list.stream().reduce(0, Integer::sum);
+    public static Double sum(ArrayList<Double> list) {
+        return list.stream().reduce(0.0, Double::sum);
     }
 
     public static void main(String[] args) {
 
         ArrayList<Double> a1 = new ArrayList<>(Arrays.asList(1.0009, 1.009, 1.00, 1.000));
+        ArrayList<Double> noDuplicates = removeDuplicates(a1);
+        ArrayList<Double> join = joinArrays(a1, noDuplicates);
 
-        showArray(removeDuplicates(a1));
+        System.out.println(sum(a1));
+
+        showArray(noDuplicates);
+        showArray(join);
 
 
     }
