@@ -1,0 +1,1 @@
+- Exercícios de Algoritmos | Primeiro Período de Ciências da Computação
