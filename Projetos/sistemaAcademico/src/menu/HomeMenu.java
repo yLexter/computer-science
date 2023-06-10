@@ -2,18 +2,23 @@ package menu;
 import erros.*;
 import interfaces.*;
 import utils.DataInput;
+import utils.Global;
 
 import java.util.*;
 public class HomeMenu implements ISubMenu {
-    private record Option1(String label) implements ISubMenuOption {
+    private Map<Integer, ISubMenuOption> options = null;
+    private record OptionLogin(String label) implements ISubMenuOption {
+
         @Override
         public void run() {
 
+            Scanner scanner = Global.getScanner();
             String registration, password;
 
             try {
-                registration = DataInput.getStringByUser("Digite a matricula", DataInput::validStringInput);
-                password = DataInput.getStringByUser("Digite a senha", DataInput::validStringInput);
+                registration = DataInput.getDataByUser("Digite a matricula", DataInput::validStringInput);
+
+
             } catch (UserLeftMenuException err) {
                 return;
             }
@@ -22,17 +27,21 @@ public class HomeMenu implements ISubMenu {
     }
     @Override
     public Map<Integer, ISubMenuOption> getOptions() {
-        Map<Integer, ISubMenuOption>  options = new LinkedHashMap<>();
 
-        options.put(1, new Option1("Fazer Login"));
+        if (options != null)
+            return options;
 
-        return options;
+        Map<Integer, ISubMenuOption> newOptions = new LinkedHashMap<>();
+
+        newOptions.put(1, new OptionLogin("Fazer Login"));
+
+        return options = newOptions;
     }
 
     @Override
     public void run() {
-        Menu subMenu = new Menu(getOptions());
-        subMenu.run();
+        Menu menu = new Menu(getOptions());
+        menu.run();
     }
 
 

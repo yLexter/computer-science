@@ -1,9 +1,9 @@
 package menu;
 import interfaces.*;
 import utils.Decoration;
-import utils.SingleScanner;
-
+import utils.Global;
 import java.util.*;
+
 public class Menu {
     private final Map<Integer, ISubMenuOption> options;
     public Menu(Map<Integer, ISubMenuOption> options) {
@@ -12,7 +12,7 @@ public class Menu {
 
     void run() {
 
-        Scanner scanner = SingleScanner.getScanner();
+        Scanner scanner = Global.getScanner();
         int intOption;
 
         while(true) {

@@ -13,40 +13,20 @@ public class DataInput {
            throw new IllegalArgumentException("A String não pode ser vazia");
     }
 
-    public static String getStringByUser(String labelInput, Consumer<String> validInput) {
 
-        Scanner input = SingleScanner.getScanner();
-        String finalOutput = null;
+    public static <T> T getDataByUser(String labelInput, Consumer<T> validInput, Function<String, T> convertType) {
 
-        do {
-            try {
-               System.out.println(labelInput + " Ou %s para sair".formatted(exitInputString));
-               String currentOutput = input.nextLine();
-
-               checkUserLeftMenu(currentOutput);
-               validInput.accept(currentOutput);
-               finalOutput = currentOutput;
-            } catch(IllegalArgumentException err) {
-                System.out.printf("Error: %s", err.getMessage());
-            }
-
-        } while (finalOutput == null);
-
-        return finalOutput;
-    }
-
-    public static Integer getIntByUser(String labelInput, Consumer<Integer> validInput) {
-
-        Integer finalOutput = null, currentOutput;
-        Scanner input = SingleScanner.getScanner();
+        Scanner input = Global.getScanner();
+        T finalOutput = null, currentOutput = null;
 
         do {
             try {
                 System.out.println(labelInput + " Ou %s para sair".formatted(exitInputString));
-                String stringOutput = input.nextLine();
+                String currentOutputString = input.nextLine();
 
-                checkUserLeftMenu(stringOutput);
-                currentOutput = Integer.parseInt(stringOutput);
+                checkUserLeftMenu(currentOutputString);
+                currentOutput = convertType.apply(currentOutputString);
+
                 validInput.accept(currentOutput);
                 finalOutput = currentOutput;
 
@@ -59,21 +39,21 @@ public class DataInput {
         return finalOutput;
     }
 
-    public static Float getFloatByUser(String labelInput, Consumer<Float> validInput) {
+    public static String getDataByUser(String labelInput, Consumer<String> validInput) {
 
-        Float finalOutput = null, currentOutput;
-        Scanner input = SingleScanner.getScanner();
+        Scanner input = Global.getScanner();
+        String finalOutput = null, currentOutput = null;
 
         do {
             try {
                 System.out.println(labelInput + " Ou %s para sair".formatted(exitInputString));
-                String stringOutput = input.nextLine();
 
-                checkUserLeftMenu(stringOutput);
+                currentOutput = input.nextLine();
+                checkUserLeftMenu(currentOutput);
 
-                currentOutput = Float.parseFloat(stringOutput);
                 validInput.accept(currentOutput);
                 finalOutput = currentOutput;
+
             } catch(IllegalArgumentException err) {
                 System.out.printf("Error: %s", err.getMessage());
             }
@@ -82,6 +62,8 @@ public class DataInput {
 
         return finalOutput;
     }
+
+
 
     public static void checkUserLeftMenu(String string) {
         if (string.equals(exitInputString))

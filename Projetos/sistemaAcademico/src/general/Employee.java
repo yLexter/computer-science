@@ -1,10 +1,5 @@
 package general;
-
-enum Role {
-    STUDENT,
-    TEACHER,
-    COORDINATOR
-}
+import utils.Role;
 
 public class Employee {
     private String name;
