@@ -3,6 +3,7 @@ import general.Employee;
 import interfaces.IModelDatabase;
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class DatabaseMemory<T extends Employee> implements IModelDatabase<T> {
     private final List<T> data;
@@ -31,7 +32,7 @@ public class DatabaseMemory<T extends Employee> implements IModelDatabase<T> {
     }
 
     @Override
-    public Employee get(Predicate<T> callback) {
+    public T findOne(Predicate<T> callback) {
         return data
                 .stream()
                 .filter(callback)
@@ -40,19 +41,26 @@ public class DatabaseMemory<T extends Employee> implements IModelDatabase<T> {
     }
 
     @Override
-    public Employee authenticate(String registration, String password) {
-        return get(employee -> employee.getPassword().equals(password) && employee.getId().equals(registration));
+    public List<T> findMany(Predicate<T> callback) {
+        return data
+                .stream()
+                .filter(callback)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Employee geById(String id) {
-        return get(employee -> employee.getId().equals(id));
+    public T authenticate(String registration, String password) {
+        return findOne(employee -> employee.getPassword().equals(password) && employee.getId().equals(registration));
     }
 
+    @Override
+    public T findById(String id) {
+        return findOne(employee -> employee.getId().equals(id));
+    }
 
     @Override
-    public Employee geByCpf(String cpf) {
-        return get(employee -> employee.getCpf().equals(cpf));
+    public T findByCpf(String cpf) {
+        return findOne(employee -> employee.getCpf().equals(cpf));
     }
 
 

@@ -1,18 +1,18 @@
 package utils;
 
 import erros.*;
+import general.Subject;
 import java.time.LocalDate;
-import java.util.Scanner;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.regex.*;
-import java.util.Map;
-import java.util.List;
-import java.util.ArrayList;
 
+
+// ToDo Melhorar a forma de saida dos formularios
 public class DataInput {
 
-    public static record Option<T> (String label, T option) {
+    public record ChoiseOption<T> (String label, T option) {
 
         public String getLabel() {
             return label;
@@ -34,15 +34,15 @@ public class DataInput {
     public static int validAge(String integer) {
         int toInt = Integer.parseInt(integer);
 
-        if(toInt < 0)
-          throw new Error("O número fornecido precisa ser positivo");
+        if(toInt <= 0)
+          throw new IllegalArgumentException("O número fornecido precisa ser positivo");
 
         return toInt;
     }
 
     public static void validCpf(String cpf) {
         if(!cpf.matches("(\\d{3}).(\\d{3}).(\\d{3})-(\\d{2})"))
-           throw new Error("O cpf não está no formato XXX.XXX.XXX-XX");
+           throw new IllegalArgumentException("O cpf não está no formato XXX.XXX.XXX-XX");
     }
 
     public static LocalDate validDate(String date) {
@@ -50,7 +50,7 @@ public class DataInput {
         Matcher match = regex.matcher(date);
 
         if(!match.find())
-            throw new Error("A Data não está no formato XX/XX/XXXX");
+            throw new IllegalArgumentException("A Data não está no formato XX/XX/XXXX");
 
         return LocalDate.of(
             Integer.parseInt(match.group(3)),
@@ -74,8 +74,9 @@ public class DataInput {
                 finalOutput = validInput.apply(currentInput);
 
             } catch(IllegalArgumentException err) {
-                System.out.printf("Error: %s", err.getMessage());
+                System.out.printf("Error: %s\n", err.getMessage());
             }
+
 
         } while (finalOutput == null);
 
@@ -98,7 +99,7 @@ public class DataInput {
                 finalOutput = currentOutput;
 
             } catch(IllegalArgumentException err) {
-                System.out.printf("Error: %s", err.getMessage());
+                System.out.printf("Error: %s\n", err.getMessage());
             }
 
         } while (finalOutput == null);
@@ -106,7 +107,7 @@ public class DataInput {
         return finalOutput;
     }
 
-    public <T> T getOptionByUser(Map<Integer, Option<T>> options) {
+    public static <T> T getOptionByUser(Map<Integer, ChoiseOption<T>> options) {
 
         T optionSelected = null;
         Scanner scanner = Global.getScanner();
@@ -138,7 +139,7 @@ public class DataInput {
         return optionSelected;
     }
 
-    public <T> List<T> getOptionsByUser(Map<Integer, Option<T>> options) {
+    public static <T> List<T> getOptionsByUser(Map<Integer, ChoiseOption<T>> options) {
 
         List<T> optionsSelected = new ArrayList<>();
         Scanner scanner = Global.getScanner();
@@ -173,8 +174,8 @@ public class DataInput {
         return optionsSelected;
     }
 
-    public static <T> void showOptions(Map<Integer, Option<T>> options) {
-        for(Map.Entry<Integer, Option<T>> entry : options.entrySet())
+    public static <T> void showOptions(Map<Integer, ChoiseOption<T>> options) {
+        for(Map.Entry<Integer, ChoiseOption<T>> entry : options.entrySet())
             System.out.printf("%d. %s\n", entry.getKey(), entry.getValue().getLabel());
     }
 
@@ -183,7 +184,16 @@ public class DataInput {
             throw new UserLeftMenuException();
     }
 
+    public static <T extends Subject> Map<Integer, ChoiseOption<T>> mapSubjectToSubjectOptions(List<T> subjects) {
+        HashMap<Integer, ChoiseOption<T>> mapSubject = new HashMap<>();
 
+        int count = 1;
+
+        for(T subject : subjects)
+            mapSubject.put(count++, new ChoiseOption<>(subject.getName(), subject));
+
+        return mapSubject;
+    }
 
 
 }

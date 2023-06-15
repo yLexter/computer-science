@@ -16,7 +16,7 @@ public class DatabaseStudent {
     }
 
     public List<SubjectStudent> getSubjectsStudent(String id) {
-       Student student = (Student) db.geById(id);
+       Student student = db.findById(id);
 
        if (student == null)
            throw new DatabaseException(ErrorMessage.EMPLOYEE_NOT_FOUND);
@@ -25,7 +25,7 @@ public class DatabaseStudent {
     }
 
     public List<SubjectStudent> getHistoric(String id) {
-        Student student = (Student) db.geById(id);
+        Student student = db.findById(id);
 
         if (student == null)
             throw new DatabaseException(ErrorMessage.EMPLOYEE_NOT_FOUND);

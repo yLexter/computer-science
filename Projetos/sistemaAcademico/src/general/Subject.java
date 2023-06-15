@@ -7,6 +7,7 @@ public class Subject {
     private String code;
     private String name;
     private int hours;
+
     public Subject(String code, String name, int hours) {
         this.code = code;
         this.name = name;
@@ -35,6 +36,10 @@ public class Subject {
 
     public void setHours(int hours) {
         this.hours = hours;
+    }
+
+    public SubjectStudent ToSubjectStudent() {
+        return new SubjectStudent(code, name, hours);
     }
 
 

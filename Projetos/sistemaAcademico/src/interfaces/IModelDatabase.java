@@ -9,8 +9,12 @@ public interface IModelDatabase<T extends Employee> {
     void update(T Employee);
     void delete(T Employee);
     void save(T Employee);
-    Employee get(Predicate<T> callback);
-    Employee authenticate(String registration, String password);
-    Employee geByCpf(String cpf);
-    Employee geById(String id);
+    T findOne(Predicate<T> callback);
+    T authenticate(String registration, String password);
+
+    List<T> findMany(Predicate<T> callback);
+
+    T findById(String id);
+
+    T findByCpf(String cpf);
 }

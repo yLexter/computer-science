@@ -5,8 +5,7 @@ import java.security.SecureRandom;
 import java.time.*;
 
 // ToDo implementar password igual a data nascimento e id como matricula
-public class Employee {
-
+public abstract class Employee {
     public static int sizeId = 6;
     private String name;
     private String lastName;
