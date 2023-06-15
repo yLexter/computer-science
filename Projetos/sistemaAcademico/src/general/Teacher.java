@@ -2,15 +2,29 @@ package general;
 
 import utils.Role;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class Teacher extends Employee {
-    private Double salary;
-    private List<Subject> subjects;
+    private double salary;
+    private List<SubjectTeatcher> subjects;
 
-    public Teacher(String name, String lastName, int age, String dateOfBirth, String registration, Role role, String cpf, String password, Double salary, List<Subject> subjects) {
-        super(name, lastName, age, dateOfBirth, registration, role, cpf, password);
-        this.salary = salary;
+    public Teacher(String name, String lastName, int age, LocalDate dateOfBirth, Role role, String cpf, List<SubjectTeatcher> subjects, double salary) {
+        super(name, lastName, age, dateOfBirth, role, cpf);
         this.subjects = subjects;
+
+        if (salary < 0) {
+            throw new RuntimeException("O valor do salário deve ser positivo!");
+        }
+
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public double getSalary() {
+        return salary;
     }
 }
+

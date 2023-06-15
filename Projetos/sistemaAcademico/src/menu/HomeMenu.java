@@ -1,8 +1,11 @@
 package menu;
-import erros.*;
+import database.Database;
+import database.DatabaseMemory;
+import general.AcademicSystem;
+import general.Employee;
 import interfaces.*;
 import utils.DataInput;
-import utils.Global;
+import utils.Role;
 
 import java.util.*;
 public class HomeMenu implements ISubMenu {
@@ -12,30 +15,25 @@ public class HomeMenu implements ISubMenu {
         @Override
         public void run() {
 
-            Scanner scanner = Global.getScanner();
+            AcademicSystem db = new AcademicSystem(new Database());
             String registration, password;
+            Employee employee;
 
-            try {
-                registration = DataInput.getDataByUser("Digite a matricula", DataInput::validStringInput);
+            registration = DataInput.getDataByUser("Digite a matricula", DataInput::validStringInput);
+            password = DataInput.getDataByUser("Digite a senha", DataInput::validStringInput);
+            employee = db.autenticate(registration, password);
 
-
-            } catch (UserLeftMenuException err) {
-                return;
-            }
-
+            loginEmployee(employee);
         }
     }
     @Override
     public Map<Integer, ISubMenuOption> getOptions() {
 
-        if (options != null)
-            return options;
-
         Map<Integer, ISubMenuOption> newOptions = new LinkedHashMap<>();
 
         newOptions.put(1, new OptionLogin("Fazer Login"));
 
-        return options = newOptions;
+        return  newOptions;
     }
 
     @Override
@@ -44,6 +42,31 @@ public class HomeMenu implements ISubMenu {
         menu.run();
     }
 
+    public static void loginEmployee(Employee employee) {
+
+        if (employee.getRole().equals(Role.STUDENT)) {
+            ISubMenu menu = new StudentMenu();
+            Menu menuManager = new Menu(menu.getOptions());
+            menuManager.run();
+            return;
+        }
+
+        if (employee.getRole().equals(Role.COORDINATOR)) {
+            ISubMenu menu = new CoordinatorMenu();
+            Menu menuManager = new Menu(menu.getOptions());
+            menuManager.run();
+            return;
+        }
+
+        if (employee.getRole().equals(Role.TEACHER)){
+            ISubMenu menu = new TeacherMenu();
+            Menu menuManager = new Menu(menu.getOptions());
+            menuManager.run();
+            return;
+        }
+
+        throw new RuntimeException("Role provided is invalid");
+    }
 
 
 

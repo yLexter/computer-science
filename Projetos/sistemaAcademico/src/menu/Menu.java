@@ -1,4 +1,6 @@
 package menu;
+import erros.DatabaseException;
+import erros.UserLeftMenuException;
 import interfaces.*;
 import utils.Decoration;
 import utils.Global;
@@ -34,7 +36,9 @@ public class Menu {
              } catch(NumberFormatException err) {
                 Decoration.clearScreen();
                 System.out.println("Forneça um número inteiro válido.");
-            }
+             } catch (DatabaseException err) {
+                 System.out.printf("ERROR: %s\n", err.getMessage());
+             } catch (UserLeftMenuException ignored) {}
 
         }
     }

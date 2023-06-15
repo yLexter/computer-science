@@ -1,5 +1,6 @@
 package utils;
 
+import database.Database;
 import java.util.Scanner;
 
 public class Global {
@@ -8,6 +9,11 @@ public class Global {
         if (scanner != null)
             return scanner;
         return scanner = new Scanner(System.in);
+    }
+
+    public Database getDatabase() {
+        // ToDo instancia de Database
+        return null;
     }
 
 }

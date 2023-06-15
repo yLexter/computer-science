@@ -2,52 +2,58 @@ package database;
 import general.Employee;
 import interfaces.IModelDatabase;
 import java.util.*;
+import java.util.function.Predicate;
 
-public class DatabaseMemory implements IModelDatabase {
-    private List<Employee> data;
-
-    DatabaseMemory(List<Employee> data){
+public class DatabaseMemory<T extends Employee> implements IModelDatabase<T> {
+    private final List<T> data;
+    public DatabaseMemory() {
         this.data = new ArrayList<>();
     }
     @Override
-    public void connect() throws Exception {}
-
-    @Override
-    public List<Employee> getAllEmployees() {
+    public List<T> getAll() {
         return data;
     }
 
     @Override
-    public void updateEmployee(Employee employee) {
-        deleteEmployee(employee);
+    public void update(T employee) {
+        delete(employee);
         save(employee);
     }
 
     @Override
-    public void deleteEmployee(Employee employee) {
-         data.remove(employee);
+    public void delete(T employee) {
+        data.remove(employee);
     }
 
     @Override
-    public void save(Employee employee) {
+    public void save(T employee) {
         data.add(employee);
     }
 
     @Override
-    public Employee getEmployeeByCpf(String cpf) {
+    public Employee get(Predicate<T> callback) {
         return data
                 .stream()
-                .filter(employee -> employee.getCpf().equals(cpf))
+                .filter(callback)
                 .findAny()
                 .orElse(null);
     }
 
     @Override
-    public Employee authenticateEmployee(String registration, String password) {
-        return data
-                .stream()
-                .filter(employee -> employee.getPassword().equals(password) && employee.getRegistration().equals(registration))
-                .findAny()
-                .orElse(null);
+    public Employee authenticate(String registration, String password) {
+        return get(employee -> employee.getPassword().equals(password) && employee.getId().equals(registration));
     }
+
+    @Override
+    public Employee geById(String id) {
+        return get(employee -> employee.getId().equals(id));
+    }
+
+
+    @Override
+    public Employee geByCpf(String cpf) {
+        return get(employee -> employee.getCpf().equals(cpf));
+    }
+
+
 }
