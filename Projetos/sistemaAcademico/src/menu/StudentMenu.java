@@ -55,13 +55,15 @@ public class StudentMenu implements ISubMenu {
 
 
         }
+
+
     }
 
     private record OptionShowCurriculum(String label) implements ISubMenuOption {
 
         @Override
         public void run() {
-            List<Subject> allSubjects = AcademicSystem.getSubjects();
+            List<Subject> allSubjects = Utils.getSubjects();
             Subject biggestNameSubject = Utils.getSubjectWithBiggerName(allSubjects);
 
             System.out.println("+----------+-------+--------+-----------+----------------------");
@@ -100,8 +102,7 @@ public class StudentMenu implements ISubMenu {
 
     @Override
     public void run() {
-        Menu menu = new Menu(getOptions());
-        menu.run();
+        new Menu(this).run();
     }
 
 

@@ -12,5 +12,7 @@ public class Database {
     public IModelDatabase<Coordinator> coordinators;
     public IModelDatabase<Teacher> teachers;
 
+    public DatabaseGeneralInformation generalInformation;
+
 
 }

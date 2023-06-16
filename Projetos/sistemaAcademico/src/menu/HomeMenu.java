@@ -38,7 +38,7 @@ public class HomeMenu implements ISubMenu {
 
     @Override
     public void run() {
-        Menu menu = new Menu(getOptions());
+        Menu menu = new Menu(this);
         menu.run();
     }
 
@@ -46,21 +46,21 @@ public class HomeMenu implements ISubMenu {
 
         if (employee.getRole().equals(Role.STUDENT)) {
             ISubMenu menu = new StudentMenu();
-            Menu menuManager = new Menu(menu.getOptions());
+            Menu menuManager = new Menu(menu);
             menuManager.run();
             return;
         }
 
         if (employee.getRole().equals(Role.COORDINATOR)) {
             ISubMenu menu = new CoordinatorMenu();
-            Menu menuManager = new Menu(menu.getOptions());
+            Menu menuManager = new Menu(menu);
             menuManager.run();
             return;
         }
 
         if (employee.getRole().equals(Role.TEACHER)){
             ISubMenu menu = new TeacherMenu();
-            Menu menuManager = new Menu(menu.getOptions());
+            Menu menuManager = new Menu(menu);
             menuManager.run();
             return;
         }

@@ -9,7 +9,7 @@ import java.util.function.Function;
 import java.util.regex.*;
 
 
-// ToDo Melhorar a forma de saida dos formularios
+// ToDo Melhorar a forma de saida dos formularios e no geral
 public class DataInput {
 
     public record ChoiseOption<T> (String label, T option) {
@@ -107,7 +107,7 @@ public class DataInput {
         return finalOutput;
     }
 
-    public static <T> T getOptionByUser(Map<Integer, ChoiseOption<T>> options) {
+    public static <T> T getOptionByUser(Map<Integer, ChoiseOption<T>> options, String label) {
 
         T optionSelected = null;
         Scanner scanner = Global.getScanner();
@@ -116,6 +116,7 @@ public class DataInput {
         do {
 
             try {
+                System.out.println(label);
                 showOptions(options);
                 System.out.println("Digite a opção desejada: ");
                 String stringOption = scanner.nextLine();
@@ -194,6 +195,27 @@ public class DataInput {
 
         return mapSubject;
     }
+
+    public static Boolean getConfirmationByUser(String label){
+        Map<Integer, ChoiseOption<Boolean>> options = new HashMap<>();
+
+        options.put(1, new ChoiseOption<>("Sim", true));
+        options.put(2, new ChoiseOption<>("Não", false));
+
+        return getOptionByUser(options, label);
+    }
+
+    public static <T> Map<Integer, ChoiseOption<T>> convertListToOptionMap(List<T> list, Function<T,String> getLabel) {
+        Map<Integer, ChoiseOption<T>> options = new HashMap<>();
+
+        int count = 0;
+
+        for(T option : list)
+            options.put(++count, new ChoiseOption<>(getLabel.apply(option), option));
+
+        return options;
+    }
+
 
 
 }

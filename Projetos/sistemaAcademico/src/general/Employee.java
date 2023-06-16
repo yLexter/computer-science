@@ -1,11 +1,12 @@
 package general;
+import utils.DataInput;
 import utils.Role;
 
 import java.security.SecureRandom;
 import java.time.*;
 
 // ToDo implementar password igual a data nascimento e id como matricula
-public abstract class Employee {
+public class Employee {
     public static int sizeId = 6;
     private String name;
     private String lastName;
@@ -94,6 +95,20 @@ public abstract class Employee {
             id.append(random.nextInt(9));
 
         return id.toString();
+    }
+
+    public static Employee createEmployeeByUser(Role role) {
+        String name, lastName, cpf;
+        LocalDate dathOfBirth;
+        int age;
+
+        name = DataInput.getDataByUser("Digite o nome", DataInput::validStringInput);
+        lastName = DataInput.getDataByUser("Digite o sobrenome", DataInput::validStringInput);
+        cpf = DataInput.getDataByUser("Digite o CPF no formato XXX.XXX.XXX-XX", DataInput::validCpf);
+        age = DataInput.getDataByUser("Digite a idade", DataInput::validAge);
+        dathOfBirth = DataInput.getDataByUser("Digite a data de nascimento no formato XX/XX/XXXX", DataInput::validDate);
+
+        return new Employee(name, lastName, age, dathOfBirth, role, cpf);
     }
 
 

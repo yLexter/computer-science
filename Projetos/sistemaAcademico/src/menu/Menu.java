@@ -7,9 +7,12 @@ import utils.Global;
 import java.util.*;
 
 public class Menu {
+    private final ISubMenu menu;
     private final Map<Integer, ISubMenuOption> options;
-    public Menu(Map<Integer, ISubMenuOption> options) {
-        this.options = options;
+
+    public Menu(ISubMenu menu) {
+        this.menu = menu;
+        this.options = menu.getOptions();
     }
 
     void run() {

@@ -1,9 +1,6 @@
 package menu;
 
-import general.AcademicSystem;
-import general.Student;
-import general.Subject;
-import general.SubjectStudent;
+import general.*;
 import interfaces.ISubMenu;
 import interfaces.ISubMenuOption;
 import utils.DataInput;
@@ -15,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import utils.DataInput.ChoiseOption;
+import utils.Utils;
 
 // ToDo Pegar as cadeiras do bancos de dados e não do metodo estatico
 public class CoordinatorMenu implements ISubMenu {
@@ -24,36 +22,25 @@ public class CoordinatorMenu implements ISubMenu {
         @Override
         public void run() {
 
-            Student student;
-            LocalDate dathOfBirth;
-            int age;
-            String name, lastName, cpf;
-
+            Employee employee = Employee.createEmployeeByUser(Role.STUDENT);
             Map<Integer, ChoiseOption<SubjectStudent>> optionsChoiseSubject =
                     DataInput.mapSubjectToSubjectOptions(
-                            AcademicSystem.getSubjects()
+                            Utils.getSubjects()
                                     .stream()
                                     .map(Subject::ToSubjectStudent)
                                     .collect(Collectors.toList())
                     );
 
-           List<SubjectStudent> options;
+           List<SubjectStudent> subjects = DataInput.getOptionsByUser(optionsChoiseSubject);
 
-            name = DataInput.getDataByUser("Digite o nome", DataInput::validStringInput);
-            lastName = DataInput.getDataByUser("Digite o sobrenome", DataInput::validStringInput);
-            cpf = DataInput.getDataByUser("Digite o CPF no formato XXX.XXX.XXX-XX", DataInput::validCpf);
-            age = DataInput.getDataByUser("Digite a idade", DataInput::validAge);
-            dathOfBirth = DataInput.getDataByUser("Digite a data de nascimento no formato XX/XX/XXXX", DataInput::validDate);
-            options = DataInput.getOptionsByUser(optionsChoiseSubject);
-
-          student = new Student(
-                name,
-                lastName,
-                age,
-                dathOfBirth,
-                Role.STUDENT,
-                cpf,
-                options,
+           Student student = new Student(
+                employee.getName(),
+                employee.getLastName(),
+                employee.getAge(),
+                employee.getDateOfBirth(),
+                employee.getRole(),
+                employee.getCpf(),
+                subjects,
                 "CC"
             );
 
@@ -64,6 +51,31 @@ public class CoordinatorMenu implements ISubMenu {
 
         @Override
         public void run() {
+
+            Employee employee = Employee.createEmployeeByUser(Role.TEACHER);
+            Double salary = DataInput.getDataByUser("Digite o salario do professor",
+                    (x) -> {
+                        Double convert = Double.parseDouble(x);
+
+                        if (convert <= 0)
+                            throw new RuntimeException("Salario menor igual a 0");
+
+                        return convert;
+                    }
+            );
+
+
+            Teacher teacher = new Teacher(
+                    employee.getName(),
+                    employee.getLastName(),
+                    employee.getAge(),
+                    employee.getDateOfBirth(),
+                    employee.getRole(),
+                    employee.getCpf(),
+                    null,
+                    salary
+            );
+
 
         }
     }
@@ -80,8 +92,7 @@ public class CoordinatorMenu implements ISubMenu {
 
     @Override
     public void run() {
-        Menu menu = new Menu(getOptions());
-        menu.run();
+       new Menu(this).run();
     }
 
 }

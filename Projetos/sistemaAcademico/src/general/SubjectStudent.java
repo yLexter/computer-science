@@ -9,7 +9,6 @@ public class SubjectStudent extends Subject {
     private Integer absences = 0;
     private Float finalExameScore = null;
     private String status = "Pending";
-    private List<SubjectStudent> subjects;
 
     public SubjectStudent(String code, String name, int hours) {
         super(code, name, hours);
@@ -21,7 +20,6 @@ public class SubjectStudent extends Subject {
         this.absences = absences;
         this.finalExameScore = finalExameScore;
         this.status = status;
-        this.subjects = subjects;
     }
 
     public Float getAverage() {
@@ -70,24 +68,10 @@ public class SubjectStudent extends Subject {
         this.status = status;
     }
 
-    public List<SubjectStudent> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(List<SubjectStudent> subjects) {
-        this.subjects = subjects;
-    }
-
     public Teacher getTeacher() {
         // ToDo: Buscar no banco de dados o professor referente a esta máteria
         return null;
     }
-
-
-
-
-
-
 
 
 }
