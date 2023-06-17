@@ -146,6 +146,7 @@ public class DataInput {
         List<T> optionsSelected = new ArrayList<>();
         Scanner scanner = Global.getScanner();
         int intOption;
+        T option;
 
         do {
             try {
@@ -159,11 +160,19 @@ public class DataInput {
 
                 intOption = Integer.parseInt(stringOption);
 
-                if (options.containsKey(intOption)) {
-                    optionsSelected.add(options.get(intOption).getOption());
-                } else {
+                if (!options.containsKey(intOption)) {
                     System.out.println("Opção inválida");
+                    continue;
                 }
+
+                option = options.get(intOption).getOption();
+
+                if (optionsSelected.contains(option)) {
+                    System.out.println("Opção já selecionada");
+                    continue;
+                }
+
+                optionsSelected.add(option);
 
                 Decoration.clearScreen();
 

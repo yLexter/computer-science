@@ -1,6 +1,8 @@
 package utils;
 
+import database.*;
 import general.AcademicSystem;
+import general.GeneralInformation;
 
 import java.util.Scanner;
 
@@ -16,8 +18,28 @@ public class Global {
     public static AcademicSystem getAcademicSystem() {
         if (academicSystem != null)
             return academicSystem;
-        return academicSystem = new AcademicSystem();
+
+        GeneralInformation generalInformation = new GeneralInformation(
+              "Computação",
+              2,
+              false,
+              "1.0.0"
+        );
+
+        Database db = new Database(
+          new DatabaseStudent(),
+          new DatabaseTeatcher(),
+          new DatabaseAdmin(),
+          new DatabaseSubjects(DatabaseSubjects.getSubjects()),
+          new DatabaseGeneralInformation(generalInformation),
+          new DatabaseCollegeClass()
+        );
+
+        return academicSystem = new AcademicSystem(db);
     }
+
+
+
 
 
 }

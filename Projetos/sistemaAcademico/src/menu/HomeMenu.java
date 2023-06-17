@@ -16,7 +16,7 @@ public class HomeMenu implements ISubMenu {
 
         registration = DataInput.getDataByUser("Digite a matricula", DataInput::validStringInput);
         password = DataInput.getDataByUser("Digite a senha", DataInput::validStringInput);
-        employee = db.autenticate(registration, password);
+        employee = db.autenticate(registration.toLowerCase(), password);
 
         loginEmployee(employee);
     }
@@ -46,7 +46,7 @@ public class HomeMenu implements ISubMenu {
             return;
         }
 
-        if (employee.getRole().equals(Role.COORDINATOR)) {
+        if (employee.getRole().equals(Role.ADMIN)) {
             Admin admin = (Admin) employee;
             ISubMenu menu = new AdminMenu(admin);
             MenuExecutor menuExecutor = new MenuExecutor(menu);

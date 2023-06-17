@@ -18,7 +18,7 @@ import utils.DataInput.ChoiseOption;
 // ToDo implementar uma forma de passar o academy system para as classes menu
 public class AdminMenu implements ISubMenu {
 
-    private Admin admin;
+    private final Admin admin;
 
     public AdminMenu(Admin admin) {
         this.admin = admin;
@@ -36,7 +36,6 @@ public class AdminMenu implements ISubMenu {
             employee.getLastName(),
             employee.getAge(),
             employee.getDateOfBirth(),
-            employee.getRole(),
             employee.getCpf(),
             null,
             academicSystem.db.generalInformation.data.getCourse()
@@ -98,9 +97,7 @@ public class AdminMenu implements ISubMenu {
                 employee.getLastName(),
                 employee.getAge(),
                 employee.getDateOfBirth(),
-                employee.getRole(),
                 employee.getCpf(),
-                null,
                 salary
         );
 

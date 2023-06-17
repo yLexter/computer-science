@@ -54,8 +54,5 @@ public class MenuExecutor {
         System.out.printf("%d. Sair\n", options.size() + 1);
     }
 
-    public static void main(String[] args) {
-        new HomeMenu().run();
-    }
 
 }

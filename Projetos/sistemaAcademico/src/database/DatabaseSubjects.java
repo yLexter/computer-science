@@ -15,7 +15,6 @@ public class DatabaseSubjects implements IModelDatabase<Subject> {
     public DatabaseSubjects(List<Subject> subjects) {
         this.subjects = subjects;
     }
-
     @Override
     public List<Subject> getAll() {
         return new ArrayList<>(subjects);

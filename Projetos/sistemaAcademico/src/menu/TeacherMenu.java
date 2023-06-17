@@ -24,9 +24,11 @@ public class TeacherMenu implements ISubMenu {
     private void OptionRegisterClass() {
 
             AcademicSystem academicSystem = Global.getAcademicSystem();
+            List<CollegeClass> collegeClassesTeatcher =  academicSystem.db.collegeClass
+                    .findMany(collegeClass -> collegeClass.getTeacher().getId().equals(teacher.getId()));
 
             CollegeClass chosenClass = DataInput.getOptionFromListByUser(
-                    teacher.getCollegeClasses(),
+                    collegeClassesTeatcher,
                     CollegeClass::getName,
                     "Escolha uma Turma"
             );

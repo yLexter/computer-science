@@ -9,8 +9,8 @@ public class Student extends Employee {
     private String course;
     private List<SubjectStudent> historic;
 
-    public Student(String name, String lastName, int age, LocalDate dateOfBirth, Role role, String cpf, List<SubjectStudent> subjects, String course) {
-        super(name, lastName, age, dateOfBirth, role, cpf);
+    public Student(String name, String lastName, int age, LocalDate dateOfBirth, String cpf, List<SubjectStudent> subjects, String course) {
+        super(name, lastName, age, dateOfBirth, Role.STUDENT, cpf);
         this.subjects = subjects;
         this.course = course;
     }

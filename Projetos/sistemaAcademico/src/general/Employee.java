@@ -4,10 +4,11 @@ import utils.Role;
 
 import java.security.SecureRandom;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 // ToDo implementar password igual a data nascimento e id como matricula
 public class Employee {
-    public static int sizeId = 6;
+    public static int sizeId = 8;
     private String name;
     private String lastName;
     private final String cpf;
@@ -24,8 +25,8 @@ public class Employee {
         this.dateOfBirth = dateOfBirth;
         this.role = role;
         this.cpf = cpf;
-        this.id = "15";
-        this.password = "15";
+        this.id = generateId();
+        this.password = formatDateOfBirthToPassword();
     }
 
     public String getName() {
@@ -95,6 +96,12 @@ public class Employee {
             id.append(random.nextInt(9));
 
         return id.toString();
+    }
+
+    public String formatDateOfBirthToPassword() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy");
+
+        return this.dateOfBirth.format(formatter);
     }
 
     public static Employee createEmployeeByUser(Role role) {
