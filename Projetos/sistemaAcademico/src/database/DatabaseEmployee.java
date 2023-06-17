@@ -6,15 +6,14 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class DatabaseEmployee<T extends Employee> implements IDatabaseEmployee<T> {
-    private final List<T> data;
+    private List<T> data;
     public DatabaseEmployee() {
         this.data = new ArrayList<>();
     }
     @Override
     public List<T> getAll() {
-        return data;
+        return new ArrayList<>(data);
     }
-
     @Override
     public void update(String id, T employee) {
         delete(id);
@@ -65,5 +64,9 @@ public class DatabaseEmployee<T extends Employee> implements IDatabaseEmployee<T
         return findOne(employee -> employee.getCpf().equals(cpf));
     }
 
+    @Override
+    public void updateAll(List<T> data) {
+        this.data = data;
+    }
 
 }

@@ -18,7 +18,7 @@ public class DatabaseSubjects implements IModelDatabase<Subject> {
 
     @Override
     public List<Subject> getAll() {
-        return subjects;
+        return new ArrayList<>(subjects);
     }
 
     @Override
@@ -59,6 +59,11 @@ public class DatabaseSubjects implements IModelDatabase<Subject> {
                 .filter(callback)
                 .findAny()
                 .orElse(null);
+    }
+
+    @Override
+    public void updateAll(List<Subject> subjects) {
+        this.subjects = subjects;
     }
 
     public static List<Subject> getSubjects() {

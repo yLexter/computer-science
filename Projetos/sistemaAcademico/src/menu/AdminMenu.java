@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import utils.DataInput.ChoiseOption;
-import utils.Utils;
 
 // ToDo Pegar as cadeiras do bancos de dados e não do metodo estatico
 // ToDo implementar uma forma de passar o academy system para as classes menu
@@ -32,26 +31,20 @@ public class AdminMenu implements ISubMenu {
         Employee employee = Employee.createEmployeeByUser(Role.STUDENT);
         AcademicSystem academicSystem = Global.getAcademicSystem();
 
-        Map<Integer, ChoiseOption<SubjectStudent>> optionsChoiseSubject =
-                DataInput.mapSubjectToSubjectOptions(
-                        academicSystem.db.subjects.getAll()
-                                .stream()
-                                .map(Subject::createSubjectStudent)
-                                .collect(Collectors.toList())
-                );
-
-       List<SubjectStudent> subjects = DataInput.getOptionsByUser(optionsChoiseSubject, "Escolha a cadeoras");
-
-       Student student = new Student(
+        Student student = new Student(
             employee.getName(),
             employee.getLastName(),
             employee.getAge(),
             employee.getDateOfBirth(),
             employee.getRole(),
             employee.getCpf(),
-            subjects,
-            "CC"
+            null,
+            academicSystem.db.generalInformation.data.getCourse()
         );
+
+       Map<Integer, ChoiseOption<SubjectStudent>> optionsChoiseSubject = DataInput.mapSubjectToSubjectOptions(Subject.mapAllToSubjectStudent(student));
+       List<SubjectStudent> subjects = DataInput.getOptionsByUser(optionsChoiseSubject, "Escolha a cadeoras");
+       student.setSubjects(subjects);
 
        academicSystem.db.students.save(student);
     }
@@ -100,9 +93,6 @@ public class AdminMenu implements ISubMenu {
                 }
         );
 
-
-
-
         Teacher teacher = new Teacher(
                 employee.getName(),
                 employee.getLastName(),
@@ -128,7 +118,7 @@ public class AdminMenu implements ISubMenu {
         options.put(2, new OptionMenu("Adicionar estudante", this::optionAddStudent));
         options.put(3, new OptionMenu("Remover estudante", this::optionDeleteStudent));
 
-        options.put(6, new OptionMenu("Mostrar Professores", this::optionShowTeatchers));
+        options.put(6, new OptionMenu("Ver Professores", this::optionShowTeatchers));
         options.put(4, new OptionMenu("Adicionar Professor", this::optionAddTeatcher));
         options.put(5, new OptionMenu("Remover Professor", this::optionDeleteTeatcher));
 
@@ -137,7 +127,7 @@ public class AdminMenu implements ISubMenu {
 
     @Override
     public void run() {
-       new Menu(this).run();
+       new MenuExecutor(this).run();
     }
 
 }

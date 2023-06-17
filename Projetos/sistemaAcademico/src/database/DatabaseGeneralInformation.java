@@ -1,21 +1,15 @@
 package database;
 
-import general.Course;
-
-import java.util.ArrayList;
+import general.GeneralInformation;
+import interfaces.IModelDatabase;
 import java.util.List;
+import java.util.function.Predicate;
 
-public class DatabaseGeneralInformation {
+public class DatabaseGeneralInformation  {
 
-    List<Course> courses;
-
-    public DatabaseGeneralInformation() {
-        this.courses = new ArrayList<>();
+    public final GeneralInformation data;
+    public DatabaseGeneralInformation(GeneralInformation data) {
+        this.data = data;
     }
-
-    public DatabaseGeneralInformation(List<Course> courses) {
-        this.courses = courses;
-    }
-
 
 }

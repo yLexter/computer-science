@@ -121,7 +121,8 @@ public class DataInput {
                 System.out.println("Digite a opção desejada: ");
                 String stringOption = scanner.nextLine();
 
-                checkUserLeftMenu(stringOption);
+                if (stringOption.equals(exitInputString))
+                    break;
 
                 intOption = Integer.parseInt(stringOption);
                 if (options.containsKey(intOption)) {

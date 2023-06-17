@@ -7,9 +7,9 @@ public class CollegeClass extends Subject {
 
         private Teacher teacher;
         private LocalDateTime time;
-        private List<Student> students;
+        private List<SubjectStudent> students;
 
-        public CollegeClass(String code, String name, int hours, Teacher teacher, LocalDateTime time, List<Student> students) {
+        public CollegeClass(String code, String name, int hours, Teacher teacher, LocalDateTime time, List<SubjectStudent> students) {
                 super(code, name, hours);
                 this.teacher = teacher;
                 this.time = time;
@@ -40,11 +40,11 @@ public class CollegeClass extends Subject {
                 this.time = time;
         }
 
-        public List<Student> getStudents() {
+        public List<SubjectStudent> getStudents() {
                 return students;
         }
 
-        public void setStudents(List<Student> students) {
+        public void setStudents(List<SubjectStudent> students) {
                 this.students = students;
         }
 }

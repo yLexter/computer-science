@@ -1,8 +1,11 @@
 package general;
 
+import utils.Global;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Subject {
     private String code;
@@ -39,11 +42,12 @@ public class Subject {
         this.hours = hours;
     }
 
-    public static SubjectStudent createSubjectStudent(Subject subject) {
+    public static SubjectStudent createSubjectStudent(Subject subject, Student student) {
         return new SubjectStudent(
                 subject.getCode(),
                 subject.getName(),
-                subject.getHours()
+                subject.getHours(),
+                student
         );
     }
 
@@ -56,6 +60,16 @@ public class Subject {
             time
         );
     }
+
+    public static List<SubjectStudent> mapAllToSubjectStudent(Student student) {
+        AcademicSystem academicSystem = Global.getAcademicSystem();
+
+        return  academicSystem.db.subjects.getAll()
+                .stream()
+                .map(subject -> Subject.createSubjectStudent(subject, student))
+                .collect(Collectors.toList());
+    }
+
 
 
 }

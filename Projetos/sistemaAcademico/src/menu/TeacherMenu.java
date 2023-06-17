@@ -1,14 +1,16 @@
 package menu;
 
-import general.CollegeClass;
-import general.Subject;
-import general.Teacher;
+import general.*;
 import interfaces.ISubMenu;
 import interfaces.ISubMenuOption;
 import utils.DataInput;
-import utils.DataInput.ChoiseOption;
+import utils.Global;
+
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 // ToDo Implementar o professor nas opções
 public class TeacherMenu implements ISubMenu {
@@ -21,14 +23,26 @@ public class TeacherMenu implements ISubMenu {
 
     private void OptionRegisterClass() {
 
+            AcademicSystem academicSystem = Global.getAcademicSystem();
+
             CollegeClass chosenClass = DataInput.getOptionFromListByUser(
                     teacher.getCollegeClasses(),
                     CollegeClass::getName,
                     "Escolha uma Turma"
             );
 
+           List<SubjectStudent> listCall = chosenClass
+                   .getStudents()
+                   .stream()
+                   .peek(subjectStudent -> {
+                       boolean studentMissed = DataInput.getConfirmationByUser(subjectStudent.getStudent().getName());
 
+                       if (studentMissed)
+                           subjectStudent.increaseAbsences();
 
+                   }).collect(Collectors.toList());
+
+            academicSystem.db.teachers.saveCall(listCall);
     }
 
     @Override
@@ -43,7 +57,7 @@ public class TeacherMenu implements ISubMenu {
 
     @Override
     public void run() {
-        new Menu(this).run();
+        new MenuExecutor(this).run();
     }
 
 }

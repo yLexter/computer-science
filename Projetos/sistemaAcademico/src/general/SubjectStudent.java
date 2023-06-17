@@ -1,5 +1,7 @@
 package general;
 
+import utils.Global;
+
 import java.util.List;
 
 public class SubjectStudent extends Subject {
@@ -9,17 +11,20 @@ public class SubjectStudent extends Subject {
     private Integer absences = 0;
     private Float finalExameScore = null;
     private String status = "Pending";
-
-    public SubjectStudent(String code, String name, int hours) {
+    private Student student;
+    public SubjectStudent(String code, String name, int hours, Student student) {
         super(code, name, hours);
+        this.student = student;
     }
-    public SubjectStudent(String code, String name, int hours, Float note1, Float note2, Integer absences, Float finalExameScore, String status, List<SubjectStudent> subjects) {
+
+    public SubjectStudent(String code, String name, int hours, Float note1, Float note2, Integer absences, Float finalExameScore, String status, Student student) {
         super(code, name, hours);
         this.note1 = note1;
         this.note2 = note2;
         this.absences = absences;
         this.finalExameScore = finalExameScore;
         this.status = status;
+        this.student = student;
     }
 
     public Float getAverage() {
@@ -66,6 +71,19 @@ public class SubjectStudent extends Subject {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public void increaseAbsences() {
+        AcademicSystem academicSystem = Global.getAcademicSystem();
+        setAbsences(absences + academicSystem.db.generalInformation.data.getTotalAbsemcesPerClass());
     }
 
     public Teacher getTeacher() {

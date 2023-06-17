@@ -17,7 +17,7 @@ public class StudentMenu implements ISubMenu {
     }
     public void OptionShowHistoric() {
 
-            List<SubjectStudent> subjects = null;
+            List<SubjectStudent> subjects = student.getSubjects();
             Subject biggestNameSubject = Utils.getSubjectWithBiggerName(subjects);
 
             System.out.println("+----------+-------+--------+-----------+----------------------");
@@ -45,7 +45,6 @@ public class StudentMenu implements ISubMenu {
      }
     public void OptionShowRDM() {
 
-            Student student = null;
             List<SubjectStudent> subjects = student.getSubjects();
 
     }
@@ -87,7 +86,7 @@ public class StudentMenu implements ISubMenu {
 
     @Override
     public void run() {
-        new Menu(this).run();
+        new MenuExecutor(this).run();
     }
 
 
