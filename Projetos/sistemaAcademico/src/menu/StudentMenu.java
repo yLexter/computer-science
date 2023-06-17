@@ -3,6 +3,7 @@ package menu;
 import general.*;
 import interfaces.ISubMenu;
 import interfaces.ISubMenuOption;
+import utils.Global;
 import utils.Utils;
 
 import java.util.*;
@@ -11,11 +12,10 @@ import java.util.*;
 public class StudentMenu implements ISubMenu {
 
     private Student student;
-
-    private record OptionShowHistoric(String label) implements ISubMenuOption {
-
-        @Override
-        public void run() {
+    public StudentMenu(Student student) {
+        this.student = student;
+    }
+    public void OptionShowHistoric() {
 
             List<SubjectStudent> subjects = null;
             Subject biggestNameSubject = Utils.getSubjectWithBiggerName(subjects);
@@ -42,28 +42,16 @@ public class StudentMenu implements ISubMenu {
             }
 
             System.out.println("+--------+-------+-------------------+");
+     }
+    public void OptionShowRDM() {
 
-        }
-    }
-
-    private record OptionShowRDM(String label) implements ISubMenuOption {
-
-        @Override
-        public void run() {
-
-
-
-
-        }
-
+            Student student = null;
+            List<SubjectStudent> subjects = student.getSubjects();
 
     }
-
-    private record OptionShowCurriculum(String label) implements ISubMenuOption {
-
-        @Override
-        public void run() {
-            List<Subject> allSubjects = Utils.getSubjects();
+    public void OptionShowCurriculum() {
+            AcademicSystem academicSystem = Global.getAcademicSystem();
+            List<Subject> allSubjects = academicSystem.db.subjects.getAll();
             Subject biggestNameSubject = Utils.getSubjectWithBiggerName(allSubjects);
 
             System.out.println("+----------+-------+--------+-----------+----------------------");
@@ -82,10 +70,7 @@ public class StudentMenu implements ISubMenu {
                         complementarySpaces
                 );
             }
-
-            System.out.println("+--------+-------+-------------------+");
-        }
-
+           System.out.println("+--------+-------+-------------------+");
     }
 
     @Override
@@ -93,9 +78,9 @@ public class StudentMenu implements ISubMenu {
 
         Map<Integer, ISubMenuOption>  newOptions = new LinkedHashMap<>();
 
-        newOptions.put(1, new OptionShowRDM("Ver RDM"));
-        newOptions.put(2, new OptionShowCurriculum("Ver Grade Curricular"));
-        newOptions.put(3, new OptionShowHistoric("Ver Histórico"));
+        newOptions.put(1, new OptionMenu("Ver RDM", this::OptionShowRDM));
+        newOptions.put(2, new OptionMenu("Ver Grade Curricular", this::OptionShowCurriculum));
+        newOptions.put(3, new OptionMenu("Ver Histórico", this::OptionShowHistoric ));
 
         return newOptions;
     }

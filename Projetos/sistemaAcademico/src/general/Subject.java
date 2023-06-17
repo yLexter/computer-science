@@ -1,5 +1,6 @@
 package general;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,8 +39,22 @@ public class Subject {
         this.hours = hours;
     }
 
-    public SubjectStudent ToSubjectStudent() {
-        return new SubjectStudent(code, name, hours);
+    public static SubjectStudent createSubjectStudent(Subject subject) {
+        return new SubjectStudent(
+                subject.getCode(),
+                subject.getName(),
+                subject.getHours()
+        );
+    }
+
+    public static CollegeClass createCollegeClass(Subject subject, Teacher teacher, LocalDateTime time) {
+        return new CollegeClass(
+            subject.getCode(),
+            subject.getName(),
+            subject.getHours(),
+            teacher,
+            time
+        );
     }
 
 

@@ -13,23 +13,21 @@ import java.util.Map;
 // ToDo Implementar o professor nas opções
 public class TeacherMenu implements ISubMenu {
 
-    private record OptionRegisterClass(String label) implements ISubMenuOption {
+    Teacher teacher = null;
 
+    public TeacherMenu(Teacher teacher) {
+        this.teacher = teacher;
+    }
 
-        @Override
-        public void run() {
+    private void OptionRegisterClass() {
 
-            Teacher teacher = null;
-
-            Map<Integer, ChoiseOption<CollegeClass>> collegeClassMap = DataInput.convertListToOptionMap(
-                teacher.getCollegeClasses(), CollegeClass::getName
+            CollegeClass chosenClass = DataInput.getOptionFromListByUser(
+                    teacher.getCollegeClasses(),
+                    CollegeClass::getName,
+                    "Escolha uma Turma"
             );
 
-            CollegeClass chosenClass = DataInput.getOptionByUser(collegeClassMap, "Escolha uma Turma");
 
-
-
-        }
 
     }
 
@@ -38,7 +36,7 @@ public class TeacherMenu implements ISubMenu {
 
         Map<Integer, ISubMenuOption> newOptions = new LinkedHashMap<>();
 
-        newOptions.put(1, new OptionRegisterClass("Registrar Aula"));
+        newOptions.put(1, new OptionMenu("Registrar Aula", this::OptionRegisterClass));
 
         return  newOptions;
     }

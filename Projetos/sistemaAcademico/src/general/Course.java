@@ -12,7 +12,6 @@ public class Course {
         this.subjects = subjects;
     }
 
-
     public String getName() {
         return name;
     }

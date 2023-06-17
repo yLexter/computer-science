@@ -1,10 +1,9 @@
-import menu.CoordinatorMenu;
-import utils.*;
+import menu.AdminMenu;
 
 public class Main {
     public static void main(String[] args) {
 
-        new CoordinatorMenu().run();
+
 
     }
 }

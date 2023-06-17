@@ -3,54 +3,33 @@ package general;
 import java.time.LocalDateTime;
 import java.util.*;
 
-public class CollegeClass {
+public class CollegeClass extends Subject {
 
-        private String name;
-        private String id;
-        private String teacher;
-        private Subject subject;
+        private Teacher teacher;
         private LocalDateTime time;
         private List<Student> students;
 
-        public CollegeClass(String name, String id, String teacher, Subject subject, LocalDateTime time, List<Student> students) {
-                this.name = name;
-                this.id = id;
+        public CollegeClass(String code, String name, int hours, Teacher teacher, LocalDateTime time, List<Student> students) {
+                super(code, name, hours);
                 this.teacher = teacher;
-                this.subject = subject;
                 this.time = time;
                 this.students = students;
         }
 
-        public String getName() {
-                return name;
+        public CollegeClass(String code, String name, int hours, Teacher teacher, LocalDateTime time) {
+                super(code, name, hours);
+                this.teacher = teacher;
+                this.time = time;
+                this.students = new ArrayList<>();
         }
 
-        public void setName(String name) {
-                this.name = name;
-        }
 
-        public String getId() {
-                return id;
-        }
-
-        public void setId(String id) {
-                this.id = id;
-        }
-
-        public String getTeacher() {
+        public Teacher getTeacher() {
                 return teacher;
         }
 
-        public void setTeacher(String teacher) {
+        public void setTeacher(Teacher teacher) {
                 this.teacher = teacher;
-        }
-
-        public Subject getSubject() {
-                return subject;
-        }
-
-        public void setSubject(Subject subject) {
-                this.subject = subject;
         }
 
         public LocalDateTime getTime() {

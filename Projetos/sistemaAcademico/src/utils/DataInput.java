@@ -140,7 +140,7 @@ public class DataInput {
         return optionSelected;
     }
 
-    public static <T> List<T> getOptionsByUser(Map<Integer, ChoiseOption<T>> options) {
+    public static <T> List<T> getOptionsByUser(Map<Integer, ChoiseOption<T>> options, String label) {
 
         List<T> optionsSelected = new ArrayList<>();
         Scanner scanner = Global.getScanner();
@@ -148,6 +148,7 @@ public class DataInput {
 
         do {
             try {
+                System.out.println(label);
                 showOptions(options);
                 System.out.println("Digite a opção desejada: ");
                 String stringOption = scanner.nextLine();
@@ -186,7 +187,7 @@ public class DataInput {
     }
 
     public static <T extends Subject> Map<Integer, ChoiseOption<T>> mapSubjectToSubjectOptions(List<T> subjects) {
-        HashMap<Integer, ChoiseOption<T>> mapSubject = new HashMap<>();
+        HashMap<Integer, ChoiseOption<T>> mapSubject = new LinkedHashMap<>();
 
         int count = 1;
 
@@ -197,7 +198,7 @@ public class DataInput {
     }
 
     public static Boolean getConfirmationByUser(String label){
-        Map<Integer, ChoiseOption<Boolean>> options = new HashMap<>();
+        Map<Integer, ChoiseOption<Boolean>> options = new LinkedHashMap<>();
 
         options.put(1, new ChoiseOption<>("Sim", true));
         options.put(2, new ChoiseOption<>("Não", false));
@@ -205,15 +206,26 @@ public class DataInput {
         return getOptionByUser(options, label);
     }
 
-    public static <T> Map<Integer, ChoiseOption<T>> convertListToOptionMap(List<T> list, Function<T,String> getLabel) {
-        Map<Integer, ChoiseOption<T>> options = new HashMap<>();
+    public static <T> T getOptionFromListByUser(List<T> list, Function<T,String> getLabelOption, String label) {
+        Map<Integer, ChoiseOption<T>> options = new LinkedHashMap<>();
 
         int count = 0;
 
         for(T option : list)
-            options.put(++count, new ChoiseOption<>(getLabel.apply(option), option));
+            options.put(++count, new ChoiseOption<>(getLabelOption.apply(option), option));
 
-        return options;
+        return getOptionByUser(options, label);
+    }
+
+    public static <T> List<T> getOptionsFromListByUser(List<T> list, Function<T,String> getLabelOption, String label) {
+        Map<Integer, ChoiseOption<T>> options = new LinkedHashMap<>();
+
+        int count = 0;
+
+        for(T option : list)
+            options.put(++count, new ChoiseOption<>(getLabelOption.apply(option), option));
+
+        return getOptionsByUser(options, label);
     }
 
 
