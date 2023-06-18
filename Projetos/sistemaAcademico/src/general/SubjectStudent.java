@@ -2,17 +2,19 @@ package general;
 
 import utils.Global;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SubjectStudent extends Subject {
     private Float note1 = null;
     private Float note2 = null;
-    private Integer absences = 0;
     private Float finalExameScore = null;
     private String status = "Pending";
     private Student student;
-
     private String classId;
+
+    private Integer absences;
 
     public SubjectStudent(String code, String name, int hours, Student student, String classId) {
         super(code, name, hours);
@@ -24,10 +26,10 @@ public class SubjectStudent extends Subject {
         super(code, name, hours);
         this.note1 = note1;
         this.note2 = note2;
-        this.absences = absences;
         this.finalExameScore = finalExameScore;
         this.status = status;
         this.student = student;
+        this.absences = absences;
         this.classId = classId;
     }
 
@@ -57,10 +59,6 @@ public class SubjectStudent extends Subject {
         return absences;
     }
 
-    public void setAbsences(Integer absences) {
-        this.absences = absences;
-    }
-
     public Float getFinalExameScore() {
         return finalExameScore;
     }
@@ -81,6 +79,9 @@ public class SubjectStudent extends Subject {
         return student;
     }
 
+    private void setAbsences(Integer absences) {
+        this.absences = absences;
+    }
     public void setStudent(Student student) {
         this.student = student;
     }
@@ -88,11 +89,6 @@ public class SubjectStudent extends Subject {
     public void increaseAbsences() {
         AcademicSystem academicSystem = Global.getAcademicSystem();
         setAbsences(absences + academicSystem.db.generalInformation.data.getTotalAbsemcesPerClass());
-    }
-
-    public Teacher getTeacher() {
-        // ToDo: Buscar no banco de dados o professor referente a esta máteria
-        return null;
     }
 
 

@@ -8,61 +8,17 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class DatabaseSubjects implements IModelDatabase<Subject> {
+public class DatabaseSubjects extends DatabaseBase<Subject> {
 
-    private List<Subject> subjects;
 
     public DatabaseSubjects(List<Subject> subjects) {
-        this.subjects = subjects;
-    }
-    @Override
-    public List<Subject> getAll() {
-        return new ArrayList<>(subjects);
+        super(subjects);
     }
 
-    @Override
-    public void update(String id, Subject data) {
-        delete(id);
-        save(data);
-    }
-
-    @Override
-    public void delete(String id) {
-        Subject subject = findById(id);
-
-        subjects.remove(subject);
-    }
-
-    @Override
-    public void save(Subject data) {
-        subjects.add(data);
-    }
-
-    @Override
-    public List<Subject> findMany(Predicate<Subject> callback) {
-        return subjects
-                .stream()
-                .filter(callback)
-                .collect(Collectors.toList());
-    }
 
     @Override
     public Subject findById(String code) {
         return findOne(subject -> subject.getCode().equals(code));
-    }
-
-    @Override
-    public Subject findOne(Predicate<Subject> callback) {
-          return subjects
-                .stream()
-                .filter(callback)
-                .findAny()
-                .orElse(null);
-    }
-
-    @Override
-    public void updateAll(List<Subject> subjects) {
-        this.subjects = subjects;
     }
 
     public static List<Subject> getSubjects() {

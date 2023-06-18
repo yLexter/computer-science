@@ -6,11 +6,12 @@ import interfaces.ISubMenuOption;
 import utils.DataInput;
 import utils.Global;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import general.RegisterClass.StudentCallLog;
 
 // ToDo Implementar o professor nas opções
 public class TeacherMenu implements ISubMenu {
@@ -23,6 +24,7 @@ public class TeacherMenu implements ISubMenu {
 
     private void OptionRegisterClass() {
 
+            List<StudentCallLog> callList = new ArrayList<>();
             AcademicSystem academicSystem = Global.getAcademicSystem();
 
             CollegeClass chosenClass = DataInput.getOptionFromListByUser(
@@ -31,18 +33,25 @@ public class TeacherMenu implements ISubMenu {
                     "Escolha uma Turma"
             );
 
-           List<SubjectStudent> listCall = chosenClass
-                   .getStudents()
-                   .stream()
-                   .peek(subjectStudent -> {
-                       boolean studentMissed = DataInput.getConfirmationByUser(subjectStudent.getStudent().getName());
+           LocalDate date = DataInput.getDataByUser(
+                   "Digite a data da aula",
+                   DataInput::validDate
+           );
 
-                       if (studentMissed)
-                           subjectStudent.increaseAbsences();
+           String classDescription = DataInput.getDataByUser(
+               "Digite o contéudo da aula",
+               DataInput::validStringInput
+            );
 
-                   }).collect(Collectors.toList());
+           for (SubjectStudent subjectStudent : chosenClass.getStudents()) {
+                  Student student = subjectStudent.getStudent();
+                  boolean studentMissed = DataInput.getConfirmationByUser("O Aluno %s faltou?".formatted(student.getName()));
+                  callList.add(new StudentCallLog( student.getId(), studentMissed));
+           }
 
-            academicSystem.db.teachers.saveCall(listCall);
+           academicSystem.db.teachers.saveCall(
+                   new RegisterClass(classDescription, date, callList)
+           );
     }
 
     @Override

@@ -8,13 +8,14 @@ public class CollegeClass extends Subject {
         private LocalDateTime time;
         private List<SubjectStudent> students;
         private String classId;
-
+        private List<RegisterClass> registerClasses;
         public CollegeClass(String code, String name, int hours, Teacher teacher, LocalDateTime time, List<SubjectStudent> students) {
                 super(code, name, hours);
                 this.teacher = teacher;
                 this.time = time;
                 this.students = students;
                 this.classId = UUID.randomUUID().toString();
+                this.registerClasses = new ArrayList<>();
         }
 
         public CollegeClass(String code, String name, int hours, Teacher teacher, LocalDateTime time) {
@@ -23,6 +24,7 @@ public class CollegeClass extends Subject {
                 this.time = time;
                 this.classId = UUID.randomUUID().toString();
                 this.students = new ArrayList<>();
+                this.registerClasses = new ArrayList<>();
         }
 
 
@@ -57,4 +59,13 @@ public class CollegeClass extends Subject {
         public void setClassId(String classId) {
                 this.classId = classId;
         }
+
+        public List<RegisterClass> getRegisterClasses() {
+                return registerClasses;
+        }
+
+        public void setRegisterClasses(List<RegisterClass> registerClasses) {
+                this.registerClasses = registerClasses;
+        }
 }
+
