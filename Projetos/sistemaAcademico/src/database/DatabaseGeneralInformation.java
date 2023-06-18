@@ -14,8 +14,12 @@ public class DatabaseGeneralInformation extends DatabaseBase<GeneralInformation>
 
     @Override
     public GeneralInformation findById(String id) {
+        return null;
+    }
+
+    public GeneralInformation getData() {
         return data;
     }
-    
+
 
 }

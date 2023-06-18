@@ -22,11 +22,13 @@ public class RegisterClass {
     private LocalDate date;
 
     private List<StudentCallLog> listCall;
+    private String classId;
 
-    public RegisterClass(String description, LocalDate date, List<StudentCallLog> listCall) {
+    public RegisterClass(String description, LocalDate date, List<StudentCallLog> listCall, String teacherId) {
         this.description = description;
         this.date = date;
         this.listCall = listCall;
+        this.classId = teacherId;
     }
 
     public String getDescription() {
@@ -52,4 +54,13 @@ public class RegisterClass {
     public void setListCall(List<StudentCallLog> listCall) {
         this.listCall = listCall;
     }
+
+    public String getClassId() {
+        return classId;
+    }
+
+    public void setClassId(String classId) {
+        this.classId = classId;
+    }
+
 }

@@ -1,5 +1,6 @@
 package menu;
 
+import database.Database.AllData;
 import general.*;
 import interfaces.ISubMenu;
 import interfaces.ISubMenuOption;
@@ -7,6 +8,7 @@ import utils.DataInput;
 import utils.Global;
 import utils.Role;
 
+import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.List;
@@ -15,7 +17,7 @@ import java.util.stream.Collectors;
 import utils.DataInput.ChoiseOption;
 
 
-// ToDo pega
+// ToDo melhorar a forma  de pegar os horarios
 public class AdminMenu implements ISubMenu {
 
     private final Admin admin;
@@ -37,7 +39,6 @@ public class AdminMenu implements ISubMenu {
                 CollegeClass::getName,
                "Escolha a Cadeiras"
         );
-
 
         Student student = new Student(
             employee.getName(),
@@ -114,8 +115,37 @@ public class AdminMenu implements ISubMenu {
     private void optionShowTeatchers() {}
 
     private void optionCreateCollegeClass() {
+        AcademicSystem academicSystem = Global.getAcademicSystem();
+        AllData allData = academicSystem.db.findAll();
 
+        CollegeClass collegeClass = DataInput.getOptionFromListByUser(
+                allData.collegeClasses(),
+                CollegeClass::getName,
+                "Escolha a Cadeira"
+        );
+
+        Teacher teacher = DataInput.getOptionFromListByUser(
+             allData.teachers(),
+             Teacher::getName,
+             "Escolha o professor"
+        );
+
+        //ToDo Terminar a implementação
     }
+
+    public void optionDeleteColegeClass() {
+
+        AcademicSystem academicSystem = Global.getAcademicSystem();
+
+        CollegeClass collegeClass = DataInput.getOptionFromListByUser(
+                academicSystem.db.collegeClass.getAll(),
+                CollegeClass::getName,
+                "Escolha a turma"
+        );
+
+        academicSystem.db.collegeClass.delete(collegeClass.getClassId());
+    }
+
 
     @Override
     public Map<Integer, ISubMenuOption> getOptions() {
@@ -125,13 +155,12 @@ public class AdminMenu implements ISubMenu {
         options.put(2, new OptionMenu("Adicionar estudante", this::optionAddStudent));
         options.put(3, new OptionMenu("Remover estudante", this::optionDeleteStudent));
 
-        options.put(6, new OptionMenu("Ver Professores", this::optionShowTeatchers));
-        options.put(4, new OptionMenu("Adicionar Professor", this::optionAddTeatcher));
-        options.put(5, new OptionMenu("Remover Professor", this::optionDeleteTeatcher));
+        options.put(4, new OptionMenu("Ver Professores", this::optionShowTeatchers));
+        options.put(5, new OptionMenu("Adicionar Professor", this::optionAddTeatcher));
+        options.put(6, new OptionMenu("Remover Professor", this::optionDeleteTeatcher));
 
-        options.put(6, new OptionMenu("Remover Professor", this::optionCreateCollegeClass));
-
-
+        options.put(7, new OptionMenu("Adicionar turma", this::optionCreateCollegeClass));
+        options.put(8, new OptionMenu("Deletar turma", this::optionDeleteColegeClass));
 
         return options;
     }

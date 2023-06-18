@@ -16,7 +16,7 @@ import general.RegisterClass.StudentCallLog;
 // ToDo Implementar o professor nas opções
 public class TeacherMenu implements ISubMenu {
 
-    Teacher teacher = null;
+    private Teacher teacher;
 
     public TeacherMenu(Teacher teacher) {
         this.teacher = teacher;
@@ -26,6 +26,7 @@ public class TeacherMenu implements ISubMenu {
 
             List<StudentCallLog> callList = new ArrayList<>();
             AcademicSystem academicSystem = Global.getAcademicSystem();
+            Teacher teacher = academicSystem.db.teachers.findById(this.teacher.getId());
 
             CollegeClass chosenClass = DataInput.getOptionFromListByUser(
                     teacher.getCollegeClass(),
@@ -50,7 +51,7 @@ public class TeacherMenu implements ISubMenu {
            }
 
            academicSystem.db.teachers.saveCall(
-                   new RegisterClass(classDescription, date, callList)
+                   new RegisterClass(classDescription, date, callList, teacher.getId())
            );
     }
 

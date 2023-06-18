@@ -13,9 +13,7 @@ public class SubjectStudent extends Subject {
     private String status = "Pending";
     private Student student;
     private String classId;
-
     private Integer absences;
-
     public SubjectStudent(String code, String name, int hours, Student student, String classId) {
         super(code, name, hours);
         this.student = student;
