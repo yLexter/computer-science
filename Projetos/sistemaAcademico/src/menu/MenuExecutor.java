@@ -1,6 +1,6 @@
 package menu;
 import erros.DatabaseException;
-import erros.UserLeftMenuException;
+import erros.LeftMenuException;
 import interfaces.*;
 import utils.Decoration;
 import utils.Global;
@@ -41,7 +41,9 @@ public class MenuExecutor {
                 System.out.println("Forneça um número inteiro válido.");
              } catch (DatabaseException err) {
                  System.out.printf("ERROR: %s\n", err.getMessage());
-             } catch (UserLeftMenuException ignored) {}
+             } catch (LeftMenuException err) {
+                System.out.printf("Error: %s\n", err.getMessage());
+            }
 
         }
     }

@@ -1,7 +1,7 @@
 package utils;
 
 import erros.*;
-import general.Subject;
+
 import java.time.LocalDate;
 import java.util.*;
 import java.util.function.Consumer;
@@ -193,18 +193,7 @@ public class DataInput {
 
     public static void checkUserLeftMenu(String string) {
         if (string.equals(exitInputString))
-            throw new UserLeftMenuException();
-    }
-
-    public static <T extends Subject> Map<Integer, ChoiseOption<T>> mapSubjectToSubjectOptions(List<T> subjects) {
-        HashMap<Integer, ChoiseOption<T>> mapSubject = new LinkedHashMap<>();
-
-        int count = 1;
-
-        for(T subject : subjects)
-            mapSubject.put(count++, new ChoiseOption<>(subject.getName(), subject));
-
-        return mapSubject;
+            throw new LeftMenuException();
     }
 
     public static Boolean getConfirmationByUser(String label){
@@ -217,6 +206,10 @@ public class DataInput {
     }
 
     public static <T> T getOptionFromListByUser(List<T> list, Function<T,String> getLabelOption, String label) {
+
+        if (list.size() == 0)
+            throw new LeftMenuException("Lista vazia");
+
         Map<Integer, ChoiseOption<T>> options = new LinkedHashMap<>();
 
         int count = 0;
@@ -228,6 +221,10 @@ public class DataInput {
     }
 
     public static <T> List<T> getOptionsFromListByUser(List<T> list, Function<T,String> getLabelOption, String label) {
+
+        if (list.size() == 0)
+            throw new LeftMenuException("Lista vazia");
+
         Map<Integer, ChoiseOption<T>> options = new LinkedHashMap<>();
 
         int count = 0;

@@ -2,8 +2,10 @@ package utils;
 
 import database.*;
 import general.AcademicSystem;
+import general.Admin;
 import general.GeneralInformation;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Global {
@@ -26,9 +28,10 @@ public class Global {
               "1.0.0"
         );
 
+
         Database db = new Database(
           new DatabaseStudent(),
-          new DatabaseTeatcher(),
+          new DatabaseTeacher(),
           new DatabaseAdmin(),
           new DatabaseSubjects(DatabaseSubjects.getSubjects()),
           new DatabaseGeneralInformation(generalInformation),

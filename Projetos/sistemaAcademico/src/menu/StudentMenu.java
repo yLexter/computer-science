@@ -45,7 +45,25 @@ public class StudentMenu implements ISubMenu {
      }
     public void OptionShowRDM() {
 
-            List<SubjectStudent> subjects = student.getSubjects();
+        List<SubjectStudent> subjects = student.getSubjects();
+
+
+        System.out.println("----------------------------------------------------------------------------------------");
+        System.out.format("| %-15s|   %-10s|   %-10s|   %-10s|   %-10s|   %-10s |%n", "Máteria", "Nota 1", "Nota 2", "Faltas", "Final", "Status");
+        System.out.println("----------------------------------------------------------------------------------------");
+
+        for (SubjectStudent subject : student.getSubjects()) {
+            System.out.format("| %-15s|   %-10s|   %-10s|   %-10s|   %-10s|   %-10s |%n",
+                    subject.getName(),
+                    subject.getNote1(),
+                    subject.getNote2(),
+                    subject.getAbsences(),
+                    subject.getFinalExameScore(),
+                    subject.getStatus());
+
+        }
+
+        System.out.println("---------------------------------------------------------------------------------------");
 
     }
     public void OptionShowCurriculum() {
@@ -54,7 +72,7 @@ public class StudentMenu implements ISubMenu {
             Subject biggestNameSubject = Utils.getSubjectWithBiggerName(allSubjects);
 
             System.out.println("+----------+-------+--------+-----------+----------------------");
-            System.out.println("| Código | Horas | Nome");
+            System.out.format("| %-8s | %-3s | %-10s %n", "Código", "Horas" , "Nome");
             System.out.println("+----------+-------+---------+----------+----------------------");
 
             for (Subject subject : allSubjects) {
@@ -62,7 +80,7 @@ public class StudentMenu implements ISubMenu {
                         biggestNameSubject.getName().length() - subject.getName().length()
                 );
 
-                System.out.printf("| %s | %d | %s %s |\n",
+                System.out.format("| %-8s |  %-3s | %-10s %s |%n",
                         subject.getCode(),
                         subject.getHours(),
                         subject.getName(),

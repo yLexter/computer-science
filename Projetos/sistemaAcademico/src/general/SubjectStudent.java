@@ -5,19 +5,22 @@ import utils.Global;
 import java.util.List;
 
 public class SubjectStudent extends Subject {
-
     private Float note1 = null;
     private Float note2 = null;
     private Integer absences = 0;
     private Float finalExameScore = null;
     private String status = "Pending";
     private Student student;
-    public SubjectStudent(String code, String name, int hours, Student student) {
+
+    private String classId;
+
+    public SubjectStudent(String code, String name, int hours, Student student, String classId) {
         super(code, name, hours);
         this.student = student;
+        this.classId = classId;
     }
 
-    public SubjectStudent(String code, String name, int hours, Float note1, Float note2, Integer absences, Float finalExameScore, String status, Student student) {
+    public SubjectStudent(String code, String name, int hours, Float note1, Float note2, Integer absences, Float finalExameScore, String status, Student student, String classId) {
         super(code, name, hours);
         this.note1 = note1;
         this.note2 = note2;
@@ -25,6 +28,7 @@ public class SubjectStudent extends Subject {
         this.finalExameScore = finalExameScore;
         this.status = status;
         this.student = student;
+        this.classId = classId;
     }
 
     public Float getAverage() {

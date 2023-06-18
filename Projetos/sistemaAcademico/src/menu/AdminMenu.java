@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 
 import utils.DataInput.ChoiseOption;
 
-// ToDo Pegar as cadeiras do bancos de dados e não do metodo estatico
-// ToDo implementar uma forma de passar o academy system para as classes menu
+
+// ToDo pega
 public class AdminMenu implements ISubMenu {
 
     private final Admin admin;
@@ -29,7 +29,15 @@ public class AdminMenu implements ISubMenu {
     private void optionAddStudent() {
 
         Employee employee = Employee.createEmployeeByUser(Role.STUDENT);
+
         AcademicSystem academicSystem = Global.getAcademicSystem();
+
+        List<CollegeClass> subjects = DataInput.getOptionsFromListByUser(
+                academicSystem.db.collegeClass.getAll(),
+                CollegeClass::getName,
+               "Escolha a Cadeiras"
+        );
+
 
         Student student = new Student(
             employee.getName(),
@@ -41,18 +49,16 @@ public class AdminMenu implements ISubMenu {
             academicSystem.db.generalInformation.data.getCourse()
         );
 
-       Map<Integer, ChoiseOption<SubjectStudent>> optionsChoiseSubject = DataInput.mapSubjectToSubjectOptions(Subject.mapAllToSubjectStudent(student));
-       List<SubjectStudent> subjects = DataInput.getOptionsByUser(optionsChoiseSubject, "Escolha a cadeoras");
-       student.setSubjects(subjects);
+        student.setSubjects(Subject.mapAllToSubjectStudent(subjects, student));
 
-       academicSystem.db.students.save(student);
+        academicSystem.db.students.save(student);
     }
 
     private void optionDeleteStudent() {
         AcademicSystem academicSystem = Global.getAcademicSystem();
 
         Student studentRemoved = DataInput.getOptionFromListByUser(
-            academicSystem.db.students.getAll(),
+                academicSystem.db.students.getAll(),
                 Student::getName,
                 "Escolha o estudante"
         );
@@ -107,6 +113,10 @@ public class AdminMenu implements ISubMenu {
 
     private void optionShowTeatchers() {}
 
+    private void optionCreateCollegeClass() {
+
+    }
+
     @Override
     public Map<Integer, ISubMenuOption> getOptions() {
         Map<Integer, ISubMenuOption> options = new LinkedHashMap<>();
@@ -118,6 +128,10 @@ public class AdminMenu implements ISubMenu {
         options.put(6, new OptionMenu("Ver Professores", this::optionShowTeatchers));
         options.put(4, new OptionMenu("Adicionar Professor", this::optionAddTeatcher));
         options.put(5, new OptionMenu("Remover Professor", this::optionDeleteTeatcher));
+
+        options.put(6, new OptionMenu("Remover Professor", this::optionCreateCollegeClass));
+
+
 
         return options;
     }

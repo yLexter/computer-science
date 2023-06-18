@@ -42,12 +42,13 @@ public class Subject {
         this.hours = hours;
     }
 
-    public static SubjectStudent createSubjectStudent(Subject subject, Student student) {
+    public static SubjectStudent createSubjectStudent(Subject subject, Student student, String classId) {
         return new SubjectStudent(
                 subject.getCode(),
                 subject.getName(),
                 subject.getHours(),
-                student
+                student,
+                classId
         );
     }
 
@@ -61,14 +62,20 @@ public class Subject {
         );
     }
 
-    public static List<SubjectStudent> mapAllToSubjectStudent(Student student) {
-        AcademicSystem academicSystem = Global.getAcademicSystem();
-
-        return  academicSystem.db.subjects.getAll()
+    public static List<SubjectStudent> mapAllToSubjectStudent(List<CollegeClass> list, Student student) {
+        return list
                 .stream()
-                .map(subject -> Subject.createSubjectStudent(subject, student))
+                .map(subject -> createSubjectStudent(subject, student, subject.getClassId()))
                 .collect(Collectors.toList());
     }
+
+    public static List<CollegeClass> mapAllToCollegeClass(List<Subject> list, Teacher teacher, LocalDateTime time) {
+        return list
+                .stream()
+                .map(subject -> createCollegeClass(subject, teacher, time))
+                .collect(Collectors.toList());
+    }
+
 
 
 
