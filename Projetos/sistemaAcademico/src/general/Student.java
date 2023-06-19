@@ -9,10 +9,22 @@ public class Student extends Employee {
     private String course;
     private List<SubjectStudent> historic;
 
-    public Student(String name, String lastName, int age, LocalDate dateOfBirth, String cpf, List<SubjectStudent> subjects, String course) {
+    private EntranceExam entranceExam;
+
+    public Student(String name, String lastName, int age, LocalDate dateOfBirth, String cpf, List<SubjectStudent> subjects, String course, List<SubjectStudent> historic, EntranceExam entranceExam) {
         super(name, lastName, age, dateOfBirth, Role.STUDENT, cpf);
         this.subjects = subjects;
         this.course = course;
+        this.historic = historic;
+        this.entranceExam = entranceExam;
+    }
+
+    public Student(String name, String lastName, int age, LocalDate dateOfBirth, String cpf, List<SubjectStudent> subjects, String course, EntranceExam entranceExam) {
+        super(name, lastName, age, dateOfBirth, Role.STUDENT, cpf);
+        this.subjects = subjects;
+        this.course = course;
+        this.historic = new ArrayList<>();
+        this.entranceExam = entranceExam;
     }
 
     public List<SubjectStudent> getSubjects() {

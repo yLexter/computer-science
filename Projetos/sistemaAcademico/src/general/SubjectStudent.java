@@ -1,7 +1,10 @@
 package general;
 
 import utils.Global;
+import utils.StudentSubjectStatus;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,25 +13,30 @@ public class SubjectStudent extends Subject {
     private Float note1 = null;
     private Float note2 = null;
     private Float finalExameScore = null;
-    private String status = "Pending";
-    private Student student;
+    private StudentSubjectStatus status;
+    private final String studentId;
     private String classId;
     private Integer absences;
-    public SubjectStudent(String code, String name, int hours, Student student, String classId) {
+    private String period;
+
+    public SubjectStudent(String code, String name, int hours, String studentId, String classId) {
         super(code, name, hours);
-        this.student = student;
+        this.studentId = studentId;
         this.classId = classId;
+        this.status = StudentSubjectStatus.PENDING;
+        this.period = getCurrentPeriod();
     }
 
-    public SubjectStudent(String code, String name, int hours, Float note1, Float note2, Integer absences, Float finalExameScore, String status, Student student, String classId) {
+    public SubjectStudent(String code, String name, int hours, Float note1, Float note2, Integer absences, Float finalExameScore, StudentSubjectStatus status, String studentId, String classId) {
         super(code, name, hours);
         this.note1 = note1;
         this.note2 = note2;
         this.finalExameScore = finalExameScore;
         this.status = status;
-        this.student = student;
+        this.studentId = studentId;
         this.absences = absences;
         this.classId = classId;
+        this.period = getPeriod();
     }
 
     public Float getAverage() {
@@ -65,23 +73,16 @@ public class SubjectStudent extends Subject {
         this.finalExameScore = finalExameScore;
     }
 
-    public String getStatus() {
+    public StudentSubjectStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Student getStudent() {
-        return student;
+    public String getStudentId() {
+        return studentId;
     }
 
     private void setAbsences(Integer absences) {
         this.absences = absences;
-    }
-    public void setStudent(Student student) {
-        this.student = student;
     }
 
     public void increaseAbsences() {
@@ -89,5 +90,37 @@ public class SubjectStudent extends Subject {
         setAbsences(absences + academicSystem.db.generalInformation.data.getTotalAbsemcesPerClass());
     }
 
+    public Student getStudent() {
+       AcademicSystem academicSystem = Global.getAcademicSystem();
+
+       return academicSystem.db.students.findById(studentId);
+    }
+
+    public void setStatus(StudentSubjectStatus status) {
+        this.status = status;
+    }
+
+    public String getClassId() {
+        return classId;
+    }
+
+    public void setClassId(String classId) {
+        this.classId = classId;
+    }
+
+    public String getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(String period) {
+        this.period = period;
+    }
+
+    public String getCurrentPeriod() {
+        LocalDate currentDate = LocalDate.now(ZoneId.systemDefault());
+        String currentPeriod = currentDate.getMonthValue() > 6 ? "2" : "1";
+
+        return String.format("%d.%s", currentDate.getYear(), currentPeriod);
+    }
 
 }

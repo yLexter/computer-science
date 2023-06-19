@@ -4,6 +4,7 @@ import interfaces.*;
 import utils.DataInput;
 import utils.Global;
 import utils.Role;
+import utils.DataEntryValidator;
 
 import java.util.*;
 public class HomeMenu implements ISubMenu {
@@ -14,8 +15,8 @@ public class HomeMenu implements ISubMenu {
         String registration, password;
         Employee employee;
 
-        registration = DataInput.getDataByUser("Digite a matricula", DataInput::validStringInput);
-        password = DataInput.getDataByUser("Digite a senha", DataInput::validStringInput);
+        registration = DataInput.getDataByUser("Digite a matricula", DataEntryValidator::validStringInput);
+        password = DataInput.getDataByUser("Digite a senha", DataEntryValidator::validStringInput);
         employee = db.autenticate(registration.toLowerCase(), password);
 
         loginEmployee(employee);

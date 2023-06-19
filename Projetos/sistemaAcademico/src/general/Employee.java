@@ -1,6 +1,7 @@
 package general;
 import utils.DataInput;
 import utils.Role;
+import utils.DataEntryValidator;
 
 import java.security.SecureRandom;
 import java.time.*;
@@ -109,11 +110,11 @@ public class Employee {
         LocalDate dathOfBirth;
         int age;
 
-        name = DataInput.getDataByUser("Digite o nome", DataInput::validStringInput);
-        lastName = DataInput.getDataByUser("Digite o sobrenome", DataInput::validStringInput);
-        cpf = DataInput.getDataByUser("Digite o CPF no formato XXX.XXX.XXX-XX", DataInput::validCpf);
-        age = DataInput.getDataByUser("Digite a idade", DataInput::validAge);
-        dathOfBirth = DataInput.getDataByUser("Digite a data de nascimento no formato XX/XX/XXXX", DataInput::validDate);
+        name = DataInput.getDataByUser("Digite o nome", DataEntryValidator::validStringInput);
+        lastName = DataInput.getDataByUser("Digite o sobrenome", DataEntryValidator::validStringInput);
+        cpf = DataInput.getDataByUser("Digite o CPF no formato XXX.XXX.XXX-XX", DataEntryValidator::validCpf);
+        age = DataInput.getDataByUser("Digite a idade", DataEntryValidator::validAge);
+        dathOfBirth = DataInput.getDataByUser("Digite a data de nascimento no formato XX/XX/XXXX", DataEntryValidator::validDate);
 
         return new Employee(name, lastName, age, dathOfBirth, role, cpf);
     }

@@ -15,7 +15,7 @@ public class StudentMenu implements ISubMenu {
     public StudentMenu(Student student) {
         this.student = student;
     }
-    public void OptionShowHistoric() {
+    public void optionShowHistoric() {
 
             List<SubjectStudent> subjects = student.getSubjects();
             Subject biggestNameSubject = Utils.getSubjectWithBiggerName(subjects);
@@ -43,7 +43,7 @@ public class StudentMenu implements ISubMenu {
 
             System.out.println("+--------+-------+-------------------+");
      }
-    public void OptionShowRDM() {
+    public void optionShowRDM() {
 
         List<SubjectStudent> subjects = student.getSubjects();
 
@@ -66,7 +66,7 @@ public class StudentMenu implements ISubMenu {
         System.out.println("---------------------------------------------------------------------------------------");
 
     }
-    public void OptionShowCurriculum() {
+    public void optionShowCurriculum() {
             AcademicSystem academicSystem = Global.getAcademicSystem();
             List<Subject> allSubjects = academicSystem.db.subjects.getAll();
             Subject biggestNameSubject = Utils.getSubjectWithBiggerName(allSubjects);
@@ -90,14 +90,16 @@ public class StudentMenu implements ISubMenu {
            System.out.println("+--------+-------+-------------------+");
     }
 
+    public void optionShowEntranceExam() {}
     @Override
     public Map<Integer, ISubMenuOption> getOptions() {
 
         Map<Integer, ISubMenuOption>  newOptions = new LinkedHashMap<>();
 
-        newOptions.put(1, new OptionMenu("Ver RDM", this::OptionShowRDM));
-        newOptions.put(2, new OptionMenu("Ver Grade Curricular", this::OptionShowCurriculum));
-        newOptions.put(3, new OptionMenu("Ver Histórico", this::OptionShowHistoric ));
+        newOptions.put(1, new OptionMenu("Ver RDM", this::optionShowRDM));
+        newOptions.put(2, new OptionMenu("Ver Grade Curricular", this::optionShowCurriculum));
+        newOptions.put(3, new OptionMenu("Ver Histórico", this::optionShowHistoric));
+        newOptions.put(4, new OptionMenu("Ver Vestibular", this::optionShowEntranceExam));
 
         return newOptions;
     }

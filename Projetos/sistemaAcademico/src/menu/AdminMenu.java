@@ -4,20 +4,17 @@ import database.Database.AllData;
 import general.*;
 import interfaces.ISubMenu;
 import interfaces.ISubMenuOption;
+import utils.DataEntryValidator;
 import utils.DataInput;
 import utils.Global;
 import utils.Role;
 
-import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import utils.DataInput.ChoiseOption;
 
 
-// ToDo melhorar a forma  de pegar os horarios
+// ToDo melhorar a forma  de pegar os horario e pegar informações do vestibular
 public class AdminMenu implements ISubMenu {
 
     private final Admin admin;
@@ -33,11 +30,20 @@ public class AdminMenu implements ISubMenu {
         Employee employee = Employee.createEmployeeByUser(Role.STUDENT);
 
         AcademicSystem academicSystem = Global.getAcademicSystem();
+        AllData allData = academicSystem.db.findAll();
 
-        List<CollegeClass> subjects = DataInput.getOptionsFromListByUser(
-                academicSystem.db.collegeClass.getAll(),
+        List<CollegeClass> subjects = DataInput.getElementsFromListByUser(
+                allData.collegeClasses(),
                 CollegeClass::getName,
                "Escolha a Cadeiras"
+        );
+
+        EntranceExam entranceExam = new EntranceExam(
+                DataInput.getDataByUser("Humanas", DataEntryValidator::entranceExamCcore),
+                DataInput.getDataByUser("natureza", DataEntryValidator::entranceExamCcore),
+                DataInput.getDataByUser("linguagens", DataEntryValidator::entranceExamCcore),
+                DataInput.getDataByUser("matematica", DataEntryValidator::entranceExamCcore),
+                DataInput.getDataByUser("Redação", DataEntryValidator::entranceExamCcore)
         );
 
         Student student = new Student(
@@ -47,8 +53,10 @@ public class AdminMenu implements ISubMenu {
             employee.getDateOfBirth(),
             employee.getCpf(),
             null,
-            academicSystem.db.generalInformation.data.getCourse()
+            allData.generalInformation().getCourse(),
+            entranceExam
         );
+
 
         student.setSubjects(Subject.mapAllToSubjectStudent(subjects, student));
 
@@ -58,7 +66,7 @@ public class AdminMenu implements ISubMenu {
     private void optionDeleteStudent() {
         AcademicSystem academicSystem = Global.getAcademicSystem();
 
-        Student studentRemoved = DataInput.getOptionFromListByUser(
+        Student studentRemoved = DataInput.getElementFromListByUser(
                 academicSystem.db.students.getAll(),
                 Student::getName,
                 "Escolha o estudante"
@@ -72,7 +80,7 @@ public class AdminMenu implements ISubMenu {
     private void optionDeleteTeatcher() {
         AcademicSystem academicSystem = Global.getAcademicSystem();
 
-        Teacher studentRemoved = DataInput.getOptionFromListByUser(
+        Teacher studentRemoved = DataInput.getElementFromListByUser(
                 academicSystem.db.teachers.getAll(),
                 Teacher::getName,
                 "Escolha o Professor`"
@@ -118,13 +126,13 @@ public class AdminMenu implements ISubMenu {
         AcademicSystem academicSystem = Global.getAcademicSystem();
         AllData allData = academicSystem.db.findAll();
 
-        CollegeClass collegeClass = DataInput.getOptionFromListByUser(
+        CollegeClass collegeClass = DataInput.getElementFromListByUser(
                 allData.collegeClasses(),
                 CollegeClass::getName,
                 "Escolha a Cadeira"
         );
 
-        Teacher teacher = DataInput.getOptionFromListByUser(
+        Teacher teacher = DataInput.getElementFromListByUser(
              allData.teachers(),
              Teacher::getName,
              "Escolha o professor"
@@ -137,7 +145,7 @@ public class AdminMenu implements ISubMenu {
 
         AcademicSystem academicSystem = Global.getAcademicSystem();
 
-        CollegeClass collegeClass = DataInput.getOptionFromListByUser(
+        CollegeClass collegeClass = DataInput.getElementFromListByUser(
                 academicSystem.db.collegeClass.getAll(),
                 CollegeClass::getName,
                 "Escolha a turma"

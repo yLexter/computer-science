@@ -47,7 +47,7 @@ public class Subject {
                 subject.getCode(),
                 subject.getName(),
                 subject.getHours(),
-                student,
+                student.getId(),
                 classId
         );
     }

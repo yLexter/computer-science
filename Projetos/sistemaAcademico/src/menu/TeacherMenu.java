@@ -12,6 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import general.RegisterClass.StudentCallLog;
+import utils.DataEntryValidator;
 
 // ToDo Implementar o professor nas opções
 public class TeacherMenu implements ISubMenu {
@@ -28,7 +29,7 @@ public class TeacherMenu implements ISubMenu {
             AcademicSystem academicSystem = Global.getAcademicSystem();
             Teacher teacher = academicSystem.db.teachers.findById(this.teacher.getId());
 
-            CollegeClass chosenClass = DataInput.getOptionFromListByUser(
+            CollegeClass chosenClass = DataInput.getElementFromListByUser(
                     teacher.getCollegeClass(),
                     CollegeClass::getName,
                     "Escolha uma Turma"
@@ -36,12 +37,12 @@ public class TeacherMenu implements ISubMenu {
 
            LocalDate date = DataInput.getDataByUser(
                    "Digite a data da aula",
-                   DataInput::validDate
+                   DataEntryValidator::validDate
            );
 
            String classDescription = DataInput.getDataByUser(
                "Digite o contéudo da aula",
-               DataInput::validStringInput
+               DataEntryValidator::validStringInput
             );
 
            for (SubjectStudent subjectStudent : chosenClass.getStudents()) {
