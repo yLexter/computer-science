@@ -2,13 +2,16 @@ package menu;
 import erros.DatabaseException;
 import erros.LeftMenuException;
 import interfaces.*;
+import utils.DataInput;
 import utils.Decoration;
 import utils.Global;
 import java.util.*;
 
 public class MenuExecutor {
     private final ISubMenu menu;
-    private final Map<Integer, ISubMenuOption> options;
+    private final List<ISubMenuOption> options;
+
+    public static final int startLoopIndex = 1;
 
     public MenuExecutor(ISubMenu menu) {
         this.menu = menu;
@@ -27,13 +30,13 @@ public class MenuExecutor {
                 System.out.println("Digite a opção desejada: ");
                 intOption = Integer.parseInt(scanner.nextLine());
 
-                if(intOption == options.size() + 1)
+                if(intOption == options.size() + startLoopIndex)
                     break;
 
-                if (options.containsKey(intOption)) {
-                    options.get(intOption).run();
-                } else {
+                if (intOption < startLoopIndex || intOption > options.size() + startLoopIndex) {
                     System.out.println("Opção inválida");
+                } else {
+                    options.get(intOption - startLoopIndex).run();
                 }
 
              } catch(NumberFormatException err) {
@@ -50,10 +53,12 @@ public class MenuExecutor {
 
     void printMenu() {
 
-        for(Map.Entry<Integer, ISubMenuOption> entry : options.entrySet())
-            System.out.printf("%d. %s\n", entry.getKey(), entry.getValue().label());
+        int index = startLoopIndex;
 
-        System.out.printf("%d. Sair\n", options.size() + 1);
+        for(ISubMenuOption option : options)
+            System.out.printf("%d. %s\n", index++, option.label());
+
+        System.out.printf("%d. Sair\n", options.size() + startLoopIndex);
     }
 
 

@@ -2,7 +2,9 @@ package general;
 
 import utils.Global;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,6 +44,13 @@ public class Subject {
         this.hours = hours;
     }
 
+    public static String getCurrentPeriod() {
+        LocalDate currentDate = LocalDate.now(ZoneId.systemDefault());
+        String currentPeriod = currentDate.getMonthValue() > 6 ? "2" : "1";
+
+        return String.format("%d.%s", currentDate.getYear(), currentPeriod);
+    }
+
     public static SubjectStudent createSubjectStudent(Subject subject, Student student, String classId) {
         return new SubjectStudent(
                 subject.getCode(),
@@ -52,13 +61,14 @@ public class Subject {
         );
     }
 
-    public static CollegeClass createCollegeClass(Subject subject, Teacher teacher, LocalDateTime time) {
+    public static CollegeClass createCollegeClass(Subject subject, Teacher teacher, LocalDateTime time, String roomId) {
         return new CollegeClass(
             subject.getCode(),
             subject.getName(),
             subject.getHours(),
             teacher,
-            time
+            time,
+           "B140"
         );
     }
 
@@ -69,10 +79,10 @@ public class Subject {
                 .collect(Collectors.toList());
     }
 
-    public static List<CollegeClass> mapAllToCollegeClass(List<Subject> list, Teacher teacher, LocalDateTime time) {
+    public static List<CollegeClass> mapAllToCollegeClass(List<Subject> list, Teacher teacher, LocalDateTime time, String roomId) {
         return list
                 .stream()
-                .map(subject -> createCollegeClass(subject, teacher, time))
+                .map(subject -> createCollegeClass(subject, teacher, time, roomId))
                 .collect(Collectors.toList());
     }
 

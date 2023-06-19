@@ -95,6 +95,11 @@ public class SubjectStudent extends Subject {
 
        return academicSystem.db.students.findById(studentId);
     }
+    public String getRoomId(String id) {
+        AcademicSystem academicSystem = Global.getAcademicSystem();
+
+        return academicSystem.db.collegeClass.findById(classId).getRoomId();
+    }
 
     public void setStatus(StudentSubjectStatus status) {
         this.status = status;
@@ -116,11 +121,6 @@ public class SubjectStudent extends Subject {
         this.period = period;
     }
 
-    public String getCurrentPeriod() {
-        LocalDate currentDate = LocalDate.now(ZoneId.systemDefault());
-        String currentPeriod = currentDate.getMonthValue() > 6 ? "2" : "1";
 
-        return String.format("%d.%s", currentDate.getYear(), currentPeriod);
-    }
 
 }

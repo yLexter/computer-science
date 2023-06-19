@@ -23,13 +23,12 @@ public class HomeMenu implements ISubMenu {
     }
 
     @Override
-    public Map<Integer, ISubMenuOption> getOptions() {
+    public List<ISubMenuOption> getOptions() {
 
-        Map<Integer, ISubMenuOption> newOptions = new LinkedHashMap<>();
+        return List.of(
+             new OptionMenu("Fazer Login", this::OptionLogin)
+        );
 
-        newOptions.put(1, new OptionMenu("Fazer Login", this::OptionLogin));
-
-        return  newOptions;
     }
 
     @Override

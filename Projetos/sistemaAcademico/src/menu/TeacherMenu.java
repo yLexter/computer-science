@@ -57,13 +57,12 @@ public class TeacherMenu implements ISubMenu {
     }
 
     @Override
-    public Map<Integer, ISubMenuOption> getOptions() {
+    public List<ISubMenuOption> getOptions() {
 
-        Map<Integer, ISubMenuOption> newOptions = new LinkedHashMap<>();
+        return List.of(
+                new OptionMenu("Registrar Aula", this::OptionRegisterClass)
+        );
 
-        newOptions.put(1, new OptionMenu("Registrar Aula", this::OptionRegisterClass));
-
-        return  newOptions;
     }
 
     @Override

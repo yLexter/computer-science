@@ -9,6 +9,7 @@ import utils.DataInput;
 import utils.Global;
 import utils.Role;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.List;
@@ -154,23 +155,20 @@ public class AdminMenu implements ISubMenu {
         academicSystem.db.collegeClass.delete(collegeClass.getClassId());
     }
 
-
     @Override
-    public Map<Integer, ISubMenuOption> getOptions() {
-        Map<Integer, ISubMenuOption> options = new LinkedHashMap<>();
+    public List<ISubMenuOption> getOptions() {
 
-        options.put(1, new OptionMenu("Ver Estudantes", this::optionShowStudents));
-        options.put(2, new OptionMenu("Adicionar estudante", this::optionAddStudent));
-        options.put(3, new OptionMenu("Remover estudante", this::optionDeleteStudent));
+        return List.of(
+            new OptionMenu("Ver Estudantes", this::optionShowStudents),
+            new OptionMenu("Adicionar estudante", this::optionAddStudent),
+            new OptionMenu("Remover estudante", this::optionDeleteStudent),
+            new OptionMenu("Ver Professores", this::optionShowTeatchers),
+            new OptionMenu("Adicionar Professor", this::optionAddTeatcher),
+            new OptionMenu("Remover Professor", this::optionDeleteTeatcher),
+            new OptionMenu("Adicionar turma", this::optionCreateCollegeClass),
+            new OptionMenu("Deletar turma", this::optionDeleteColegeClass)
+        );
 
-        options.put(4, new OptionMenu("Ver Professores", this::optionShowTeatchers));
-        options.put(5, new OptionMenu("Adicionar Professor", this::optionAddTeatcher));
-        options.put(6, new OptionMenu("Remover Professor", this::optionDeleteTeatcher));
-
-        options.put(7, new OptionMenu("Adicionar turma", this::optionCreateCollegeClass));
-        options.put(8, new OptionMenu("Deletar turma", this::optionDeleteColegeClass));
-
-        return options;
     }
 
     @Override

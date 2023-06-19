@@ -92,16 +92,16 @@ public class StudentMenu implements ISubMenu {
 
     public void optionShowEntranceExam() {}
     @Override
-    public Map<Integer, ISubMenuOption> getOptions() {
+    public List<ISubMenuOption> getOptions() {
 
-        Map<Integer, ISubMenuOption>  newOptions = new LinkedHashMap<>();
+        return List.of(
+                new OptionMenu("Ver RDM", this::optionShowRDM),
+                new OptionMenu("Ver RDM", this::optionShowRDM),
+                new OptionMenu("Ver Grade Curricular", this::optionShowCurriculum),
+                new OptionMenu("Ver Histórico", this::optionShowHistoric),
+                new OptionMenu("Ver Vestibular", this::optionShowEntranceExam)
+        );
 
-        newOptions.put(1, new OptionMenu("Ver RDM", this::optionShowRDM));
-        newOptions.put(2, new OptionMenu("Ver Grade Curricular", this::optionShowCurriculum));
-        newOptions.put(3, new OptionMenu("Ver Histórico", this::optionShowHistoric));
-        newOptions.put(4, new OptionMenu("Ver Vestibular", this::optionShowEntranceExam));
-
-        return newOptions;
     }
 
     @Override

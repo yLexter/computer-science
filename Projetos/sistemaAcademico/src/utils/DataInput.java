@@ -2,11 +2,9 @@ package utils;
 
 import erros.*;
 
-import java.time.LocalDate;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.regex.*;
 
 
 // ToDo Melhorar a forma de saida dos formularios e no geral
@@ -25,6 +23,8 @@ public class DataInput {
     }
 
     public static final String exitInputString = "-s";
+
+    public static final int startLoopIndex = 1;
 
     public static <T> T getDataByUser(String labelInput, Function<String, T> validInput) {
 
@@ -73,17 +73,45 @@ public class DataInput {
         return finalOutput;
     }
 
-    public static <T> T getOptionByUser(Map<Integer, ChoiseOption<T>> options, String label) {
+    public static <T> void showOptions(List<ChoiseOption<T>> options) {
+        int index = startLoopIndex;
+
+        for(ChoiseOption<T> option : options)
+            System.out.printf("%d. %s\n", index++, option.getLabel());
+    }
+
+    public static void checkUserLeftMenu(String string) {
+        if (string.equals(exitInputString))
+            throw new LeftMenuException();
+    }
+
+    public static Boolean getConfirmationByUser(String label){
+        List<ChoiseOption<Boolean>> options = new ArrayList<>();
+
+        options.add(new ChoiseOption<>("Sim", true));
+        options.add(new ChoiseOption<>("Não", false));
+
+        return getElementFromListByUser(options,ChoiseOption::getLabel ,label).option();
+    }
+
+    public static <T> T getElementFromListByUser(List<T> list, Function<T,String> getLabelOption, String label) {
+
+        if (list.size() == 0)
+            throw new LeftMenuException("Lista vazia");
+
+        List<ChoiseOption<T>> listOptions = list
+                .stream()
+                .map(option -> new ChoiseOption<>(getLabelOption.apply(option), option))
+                .toList();
 
         T optionSelected = null;
         Scanner scanner = Global.getScanner();
         int intOption;
 
         do {
-
             try {
                 System.out.println(label);
-                showOptions(options);
+                showOptions(listOptions);
                 System.out.println("Digite a opção desejada: ");
                 String stringOption = scanner.nextLine();
 
@@ -91,10 +119,11 @@ public class DataInput {
                     break;
 
                 intOption = Integer.parseInt(stringOption);
-                if (options.containsKey(intOption)) {
-                    optionSelected = options.get(intOption).getOption();
-                } else {
+
+                if (intOption < startLoopIndex || intOption > listOptions.size() + startLoopIndex) {
                     System.out.println("Opção inválida");
+                } else {
+                    optionSelected = listOptions.get(intOption - startLoopIndex).getOption();
                 }
 
             } catch(NumberFormatException err) {
@@ -105,9 +134,19 @@ public class DataInput {
         } while (optionSelected == null);
 
         return optionSelected;
+
+
     }
 
-    public static <T> List<T> getOptionsByUser(Map<Integer, ChoiseOption<T>> options, String label) {
+    public static <T> List<T> getElementsFromListByUser(List<T> list, Function<T,String> getLabelOption, String label) {
+
+        if (list.size() == 0)
+            throw new LeftMenuException("Lista vazia");
+
+        List<ChoiseOption<T>> listOptions = list
+                .stream()
+                .map(option -> new ChoiseOption<>(getLabelOption.apply(option), option))
+                .toList();
 
         List<T> optionsSelected = new ArrayList<>();
         Scanner scanner = Global.getScanner();
@@ -117,7 +156,7 @@ public class DataInput {
         do {
             try {
                 System.out.println(label);
-                showOptions(options);
+                showOptions(listOptions);
                 System.out.println("Digite a opção desejada: ");
                 String stringOption = scanner.nextLine();
 
@@ -126,12 +165,12 @@ public class DataInput {
 
                 intOption = Integer.parseInt(stringOption);
 
-                if (!options.containsKey(intOption)) {
+                if (intOption < startLoopIndex || intOption > listOptions.size() + startLoopIndex) {
                     System.out.println("Opção inválida");
                     continue;
                 }
 
-                option = options.get(intOption).getOption();
+                option = listOptions.get(intOption - startLoopIndex).getOption();
 
                 if (optionsSelected.contains(option)) {
                     System.out.println("Opção já selecionada");
@@ -151,56 +190,5 @@ public class DataInput {
 
         return optionsSelected;
     }
-
-    public static <T> void showOptions(Map<Integer, ChoiseOption<T>> options) {
-        for(Map.Entry<Integer, ChoiseOption<T>> entry : options.entrySet())
-            System.out.printf("%d. %s\n", entry.getKey(), entry.getValue().getLabel());
-    }
-
-    public static void checkUserLeftMenu(String string) {
-        if (string.equals(exitInputString))
-            throw new LeftMenuException();
-    }
-
-    public static Boolean getConfirmationByUser(String label){
-        Map<Integer, ChoiseOption<Boolean>> options = new LinkedHashMap<>();
-
-        options.put(1, new ChoiseOption<>("Sim", true));
-        options.put(2, new ChoiseOption<>("Não", false));
-
-        return getOptionByUser(options, label);
-    }
-
-    public static <T> T getElementFromListByUser(List<T> list, Function<T,String> getLabelOption, String label) {
-
-        if (list.size() == 0)
-            throw new LeftMenuException("Lista vazia");
-
-        Map<Integer, ChoiseOption<T>> options = new LinkedHashMap<>();
-
-        int count = 0;
-
-        for(T option : list)
-            options.put(++count, new ChoiseOption<>(getLabelOption.apply(option), option));
-
-        return getOptionByUser(options, label);
-    }
-
-    public static <T> List<T> getElementsFromListByUser(List<T> list, Function<T,String> getLabelOption, String label) {
-
-        if (list.size() == 0)
-            throw new LeftMenuException("Lista vazia");
-
-        Map<Integer, ChoiseOption<T>> options = new LinkedHashMap<>();
-
-        int count = 0;
-
-        for(T option : list)
-            options.put(++count, new ChoiseOption<>(getLabelOption.apply(option), option));
-
-        return getOptionsByUser(options, label);
-    }
-
-
 
 }

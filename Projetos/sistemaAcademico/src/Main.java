@@ -2,6 +2,8 @@ import general.*;
 import menu.AdminMenu;
 import menu.HomeMenu;
 import menu.StudentMenu;
+import utils.DataEntryValidator;
+import utils.DataInput;
 import utils.Global;
 
 import java.time.LocalDate;
@@ -13,8 +15,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-
-        test2();
+         test1();
 
     }
 
@@ -43,12 +44,13 @@ public class Main {
                 LocalDate.of(2003, 2, 2),
                 "15151",
                 null,
-                "CC"
+                "CC",
+                null
         );
 
-        SubjectStudent class1 = new SubjectStudent("001", "Math", 4, s1, "111");
-        SubjectStudent class2 = new SubjectStudent("002", "English", 3,  s1, "11");
-        SubjectStudent class3 = new SubjectStudent("003", "Physics", 5, s1, "");
+        SubjectStudent class1 = new SubjectStudent("001", "Math", 4, s1.getId(), "111");
+        SubjectStudent class2 = new SubjectStudent("002", "English", 3,  s1.getId(), "11");
+        SubjectStudent class3 = new SubjectStudent("003", "Physics", 5, s1.getId(), "");
 
         List<SubjectStudent> list = new ArrayList<>(
                 Arrays.asList(class1, class2, class3)
