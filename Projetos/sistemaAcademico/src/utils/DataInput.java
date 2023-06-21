@@ -26,6 +26,32 @@ public class DataInput {
 
     public static final int startLoopIndex = 1;
 
+    public static <T> T getDataByUser(String labelInput, Function<String, T> convertToType, Consumer<T> validInput) {
+
+        Scanner input = Global.getScanner();
+        T finalOutput = null, converted;
+
+        do {
+            try {
+                System.out.println(labelInput + " ou %s para sair".formatted(exitInputString));
+                String currentInput = input.nextLine().trim();
+
+                checkUserLeftMenu(currentInput);
+
+                converted = convertToType.apply(currentInput);
+                validInput.accept(converted);
+                finalOutput = converted;
+
+            } catch(IllegalArgumentException err) {
+                System.out.printf("Error: %s\n", err.getMessage());
+            }
+
+
+        } while (finalOutput == null);
+
+        return finalOutput;
+    }
+
     public static <T> T getDataByUser(String labelInput, Function<String, T> validInput) {
 
         Scanner input = Global.getScanner();

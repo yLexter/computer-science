@@ -95,10 +95,10 @@ public class SubjectStudent extends Subject {
 
        return academicSystem.db.students.findById(studentId);
     }
-    public String getRoomId(String id) {
+    public CollegeClass getCollegeClass(String id) {
         AcademicSystem academicSystem = Global.getAcademicSystem();
 
-        return academicSystem.db.collegeClass.findById(classId).getRoomId();
+        return academicSystem.db.collegeClass.findById(classId);
     }
 
     public void setStatus(StudentSubjectStatus status) {
@@ -120,7 +120,6 @@ public class SubjectStudent extends Subject {
     public void setPeriod(String period) {
         this.period = period;
     }
-
 
 
 }

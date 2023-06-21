@@ -1,50 +1,47 @@
 package general;
 
+import utils.Global;
+
 import java.time.LocalDateTime;
 import java.util.*;
 
 public class CollegeClass extends Subject {
-        private Teacher teacher;
-        private LocalDateTime time;
+        private String teacherId;
         private List<SubjectStudent> students;
         private String classId;
         private List<RegisterClass> registerClasses;
-        private String roomId;
-        public CollegeClass(String code, String name, int hours, Teacher teacher, LocalDateTime time, List<SubjectStudent> students, String roomId) {
+        private String classRoomId;
+
+        public CollegeClass(String code, String name, int hours, String teacherId, List<SubjectStudent> students, String classRoomId) {
                 super(code, name, hours);
-                this.teacher = teacher;
-                this.time = time;
+                this.teacherId = teacherId;
+                this.classRoomId = classRoomId;
                 this.students = students;
-                this.roomId = roomId;
                 this.classId = UUID.randomUUID().toString();
                 this.registerClasses = new ArrayList<>();
         }
 
-        public CollegeClass(String code, String name, int hours, Teacher teacher, LocalDateTime time, String roomId) {
+        public CollegeClass(String code, String name, int hours, String teacherId, String classRoomId) {
                 super(code, name, hours);
-                this.teacher = teacher;
-                this.time = time;
-                this.roomId = roomId;
+                this.teacherId = teacherId;
+                this.classRoomId = classRoomId;
                 this.classId = UUID.randomUUID().toString();
                 this.students = new ArrayList<>();
                 this.registerClasses = new ArrayList<>();
         }
 
+        public ClassRoom getClassRoom() {
+            AcademicSystem academicSystem = Global.getAcademicSystem();
+            return academicSystem.db.classRooms.findById(classRoomId);
+        }
 
         public Teacher getTeacher() {
-                return teacher;
+              AcademicSystem academicSystem = Global.getAcademicSystem();
+              return academicSystem.db.teachers.findById(teacherId);
         }
 
-        public void setTeacher(Teacher teacher) {
-                this.teacher = teacher;
-        }
-
-        public LocalDateTime getTime() {
-                return time;
-        }
-
-        public void setTime(LocalDateTime time) {
-                this.time = time;
+        public void setTeacherId(String teacherId) {
+                this.teacherId = teacherId;
         }
 
         public List<SubjectStudent> getStudents() {
@@ -71,12 +68,6 @@ public class CollegeClass extends Subject {
                 this.registerClasses = registerClasses;
         }
 
-        public String getRoomId() {
-                return roomId;
-        }
 
-        public void setRoomId(String roomId) {
-                this.roomId = roomId;
-        }
 }
 

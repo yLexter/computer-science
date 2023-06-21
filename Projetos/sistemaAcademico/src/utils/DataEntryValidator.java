@@ -8,18 +8,19 @@ import java.util.regex.Pattern;
 
 public class DataEntryValidator {
 
+    public static void validNote(float note) {
+        if (note < 0 || note > 10)
+            throw new IllegalArgumentException("Nota invalida");
+    }
+
     public static void validStringInput(String string) {
         if (string.equals(""))
             throw new IllegalArgumentException("A String não pode ser vazia");
     }
 
-    public static int validAge(String integer) {
-        int toInt = Integer.parseInt(integer);
-
-        if (toInt <= 0)
+    public static void validAge(int age) {
+        if (age <= 0)
             throw new IllegalArgumentException("O número fornecido precisa ser positivo");
-
-        return toInt;
     }
 
     public static void validCpf(String cpf) {
@@ -42,14 +43,12 @@ public class DataEntryValidator {
 
     }
 
-    public static double entranceExamCcore(String scoreString) {
-        double score = Double.parseDouble(scoreString);
-
+    public static void entranceExamCcore(double score) {
         if (score < EntranceExam.minimumScore || score > EntranceExam.maximumScore)
             throw new IllegalArgumentException("Nota invalida");
+    }
 
-        return score;
-      }
+
 
 
 }

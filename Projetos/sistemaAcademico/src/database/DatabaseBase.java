@@ -42,7 +42,7 @@ public abstract class DatabaseBase<T> implements IModelDatabase<T> {
 
     @Override
     public T findOne(Predicate<T> callback) {
-        return data
+        return getAll()
                 .stream()
                 .filter(callback)
                 .findAny()
@@ -51,7 +51,7 @@ public abstract class DatabaseBase<T> implements IModelDatabase<T> {
 
     @Override
     public List<T> findMany(Predicate<T> callback) {
-        return data
+        return getAll()
                 .stream()
                 .filter(callback)
                 .collect(Collectors.toList());

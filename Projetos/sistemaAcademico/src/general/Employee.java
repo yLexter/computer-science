@@ -106,17 +106,15 @@ public class Employee {
     }
 
     public static Employee createEmployeeByUser(Role role) {
-        String name, lastName, cpf;
-        LocalDate dathOfBirth;
-        int age;
 
-        name = DataInput.getDataByUser("Digite o nome", DataEntryValidator::validStringInput);
-        lastName = DataInput.getDataByUser("Digite o sobrenome", DataEntryValidator::validStringInput);
-        cpf = DataInput.getDataByUser("Digite o CPF no formato XXX.XXX.XXX-XX", DataEntryValidator::validCpf);
-        age = DataInput.getDataByUser("Digite a idade", DataEntryValidator::validAge);
-        dathOfBirth = DataInput.getDataByUser("Digite a data de nascimento no formato XX/XX/XXXX", DataEntryValidator::validDate);
-
-        return new Employee(name, lastName, age, dathOfBirth, role, cpf);
+        return new Employee(
+                DataInput.getDataByUser("Digite o nome", DataEntryValidator::validStringInput),
+                DataInput.getDataByUser("Digite o sobrenome", DataEntryValidator::validStringInput),
+                DataInput.getDataByUser("Digite a idade", Integer::parseInt ,DataEntryValidator::validAge),
+                DataInput.getDataByUser("Digite a data de nascimento no formato XX/XX/XXXX", DataEntryValidator::validDate),
+                role,
+                DataInput.getDataByUser("Digite o CPF no formato XXX.XXX.XXX-XX", DataEntryValidator::validCpf)
+         );
     }
 
 

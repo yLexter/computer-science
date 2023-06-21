@@ -8,9 +8,8 @@ import utils.Global;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
+
 import general.RegisterClass.StudentCallLog;
 import utils.DataEntryValidator;
 
@@ -23,14 +22,14 @@ public class TeacherMenu implements ISubMenu {
         this.teacher = teacher;
     }
 
-    private void OptionRegisterClass() {
+    private void optionRegisterClass() {
 
             List<StudentCallLog> callList = new ArrayList<>();
             AcademicSystem academicSystem = Global.getAcademicSystem();
             Teacher teacher = academicSystem.db.teachers.findById(this.teacher.getId());
 
             CollegeClass chosenClass = DataInput.getElementFromListByUser(
-                    teacher.getCollegeClass(),
+                    teacher.getCollegeClasses(),
                     CollegeClass::getName,
                     "Escolha uma Turma"
             );
@@ -56,11 +55,55 @@ public class TeacherMenu implements ISubMenu {
            );
     }
 
+    private void optionPostStudentGrade() {
+
+        AcademicSystem academicSystem = Global.getAcademicSystem();
+
+        CollegeClass chosenClass = DataInput.getElementFromListByUser(
+                teacher.getCollegeClasses(),
+                CollegeClass::getName,
+                "Escolha uma Turma"
+        );
+
+        List<SubjectStudent> students = chosenClass.getStudents();
+
+        for (SubjectStudent subjectStudent : students) {
+
+             System.out.printf("Aluno: %s", subjectStudent.getStudent().getName());
+
+             float nota1 = DataInput.getDataByUser("Digite a nota 1", Float::parseFloat, DataEntryValidator::validNote);
+             float nota2 = DataInput.getDataByUser("Digite a nota 2", Float::parseFloat, DataEntryValidator::validNote);
+
+             subjectStudent.setNote1(nota1);
+             subjectStudent.setNote2(nota2);
+        }
+
+        academicSystem.db.collegeClass.update(chosenClass.getClassId(), chosenClass);
+    }
+
+    private void optionShowClassReport() {
+
+        AcademicSystem academicSystem = Global.getAcademicSystem();
+
+        CollegeClass chosenClass = DataInput.getElementFromListByUser(
+                teacher.getCollegeClasses(),
+                CollegeClass::getName,
+                "Escolha uma Turma"
+        );
+
+
+
+
+
+    }
+
     @Override
     public List<ISubMenuOption> getOptions() {
 
         return List.of(
-                new OptionMenu("Registrar Aula", this::OptionRegisterClass)
+                new OptionMenu("Registrar Aula", this::optionRegisterClass),
+                new OptionMenu("Postar Nota", this::optionPostStudentGrade),
+                new OptionMenu("Mostrar relatorio de turma", this::optionShowClassReport)
         );
 
     }

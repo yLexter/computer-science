@@ -1,12 +1,13 @@
 package general;
 
+import java.util.List;
+
 public class GeneralInformation {
 
     private String course;
     private int totalAbsemcesPerClass;
     private boolean isRegitrationPeriod;
     private String version;
-
     public GeneralInformation(String course, int totalAbsemcesPerClass, boolean isRegitrationPeriod, String version) {
         this.course = course;
         this.totalAbsemcesPerClass = totalAbsemcesPerClass;

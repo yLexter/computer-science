@@ -51,38 +51,37 @@ public class Subject {
         return String.format("%d.%s", currentDate.getYear(), currentPeriod);
     }
 
-    public static SubjectStudent createSubjectStudent(Subject subject, Student student, String classId) {
+    public static SubjectStudent createSubjectStudent(Subject subject, Student student, ClassRoom classRoom) {
         return new SubjectStudent(
                 subject.getCode(),
                 subject.getName(),
                 subject.getHours(),
                 student.getId(),
-                classId
+                classRoom.getId()
         );
     }
 
-    public static CollegeClass createCollegeClass(Subject subject, Teacher teacher, LocalDateTime time, String roomId) {
+    public static List<SubjectStudent> mapStudentsToSubjectStudent(List<Student> list, Subject subject, ClassRoom classRoom) {
+        return list
+                .stream()
+                .map(student -> createSubjectStudent(subject, student, classRoom))
+                .collect(Collectors.toList());
+    }
+
+    public static CollegeClass createCollegeClass(Subject subject, Teacher teacher, ClassRoom classRoom) {
         return new CollegeClass(
             subject.getCode(),
             subject.getName(),
             subject.getHours(),
-            teacher,
-            time,
-           "B140"
+            teacher.getId(),
+            classRoom.getId()
         );
     }
 
-    public static List<SubjectStudent> mapAllToSubjectStudent(List<CollegeClass> list, Student student) {
+    public static List<CollegeClass> mapAllToCollegeClass(List<Subject> list, Teacher teacher, ClassRoom classRoom) {
         return list
                 .stream()
-                .map(subject -> createSubjectStudent(subject, student, subject.getClassId()))
-                .collect(Collectors.toList());
-    }
-
-    public static List<CollegeClass> mapAllToCollegeClass(List<Subject> list, Teacher teacher, LocalDateTime time, String roomId) {
-        return list
-                .stream()
-                .map(subject -> createCollegeClass(subject, teacher, time, roomId))
+                .map(subject -> createCollegeClass(subject, teacher, classRoom))
                 .collect(Collectors.toList());
     }
 

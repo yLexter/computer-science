@@ -4,6 +4,7 @@ import database.Database.AllData;
 import general.*;
 import interfaces.ISubMenu;
 import interfaces.ISubMenuOption;
+import jdk.jfr.DataAmount;
 import utils.DataEntryValidator;
 import utils.DataInput;
 import utils.Global;
@@ -40,11 +41,11 @@ public class AdminMenu implements ISubMenu {
         );
 
         EntranceExam entranceExam = new EntranceExam(
-                DataInput.getDataByUser("Humanas", DataEntryValidator::entranceExamCcore),
-                DataInput.getDataByUser("natureza", DataEntryValidator::entranceExamCcore),
-                DataInput.getDataByUser("linguagens", DataEntryValidator::entranceExamCcore),
-                DataInput.getDataByUser("matematica", DataEntryValidator::entranceExamCcore),
-                DataInput.getDataByUser("Redação", DataEntryValidator::entranceExamCcore)
+                DataInput.getDataByUser("Humanas", Double::parseDouble, DataEntryValidator::entranceExamCcore),
+                DataInput.getDataByUser("natureza", Double::parseDouble, DataEntryValidator::entranceExamCcore),
+                DataInput.getDataByUser("linguagens", Double::parseDouble,DataEntryValidator::entranceExamCcore),
+                DataInput.getDataByUser("matematica", Double::parseDouble, DataEntryValidator::entranceExamCcore),
+                DataInput.getDataByUser("Redação", Double::parseDouble, DataEntryValidator::entranceExamCcore)
         );
 
         Student student = new Student(
@@ -59,7 +60,8 @@ public class AdminMenu implements ISubMenu {
         );
 
 
-        student.setSubjects(Subject.mapAllToSubjectStudent(subjects, student));
+
+        // ToDo setar as subjects dos alunos
 
         academicSystem.db.students.save(student);
     }
@@ -123,13 +125,19 @@ public class AdminMenu implements ISubMenu {
 
     private void optionShowTeatchers() {}
 
+     // pegar as salas que não foram usadas ainda
     private void optionCreateCollegeClass() {
         AcademicSystem academicSystem = Global.getAcademicSystem();
         AllData allData = academicSystem.db.findAll();
+        CollegeClass collegeClass;
 
-        CollegeClass collegeClass = DataInput.getElementFromListByUser(
-                allData.collegeClasses(),
-                CollegeClass::getName,
+        List<ClassRoom> unusedClassRooms = allData
+                .classRooms();
+
+
+        Subject subject = DataInput.getElementFromListByUser(
+                allData.subjects(),
+                Subject::getName,
                 "Escolha a Cadeira"
         );
 
@@ -139,7 +147,50 @@ public class AdminMenu implements ISubMenu {
              "Escolha o professor"
         );
 
-        //ToDo Terminar a implementação
+        ClassRoom classRoom = DataInput.getElementFromListByUser(
+            unusedClassRooms,
+            (room -> String.format("ID: %s | Capacidade %d | Horario %s ", room.getId(), room.getCapacity() ,room.formatTime())),
+            "Escolha a sala"
+        );
+
+        boolean createWithStudents = DataInput.getConfirmationByUser("Deseja adicionar estudantes?");
+
+        if (createWithStudents) {
+
+            List<Student> students = DataInput.getElementsFromListByUser(
+                  allData.students(),
+                  (student -> "Matricula: %s | Nome: %s".formatted(student.getId(), student.getName())),
+                  "Escolha os estudantes"
+             );
+
+             collegeClass = new CollegeClass(
+                  subject.getCode(),
+                  subject.getName(),
+                  subject.getHours(),
+                  teacher.getId(),
+                  null,
+                  classRoom.getId()
+             );
+
+             collegeClass.setStudents(
+                Subject.mapStudentsToSubjectStudent(students, collegeClass, classRoom)
+             );
+
+         } else {
+
+            collegeClass = new CollegeClass(
+                    subject.getCode(),
+                    subject.getName(),
+                    subject.getHours(),
+                    teacher.getId(),
+                    null,
+                    classRoom.getId()
+            );
+
+         }
+
+
+        academicSystem.db.collegeClass.save(collegeClass);
     }
 
     public void optionDeleteColegeClass() {
@@ -154,6 +205,8 @@ public class AdminMenu implements ISubMenu {
 
         academicSystem.db.collegeClass.delete(collegeClass.getClassId());
     }
+
+
 
     @Override
     public List<ISubMenuOption> getOptions() {

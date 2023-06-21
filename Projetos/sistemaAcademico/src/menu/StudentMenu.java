@@ -96,7 +96,6 @@ public class StudentMenu implements ISubMenu {
 
         return List.of(
                 new OptionMenu("Ver RDM", this::optionShowRDM),
-                new OptionMenu("Ver RDM", this::optionShowRDM),
                 new OptionMenu("Ver Grade Curricular", this::optionShowCurriculum),
                 new OptionMenu("Ver Histórico", this::optionShowHistoric),
                 new OptionMenu("Ver Vestibular", this::optionShowEntranceExam)

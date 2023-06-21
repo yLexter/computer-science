@@ -35,7 +35,8 @@ public class Global {
           new DatabaseAdmin(),
           new DatabaseSubjects(DatabaseSubjects.getSubjects()),
           new DatabaseGeneralInformation(generalInformation),
-          new DatabaseCollegeClass()
+          new DatabaseCollegeClass(),
+          new DatabaseClassRoom()
         );
 
         return academicSystem = new AcademicSystem(db);

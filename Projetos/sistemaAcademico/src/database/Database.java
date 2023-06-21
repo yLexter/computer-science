@@ -4,7 +4,7 @@ import general.*;
 import java.util.List;
 
 public class Database {
-    public record AllData(List<Student> students, List<Teacher> teachers, List<Admin> admins, List<Subject> subjects, GeneralInformation generalInformation, List<CollegeClass> collegeClasses) {
+    public record AllData(List<Student> students, List<Teacher> teachers, List<Admin> admins, List<Subject> subjects, GeneralInformation generalInformation, List<CollegeClass> collegeClasses, List<ClassRoom> classRooms) {
         @Override
         public List<Student> students() {
             return students;
@@ -33,6 +33,11 @@ public class Database {
         public List<CollegeClass> collegeClasses() {
             return collegeClasses;
         }
+
+        @Override
+        public List<ClassRoom> classRooms() {
+            return classRooms;
+        }
     }
     public final DatabaseStudent students;
     public final DatabaseTeacher teachers;
@@ -40,13 +45,16 @@ public class Database {
     public final DatabaseSubjects subjects;
     public final DatabaseGeneralInformation generalInformation;
     public final DatabaseCollegeClass collegeClass;
-    public Database(DatabaseStudent students, DatabaseTeacher teachers, DatabaseAdmin admin, DatabaseSubjects subjects, DatabaseGeneralInformation generalInformation, DatabaseCollegeClass collegeClass) {
+    public final DatabaseClassRoom classRooms;
+
+    public Database(DatabaseStudent students, DatabaseTeacher teachers, DatabaseAdmin admin, DatabaseSubjects subjects, DatabaseGeneralInformation generalInformation, DatabaseCollegeClass collegeClass, DatabaseClassRoom classRooms) {
         this.students = students;
         this.teachers = teachers;
         this.admin = admin;
         this.subjects = subjects;
         this.generalInformation = generalInformation;
         this.collegeClass = collegeClass;
+        this.classRooms = classRooms;
     }
 
     public AllData findAll() {
@@ -56,7 +64,8 @@ public class Database {
            admin.getAll(),
            subjects.getAll(),
            generalInformation.getData(),
-           collegeClass.getAll()
+           collegeClass.getAll(),
+           classRooms.getAll()
         );
     }
 
