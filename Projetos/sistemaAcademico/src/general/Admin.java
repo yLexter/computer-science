@@ -10,4 +10,8 @@ public class Admin extends Employee {
         super(name, lastName, age, dateOfBirth, Role.ADMIN, cpf);
     }
 
+    public String toString() {
+        return String.format("%s", super.toString());
+    }
+
 }

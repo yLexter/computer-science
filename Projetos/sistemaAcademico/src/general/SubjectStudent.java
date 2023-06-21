@@ -121,5 +121,8 @@ public class SubjectStudent extends Subject {
         this.period = period;
     }
 
+    public String toString() {
+        return String.format("%s", super.toString());
+    }
 
 }

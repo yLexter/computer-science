@@ -141,12 +141,11 @@ public class DataInput {
                 System.out.println("Digite a opção desejada: ");
                 String stringOption = scanner.nextLine();
 
-                if (stringOption.equals(exitInputString))
-                    break;
+                checkUserLeftMenu(stringOption);
 
                 intOption = Integer.parseInt(stringOption);
 
-                if (intOption < startLoopIndex || intOption > listOptions.size() + startLoopIndex) {
+                if (intOption < startLoopIndex || intOption >= listOptions.size() + startLoopIndex) {
                     System.out.println("Opção inválida");
                 } else {
                     optionSelected = listOptions.get(intOption - startLoopIndex).getOption();
@@ -191,7 +190,66 @@ public class DataInput {
 
                 intOption = Integer.parseInt(stringOption);
 
-                if (intOption < startLoopIndex || intOption > listOptions.size() + startLoopIndex) {
+                if (intOption < startLoopIndex || intOption >= listOptions.size() + startLoopIndex) {
+                    System.out.println("Opção inválida");
+                    continue;
+                }
+
+                option = listOptions.get(intOption - startLoopIndex).getOption();
+
+                if (optionsSelected.contains(option)) {
+                    System.out.println("Opção já selecionada");
+                    continue;
+                }
+
+                optionsSelected.add(option);
+
+                Decoration.clearScreen();
+
+            } catch(NumberFormatException err) {
+                Decoration.clearScreen();
+                System.out.println("Forneça um número inteiro válido.");
+            }
+
+        } while (true);
+
+        return optionsSelected;
+    }
+
+    public static <T> List<T> getElementsFromListByUser(List<T> list, Function<T,String> getLabelOption, String label, int maximumSize) {
+
+        if (list.size() == 0)
+            throw new LeftMenuException("Lista vazia");
+
+        List<ChoiseOption<T>> listOptions = list
+                .stream()
+                .map(option -> new ChoiseOption<>(getLabelOption.apply(option), option))
+                .toList();
+
+        List<T> optionsSelected = new ArrayList<>();
+        Scanner scanner = Global.getScanner();
+        int intOption;
+        T option;
+
+        do {
+            try {
+
+                if (optionsSelected.size() == maximumSize)
+                    return optionsSelected;
+
+                System.out.println(label);
+                System.out.printf("Itens Escolhidos: %d/%d\n\n", optionsSelected.size(), maximumSize);
+                showOptions(listOptions);
+                System.out.println("Digite a opção desejada: ");
+
+                String stringOption = scanner.nextLine();
+
+                if (stringOption.equals(exitInputString))
+                    break;
+
+                intOption = Integer.parseInt(stringOption);
+
+                if (intOption < startLoopIndex || intOption >= listOptions.size() + startLoopIndex) {
                     System.out.println("Opção inválida");
                     continue;
                 }

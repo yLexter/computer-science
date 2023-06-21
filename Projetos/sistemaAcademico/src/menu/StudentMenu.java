@@ -90,7 +90,10 @@ public class StudentMenu implements ISubMenu {
            System.out.println("+--------+-------+-------------------+");
     }
 
-    public void optionShowEntranceExam() {}
+    public void optionShowEntranceExam() {
+
+
+    }
     @Override
     public List<ISubMenuOption> getOptions() {
 

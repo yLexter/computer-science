@@ -4,16 +4,18 @@ import database.Database.AllData;
 import general.*;
 import interfaces.ISubMenu;
 import interfaces.ISubMenuOption;
-import jdk.jfr.DataAmount;
 import utils.DataEntryValidator;
 import utils.DataInput;
 import utils.Global;
 import utils.Role;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.TextStyle;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 
 // ToDo melhorar a forma  de pegar os horario e pegar informações do vestibular
@@ -25,7 +27,25 @@ public class AdminMenu implements ISubMenu {
         this.admin = admin;
     }
 
-    private void optionShowStudents() {}
+    private void optionShowStudents() {
+
+        AcademicSystem academicSystem = Global.getAcademicSystem();
+        List<Student> students = academicSystem.db.students.getAll();
+
+        System.out.println("---------------------------------------------------------");
+        System.out.printf("| %-10s | %-10s | %-3s | %-12s | %-11s | %-2s |%n",
+                "First Name", "Last Name", "Age", "Date of Birth", "CPF", "Course");
+        System.out.println("---------------------------------------------------------");
+
+        for (Student student : students) {
+            System.out.printf("| %-10s | %-10s | %-3d | %-12s | %-11s | %-2s |%n",
+                    student.getName(), student.getLastName(), student.getAge(),
+                    student.getDateOfBirth(), student.getCpf(), student.getCourse());
+        }
+
+        System.out.println("---------------------------------------------------------");
+
+    }
 
     private void optionAddStudent() {
 
@@ -34,9 +54,9 @@ public class AdminMenu implements ISubMenu {
         AcademicSystem academicSystem = Global.getAcademicSystem();
         AllData allData = academicSystem.db.findAll();
 
-        List<CollegeClass> subjects = DataInput.getElementsFromListByUser(
+        List<CollegeClass> collegeClasses = DataInput.getElementsFromListByUser(
                 allData.collegeClasses(),
-                CollegeClass::getName,
+                CollegeClass::toString,
                "Escolha a Cadeiras"
         );
 
@@ -59,9 +79,12 @@ public class AdminMenu implements ISubMenu {
             entranceExam
         );
 
-
-
-        // ToDo setar as subjects dos alunos
+         student.setSubjects(
+             collegeClasses
+                     .stream()
+                     .map(CollegeClass::getClassId)
+                     .toList()
+         );
 
         academicSystem.db.students.save(student);
     }
@@ -71,7 +94,7 @@ public class AdminMenu implements ISubMenu {
 
         Student studentRemoved = DataInput.getElementFromListByUser(
                 academicSystem.db.students.getAll(),
-                Student::getName,
+                Student::toString,
                 "Escolha o estudante"
         );
 
@@ -85,7 +108,7 @@ public class AdminMenu implements ISubMenu {
 
         Teacher studentRemoved = DataInput.getElementFromListByUser(
                 academicSystem.db.teachers.getAll(),
-                Teacher::getName,
+                Teacher::toString,
                 "Escolha o Professor`"
         );
 
@@ -115,42 +138,67 @@ public class AdminMenu implements ISubMenu {
                 employee.getLastName(),
                 employee.getAge(),
                 employee.getDateOfBirth(),
-                employee.getCpf(),
-                salary
+                employee.getCpf()
         );
 
         academicSystem.db.teachers.save(teacher);
 
     }
 
-    private void optionShowTeatchers() {}
+    private void optionShowTeatchers() {
 
-     // pegar as salas que não foram usadas ainda
+
+    }
+
     private void optionCreateCollegeClass() {
         AcademicSystem academicSystem = Global.getAcademicSystem();
         AllData allData = academicSystem.db.findAll();
         CollegeClass collegeClass;
 
-        List<ClassRoom> unusedClassRooms = allData
-                .classRooms();
-
-
         Subject subject = DataInput.getElementFromListByUser(
                 allData.subjects(),
-                Subject::getName,
+                Subject::toString,
                 "Escolha a Cadeira"
         );
 
         Teacher teacher = DataInput.getElementFromListByUser(
              allData.teachers(),
-             Teacher::getName,
+             Teacher::toString,
              "Escolha o professor"
         );
 
-        ClassRoom classRoom = DataInput.getElementFromListByUser(
-            unusedClassRooms,
-            (room -> String.format("ID: %s | Capacidade %d | Horario %s ", room.getId(), room.getCapacity() ,room.formatTime())),
-            "Escolha a sala"
+
+        Room room = DataInput.getElementFromListByUser(
+            allData.generalInformation().getRooms(),
+            (r) -> "Sala: %s | Capacidade: %d".formatted(r.getRoomId(), r.getCapacity()),
+            "Escolha uma sala"
+        );
+
+
+        LocalTime time = DataInput.getDataByUser(
+                "Digite o horario no formato XX:XX",
+                (t) -> {
+                   LocalTime validTime = DataEntryValidator.validTime(t);
+
+                   if (!academicSystem.db.classRooms.checkVacantClassCchedule(validTime, room.getRoomId()))
+                       throw new IllegalArgumentException("Horario em uso");
+
+                   return validTime;
+                }
+        );
+
+
+        DayOfWeek dayOfWeek = DataInput.getElementFromListByUser(
+           Arrays.stream(DayOfWeek.values()).toList(),
+           day -> day.getDisplayName(TextStyle.FULL, Locale.getDefault()),
+           "Escolha o dia da semana"
+        );
+
+        ClassRoom classRoom = new ClassRoom(
+            room.getRoomId(),
+            room.getCapacity(),
+            time,
+            dayOfWeek
         );
 
         boolean createWithStudents = DataInput.getConfirmationByUser("Deseja adicionar estudantes?");
@@ -159,8 +207,9 @@ public class AdminMenu implements ISubMenu {
 
             List<Student> students = DataInput.getElementsFromListByUser(
                   allData.students(),
-                  (student -> "Matricula: %s | Nome: %s".formatted(student.getId(), student.getName())),
-                  "Escolha os estudantes"
+                  Student::toString,
+                  "Escolha os estudantes",
+                  room.getCapacity()
              );
 
              collegeClass = new CollegeClass(
@@ -173,7 +222,7 @@ public class AdminMenu implements ISubMenu {
              );
 
              collegeClass.setStudents(
-                Subject.mapStudentsToSubjectStudent(students, collegeClass, classRoom)
+                Subject.studentToSubjectStudent(students, collegeClass, classRoom)
              );
 
          } else {
@@ -191,22 +240,21 @@ public class AdminMenu implements ISubMenu {
 
 
         academicSystem.db.collegeClass.save(collegeClass);
+        academicSystem.db.classRooms.save(classRoom);
     }
 
-    public void optionDeleteColegeClass() {
+    private void optionDeleteColegeClass() {
 
         AcademicSystem academicSystem = Global.getAcademicSystem();
 
         CollegeClass collegeClass = DataInput.getElementFromListByUser(
                 academicSystem.db.collegeClass.getAll(),
-                CollegeClass::getName,
+                CollegeClass::toString,
                 "Escolha a turma"
         );
 
         academicSystem.db.collegeClass.delete(collegeClass.getClassId());
     }
-
-
 
     @Override
     public List<ISubMenuOption> getOptions() {

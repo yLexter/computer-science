@@ -6,8 +6,6 @@ import utils.DataEntryValidator;
 import java.security.SecureRandom;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-
-// ToDo implementar password igual a data nascimento e id como matricula
 public class Employee {
     public static int sizeId = 8;
     private String name;
@@ -26,7 +24,7 @@ public class Employee {
         this.dateOfBirth = dateOfBirth;
         this.role = role;
         this.cpf = cpf;
-        this.id = generateId();
+        this.id = "15";
         this.password = formatDateOfBirthToPassword();
     }
 
@@ -104,7 +102,6 @@ public class Employee {
 
         return this.dateOfBirth.format(formatter);
     }
-
     public static Employee createEmployeeByUser(Role role) {
 
         return new Employee(
@@ -117,5 +114,12 @@ public class Employee {
          );
     }
 
+    public String getFullName() {
+        return "%s %s".formatted(name, lastName);
+    }
 
+    @Override
+    public String toString() {
+        return String.format("[%s] %s | Idade: %d", id , getFullName(), age);
+    }
 }

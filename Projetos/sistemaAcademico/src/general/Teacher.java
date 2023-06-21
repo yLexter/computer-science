@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Teacher extends Employee {
-    public Teacher(String name, String lastName, int age, LocalDate dateOfBirth, String cpf, double salary) {
+    public Teacher(String name, String lastName, int age, LocalDate dateOfBirth, String cpf) {
         super(name, lastName, age, dateOfBirth, Role.TEACHER, cpf);
     }
     public List<CollegeClass> getCollegeClasses() {
@@ -17,6 +17,13 @@ public class Teacher extends Employee {
         );
 
     }
+
+
+    @Override
+    public String toString() {
+        return String.format("%s", super.toString());
+    }
+
 
 }
 

@@ -1,17 +1,17 @@
 package general;
 
+import utils.Global;
 import utils.Role;
 
 import java.time.LocalDate;
 import java.util.*;
 public class Student extends Employee {
-    private List<SubjectStudent> subjects;
+    private List<String> subjects;
     private String course;
     private List<SubjectStudent> historic;
-
     private EntranceExam entranceExam;
 
-    public Student(String name, String lastName, int age, LocalDate dateOfBirth, String cpf, List<SubjectStudent> subjects, String course, List<SubjectStudent> historic, EntranceExam entranceExam) {
+    public Student(String name, String lastName, int age, LocalDate dateOfBirth, String cpf, List<String> subjects, String course, List<SubjectStudent> historic, EntranceExam entranceExam) {
         super(name, lastName, age, dateOfBirth, Role.STUDENT, cpf);
         this.subjects = subjects;
         this.course = course;
@@ -19,20 +19,25 @@ public class Student extends Employee {
         this.entranceExam = entranceExam;
     }
 
-    public Student(String name, String lastName, int age, LocalDate dateOfBirth, String cpf, List<SubjectStudent> subjects, String course, EntranceExam entranceExam) {
+    public Student(String name, String lastName, int age, LocalDate dateOfBirth, String cpf, List<String> subjects, String course, EntranceExam entranceExam) {
         super(name, lastName, age, dateOfBirth, Role.STUDENT, cpf);
         this.subjects = subjects;
         this.course = course;
-        this.historic = new ArrayList<>();
         this.entranceExam = entranceExam;
+        this.historic = new ArrayList<>();
     }
 
     public List<SubjectStudent> getSubjects() {
-        return subjects;
+        AcademicSystem academicSystem = Global.getAcademicSystem();
+        return academicSystem.db.collegeClass.getAllSubjectStudentOfStudent(this);
     }
 
-    public void setSubjects(List<SubjectStudent> subjects) {
+    public void setSubjects(List<String> subjects) {
         this.subjects = subjects;
+    }
+
+    public void setEntranceExam(EntranceExam entranceExam) {
+        this.entranceExam = entranceExam;
     }
 
     public String getCourse() {
@@ -52,6 +57,9 @@ public class Student extends Employee {
     }
 
 
-
+    @Override
+    public String toString() {
+        return String.format("%s | %s", super.toString(), course);
+    }
 
 }

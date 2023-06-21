@@ -15,7 +15,7 @@ public abstract class DatabaseBase<T> implements IModelDatabase<T> {
     }
 
     public DatabaseBase(List<T> data) {
-        this.data = data;
+        this.data = new ArrayList<>(data);
     }
 
     @Override
@@ -30,9 +30,9 @@ public abstract class DatabaseBase<T> implements IModelDatabase<T> {
 
     @Override
     public void delete(String id) {
-        T employee = findById(id);
+        T content = findById(id);
 
-        data.remove(employee);
+        data.remove(content);
     }
 
     @Override
@@ -62,7 +62,7 @@ public abstract class DatabaseBase<T> implements IModelDatabase<T> {
 
     @Override
     public void updateAll(List<T> data) {
-        this.data = data;
+        this.data = new ArrayList<>(data);
     }
 
 

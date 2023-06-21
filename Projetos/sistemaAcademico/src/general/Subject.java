@@ -1,11 +1,7 @@
 package general;
 
-import utils.Global;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,7 +47,7 @@ public class Subject {
         return String.format("%d.%s", currentDate.getYear(), currentPeriod);
     }
 
-    public static SubjectStudent createSubjectStudent(Subject subject, Student student, ClassRoom classRoom) {
+    public static SubjectStudent studentToSubjectStudent(Subject subject, Student student, ClassRoom classRoom) {
         return new SubjectStudent(
                 subject.getCode(),
                 subject.getName(),
@@ -61,31 +57,34 @@ public class Subject {
         );
     }
 
-    public static List<SubjectStudent> mapStudentsToSubjectStudent(List<Student> list, Subject subject, ClassRoom classRoom) {
+    public static List<SubjectStudent> studentToSubjectStudent(List<Student> list, Subject subject, ClassRoom classRoom) {
         return list
                 .stream()
-                .map(student -> createSubjectStudent(subject, student, classRoom))
+                .map(student -> studentToSubjectStudent(subject, student, classRoom))
                 .collect(Collectors.toList());
     }
 
-    public static CollegeClass createCollegeClass(Subject subject, Teacher teacher, ClassRoom classRoom) {
+
+    public static CollegeClass subjectToCollegeClass(Subject subject, String teacherId, ClassRoom classRoom) {
         return new CollegeClass(
-            subject.getCode(),
-            subject.getName(),
-            subject.getHours(),
-            teacher.getId(),
-            classRoom.getId()
+          subject.getCode(),
+          subject.getName(),
+          subject.getHours(),
+          teacherId,
+          null,
+          null
         );
     }
 
-    public static List<CollegeClass> mapAllToCollegeClass(List<Subject> list, Teacher teacher, ClassRoom classRoom) {
-        return list
+    public static List<CollegeClass> subjectToCollegeClass(List<Subject> subjects, String teacherId, ClassRoom classRoom) {
+        return subjects
                 .stream()
-                .map(subject -> createCollegeClass(subject, teacher, classRoom))
+                .map(subject -> subjectToCollegeClass(subject, teacherId, classRoom))
                 .collect(Collectors.toList());
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return String.format("[%s] %s | %d ", code, name, hours);
+    }
 }

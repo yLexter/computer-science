@@ -30,6 +30,14 @@ public class CollegeClass extends Subject {
                 this.registerClasses = new ArrayList<>();
         }
 
+        public CollegeClass(String code, String name, int hours, String classRoomId) {
+                super(code, name, hours);
+                this.classRoomId = classRoomId;
+                this.classId = UUID.randomUUID().toString();
+                this.students = new ArrayList<>();
+                this.registerClasses = new ArrayList<>();
+        }
+
         public ClassRoom getClassRoom() {
             AcademicSystem academicSystem = Global.getAcademicSystem();
             return academicSystem.db.classRooms.findById(classRoomId);
@@ -68,6 +76,9 @@ public class CollegeClass extends Subject {
                 this.registerClasses = registerClasses;
         }
 
-
+        @Override
+        public String toString() {
+            return String.format("%s | ClassID: %s | RoomId: %s ", super.toString(), classId, classRoomId);
+        }
 }
 

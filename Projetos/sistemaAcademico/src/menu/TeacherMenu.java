@@ -30,7 +30,7 @@ public class TeacherMenu implements ISubMenu {
 
             CollegeClass chosenClass = DataInput.getElementFromListByUser(
                     teacher.getCollegeClasses(),
-                    CollegeClass::getName,
+                    CollegeClass::toString,
                     "Escolha uma Turma"
             );
 
@@ -46,13 +46,18 @@ public class TeacherMenu implements ISubMenu {
 
            for (SubjectStudent subjectStudent : chosenClass.getStudents()) {
                   Student student = subjectStudent.getStudent();
-                  boolean studentMissed = DataInput.getConfirmationByUser("O Aluno %s faltou?".formatted(student.getName()));
-                  callList.add(new StudentCallLog( student.getId(), studentMissed));
+                  boolean studentMissed = DataInput.getConfirmationByUser("O Aluno %s faltou?".formatted(student.getFullName()));
+
+                  callList.add(
+                          new StudentCallLog(student.getId(), studentMissed)
+                  );
            }
 
-           academicSystem.db.teachers.saveCall(
-                   new RegisterClass(classDescription, date, callList, teacher.getId())
+           academicSystem.db.collegeClass.saveCall(
+                 chosenClass,
+                 new RegisterClass(classDescription, date, callList, teacher.getId())
            );
+
     }
 
     private void optionPostStudentGrade() {
@@ -61,7 +66,7 @@ public class TeacherMenu implements ISubMenu {
 
         CollegeClass chosenClass = DataInput.getElementFromListByUser(
                 teacher.getCollegeClasses(),
-                CollegeClass::getName,
+                CollegeClass::toString,
                 "Escolha uma Turma"
         );
 
@@ -69,7 +74,7 @@ public class TeacherMenu implements ISubMenu {
 
         for (SubjectStudent subjectStudent : students) {
 
-             System.out.printf("Aluno: %s", subjectStudent.getStudent().getName());
+             System.out.printf("Aluno: %s", subjectStudent.getStudent().getFullName());
 
              float nota1 = DataInput.getDataByUser("Digite a nota 1", Float::parseFloat, DataEntryValidator::validNote);
              float nota2 = DataInput.getDataByUser("Digite a nota 2", Float::parseFloat, DataEntryValidator::validNote);
@@ -87,7 +92,7 @@ public class TeacherMenu implements ISubMenu {
 
         CollegeClass chosenClass = DataInput.getElementFromListByUser(
                 teacher.getCollegeClasses(),
-                CollegeClass::getName,
+                CollegeClass::toString,
                 "Escolha uma Turma"
         );
 

@@ -3,6 +3,9 @@ package utils;
 import general.EntranceExam;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -48,7 +51,21 @@ public class DataEntryValidator {
             throw new IllegalArgumentException("Nota invalida");
     }
 
+    public static LocalTime validTime(String time) {
 
+        if (!time.matches("(0?[0-9]|[0-1][0-9]|2[0-3]):([0-5][0-9])"))
+            throw new IllegalArgumentException("o Horario não está no formato XX/XX/XXXX");
+
+        List<Integer> times = Arrays.stream(time.split(":"))
+                .map(Integer::parseInt)
+                .toList();
+
+        return LocalTime.of(
+           times.get(0),
+           times.get(1)
+        );
+
+    }
 
 
 }

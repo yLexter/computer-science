@@ -3,6 +3,7 @@ package utils;
 import database.*;
 import general.AcademicSystem;
 import general.Admin;
+import general.ClassRoom;
 import general.GeneralInformation;
 
 import java.time.LocalDate;
@@ -25,7 +26,9 @@ public class Global {
               "Computação",
               2,
               false,
-              "1.0.0"
+              "1.0.0",
+               Examples.getRooms(),
+              2
         );
 
 
@@ -33,7 +36,7 @@ public class Global {
           new DatabaseStudent(),
           new DatabaseTeacher(),
           new DatabaseAdmin(),
-          new DatabaseSubjects(DatabaseSubjects.getSubjects()),
+          new DatabaseSubjects(Examples.getSubjects()),
           new DatabaseGeneralInformation(generalInformation),
           new DatabaseCollegeClass(),
           new DatabaseClassRoom()
