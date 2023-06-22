@@ -1,7 +1,7 @@
 package menu;
 
 import general.*;
-import interfaces.ISubMenu;
+import interfaces.IMenuEmployee;
 import interfaces.ISubMenuOption;
 import utils.DataInput;
 import utils.Global;
@@ -9,24 +9,26 @@ import utils.Global;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import general.RegisterClass.StudentCallLog;
 import utils.DataEntryValidator;
+import utils.Utils;
 
-// ToDo Implementar o professor nas opções
-public class TeacherMenu implements ISubMenu {
+// ToDo Consertar bug de duplicidade de dados, pegar os dados da db
+public class TeacherMenu implements IMenuEmployee<Teacher> {
 
-    private Teacher teacher;
+    private String teacherId;
 
-    public TeacherMenu(Teacher teacher) {
-        this.teacher = teacher;
+    public TeacherMenu(String teacherId) {
+        this.teacherId = teacherId;
     }
 
     private void optionRegisterClass() {
 
+            Teacher teacher =getUser();
             List<StudentCallLog> callList = new ArrayList<>();
             AcademicSystem academicSystem = Global.getAcademicSystem();
-            Teacher teacher = academicSystem.db.teachers.findById(this.teacher.getId());
 
             CollegeClass chosenClass = DataInput.getElementFromListByUser(
                     teacher.getCollegeClasses(),
@@ -62,6 +64,7 @@ public class TeacherMenu implements ISubMenu {
 
     private void optionPostStudentGrade() {
 
+        Teacher teacher = getUser();
         AcademicSystem academicSystem = Global.getAcademicSystem();
 
         CollegeClass chosenClass = DataInput.getElementFromListByUser(
@@ -74,15 +77,15 @@ public class TeacherMenu implements ISubMenu {
 
         for (SubjectStudent subjectStudent : students) {
 
-             Student student = subjectStudent.getStudent();
+            Student student = subjectStudent.getStudent();
 
-             System.out.printf("Aluno: %s\n\n", student.getFullName());
+            System.out.printf("Aluno: %s\n\n", student.getFullName());
 
-             float note1 = DataInput.getDataByUser("Digite a nota 1", Float::parseFloat, DataEntryValidator::validNote);
-             float note2 = DataInput.getDataByUser("Digite a nota 2", Float::parseFloat, DataEntryValidator::validNote);
+            float note1 = DataInput.getDataByUser("Digite a nota 1", Float::parseFloat, DataEntryValidator::validNote);
+            float note2 = DataInput.getDataByUser("Digite a nota 2", Float::parseFloat, DataEntryValidator::validNote);
 
-             subjectStudent.setNote1(note1);
-             subjectStudent.setNote2(note2);
+            subjectStudent.setNote1(note1);
+            subjectStudent.setNote2(note2);
         }
 
         academicSystem.db.collegeClass.update(chosenClass.getClassId(), chosenClass);
@@ -90,7 +93,7 @@ public class TeacherMenu implements ISubMenu {
 
     private void optionShowClassReport() {
 
-        AcademicSystem academicSystem = Global.getAcademicSystem();
+        Teacher teacher =getUser();
 
         CollegeClass chosenClass = DataInput.getElementFromListByUser(
                 teacher.getCollegeClasses(),
@@ -100,17 +103,36 @@ public class TeacherMenu implements ISubMenu {
 
         List<SubjectStudent> students = chosenClass.getStudents();
 
-        for(SubjectStudent subjectStudent : students) {
+        List<String> headers = List.of(
+                "Matricula",
+                "Nome",
+                "1° Nota",
+                "2° Nota",
+                "Final",
+                "Média",
+                "Faltas",
+                "Status",
+                "Período"
+        );
 
+        Function<SubjectStudent, List<?>> callBack = (subjectStudent -> {
             Student student = subjectStudent.getStudent();
+            List<String> notes = subjectStudent.getListNotes();
 
-            System.out.println(student.toString());
-            System.out.println();
+            return List.of(
+                    student.getId(),
+                    student.getFullName(),
+                    notes.get(0),
+                    notes.get(1),
+                    Utils.numberToString(subjectStudent.getFinalExameScore()),
+                    Utils.numberToString(subjectStudent.getAverage()),
+                    subjectStudent.getAbsences(),
+                    subjectStudent.getStatus().get(),
+                    subjectStudent.getPeriod()
+            );
+        });
 
-            System.out.printf("Nota1: %.2f\n", subjectStudent.getNote1());
-            System.out.printf("Nota2: %.2f\n", subjectStudent.getNote1());
-        }
-
+        Utils.printTable(students, callBack, headers);
     }
 
     @Override
@@ -122,6 +144,12 @@ public class TeacherMenu implements ISubMenu {
                 new OptionMenu("Mostrar relatorio de turma", this::optionShowClassReport)
         );
 
+    }
+
+    @Override
+    public Teacher getUser() {
+        AcademicSystem academicSystem = Global.getAcademicSystem();
+        return academicSystem.db.teachers.findById(teacherId);
     }
 
     @Override

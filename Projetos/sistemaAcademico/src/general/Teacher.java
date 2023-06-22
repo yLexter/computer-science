@@ -15,9 +15,7 @@ public class Teacher extends Employee {
         return academicSystem.db.collegeClass.findMany(
                 collegeClass -> collegeClass.getTeacher().getId().equals(this.getId())
         );
-
     }
-
 
     @Override
     public String toString() {

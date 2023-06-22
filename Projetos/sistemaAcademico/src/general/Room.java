@@ -31,4 +31,5 @@ public class Room {
     public String toString() {
         return String.format("Sala: %s | Capacidade: %d", roomId, capacity);
     }
+
 }

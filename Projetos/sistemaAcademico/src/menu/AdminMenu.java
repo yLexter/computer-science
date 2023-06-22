@@ -2,53 +2,59 @@ package menu;
 
 import database.Database.AllData;
 import general.*;
-import interfaces.ISubMenu;
+import interfaces.IMenuEmployee;
 import interfaces.ISubMenuOption;
 import utils.*;
-import utils.Utils.ConsoleTable;
+
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.TextStyle;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Function;
 
 
 // ToDo melhorar a forma  de pegar os horario e pegar informações do vestibular
-public class AdminMenu implements ISubMenu {
+public class AdminMenu implements IMenuEmployee<Admin> {
 
-    private final Admin admin;
+    private final String adminId;
 
-    public AdminMenu(Admin admin) {
-        this.admin = admin;
+    public AdminMenu(String adminId) {
+        this.adminId = adminId;
+    }
+
+    @Override
+    public Admin getUser() {
+        AcademicSystem academicSystem = Global.getAcademicSystem();
+        return academicSystem.db.admin.findById(adminId);
     }
 
     private void optionShowStudents() {
-
         AcademicSystem academicSystem = Global.getAcademicSystem();
         List<Student> students = academicSystem.db.students.getAll();
-        ArrayList<ArrayList<String>> body = new ArrayList<>();
 
-        ArrayList<String> headers = Utils.singleToSArrayList(
-           List.of("Nome", "SobreNome", "Idade", "Data Nascimento", "CPF", "Curso")
+        List<String> headers = List.of(
+                "Nome",
+                "SobreNome",
+                "Idade",
+                "Data Nascimento",
+                "CPF",
+                "Curso"
         );
 
-        for (Student student : students) {
-           body.add(
-              Utils.toArrayList(
-                      student.getName(),
-                      student.getLastName(),
-                      student.getAge(),
-                      student.getFormatedDateOfBirth(),
-                      student.getCpf(),
-                      student.getCourse()
-              )
-           );
-       }
+        Function<Student, List<?>> callBack = (student -> {
+            return List.of(
+                    student.getName(),
+                    student.getLastName(),
+                    student.getAge(),
+                    student.getFormatedDateOfBirth(),
+                    student.getCpf(),
+                    student.getCourse()
+            );
+        });
 
-        new ConsoleTable(headers, body).printTable();
+        Utils.printTable(students, callBack, headers);
     }
 
     private void optionAddStudent() {
@@ -155,28 +161,28 @@ public class AdminMenu implements ISubMenu {
 
         AcademicSystem academicSystem = Global.getAcademicSystem();
         List<Teacher> teachers = academicSystem.db.teachers.getAll();
-        ArrayList<ArrayList<String>> body = new ArrayList<>();
 
-        ArrayList<String> headers = Utils.singleToSArrayList(
-                List.of("Mátricula", "Nome", "SobreNome", "Idade", "Data Nascimento", "CPF")
+        List<String> headers = List.of(
+                "Mátricula",
+                "Nome",
+                "SobreNome",
+                "Idade",
+                "Data Nascimento",
+                "CPF"
         );
 
-        for (Teacher teacher : teachers) {
-            body.add(
-                    Utils.toArrayList(
-                            teacher.getId(),
-                            teacher.getName(),
-                            teacher.getLastName(),
-                            teacher.getAge(),
-                            teacher.getFormatedDateOfBirth(),
-                            teacher.getCpf()
-                    )
+        Function<Teacher, List<?>> callBack = (teacher -> {
+             return List.of(
+                    teacher.getId(),
+                    teacher.getName(),
+                    teacher.getLastName(),
+                    teacher.getAge(),
+                    teacher.getFormatedDateOfBirth(),
+                    teacher.getCpf()
             );
-        }
+        });
 
-        new ConsoleTable(headers, body).printTable();
-
-
+        Utils.printTable(teachers, callBack, headers);
     }
 
     private void optionCreateCollegeClass() {
@@ -196,13 +202,11 @@ public class AdminMenu implements ISubMenu {
              "Escolha o professor"
         );
 
-
         Room room = DataInput.getElementFromListByUser(
             allData.rooms(),
-            (r) -> "Sala: %s | Capacidade: %d".formatted(r.getRoomId(), r.getCapacity()),
+            Room::toString,
             "Escolha uma sala"
         );
-
 
         LocalTime time = DataInput.getDataByUser(
                 "Digite o horario no formato XX:XX",
@@ -328,11 +332,20 @@ public class AdminMenu implements ISubMenu {
         AcademicSystem academicSystem = Global.getAcademicSystem();
         List<Room> rooms = academicSystem.db.rooms.getAll();
 
-        for (Room room : rooms)
-            System.out.println(room.toString());
+        List<String> headers = List.of(
+                "Sala",
+                "Capacidade"
+        );
 
+        Function<Room, List<?>> callBack = (room -> {
+            return List.of(
+                    room.getRoomId(),
+                    room.getCapacity()
+            );
+        });
+
+        Utils.printTable(rooms, callBack, headers);
     }
-
 
     @Override
     public List<ISubMenuOption> getOptions() {
@@ -346,8 +359,8 @@ public class AdminMenu implements ISubMenu {
             new OptionMenu("Remover Professor", this::optionDeleteTeatcher),
             new OptionMenu("Adicionar turma", this::optionCreateCollegeClass),
             new OptionMenu("Deletar turma", this::optionDeleteColegeClass),
-            new OptionMenu("Ver salar", this::optionShowRooms),
-            new OptionMenu("Criar Sala", this::optionCreateRoom),
+            new OptionMenu("Ver salas", this::optionShowRooms),
+            new OptionMenu("Adicionar Sala", this::optionCreateRoom),
             new OptionMenu("Deletar Sala", this::optionDeleteRoom)
         );
 

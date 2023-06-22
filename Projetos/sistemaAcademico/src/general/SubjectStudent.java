@@ -2,6 +2,7 @@ package general;
 
 import utils.Global;
 import utils.StudentSubjectStatus;
+import utils.Utils;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -16,7 +17,7 @@ public class SubjectStudent extends Subject {
     private StudentSubjectStatus status;
     private String studentId;
     private String classId;
-    private Integer absences;
+    private Integer absences = 0;
     private String period;
 
     public SubjectStudent(String code, String name, int hours, String studentId, String classId) {
@@ -120,6 +121,15 @@ public class SubjectStudent extends Subject {
     public void setPeriod(String period) {
         this.period = period;
     }
+
+    public List<String> getListNotes() {
+        return List.of(
+           Utils.numberToString(note1),
+           Utils.numberToString(note2)
+        );
+    }
+
+
 
     public String toString() {
         return String.format("%s", super.toString());

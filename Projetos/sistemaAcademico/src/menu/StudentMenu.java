@@ -1,24 +1,26 @@
 package menu;
 
 import general.*;
-import interfaces.ISubMenu;
+import interfaces.IMenuEmployee;
 import interfaces.ISubMenuOption;
 import utils.Global;
 import utils.Utils;
 
 import java.util.*;
-import utils.Utils.ConsoleTable;
-import java.util.stream.Collectors;
+
+import java.util.function.Function;
 
 // ToDo Implementar Construtor, interface do rdm e pegar dados da db do estudante
-public class StudentMenu implements ISubMenu {
+public class StudentMenu implements IMenuEmployee<Student> {
 
-    private Student student;
-    public StudentMenu(Student student) {
-        this.student = student;
+    private String studentId;
+
+    public StudentMenu(String studentId) {
+        this.studentId = studentId;
     }
-    public void optionShowHistoric() {
 
+    public void optionShowHistoric() {
+            Student student = getUser();
             List<SubjectStudent> subjects = student.getSubjects();
             Subject biggestNameSubject = Utils.getSubjectWithBiggerName(subjects);
 
@@ -46,77 +48,75 @@ public class StudentMenu implements ISubMenu {
             System.out.println("+--------+-------+-------------------+");
      }
     public void optionShowRDM() {
-
+        Student student = getUser();
         List<SubjectStudent> subjects = student.getSubjects();
 
+        List<String> headers = List.of(
+                "Máteria",
+                "Nota 1",
+                "Nota 2",
+                "Faltas",
+                "Final",
+                "Status"
+        );
 
-        System.out.println("----------------------------------------------------------------------------------------");
-        System.out.format("| %-15s|   %-10s|   %-10s|   %-10s|   %-10s|   %-10s |%n", "Máteria", "Nota 1", "Nota 2", "Faltas", "Final", "Status");
-        System.out.println("----------------------------------------------------------------------------------------");
-
-        for (SubjectStudent subject : student.getSubjects()) {
-            System.out.format("| %-15s|   %-10s|   %-10s|   %-10s|   %-10s|   %-10s |%n",
+        Function<SubjectStudent, List<?>> callBack = (subject -> {
+            return List.of(
                     subject.getName(),
                     subject.getNote1(),
                     subject.getNote2(),
                     subject.getAbsences(),
                     subject.getFinalExameScore(),
-                    subject.getStatus());
+                    subject.getStatus()
+            );
+        });
 
-        }
-
-        System.out.println("---------------------------------------------------------------------------------------");
-
+        Utils.printTable(subjects, callBack, headers);
     }
     public void optionShowCurriculum() {
-            AcademicSystem academicSystem = Global.getAcademicSystem();
-            List<Subject> allSubjects = academicSystem.db.subjects.getAll();
-            Subject biggestNameSubject = Utils.getSubjectWithBiggerName(allSubjects);
+        AcademicSystem academicSystem = Global.getAcademicSystem();
+        List<Subject> subjects = academicSystem.db.subjects.getAll();
 
-            System.out.println("+----------+-------+--------+-----------+----------------------");
-            System.out.format("| %-8s | %-3s | %-10s %n", "Código", "Horas" , "Nome");
-            System.out.println("+----------+-------+---------+----------+----------------------");
+        List<String> headers = List.of(
+                "Codígo",
+                "Horas",
+                "Nome"
+        );
 
-            for (Subject subject : allSubjects) {
-                String complementarySpaces = " ".repeat(
-                        biggestNameSubject.getName().length() - subject.getName().length()
-                );
+        Function<Subject, List<?>> callBack = (subject -> {
+            return List.of(
+                    subject.getCode(),
+                    subject.getHours(),
+                    subject.getName()
+            );
+        });
 
-                System.out.format("| %-8s |  %-3s | %-10s %s |%n",
-                        subject.getCode(),
-                        subject.getHours(),
-                        subject.getName(),
-                        complementarySpaces
-                );
-            }
-           System.out.println("+--------+-------+-------------------+");
+        Utils.printTable(subjects, callBack, headers);
     }
     public void optionShowEntranceExam() {
-
+        Student student = getUser();
         EntranceExam entranceExam = student.getEntranceExam();
-        ArrayList<ArrayList<String>> body = new ArrayList<>();
 
-        ArrayList<String> content = Utils.toArrayList(
-                entranceExam.getHumanities(),
-                entranceExam.naturalSciences,
-                entranceExam.getLanguages(),
-                entranceExam.getMathematics(),
-                entranceExam.getEssay()
+        List<String> headers = List.of("Ciências Humanas",
+                "Ciências da Natureza",
+                "Linguagens Códigos",
+                "Mátematica",
+                "Redação"
         );
 
-        body.add(content);
+        Function<EntranceExam, List<?>> callBack = (entranceExam1 -> {
+            return List.of(
+                    entranceExam.getHumanities(),
+                    entranceExam.naturalSciences,
+                    entranceExam.getLanguages(),
+                    entranceExam.getMathematics(),
+                    entranceExam.getEssay()
+            );
+        });
 
-        ArrayList<String> headers = Utils.singleToSArrayList(
-             List.of("Ciências Humanas e suas Tecnologias",
-                     "Ciências da Natureza e suas Tenologias",
-                     "Linguagens Códigos e suas Tecnologias",
-                     "Mátematica",
-                     "Matemática e suas Tecnologias"
-             )
-        );
-
-        new ConsoleTable(headers, body).printTable();;
+        Utils.printTable(List.of(entranceExam), callBack, headers);
     }
+
     @Override
     public List<ISubMenuOption> getOptions() {
 
@@ -127,6 +127,12 @@ public class StudentMenu implements ISubMenu {
                 new OptionMenu("Ver Vestibular", this::optionShowEntranceExam)
         );
 
+    }
+
+    @Override
+    public Student getUser() {
+        AcademicSystem academicSystem = Global.getAcademicSystem();
+        return academicSystem.db.students.findById(studentId);
     }
 
     @Override

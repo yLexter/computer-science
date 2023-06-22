@@ -2,18 +2,17 @@ package menu;
 import erros.DatabaseException;
 import erros.LeftMenuException;
 import interfaces.*;
-import utils.DataInput;
 import utils.Decoration;
 import utils.Global;
 import java.util.*;
 
 public class MenuExecutor {
-    private final ISubMenu menu;
+    private final IMenu menu;
     private final List<ISubMenuOption> options;
 
     public static final int startLoopIndex = 1;
 
-    public MenuExecutor(ISubMenu menu) {
+    public MenuExecutor(IMenu menu) {
         this.menu = menu;
         this.options = menu.getOptions();
     }

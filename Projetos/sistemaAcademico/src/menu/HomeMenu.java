@@ -7,8 +7,7 @@ import utils.Role;
 import utils.DataEntryValidator;
 
 import java.util.*;
-public class HomeMenu implements ISubMenu {
-
+public class HomeMenu implements IMenu {
     private void OptionLogin() {
 
         AcademicSystem db = Global.getAcademicSystem();
@@ -39,24 +38,21 @@ public class HomeMenu implements ISubMenu {
     private void loginEmployee(Employee employee) {
 
         if (employee.getRole().equals(Role.STUDENT)) {
-            Student student = (Student) employee;
-            ISubMenu menu = new StudentMenu(student);
+            IMenuEmployee<Student> menu = new StudentMenu(employee.getId());
             MenuExecutor menuExecutor = new MenuExecutor(menu);
             menuExecutor.run();
             return;
         }
 
         if (employee.getRole().equals(Role.ADMIN)) {
-            Admin admin = (Admin) employee;
-            ISubMenu menu = new AdminMenu(admin);
+            IMenuEmployee<Admin> menu = new AdminMenu(employee.getId());
             MenuExecutor menuExecutor = new MenuExecutor(menu);
             menuExecutor.run();
             return;
         }
 
         if (employee.getRole().equals(Role.TEACHER)){
-            Teacher teacher = (Teacher) employee;
-            ISubMenu menu = new TeacherMenu(teacher);
+            IMenuEmployee<Teacher> menu = new TeacherMenu(employee.getId());
             MenuExecutor menuExecutor = new MenuExecutor(menu);
             menuExecutor.run();
             return;

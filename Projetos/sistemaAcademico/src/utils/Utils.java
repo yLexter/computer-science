@@ -1,9 +1,12 @@
 package utils;
 import java.lang.reflect.Field;
+
+import general.Room;
 import general.Subject;
 
 import java.lang.reflect.Modifier;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Utils {
@@ -168,16 +171,25 @@ public class Utils {
         return atributtersSuperClass;
     }
 
-    @SafeVarargs
-    public static <T> ArrayList<String> toArrayList(T ...list) {
-        List<String> mapped = Arrays.stream(list).map(Object::toString).toList();
-        return new ArrayList<>(mapped);
+    public static <T> void printTable(List<T> list, Function<T, List<?>> callback, List<String> headers) {
+        ArrayList<ArrayList<String>> body = new ArrayList<>();
+        ArrayList<String> arrayListHeaders = new ArrayList<>(headers);
+
+        for (T data : list) {
+            List<String> currentRow = callback
+                    .apply(data)
+                    .stream()
+                    .map(Object::toString)
+                    .toList();
+
+            body.add(new ArrayList<>(currentRow));
+        }
+
+        new ConsoleTable(arrayListHeaders, body).printTable();
     }
 
-    public static ArrayList<String> singleToSArrayList(List<String> list) {
-        return new ArrayList<>(list);
+    public static String numberToString(Number number) {
+        return number == null ? "--" : number.toString();
     }
-
-
 
 }

@@ -33,9 +33,9 @@ class Main {
         academicSystem.db.admin.updateAll(Examples.getAdmins());
         academicSystem.db.collegeClass.updateAll(Examples.getGollegesClass());
 
-        new AdminMenu(academicSystem.db.admin.getAll().get(0)).run();
-        //new TeacherMenu(academicSystem.db.teachers.getAll().get(0)).run();
-        //new StudentMenu(academicSystem.db.students.getAll().get(0)).run();
+        //new AdminMenu(academicSystem.db.admin.getAll().get(0).getId()).run();
+        new TeacherMenu(academicSystem.db.teachers.getAll().get(0).getId()).run();
+        //new StudentMenu(academicSystem.db.students.getAll().get(0).getId()).run();
     }
 
 
