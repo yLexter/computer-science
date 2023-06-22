@@ -10,16 +10,10 @@ import java.util.stream.Collectors;
 
 public class DatabaseSubjects extends DatabaseBase<Subject> {
 
-    public DatabaseSubjects(List<Subject> subjects) {
-        super(subjects);
-    }
-
     @Override
     public Subject findById(String code) {
         return findOne(subject -> subject.getCode().equals(code));
     }
-
-
 
 
 }

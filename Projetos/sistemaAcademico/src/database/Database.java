@@ -4,7 +4,7 @@ import general.*;
 import java.util.List;
 
 public class Database {
-    public record AllData(List<Student> students, List<Teacher> teachers, List<Admin> admins, List<Subject> subjects, GeneralInformation generalInformation, List<CollegeClass> collegeClasses, List<ClassRoom> classRooms) {
+    public record AllData(List<Student> students, List<Teacher> teachers, List<Admin> admins, List<Subject> subjects, GeneralInformation generalInformation, List<CollegeClass> collegeClasses, List<ClassRoom> classRooms, List<Room> rooms) {
         @Override
         public List<Student> students() {
             return students;
@@ -38,6 +38,11 @@ public class Database {
         public List<ClassRoom> classRooms() {
             return classRooms;
         }
+
+        @Override
+        public List<Room> rooms() {
+            return rooms;
+        }
     }
     public final DatabaseStudent students;
     public final DatabaseTeacher teachers;
@@ -46,8 +51,9 @@ public class Database {
     public final DatabaseGeneralInformation generalInformation;
     public final DatabaseCollegeClass collegeClass;
     public final DatabaseClassRoom classRooms;
+    public final DatabaseRooms rooms;
 
-    public Database(DatabaseStudent students, DatabaseTeacher teachers, DatabaseAdmin admin, DatabaseSubjects subjects, DatabaseGeneralInformation generalInformation, DatabaseCollegeClass collegeClass, DatabaseClassRoom classRooms) {
+    public Database(DatabaseStudent students, DatabaseTeacher teachers, DatabaseAdmin admin, DatabaseSubjects subjects, DatabaseGeneralInformation generalInformation, DatabaseCollegeClass collegeClass, DatabaseClassRoom classRooms, DatabaseRooms rooms) {
         this.students = students;
         this.teachers = teachers;
         this.admin = admin;
@@ -55,6 +61,7 @@ public class Database {
         this.generalInformation = generalInformation;
         this.collegeClass = collegeClass;
         this.classRooms = classRooms;
+        this.rooms = rooms;
     }
 
     public AllData findAll() {
@@ -65,7 +72,8 @@ public class Database {
            subjects.getAll(),
            generalInformation.getData(),
            collegeClass.getAll(),
-           classRooms.getAll()
+           classRooms.getAll(),
+           rooms.getAll()
         );
     }
 

@@ -245,7 +245,7 @@ public class DataInput {
                 String stringOption = scanner.nextLine();
 
                 if (stringOption.equals(exitInputString))
-                    break;
+                    return optionsSelected;
 
                 intOption = Integer.parseInt(stringOption);
 
@@ -272,7 +272,6 @@ public class DataInput {
 
         } while (true);
 
-        return optionsSelected;
     }
 
 }

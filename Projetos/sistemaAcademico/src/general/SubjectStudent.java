@@ -14,7 +14,7 @@ public class SubjectStudent extends Subject {
     private Float note2 = null;
     private Float finalExameScore = null;
     private StudentSubjectStatus status;
-    private final String studentId;
+    private String studentId;
     private String classId;
     private Integer absences;
     private String period;

@@ -19,22 +19,13 @@ public class Main {
     public static void teste3() {
 
         AcademicSystem academicSystem = Global.getAcademicSystem();
-        AllData allData = academicSystem.db.findAll();
 
-        Admin adm1 = new Admin("Lucas", "Ferreira", 18, LocalDate.of(2003, 2, 2), "15151551");
-
-        List<ClassRoom> cls = List.of(
-            new ClassRoom("B454", 50, LocalTime.now(), DayOfWeek.FRIDAY)
-        );
-
-        System.out.println(adm1.getId());
-
-        List<Admin> admins = List.of(adm1);
-
+        academicSystem.db.rooms.updateAll(Examples.getRooms());
+        academicSystem.db.subjects.updateAll(Examples.getSubjects());
         academicSystem.db.teachers.updateAll(Examples.getTeachers());
         academicSystem.db.students.updateAll(Examples.getStudents());
-        academicSystem.db.admin.updateAll(admins);
-        academicSystem.db.subjects.updateAll(allData.subjects());
+        academicSystem.db.admin.updateAll(Examples.getAdmins());
+        academicSystem.db.collegeClass.updateAll(Examples.getGollegesClass());
 
         new HomeMenu().run();
     }

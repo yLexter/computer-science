@@ -74,7 +74,9 @@ public class TeacherMenu implements ISubMenu {
 
         for (SubjectStudent subjectStudent : students) {
 
-             System.out.printf("Aluno: %s", subjectStudent.getStudent().getFullName());
+             Student student = subjectStudent.getStudent();
+
+             System.out.printf("Aluno: %s", student.getFullName());
 
              float nota1 = DataInput.getDataByUser("Digite a nota 1", Float::parseFloat, DataEntryValidator::validNote);
              float nota2 = DataInput.getDataByUser("Digite a nota 2", Float::parseFloat, DataEntryValidator::validNote);
@@ -96,9 +98,17 @@ public class TeacherMenu implements ISubMenu {
                 "Escolha uma Turma"
         );
 
+        List<SubjectStudent> students = chosenClass.getStudents();
 
+        for(SubjectStudent subjectStudent : students) {
 
+            Student student = subjectStudent.getStudent();
 
+            System.out.println(student.toString());
+
+            System.out.printf("Nota1: %.2f\n", subjectStudent.getNote1());
+            System.out.printf("Nota2: %.2f\n", subjectStudent.getNote1());
+        }
 
     }
 

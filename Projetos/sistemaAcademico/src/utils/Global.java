@@ -27,7 +27,6 @@ public class Global {
               2,
               false,
               "1.0.0",
-               Examples.getRooms(),
               2
         );
 
@@ -36,10 +35,11 @@ public class Global {
           new DatabaseStudent(),
           new DatabaseTeacher(),
           new DatabaseAdmin(),
-          new DatabaseSubjects(Examples.getSubjects()),
+          new DatabaseSubjects(),
           new DatabaseGeneralInformation(generalInformation),
           new DatabaseCollegeClass(),
-          new DatabaseClassRoom()
+          new DatabaseClassRoom(),
+          new DatabaseRooms()
         );
 
         return academicSystem = new AcademicSystem(db);

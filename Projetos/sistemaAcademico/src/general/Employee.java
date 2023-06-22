@@ -24,7 +24,7 @@ public class Employee {
         this.dateOfBirth = dateOfBirth;
         this.role = role;
         this.cpf = cpf;
-        this.id = "15";
+        this.id = generateId();
         this.password = formatDateOfBirthToPassword();
     }
 

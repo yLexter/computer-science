@@ -1,7 +1,9 @@
 package utils;
 import general.*;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,10 +11,22 @@ import java.util.List;
 public class Examples {
 
 
+    public static List<Admin> getAdmins() {
+
+        Admin adm1 = new Admin("Lucas", "Ferreira", 18, LocalDate.of(2003, 2, 2), "15151551");
+
+        System.out.println("Id Admin: " + adm1.getId());
+
+        return List.of(adm1);
+    }
+
     public static List<Teacher> getTeachers() {
-        return List.of(
-            new Teacher("Mateus", "Silva", 18, LocalDate.of(2005, 2, 2), "8789784")
-        );
+
+        Teacher t1 = new Teacher("Mateus", "Silva", 18, LocalDate.of(2003, 2, 2), "8789784");
+
+        System.out.println("Id Teacher: " + t1.getId());
+
+        return List.of(t1);
     }
 
     public static List<Student> getStudents() {
@@ -48,7 +62,6 @@ public class Examples {
                 new Room("A200", 70)
         );
     }
-
     public static List<Subject> getSubjects() {
         List<Subject> subjects = new ArrayList<>();
 
@@ -96,6 +109,31 @@ public class Examples {
         subjects.add(new Subject("CPT01047", "TRABALHO DE CONCLUSÃO DE CURSO", 60));
 
         return subjects;
+    }
+    public static List<CollegeClass> getGollegesClass() {
+
+        ClassRoom c1 = new ClassRoom("B150", 50, LocalTime.now(), DayOfWeek.FRIDAY);
+
+        AcademicSystem academicSystem = Global.getAcademicSystem();
+        Teacher teacher = academicSystem.db.teachers.getAll().get(0);
+        Subject subject = getSubjects().get(0);
+
+        academicSystem.db.classRooms.save(c1);
+
+        List<SubjectStudent> s1 = Subject.studentToSubjectStudent(academicSystem.db.students.getAll(), subject ,c1);
+
+        return List.of(
+            new CollegeClass(
+                    subject.getCode(),
+                    subject.getName(),
+                    subject.getHours(),
+                    teacher.getId(),
+                    s1,
+                    c1.getId()
+         )
+        );
+
+
     }
 
 }

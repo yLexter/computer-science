@@ -87,6 +87,8 @@ public class AdminMenu implements ISubMenu {
          );
 
         academicSystem.db.students.save(student);
+
+        System.out.println("Estudante adicionado");
     }
 
     private void optionDeleteStudent() {
@@ -169,7 +171,7 @@ public class AdminMenu implements ISubMenu {
 
 
         Room room = DataInput.getElementFromListByUser(
-            allData.generalInformation().getRooms(),
+            allData.rooms(),
             (r) -> "Sala: %s | Capacidade: %d".formatted(r.getRoomId(), r.getCapacity()),
             "Escolha uma sala"
         );
@@ -241,6 +243,8 @@ public class AdminMenu implements ISubMenu {
 
         academicSystem.db.collegeClass.save(collegeClass);
         academicSystem.db.classRooms.save(classRoom);
+
+        System.out.println("Turma adicionada");
     }
 
     private void optionDeleteColegeClass() {
@@ -256,6 +260,53 @@ public class AdminMenu implements ISubMenu {
         academicSystem.db.collegeClass.delete(collegeClass.getClassId());
     }
 
+    private void optionCreateRoom() {
+
+        // ToDo Não permitir nomes iguais e melhorar implementação
+        AcademicSystem academicSystem = Global.getAcademicSystem();
+
+        String id = DataInput.getDataByUser(
+            "Digite o codigo da sala",
+                (x) -> {}
+        );
+
+        int capacity = DataInput.getDataByUser(
+                "Digite o codigo da sala",
+                Integer::parseInt,
+                (x) -> {}
+        );
+
+        academicSystem.db.rooms.save(
+             new Room(id, capacity)
+        );
+
+    }
+
+    private void optionDeleteRoom() {
+
+        AcademicSystem academicSystem = Global.getAcademicSystem();
+        List<Room> rooms = academicSystem.db.rooms.getAll();
+
+        Room roomDeleted = DataInput.getElementFromListByUser(
+            rooms,
+            Room::toString,
+            "Escolha uma sala para deletar"
+        );
+
+        academicSystem.db.rooms.delete(roomDeleted.getRoomId());
+    }
+
+    private void optionShowRooms() {
+
+        AcademicSystem academicSystem = Global.getAcademicSystem();
+        List<Room> rooms = academicSystem.db.rooms.getAll();
+
+        for (Room room : rooms)
+            System.out.println(room.toString());
+
+    }
+
+
     @Override
     public List<ISubMenuOption> getOptions() {
 
@@ -267,7 +318,10 @@ public class AdminMenu implements ISubMenu {
             new OptionMenu("Adicionar Professor", this::optionAddTeatcher),
             new OptionMenu("Remover Professor", this::optionDeleteTeatcher),
             new OptionMenu("Adicionar turma", this::optionCreateCollegeClass),
-            new OptionMenu("Deletar turma", this::optionDeleteColegeClass)
+            new OptionMenu("Deletar turma", this::optionDeleteColegeClass),
+            new OptionMenu("Ver salar", this::optionShowRooms),
+            new OptionMenu("Criar Sala", this::optionCreateRoom),
+            new OptionMenu("Deletar Sala", this::optionDeleteRoom)
         );
 
     }

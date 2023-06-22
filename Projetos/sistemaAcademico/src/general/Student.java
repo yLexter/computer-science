@@ -56,7 +56,6 @@ public class Student extends Employee {
         this.historic = historic;
     }
 
-
     @Override
     public String toString() {
         return String.format("%s | %s", super.toString(), course);

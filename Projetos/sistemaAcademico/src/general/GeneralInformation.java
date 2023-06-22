@@ -8,24 +8,14 @@ public class GeneralInformation {
     private int totalAbsemcesPerClass;
     private boolean isRegitrationPeriod;
     private String version;
-    private List<Room> rooms;
     private int hourPerClass;
 
-    public GeneralInformation(String course, int totalAbsemcesPerClass, boolean isRegitrationPeriod, String version, List<Room> rooms, int hourPerClass) {
+    public GeneralInformation(String course, int totalAbsemcesPerClass, boolean isRegitrationPeriod, String version, int hourPerClass) {
         this.course = course;
         this.totalAbsemcesPerClass = totalAbsemcesPerClass;
         this.isRegitrationPeriod = isRegitrationPeriod;
         this.version = version;
-        this.rooms = rooms;
         this.hourPerClass = hourPerClass;
-    }
-
-    public List<Room> getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(List<Room> rooms) {
-        this.rooms = rooms;
     }
 
     public int getHourPerClass() {
