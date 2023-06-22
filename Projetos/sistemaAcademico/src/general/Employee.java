@@ -102,6 +102,12 @@ public class Employee {
 
         return this.dateOfBirth.format(formatter);
     }
+
+    public String getFormatedDateOfBirth() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return this.dateOfBirth.format(formatter);
+    }
+
     public static Employee createEmployeeByUser(Role role) {
 
         return new Employee(

@@ -4,15 +4,13 @@ import database.Database.AllData;
 import general.*;
 import interfaces.ISubMenu;
 import interfaces.ISubMenuOption;
-import utils.DataEntryValidator;
-import utils.DataInput;
-import utils.Global;
-import utils.Role;
-
+import utils.*;
+import utils.Utils.ConsoleTable;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.TextStyle;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -31,20 +29,26 @@ public class AdminMenu implements ISubMenu {
 
         AcademicSystem academicSystem = Global.getAcademicSystem();
         List<Student> students = academicSystem.db.students.getAll();
+        ArrayList<ArrayList<String>> body = new ArrayList<>();
 
-        System.out.println("---------------------------------------------------------");
-        System.out.printf("| %-10s | %-10s | %-3s | %-12s | %-11s | %-2s |%n",
-                "First Name", "Last Name", "Age", "Date of Birth", "CPF", "Course");
-        System.out.println("---------------------------------------------------------");
+        ArrayList<String> headers = Utils.singleToSArrayList(
+           List.of("Nome", "SobreNome", "Idade", "Data Nascimento", "CPF", "Curso")
+        );
 
         for (Student student : students) {
-            System.out.printf("| %-10s | %-10s | %-3d | %-12s | %-11s | %-2s |%n",
-                    student.getName(), student.getLastName(), student.getAge(),
-                    student.getDateOfBirth(), student.getCpf(), student.getCourse());
-        }
+           body.add(
+              Utils.toArrayList(
+                      student.getName(),
+                      student.getLastName(),
+                      student.getAge(),
+                      student.getFormatedDateOfBirth(),
+                      student.getCpf(),
+                      student.getCourse()
+              )
+           );
+       }
 
-        System.out.println("---------------------------------------------------------");
-
+        new ConsoleTable(headers, body).printTable();
     }
 
     private void optionAddStudent() {
@@ -148,6 +152,29 @@ public class AdminMenu implements ISubMenu {
     }
 
     private void optionShowTeatchers() {
+
+        AcademicSystem academicSystem = Global.getAcademicSystem();
+        List<Teacher> teachers = academicSystem.db.teachers.getAll();
+        ArrayList<ArrayList<String>> body = new ArrayList<>();
+
+        ArrayList<String> headers = Utils.singleToSArrayList(
+                List.of("Mátricula", "Nome", "SobreNome", "Idade", "Data Nascimento", "CPF")
+        );
+
+        for (Teacher teacher : teachers) {
+            body.add(
+                    Utils.toArrayList(
+                            teacher.getId(),
+                            teacher.getName(),
+                            teacher.getLastName(),
+                            teacher.getAge(),
+                            teacher.getFormatedDateOfBirth(),
+                            teacher.getCpf()
+                    )
+            );
+        }
+
+        new ConsoleTable(headers, body).printTable();
 
 
     }

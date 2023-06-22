@@ -43,10 +43,10 @@ public class MenuExecutor {
                 Decoration.clearScreen();
                 System.out.println("Forneça um número inteiro válido.");
              } catch (DatabaseException err) {
-                if (err.getMessage() != null)
                   System.out.printf("ERROR: %s\n", err.getMessage());
              } catch (LeftMenuException err) {
-                System.out.printf("Error: %s\n", err.getMessage());
+                if (err.getMessage() != null)
+                  System.out.printf("Error: %s\n", err.getMessage());
             }
 
         }

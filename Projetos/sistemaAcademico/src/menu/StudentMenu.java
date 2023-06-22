@@ -7,6 +7,8 @@ import utils.Global;
 import utils.Utils;
 
 import java.util.*;
+import utils.Utils.ConsoleTable;
+import java.util.stream.Collectors;
 
 // ToDo Implementar Construtor, interface do rdm e pegar dados da db do estudante
 public class StudentMenu implements ISubMenu {
@@ -89,10 +91,31 @@ public class StudentMenu implements ISubMenu {
             }
            System.out.println("+--------+-------+-------------------+");
     }
-
     public void optionShowEntranceExam() {
 
+        EntranceExam entranceExam = student.getEntranceExam();
+        ArrayList<ArrayList<String>> body = new ArrayList<>();
 
+        ArrayList<String> content = Utils.toArrayList(
+                entranceExam.getHumanities(),
+                entranceExam.naturalSciences,
+                entranceExam.getLanguages(),
+                entranceExam.getMathematics(),
+                entranceExam.getEssay()
+        );
+
+        body.add(content);
+
+        ArrayList<String> headers = Utils.singleToSArrayList(
+             List.of("Ciências Humanas e suas Tecnologias",
+                     "Ciências da Natureza e suas Tenologias",
+                     "Linguagens Códigos e suas Tecnologias",
+                     "Mátematica",
+                     "Matemática e suas Tecnologias"
+             )
+        );
+
+        new ConsoleTable(headers, body).printTable();;
     }
     @Override
     public List<ISubMenuOption> getOptions() {
@@ -110,6 +133,7 @@ public class StudentMenu implements ISubMenu {
     public void run() {
         new MenuExecutor(this).run();
     }
+
 
 
 }

@@ -56,6 +56,10 @@ public class Student extends Employee {
         this.historic = historic;
     }
 
+    public EntranceExam getEntranceExam() {
+        return entranceExam;
+    }
+
     @Override
     public String toString() {
         return String.format("%s | %s", super.toString(), course);

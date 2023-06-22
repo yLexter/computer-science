@@ -76,13 +76,13 @@ public class TeacherMenu implements ISubMenu {
 
              Student student = subjectStudent.getStudent();
 
-             System.out.printf("Aluno: %s", student.getFullName());
+             System.out.printf("Aluno: %s\n\n", student.getFullName());
 
-             float nota1 = DataInput.getDataByUser("Digite a nota 1", Float::parseFloat, DataEntryValidator::validNote);
-             float nota2 = DataInput.getDataByUser("Digite a nota 2", Float::parseFloat, DataEntryValidator::validNote);
+             float note1 = DataInput.getDataByUser("Digite a nota 1", Float::parseFloat, DataEntryValidator::validNote);
+             float note2 = DataInput.getDataByUser("Digite a nota 2", Float::parseFloat, DataEntryValidator::validNote);
 
-             subjectStudent.setNote1(nota1);
-             subjectStudent.setNote2(nota2);
+             subjectStudent.setNote1(note1);
+             subjectStudent.setNote2(note2);
         }
 
         academicSystem.db.collegeClass.update(chosenClass.getClassId(), chosenClass);
@@ -105,6 +105,7 @@ public class TeacherMenu implements ISubMenu {
             Student student = subjectStudent.getStudent();
 
             System.out.println(student.toString());
+            System.out.println();
 
             System.out.printf("Nota1: %.2f\n", subjectStudent.getNote1());
             System.out.printf("Nota2: %.2f\n", subjectStudent.getNote1());
