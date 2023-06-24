@@ -7,7 +7,7 @@ import java.util.*;
 public class CollegeClass extends Subject {
         private String teacherId;
         private List<SubjectStudent> students;
-        private String classId;
+        private String collegeClassId;
         private List<RegisterClass> registerClasses;
         private String classRoomId;
 
@@ -16,17 +16,8 @@ public class CollegeClass extends Subject {
                 this.teacherId = teacherId;
                 this.classRoomId = classRoomId;
                 this.students = students;
-                this.classId = UUID.randomUUID().toString();
+                this.collegeClassId = UUID.randomUUID().toString();
                 this.registerClasses = new ArrayList<>();
-        }
-
-        public CollegeClass(String code, String name, int hours, String teacherId, List<SubjectStudent> students, String classId, List<RegisterClass> registerClasses, String classRoomId) {
-                super(code, name, hours);
-                this.teacherId = teacherId;
-                this.students = students;
-                this.classId = classId;
-                this.registerClasses = registerClasses;
-                this.classRoomId = classRoomId;
         }
 
         public ClassRoom getClassRoom() {
@@ -51,12 +42,12 @@ public class CollegeClass extends Subject {
                 this.students = students;
         }
 
-        public String getClassId() {
-                return classId;
+        public String getCollegeClassId() {
+                return collegeClassId;
         }
 
-        public void setClassId(String classId) {
-                this.classId = classId;
+        public void setCollegeClassId(String collegeClassId) {
+                this.collegeClassId = collegeClassId;
         }
 
         public List<RegisterClass> getRegisterClasses() {
@@ -81,7 +72,7 @@ public class CollegeClass extends Subject {
 
         @Override
         public String toString() {
-            return String.format("%s | ClassID: %s | RoomId: %s ", super.toString(), classId, classRoomId);
+            return String.format("%s | ClassID: %s | RoomId: %s ", super.toString(), collegeClassId, classRoomId);
         }
 
 

@@ -13,7 +13,7 @@ public class DatabaseCollegeClass extends DatabaseBase<CollegeClass> implements 
 
     @Override
     public CollegeClass findById(String id) {
-        return findOne(collegeClass -> collegeClass.getClassId().equals(id));
+        return findOne(collegeClass -> collegeClass.getCollegeClassId().equals(id));
     }
 
     @Override

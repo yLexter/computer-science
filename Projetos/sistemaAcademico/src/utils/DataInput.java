@@ -5,6 +5,7 @@ import erros.*;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import interfaces.general.IObjectFactory;
 import static utils.Constants.*;
 
 // ToDo Melhorar a forma de saida dos formularios e no geral
@@ -267,6 +268,41 @@ public class DataInput {
             }
 
         } while (true);
+
+    }
+
+    public static <T> List<T> getObjectInstancesByUser(IObjectFactory<T> function, int limit) {
+        ArrayList<T> data = new ArrayList<>();
+        T currentData;
+
+        while (data.size() != limit) {
+            try {
+               currentData = function.generate();
+               data.add(currentData);
+            } catch (LeftMenuException err) {
+                if(data.size() == 0)
+                    throw new LeftMenuException();
+                return data;
+            }
+        }
+
+        return data;
+    }
+
+    public static <T> List<T> getObjectInstancesByUser(IObjectFactory<T> function) {
+        ArrayList<T> data = new ArrayList<>();
+        T currentData;
+
+        while (true) {
+            try {
+                currentData = function.generate();
+                data.add(currentData);
+            } catch (LeftMenuException err) {
+                if(data.size() == 0)
+                    throw new LeftMenuException();
+                return data;
+            }
+        }
 
     }
 

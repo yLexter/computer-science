@@ -17,7 +17,6 @@ public class Examples {
 
         return List.of(adm1);
     }
-
     public static List<Teacher> getTeachers() {
 
         Teacher t1 = new Teacher("Mateus", "Silva", 18, LocalDate.of(2003, 2, 2), "8789784");
@@ -26,7 +25,6 @@ public class Examples {
 
         return List.of(t1);
     }
-
     public static List<Student> getStudents() {
         return List.of(
                 new Student("Alice", "Smith", 20, LocalDate.of(2003, 5, 15), "12345678901", null, "CC", new EntranceExam(600.0, 700.0, 800.0, 900.0, 1000.0)),
@@ -110,7 +108,7 @@ public class Examples {
     }
     public static List<CollegeClass> getGollegesClass() {
 
-        ClassRoom c1 = new ClassRoom("B150", 50, LocalTime.now(), DayOfWeek.FRIDAY);
+        ClassRoom c1 = new ClassRoom("B150", 50, null);
 
         AcademicSystem academicSystem = Global.getAcademicSystem();
         Teacher teacher = academicSystem.db.teachers.getAll().get(0);

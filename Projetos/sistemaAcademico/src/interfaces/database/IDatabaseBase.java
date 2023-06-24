@@ -12,5 +12,5 @@ public interface IDatabaseBase<T> {
     T findById(String id);
     T findOne(Predicate<T> callback);
     void updateAll(List<T> data);
-
+    void saveMany(List<T> data);
 }

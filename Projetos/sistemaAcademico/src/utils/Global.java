@@ -28,7 +28,6 @@ public class Global {
               2
         );
 
-
         Database db = new Database(
           new DatabaseStudent(),
           new DatabaseTeacher(),
@@ -37,7 +36,8 @@ public class Global {
           new DatabaseGeneralInformation(generalInformation),
           new DatabaseCollegeClass(),
           new DatabaseClassRoom(),
-          new DatabaseRoom()
+          new DatabaseRoom(),
+          new DatabaseClassSchedule()
         );
 
         return academicSystem = new AcademicSystem(db);

@@ -92,7 +92,7 @@ public class AdminMenu implements IMenuEmployee<Admin> {
          student.setSubjects(
              collegeClasses
                      .stream()
-                     .map(CollegeClass::getClassId)
+                     .map(CollegeClass::getCollegeClassId)
                      .toList()
          );
 
@@ -185,6 +185,7 @@ public class AdminMenu implements IMenuEmployee<Admin> {
         Utils.printTable(teachers, callBack, headers);
     }
 
+    // ToDo pegar os horarios da aula do usuario
     private void optionCreateCollegeClass() {
         AcademicSystem academicSystem = Global.getAcademicSystem();
         AllData allData = academicSystem.db.findAll();
@@ -208,30 +209,47 @@ public class AdminMenu implements IMenuEmployee<Admin> {
             "Escolha uma sala"
         );
 
-        LocalTime time = DataInput.getDataByUser(
-                "Digite o horario no formato XX:XX",
-                (t) -> {
-                   LocalTime validTime = DataEntryValidator.validTime(t);
+        List<ClassSchedule> classSchedules = DataInput.getObjectInstancesByUser(
+                () -> {
 
-                   if (!academicSystem.db.classRooms.checkVacantClassCchedule(validTime, room.getRoomId()))
-                       throw new IllegalArgumentException("Horario em uso");
+                LocalTime time = DataInput.getDataByUser(
+                        "Digite o horario no formato XX:XX",
+                        (t) -> {
+                            LocalTime validTime = DataEntryValidator.validTime(t);
 
-                   return validTime;
-                }
-        );
+                            if (!academicSystem.db.classRooms.checkVacantClassCchedule(validTime, room.getRoomId()))
+                                throw new IllegalArgumentException("Horario em uso");
 
+                            return validTime;
+                        }
+                );
 
-        DayOfWeek dayOfWeek = DataInput.getElementFromListByUser(
-           Arrays.stream(DayOfWeek.values()).toList(),
-           day -> day.getDisplayName(TextStyle.FULL, Locale.getDefault()),
-           "Escolha o dia da semana"
+                DayOfWeek dayOfWeek = DataInput.getElementFromListByUser(
+                        Arrays.stream(DayOfWeek.values()).toList(),
+                        day -> day.getDisplayName(TextStyle.FULL, Locale.getDefault()),
+                        "Escolha o dia da semana"
+                );
+
+                return new ClassSchedule(time, dayOfWeek);
+                }, 2
         );
 
         ClassRoom classRoom = new ClassRoom(
             room.getRoomId(),
             room.getCapacity(),
-            time,
-            dayOfWeek
+            classSchedules
+                    .stream()
+                    .map(ClassSchedule::getId)
+                    .toList()
+        );
+
+        collegeClass = new CollegeClass(
+                subject.getCode(),
+                subject.getName(),
+                subject.getHours(),
+                teacher.getId(),
+                null,
+                classRoom.getId()
         );
 
         boolean createWithStudents = DataInput.getConfirmationByUser("Deseja adicionar estudantes?");
@@ -245,39 +263,63 @@ public class AdminMenu implements IMenuEmployee<Admin> {
                   room.getCapacity()
              );
 
-             collegeClass = new CollegeClass(
-                  subject.getCode(),
-                  subject.getName(),
-                  subject.getHours(),
-                  teacher.getId(),
-                  null,
-                  classRoom.getId()
-             );
-
              collegeClass.setStudents(
                 Subject.studentToSubjectStudent(students, collegeClass, classRoom)
              );
-
-         } else {
-
-            collegeClass = new CollegeClass(
-                    subject.getCode(),
-                    subject.getName(),
-                    subject.getHours(),
-                    teacher.getId(),
-                    null,
-                    classRoom.getId()
-            );
-
          }
-
 
         academicSystem.db.collegeClass.save(collegeClass);
         academicSystem.db.classRooms.save(classRoom);
+        academicSystem.db.classSchedule.saveMany(classSchedules);
 
         System.out.println("Turma adicionada");
     }
 
+    public void optionShowCollegeClass() {
+
+        AcademicSystem academicSystem = Global.getAcademicSystem();
+        List<CollegeClass> collegeClasses = academicSystem.db.collegeClass.getAll();
+
+        CollegeClass collegeClass = DataInput.getElementFromListByUser(
+              collegeClasses,
+              CollegeClass::toString,
+              "Escolha uma turma"
+        );
+
+        System.out.println(collegeClass.toString());
+
+        List<SubjectStudent> subjectStudents = collegeClass.getStudents();
+
+        List<String> headers = List.of(
+                "Matricula",
+                "Nome",
+                "Nota 1",
+                "Nota 2",
+                "Final",
+                "Faltas",
+                "Status",
+                "Periodo"
+        );
+
+        Function<SubjectStudent, List<?>> getRow = (subjectStudent -> {
+            Student student = subjectStudent.getStudent();
+            List<String> notes = subjectStudent.getListNotes();
+
+            return List.of(
+                student.getId(),
+                student.getFullName(),
+                notes.get(0),
+                notes.get(1),
+                notes.get(2),
+                subjectStudent.getAbsences(),
+                subjectStudent.getStatus().get(),
+                subjectStudent.getPeriod()
+            );
+
+        });
+
+        Utils.printTable(subjectStudents, getRow, headers);
+    }
     private void optionDeleteColegeClass() {
 
         AcademicSystem academicSystem = Global.getAcademicSystem();
@@ -288,7 +330,7 @@ public class AdminMenu implements IMenuEmployee<Admin> {
                 "Escolha a turma"
         );
 
-        academicSystem.db.collegeClass.delete(collegeClass.getClassId());
+        academicSystem.db.collegeClass.delete(collegeClass.getCollegeClassId());
     }
 
     private void optionCreateRoom() {
@@ -302,9 +344,9 @@ public class AdminMenu implements IMenuEmployee<Admin> {
         );
 
         int capacity = DataInput.getDataByUser(
-                "Digite o codigo da sala",
+                "Digite a capacidade da sala",
                 Integer::parseInt,
-                (x) -> {}
+                DataEntryValidator::validNumberIsPositive
         );
 
         academicSystem.db.rooms.save(
@@ -408,6 +450,7 @@ public class AdminMenu implements IMenuEmployee<Admin> {
             new OptionMenu("Ver Professores", this::optionShowTeatchers),
             new OptionMenu("Adicionar Professor", this::optionAddTeatcher),
             new OptionMenu("Remover Professor", this::optionDeleteTeatcher),
+            new OptionMenu("Ver Turmas", this::optionShowCollegeClass),
             new OptionMenu("Adicionar turma", this::optionCreateCollegeClass),
             new OptionMenu("Deletar turma", this::optionDeleteColegeClass),
             new OptionMenu("Ver salas", this::optionShowRooms),

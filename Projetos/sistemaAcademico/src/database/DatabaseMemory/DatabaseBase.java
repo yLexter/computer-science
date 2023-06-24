@@ -68,5 +68,9 @@ public abstract class DatabaseBase<T> implements IDatabaseBase<T> {
         this.data = new ArrayList<>(data);
     }
 
+    @Override
+    public void saveMany(List<T> dataList) {
+        data.addAll(dataList);
+    }
 
 }

@@ -125,7 +125,8 @@ public class SubjectStudent extends Subject {
     public List<String> getListNotes() {
         return List.of(
            Utils.numberToString(note1),
-           Utils.numberToString(note2)
+           Utils.numberToString(note2),
+           Utils.numberToString(finalExameScore)
         );
     }
 

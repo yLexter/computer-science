@@ -86,7 +86,7 @@ public class TeacherMenu implements IMenuEmployee<Teacher> {
             subjectStudent.setNote2(note2);
         }
 
-        academicSystem.db.collegeClass.update(chosenClass.getClassId(), chosenClass);
+        academicSystem.db.collegeClass.update(chosenClass.getCollegeClassId(), chosenClass);
     }
 
     private void optionShowClassReport() {

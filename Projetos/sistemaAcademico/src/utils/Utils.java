@@ -171,12 +171,12 @@ public class Utils {
         return atributtersSuperClass;
     }
 
-    public static <T> void printTable(List<T> list, Function<T, List<?>> callback, List<String> headers) {
+    public static <T> void printTable(List<T> list, Function<T, List<?>> getRow, List<String> headers) {
         ArrayList<ArrayList<String>> body = new ArrayList<>();
         ArrayList<String> arrayListHeaders = new ArrayList<>(headers);
 
         for (T data : list) {
-            List<String> currentRow = callback
+            List<String> currentRow = getRow
                     .apply(data)
                     .stream()
                     .map(Object::toString)

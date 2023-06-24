@@ -6,7 +6,7 @@ import interfaces.database.*;
 import java.util.List;
 
 public class Database {
-    public record AllData(List<Student> students, List<Teacher> teachers, List<Admin> admins, List<Subject> subjects, GeneralInformation generalInformation, List<CollegeClass> collegeClasses, List<ClassRoom> classRooms, List<Room> rooms) {
+    public record AllData(List<Student> students, List<Teacher> teachers, List<Admin> admins, List<Subject> subjects, GeneralInformation generalInformation, List<CollegeClass> collegeClasses, List<ClassRoom> classRooms, List<Room> rooms, List<ClassSchedule> classSchedules) {
         @Override
         public List<Student> students() {
             return students;
@@ -45,10 +45,14 @@ public class Database {
         public List<Room> rooms() {
             return rooms;
         }
+
+        @Override
+        public List<ClassSchedule> classSchedules() {
+            return classSchedules;
+        }
     }
     public final IDatabaseStudent students;
     public final IDatabaseTeacher teachers;
-
     public final IDatabaseAdmin admin;
     public final IDatabaseSubject subjects;
     public final IDatabaseGeneralInformation generalInformation;
@@ -56,7 +60,9 @@ public class Database {
     public final IDatabaseClassRoom classRooms;
     public final IDatabaseRoom rooms;
 
-    public Database(IDatabaseStudent students, IDatabaseTeacher teachers, IDatabaseAdmin admin, IDatabaseSubject subjects, IDatabaseGeneralInformation generalInformation, IDatabaseCollegeClass collegeClass, IDatabaseClassRoom classRooms, IDatabaseRoom rooms) {
+    public final IDatabaseClassSchedule classSchedule;
+
+    public Database(IDatabaseStudent students, IDatabaseTeacher teachers, IDatabaseAdmin admin, IDatabaseSubject subjects, IDatabaseGeneralInformation generalInformation, IDatabaseCollegeClass collegeClass, IDatabaseClassRoom classRooms, IDatabaseRoom rooms, IDatabaseClassSchedule classSchedule) {
         this.students = students;
         this.teachers = teachers;
         this.admin = admin;
@@ -65,6 +71,7 @@ public class Database {
         this.collegeClass = collegeClass;
         this.classRooms = classRooms;
         this.rooms = rooms;
+        this.classSchedule = classSchedule;
     }
 
     public AllData findAll() {
@@ -76,7 +83,8 @@ public class Database {
            generalInformation.getData(),
            collegeClass.getAll(),
            classRooms.getAll(),
-           rooms.getAll()
+           rooms.getAll(),
+           classSchedule.getAll()
         );
     }
 
