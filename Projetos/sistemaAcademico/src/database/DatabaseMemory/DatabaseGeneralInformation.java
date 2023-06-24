@@ -1,11 +1,9 @@
-package database;
+package database.DatabaseMemory;
 
 import general.GeneralInformation;
-import interfaces.IModelDatabase;
-import java.util.List;
-import java.util.function.Predicate;
+import interfaces.database.IDatabaseGeneralInformation;
 
-public class DatabaseGeneralInformation extends DatabaseBase<GeneralInformation> {
+public class DatabaseGeneralInformation extends DatabaseBase<GeneralInformation> implements IDatabaseGeneralInformation {
 
     public final GeneralInformation data;
     public DatabaseGeneralInformation(GeneralInformation data) {
@@ -17,6 +15,7 @@ public class DatabaseGeneralInformation extends DatabaseBase<GeneralInformation>
         return null;
     }
 
+    @Override
     public GeneralInformation getData() {
         return data;
     }

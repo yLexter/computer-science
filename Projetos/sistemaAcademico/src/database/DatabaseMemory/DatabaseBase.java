@@ -1,15 +1,16 @@
-package database;
+package database.DatabaseMemory;
 
-import interfaces.IModelDatabase;
+import interfaces.database.IDatabaseBase;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public abstract class DatabaseBase<T> implements IModelDatabase<T> {
+public abstract class DatabaseBase<T> implements IDatabaseBase<T> {
 
     protected List<T> data;
+
     public DatabaseBase() {
         this.data = new ArrayList<>();
     }
@@ -20,8 +21,10 @@ public abstract class DatabaseBase<T> implements IModelDatabase<T> {
 
     @Override
     public List<T> getAll() {
-        return new ArrayList<>(data);
+       return new ArrayList<>(data);
     }
+
+
     @Override
     public void update(String id, T employee) {
         delete(id);

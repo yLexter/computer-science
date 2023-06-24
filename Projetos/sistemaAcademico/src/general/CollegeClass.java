@@ -2,7 +2,6 @@ package general;
 
 import utils.Global;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class CollegeClass extends Subject {
@@ -21,21 +20,13 @@ public class CollegeClass extends Subject {
                 this.registerClasses = new ArrayList<>();
         }
 
-        public CollegeClass(String code, String name, int hours, String teacherId, String classRoomId) {
+        public CollegeClass(String code, String name, int hours, String teacherId, List<SubjectStudent> students, String classId, List<RegisterClass> registerClasses, String classRoomId) {
                 super(code, name, hours);
                 this.teacherId = teacherId;
+                this.students = students;
+                this.classId = classId;
+                this.registerClasses = registerClasses;
                 this.classRoomId = classRoomId;
-                this.classId = UUID.randomUUID().toString();
-                this.students = new ArrayList<>();
-                this.registerClasses = new ArrayList<>();
-        }
-
-        public CollegeClass(String code, String name, int hours, String classRoomId) {
-                super(code, name, hours);
-                this.classRoomId = classRoomId;
-                this.classId = UUID.randomUUID().toString();
-                this.students = new ArrayList<>();
-                this.registerClasses = new ArrayList<>();
         }
 
         public ClassRoom getClassRoom() {
@@ -72,6 +63,18 @@ public class CollegeClass extends Subject {
                 return registerClasses;
         }
 
+        public String getTeacherId() {
+                return teacherId;
+        }
+
+        public String getClassRoomId() {
+                return classRoomId;
+        }
+
+        public void setClassRoomId(String classRoomId) {
+                this.classRoomId = classRoomId;
+        }
+
         public void setRegisterClasses(List<RegisterClass> registerClasses) {
                 this.registerClasses = registerClasses;
         }
@@ -80,5 +83,7 @@ public class CollegeClass extends Subject {
         public String toString() {
             return String.format("%s | ClassID: %s | RoomId: %s ", super.toString(), classId, classRoomId);
         }
+
+
 }
 

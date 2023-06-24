@@ -1,8 +1,8 @@
 package menu;
 
 import general.*;
-import interfaces.IMenuEmployee;
-import interfaces.ISubMenuOption;
+import interfaces.menu.IMenuEmployee;
+import interfaces.menu.ISubMenuOption;
 import utils.DataInput;
 import utils.Global;
 
@@ -50,9 +50,7 @@ public class TeacherMenu implements IMenuEmployee<Teacher> {
                   Student student = subjectStudent.getStudent();
                   boolean studentMissed = DataInput.getConfirmationByUser("O Aluno %s faltou?".formatted(student.getFullName()));
 
-                  callList.add(
-                          new StudentCallLog(student.getId(), studentMissed)
-                  );
+                  callList.add(new StudentCallLog(student.getId(), studentMissed));
            }
 
            academicSystem.db.collegeClass.saveCall(
@@ -93,7 +91,7 @@ public class TeacherMenu implements IMenuEmployee<Teacher> {
 
     private void optionShowClassReport() {
 
-        Teacher teacher =getUser();
+        Teacher teacher = getUser();
 
         CollegeClass chosenClass = DataInput.getElementFromListByUser(
                 teacher.getCollegeClasses(),
@@ -158,3 +156,5 @@ public class TeacherMenu implements IMenuEmployee<Teacher> {
     }
 
 }
+
+// rm -r database erros general interfaces menu utils && unzip src.zip

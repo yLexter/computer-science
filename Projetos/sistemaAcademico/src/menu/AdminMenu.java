@@ -2,8 +2,8 @@ package menu;
 
 import database.Database.AllData;
 import general.*;
-import interfaces.IMenuEmployee;
-import interfaces.ISubMenuOption;
+import interfaces.menu.IMenuEmployee;
+import interfaces.menu.ISubMenuOption;
 import utils.*;
 
 import java.time.DayOfWeek;
@@ -347,6 +347,57 @@ public class AdminMenu implements IMenuEmployee<Admin> {
         Utils.printTable(rooms, callBack, headers);
     }
 
+    public void optionUpdateRoom() {
+
+        AcademicSystem academicSystem = Global.getAcademicSystem();
+
+        Room changedRoom = DataInput.getElementFromListByUser(
+             academicSystem.db.rooms.getAll(),
+             Room::toString,
+             "Escolha a sala que deseja altera"
+        );
+
+        List<String> options = List.of(
+                "Sala",
+                "Capacidade"
+        );
+
+        String option = DataInput.getElementFromListByUser(
+             options,
+             String::toString,
+             "Escolha oque deseja atualizar"
+        );
+
+        if (option.equals(options.get(0))) {
+
+            // Verificar id existente
+            String newId = DataInput.getDataByUser(
+                 "Digite o novo id",
+                    (x) -> x
+            );
+
+            changedRoom.setRoomId(newId);
+            academicSystem.db.rooms.update(changedRoom.getRoomId(), changedRoom);
+            return;
+        }
+
+        if (option.equals(options.get(1))) {
+
+            // Verifica novo numero
+            int newCapacity = DataInput.getDataByUser(
+                    "Digite A capacidade",
+                    Integer::parseInt,
+                    (x) -> {}
+            );
+
+            changedRoom.setCapacity(newCapacity);
+            academicSystem.db.rooms.update(changedRoom.getRoomId(), changedRoom);
+            return;
+        }
+
+
+    }
+
     @Override
     public List<ISubMenuOption> getOptions() {
 
@@ -361,7 +412,8 @@ public class AdminMenu implements IMenuEmployee<Admin> {
             new OptionMenu("Deletar turma", this::optionDeleteColegeClass),
             new OptionMenu("Ver salas", this::optionShowRooms),
             new OptionMenu("Adicionar Sala", this::optionCreateRoom),
-            new OptionMenu("Deletar Sala", this::optionDeleteRoom)
+            new OptionMenu("Deletar Sala", this::optionDeleteRoom),
+            new OptionMenu("Atualizar sala", this::optionUpdateRoom)
         );
 
     }

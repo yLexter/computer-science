@@ -89,4 +89,5 @@ public class Subject {
     public String toString() {
         return String.format("[%s] %s | %d ", code, name, hours);
     }
+
 }

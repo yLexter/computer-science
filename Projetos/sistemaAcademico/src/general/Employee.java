@@ -28,6 +28,17 @@ public class Employee {
         this.password = formatDateOfBirthToPassword();
     }
 
+    public Employee(Employee employee) {
+        this.name = employee.getName();
+        this.lastName = employee.getLastName();
+        this.cpf = employee.getCpf();
+        this.age = employee.getAge();
+        this.dateOfBirth = employee.getDateOfBirth();
+        this.id = employee.getId();
+        this.role = employee.getRole();
+        this.password = employee.getPassword();
+    }
+
     public String getName() {
         return name;
     }
@@ -128,4 +139,5 @@ public class Employee {
     public String toString() {
         return String.format("[%s] %s | Idade: %d", id , getFullName(), age);
     }
+
 }

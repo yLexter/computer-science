@@ -1,9 +1,10 @@
 package general;
 
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
+import java.util.Locale;
 import java.util.UUID;
 
 public class ClassRoom extends Room {
@@ -20,6 +21,7 @@ public class ClassRoom extends Room {
         this.dayOfWeek = dayOfWeek;
         this.id = UUID.randomUUID().toString();
     }
+
 
     public LocalTime getTime() {
         return time;
@@ -43,12 +45,16 @@ public class ClassRoom extends Room {
 
     // ToDo Implementar dia da semana na data formatada
     public String formatTime() {
-        return String.format("%s, %s", "??", time.format(DateTimeFormatter.ofPattern("HH:mm")));
+        return String.format("%s, %s" , time.format(DateTimeFormatter.ofPattern("HH:mm")), dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault()));
     }
 
     public String toString() {
         return String.format("%s | ID: %s | Horario: %s", super.toString(), id, formatTime());
     }
+
+
+
+
 
 
 }

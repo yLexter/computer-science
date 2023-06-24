@@ -1,5 +1,5 @@
 package menu;
-import interfaces.ISubMenuOption;
+import interfaces.menu.ISubMenuOption;
 
 public record OptionMenu(String label, Runnable function) implements ISubMenuOption {
 

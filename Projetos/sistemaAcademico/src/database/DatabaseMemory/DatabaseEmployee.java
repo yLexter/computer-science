@@ -1,9 +1,6 @@
-package database;
+package database.DatabaseMemory;
 import general.Employee;
-import interfaces.IDatabaseEmployee;
-import java.util.*;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
+import interfaces.database.IDatabaseEmployee;
 
 public abstract class DatabaseEmployee<T extends Employee> extends DatabaseBase<T> implements IDatabaseEmployee<T> {
 

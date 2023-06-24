@@ -1,14 +1,11 @@
-package database;
+package database.DatabaseMemory;
 
 import general.ClassRoom;
-import general.Room;
-import general.Subject;
+import interfaces.database.IDatabaseClassRoom;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
-public class DatabaseClassRoom extends DatabaseBase<ClassRoom>{
+public class DatabaseClassRoom extends DatabaseBase<ClassRoom> implements IDatabaseClassRoom {
 
     @Override
     public ClassRoom findById(String id) {

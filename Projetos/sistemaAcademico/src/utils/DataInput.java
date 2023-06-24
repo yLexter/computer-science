@@ -5,7 +5,7 @@ import erros.*;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
-
+import static utils.Constants.*;
 
 // ToDo Melhorar a forma de saida dos formularios e no geral
 public class DataInput {
@@ -21,10 +21,6 @@ public class DataInput {
         }
 
     }
-
-    public static final String exitInputString = "-s";
-
-    public static final int startLoopIndex = 1;
 
     public static <T> T getDataByUser(String labelInput, Function<String, T> convertToType, Consumer<T> validInput) {
 
@@ -100,7 +96,7 @@ public class DataInput {
     }
 
     public static <T> void showOptions(List<ChoiseOption<T>> options) {
-        int index = startLoopIndex;
+        int index = startOptionsIndex;
 
         for(ChoiseOption<T> option : options)
             System.out.printf("%d. %s\n", index++, option.getLabel());
@@ -145,10 +141,10 @@ public class DataInput {
 
                 intOption = Integer.parseInt(stringOption);
 
-                if (intOption < startLoopIndex || intOption >= listOptions.size() + startLoopIndex) {
+                if (intOption < startOptionsIndex || intOption >= listOptions.size() + startOptionsIndex) {
                     System.out.println("Opção inválida");
                 } else {
-                    optionSelected = listOptions.get(intOption - startLoopIndex).getOption();
+                    optionSelected = listOptions.get(intOption - startOptionsIndex).getOption();
                 }
 
             } catch(NumberFormatException err) {
@@ -190,12 +186,12 @@ public class DataInput {
 
                 intOption = Integer.parseInt(stringOption);
 
-                if (intOption < startLoopIndex || intOption >= listOptions.size() + startLoopIndex) {
+                if (intOption < startOptionsIndex || intOption >= listOptions.size() + startOptionsIndex) {
                     System.out.println("Opção inválida");
                     continue;
                 }
 
-                option = listOptions.get(intOption - startLoopIndex).getOption();
+                option = listOptions.get(intOption - startOptionsIndex).getOption();
 
                 if (optionsSelected.contains(option)) {
                     System.out.println("Opção já selecionada");
@@ -249,12 +245,12 @@ public class DataInput {
 
                 intOption = Integer.parseInt(stringOption);
 
-                if (intOption < startLoopIndex || intOption >= listOptions.size() + startLoopIndex) {
+                if (intOption < startOptionsIndex || intOption >= listOptions.size() + startOptionsIndex) {
                     System.out.println("Opção inválida");
                     continue;
                 }
 
-                option = listOptions.get(intOption - startLoopIndex).getOption();
+                option = listOptions.get(intOption - startOptionsIndex).getOption();
 
                 if (optionsSelected.contains(option)) {
                     System.out.println("Opção já selecionada");

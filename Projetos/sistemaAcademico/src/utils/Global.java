@@ -1,12 +1,10 @@
 package utils;
 
 import database.*;
+import database.DatabaseMemory.*;
 import general.AcademicSystem;
-import general.Admin;
-import general.ClassRoom;
 import general.GeneralInformation;
 
-import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Global {
@@ -35,11 +33,11 @@ public class Global {
           new DatabaseStudent(),
           new DatabaseTeacher(),
           new DatabaseAdmin(),
-          new DatabaseSubjects(),
+          new DatabaseSubject(),
           new DatabaseGeneralInformation(generalInformation),
           new DatabaseCollegeClass(),
           new DatabaseClassRoom(),
-          new DatabaseRooms()
+          new DatabaseRoom()
         );
 
         return academicSystem = new AcademicSystem(db);

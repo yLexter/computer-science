@@ -1,8 +1,8 @@
 package menu;
 
 import general.*;
-import interfaces.IMenuEmployee;
-import interfaces.ISubMenuOption;
+import interfaces.menu.IMenuEmployee;
+import interfaces.menu.ISubMenuOption;
 import utils.Global;
 import utils.Utils;
 

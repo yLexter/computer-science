@@ -3,22 +3,24 @@ import menu.AdminMenu;
 import menu.HomeMenu;
 import menu.StudentMenu;
 import menu.TeacherMenu;
+
 import utils.*;
+
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import java.lang.StringBuilder;
-
 import database.Database.AllData;
 
 class Main {
     public static void main(String[] args) {
 
         teste3();
+
+
 
     }
 
@@ -33,8 +35,8 @@ class Main {
         academicSystem.db.admin.updateAll(Examples.getAdmins());
         academicSystem.db.collegeClass.updateAll(Examples.getGollegesClass());
 
-        //new AdminMenu(academicSystem.db.admin.getAll().get(0).getId()).run();
-        new TeacherMenu(academicSystem.db.teachers.getAll().get(0).getId()).run();
+        new AdminMenu(academicSystem.db.admin.getAll().get(0).getId()).run();
+        //new TeacherMenu(academicSystem.db.teachers.getAll().get(0).getId()).run();
         //new StudentMenu(academicSystem.db.students.getAll().get(0).getId()).run();
     }
 

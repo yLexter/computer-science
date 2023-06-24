@@ -2,7 +2,7 @@ package general;
 
 import database.Database;
 import erros.DatabaseException;
-import erros.ErrorMessage;
+import utils.Constants;
 
 public class AcademicSystem {
 
@@ -29,7 +29,7 @@ public class AcademicSystem {
         if (isTeatcher != null)
             return isTeatcher;
 
-        throw new DatabaseException(ErrorMessage.EMPLOYEE_NOT_AUTHENTICATE);
+        throw new DatabaseException(Constants.ErrorMessage.EMPLOYEE_NOT_AUTHENTICATE);
     }
 
 }

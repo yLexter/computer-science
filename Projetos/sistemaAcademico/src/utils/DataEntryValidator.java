@@ -11,6 +11,10 @@ import java.util.regex.Pattern;
 
 public class DataEntryValidator {
 
+    public static void validNumberIsPositive(Number number) {
+        if (number.doubleValue() < 0)
+            throw new IllegalArgumentException("Número precisa ser postivio");
+    }
     public static void validNote(float note) {
         if (note < 0 || note > 10)
             throw new IllegalArgumentException("Nota invalida");
@@ -32,7 +36,7 @@ public class DataEntryValidator {
     }
 
     public static LocalDate validDate(String date) {
-        Pattern regex = Pattern.compile("(0[0-9]|[1-2][1-9]|3[0-1])/(0[1-9]|1[0-2])/(\\d{4})");
+        Pattern regex = Pattern.compile("(0[0-9]|[1-2][0-9]|3[0-1])/(0?[1-9]|1[0-2])/(\\d{4})");
         Matcher match = regex.matcher(date);
 
         if (!match.find())

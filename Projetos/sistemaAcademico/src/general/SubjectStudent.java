@@ -88,7 +88,7 @@ public class SubjectStudent extends Subject {
 
     public void increaseAbsences() {
         AcademicSystem academicSystem = Global.getAcademicSystem();
-        setAbsences(absences + academicSystem.db.generalInformation.data.getTotalAbsemcesPerClass());
+        setAbsences(absences + academicSystem.db.generalInformation.getData().getTotalAbsemcesPerClass());
     }
 
     public Student getStudent() {

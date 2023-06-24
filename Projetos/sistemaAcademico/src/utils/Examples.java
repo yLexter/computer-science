@@ -9,8 +9,6 @@ import java.util.List;
 
 
 public class Examples {
-
-
     public static List<Admin> getAdmins() {
 
         Admin adm1 = new Admin("Lucas", "Ferreira", 18, LocalDate.of(2003, 2, 2), "15151551");

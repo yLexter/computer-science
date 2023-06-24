@@ -1,14 +1,19 @@
 package general;
 
+import java.util.UUID;
+
 public class Room {
 
     private String roomId;
 
     private int capacity;
 
+    private final String id;
+
     public Room(String roomId, int capacity) {
         this.roomId = roomId;
         this.capacity = capacity;
+        this.id = UUID.randomUUID().toString();
     }
 
     public int getCapacity() {

@@ -1,4 +1,4 @@
-package interfaces;
+package interfaces.menu;
 
 import java.util.List;
 

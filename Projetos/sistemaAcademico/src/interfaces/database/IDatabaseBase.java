@@ -1,9 +1,9 @@
-package interfaces;
+package interfaces.database;
 
 import java.util.List;
 import java.util.function.Predicate;
 
-public interface IModelDatabase<T> {
+public interface IDatabaseBase<T> {
     List<T> getAll();
     void update(String id, T data);
     void delete(String id);
@@ -12,4 +12,5 @@ public interface IModelDatabase<T> {
     T findById(String id);
     T findOne(Predicate<T> callback);
     void updateAll(List<T> data);
+
 }

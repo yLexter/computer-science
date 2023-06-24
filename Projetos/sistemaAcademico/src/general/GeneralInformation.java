@@ -1,7 +1,5 @@
 package general;
 
-import java.util.List;
-
 public class GeneralInformation {
 
     private String course;
@@ -16,6 +14,14 @@ public class GeneralInformation {
         this.isRegitrationPeriod = isRegitrationPeriod;
         this.version = version;
         this.hourPerClass = hourPerClass;
+    }
+
+    public GeneralInformation(GeneralInformation origin) {
+        this.course = origin.getCourse();
+        this.totalAbsemcesPerClass = origin.getTotalAbsemcesPerClass();
+        this.isRegitrationPeriod = origin.isRegitrationPeriod();
+        this.version = origin.getVersion();
+        this.hourPerClass = origin.hourPerClass;
     }
 
     public int getHourPerClass() {
@@ -57,4 +63,6 @@ public class GeneralInformation {
     public void setVersion(String version) {
         this.version = version;
     }
+
+
 }

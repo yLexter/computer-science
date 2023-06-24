@@ -1,6 +1,8 @@
 package database;
 
 import general.*;
+import interfaces.database.*;
+
 import java.util.List;
 
 public class Database {
@@ -44,16 +46,17 @@ public class Database {
             return rooms;
         }
     }
-    public final DatabaseStudent students;
-    public final DatabaseTeacher teachers;
-    public final DatabaseAdmin admin;
-    public final DatabaseSubjects subjects;
-    public final DatabaseGeneralInformation generalInformation;
-    public final DatabaseCollegeClass collegeClass;
-    public final DatabaseClassRoom classRooms;
-    public final DatabaseRooms rooms;
+    public final IDatabaseStudent students;
+    public final IDatabaseTeacher teachers;
 
-    public Database(DatabaseStudent students, DatabaseTeacher teachers, DatabaseAdmin admin, DatabaseSubjects subjects, DatabaseGeneralInformation generalInformation, DatabaseCollegeClass collegeClass, DatabaseClassRoom classRooms, DatabaseRooms rooms) {
+    public final IDatabaseAdmin admin;
+    public final IDatabaseSubject subjects;
+    public final IDatabaseGeneralInformation generalInformation;
+    public final IDatabaseCollegeClass collegeClass;
+    public final IDatabaseClassRoom classRooms;
+    public final IDatabaseRoom rooms;
+
+    public Database(IDatabaseStudent students, IDatabaseTeacher teachers, IDatabaseAdmin admin, IDatabaseSubject subjects, IDatabaseGeneralInformation generalInformation, IDatabaseCollegeClass collegeClass, IDatabaseClassRoom classRooms, IDatabaseRoom rooms) {
         this.students = students;
         this.teachers = teachers;
         this.admin = admin;
