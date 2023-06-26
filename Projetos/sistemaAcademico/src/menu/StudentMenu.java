@@ -20,36 +20,37 @@ public class StudentMenu implements IMenuEmployee<Student> {
     }
 
     public void optionShowHistoric() {
-            Student student = getUser();
-            List<SubjectStudent> subjects = student.getSubjects();
-            Subject biggestNameSubject = Utils.getSubjectWithBiggerName(subjects);
 
-            System.out.println("+----------+-------+--------+-----------+----------------------");
-            System.out.println("| Nome | Código | Horas |Status | Média | Final");
-            System.out.println("+----------+-------+---------+----------+----------------------");
+        Student student = getUser();
+        List<SubjectStudent> subjects = student.getHistoric();
 
-            for (SubjectStudent subject : subjects) {
-                String complementarySpaces = " ".repeat(
-                        biggestNameSubject.getName().length() - subject.getName().length()
-                );
+        List<String> headers = List.of(
+                "Código",
+                "Componente",
+                "Carga Hóraria",
+                "Média",
+                "Faltas",
+                "Status",
+                "Periodo"
+        );
 
-                System.out.printf("| %s %s | %s | %d | %s | %d | %s |\n",
-                        subject.getName(),
-                        complementarySpaces,
-                        subject.getCode(),
-                        subject.getHours(),
-                        subject.getStatus(),
-                        subject.getAbsences(),
-                        subject.getAverage()
-                );
+        Function<SubjectStudent, List<?>> callBack = (subject -> {
+            return List.of(
+                    subject.getCode(),
+                    subject.getName(),
+                    subject.getHours(),
+                    subject.getAverage(),
+                    subject.getAbsences(),
+                    subject.getStatus(),
+                    subject.getPeriod()
+            );
+        });
 
-            }
-
-            System.out.println("+--------+-------+-------------------+");
+        Utils.printTable(subjects, callBack, headers);
      }
     public void optionShowRDM() {
         Student student = getUser();
-        List<SubjectStudent> subjects = student.getSubjects();
+        List<SubjectStudent> subjects = student.getSubjectStudent();
 
         List<String> headers = List.of(
                 "Máteria",
@@ -97,7 +98,8 @@ public class StudentMenu implements IMenuEmployee<Student> {
         Student student = getUser();
         EntranceExam entranceExam = student.getEntranceExam();
 
-        List<String> headers = List.of("Ciências Humanas",
+        List<String> headers = List.of(
+                "Ciências Humanas",
                 "Ciências da Natureza",
                 "Linguagens Códigos",
                 "Mátematica",
@@ -107,7 +109,7 @@ public class StudentMenu implements IMenuEmployee<Student> {
         Function<EntranceExam, List<?>> callBack = (entranceExam1 -> {
             return List.of(
                     entranceExam.getHumanities(),
-                    entranceExam.naturalSciences,
+                    entranceExam.getNaturalSciences(),
                     entranceExam.getLanguages(),
                     entranceExam.getMathematics(),
                     entranceExam.getEssay()

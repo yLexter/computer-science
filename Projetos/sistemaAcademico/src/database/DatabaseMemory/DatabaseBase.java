@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public abstract class DatabaseBase<T> implements IDatabaseBase<T> {
 
-    protected List<T> data;
+    protected ArrayList<T> data;
 
     public DatabaseBase() {
         this.data = new ArrayList<>();
@@ -23,7 +23,6 @@ public abstract class DatabaseBase<T> implements IDatabaseBase<T> {
     public List<T> getAll() {
        return new ArrayList<>(data);
     }
-
 
     @Override
     public void update(String id, T employee) {
@@ -71,6 +70,13 @@ public abstract class DatabaseBase<T> implements IDatabaseBase<T> {
     @Override
     public void saveMany(List<T> dataList) {
         data.addAll(dataList);
+    }
+
+    @Override
+    public boolean has(Predicate<T> callback) {
+        return getAll()
+                .stream()
+                .anyMatch(callback);
     }
 
 }

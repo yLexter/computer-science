@@ -7,36 +7,23 @@ import java.security.SecureRandom;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 public class Employee {
-    public static int sizeId = 8;
+    public static final int sizeId = 8;
     private String name;
     private String lastName;
     private final String cpf;
-    private int age;
     private LocalDate dateOfBirth;
     private final String id;
     private Role role;
     private String password;
 
-    public Employee(String name, String lastName, int age, LocalDate dateOfBirth, Role role, String cpf) {
+    public Employee(String name, String lastName, LocalDate dateOfBirth, Role role, String cpf) {
         this.name = name;
         this.lastName = lastName;
-        this.age = age;
         this.dateOfBirth = dateOfBirth;
         this.role = role;
         this.cpf = cpf;
         this.id = generateId();
         this.password = formatDateOfBirthToPassword();
-    }
-
-    public Employee(Employee employee) {
-        this.name = employee.getName();
-        this.lastName = employee.getLastName();
-        this.cpf = employee.getCpf();
-        this.age = employee.getAge();
-        this.dateOfBirth = employee.getDateOfBirth();
-        this.id = employee.getId();
-        this.role = employee.getRole();
-        this.password = employee.getPassword();
     }
 
     public String getName() {
@@ -56,11 +43,7 @@ public class Employee {
     }
 
     public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
+        return Period.between(dateOfBirth, LocalDate.now()).getYears();
     }
 
     public LocalDate getDateOfBirth() {
@@ -110,7 +93,6 @@ public class Employee {
 
     public String formatDateOfBirthToPassword() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy");
-
         return this.dateOfBirth.format(formatter);
     }
 
@@ -120,12 +102,10 @@ public class Employee {
     }
 
     public static Employee createEmployeeByUser(Role role) {
-
         return new Employee(
-                DataInput.getDataByUser("Digite o nome", DataEntryValidator::validStringInput),
-                DataInput.getDataByUser("Digite o sobrenome", DataEntryValidator::validStringInput),
-                DataInput.getDataByUser("Digite a idade", Integer::parseInt ,DataEntryValidator::validAge),
-                DataInput.getDataByUser("Digite a data de nascimento no formato XX/XX/XXXX", DataEntryValidator::validDate),
+                DataInput.getDataByUser("Digite o nome", DataEntryValidator::validStringIsNotEmpty),
+                DataInput.getDataByUser("Digite o sobrenome", DataEntryValidator::validStringIsNotEmpty),
+                DataInput.getDataByUser("Digite a data de nascimento no formato XX/XX/XXXX", DataEntryValidator::validDateOfBirth),
                 role,
                 DataInput.getDataByUser("Digite o CPF no formato XXX.XXX.XXX-XX", DataEntryValidator::validCpf)
          );
@@ -137,7 +117,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s | Idade: %d", id , getFullName(), age);
+        return String.format("[%s] %s | Idade: %d", id , getFullName(), getAge());
     }
 
 }

@@ -75,7 +75,7 @@ public class DataInput {
     public static String getDataByUser(String labelInput, Consumer<String> validInput) {
 
         Scanner input = Global.getScanner();
-        String finalOutput = null, currentOutput = null;
+        String finalOutput = null, currentOutput;
 
         do {
             try {
@@ -109,10 +109,11 @@ public class DataInput {
     }
 
     public static Boolean getConfirmationByUser(String label){
-        List<ChoiseOption<Boolean>> options = new ArrayList<>();
 
-        options.add(new ChoiseOption<>("Sim", true));
-        options.add(new ChoiseOption<>("Não", false));
+        List<ChoiseOption<Boolean>> options = List.of(
+                new ChoiseOption<>("Sim", true),
+                new ChoiseOption<>("Não", false)
+        );
 
         return getElementFromListByUser(options,ChoiseOption::getLabel ,label).option();
     }
@@ -122,13 +123,13 @@ public class DataInput {
         if (list.size() == 0)
             throw new LeftMenuException("Lista vazia");
 
+        Scanner scanner = Global.getScanner();
         List<ChoiseOption<T>> listOptions = list
                 .stream()
                 .map(option -> new ChoiseOption<>(getLabelOption.apply(option), option))
                 .toList();
 
         T optionSelected = null;
-        Scanner scanner = Global.getScanner();
         int intOption;
 
         do {
@@ -218,13 +219,16 @@ public class DataInput {
         if (list.size() == 0)
             throw new LeftMenuException("Lista vazia");
 
+
+        List<T> optionsSelected = new ArrayList<>();
+
         List<ChoiseOption<T>> listOptions = list
                 .stream()
                 .map(option -> new ChoiseOption<>(getLabelOption.apply(option), option))
                 .toList();
 
-        List<T> optionsSelected = new ArrayList<>();
         Scanner scanner = Global.getScanner();
+
         int intOption;
         T option;
 

@@ -43,7 +43,7 @@ public class TeacherMenu implements IMenuEmployee<Teacher> {
 
            String classDescription = DataInput.getDataByUser(
                "Digite o contéudo da aula",
-               DataEntryValidator::validStringInput
+               DataEntryValidator::validStringIsNotEmpty
             );
 
            for (SubjectStudent subjectStudent : chosenClass.getStudents()) {

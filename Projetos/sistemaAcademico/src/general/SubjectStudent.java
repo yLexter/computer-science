@@ -16,29 +16,26 @@ public class SubjectStudent extends Subject {
     private Float finalExameScore = null;
     private StudentSubjectStatus status;
     private String studentId;
-    private String classId;
     private Integer absences = 0;
     private String period;
+    private String idCollegeClass;
 
-    public SubjectStudent(String code, String name, int hours, String studentId, String classId) {
+    public SubjectStudent(String code, String name, int hours, String studentId, String idCollegeClass) {
         super(code, name, hours);
         this.studentId = studentId;
-        this.classId = classId;
         this.status = StudentSubjectStatus.PENDING;
         this.period = getCurrentPeriod();
+        this.idCollegeClass = idCollegeClass;
     }
 
-    public SubjectStudent(String code, String name, int hours, Float note1, Float note2, Integer absences, Float finalExameScore, StudentSubjectStatus status, String studentId, String classId) {
-        super(code, name, hours);
-        this.note1 = note1;
-        this.note2 = note2;
-        this.finalExameScore = finalExameScore;
-        this.status = status;
-        this.studentId = studentId;
-        this.absences = absences;
-        this.classId = classId;
-        this.period = getPeriod();
+    public String getIdCollegeClass() {
+        return idCollegeClass;
     }
+
+    public void setIdCollegeClass(String idCollegeClass) {
+        this.idCollegeClass = idCollegeClass;
+    }
+
 
     public Float getAverage() {
         if (note1 == null || note2 == null)
@@ -96,22 +93,11 @@ public class SubjectStudent extends Subject {
 
        return academicSystem.db.students.findById(studentId);
     }
-    public CollegeClass getCollegeClass(String id) {
-        AcademicSystem academicSystem = Global.getAcademicSystem();
 
-        return academicSystem.db.collegeClass.findById(classId);
-    }
+
 
     public void setStatus(StudentSubjectStatus status) {
         this.status = status;
-    }
-
-    public String getClassId() {
-        return classId;
-    }
-
-    public void setClassId(String classId) {
-        this.classId = classId;
     }
 
     public String getPeriod() {
@@ -129,7 +115,6 @@ public class SubjectStudent extends Subject {
            Utils.numberToString(finalExameScore)
         );
     }
-
 
 
     public String toString() {

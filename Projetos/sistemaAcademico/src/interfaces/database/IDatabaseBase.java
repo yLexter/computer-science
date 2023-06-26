@@ -13,4 +13,5 @@ public interface IDatabaseBase<T> {
     T findOne(Predicate<T> callback);
     void updateAll(List<T> data);
     void saveMany(List<T> data);
+    boolean has(Predicate<T> callback);
 }

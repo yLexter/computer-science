@@ -48,21 +48,20 @@ public class Subject {
         return String.format("%d.%s", currentDate.getYear(), currentPeriod);
     }
 
-    public static SubjectStudent studentToSubjectStudent(Subject subject, Student student, ClassRoom classRoom) {
+    public static SubjectStudent studentToSubjectStudent(Subject subject, Student student, String idCollegeClass) {
         return new SubjectStudent(
                 subject.getCode(),
                 subject.getName(),
                 subject.getHours(),
                 student.getId(),
-                classRoom.getId()
+                idCollegeClass
         );
     }
 
-    public static List<SubjectStudent> studentToSubjectStudent(List<Student> list, Subject subject, ClassRoom classRoom) {
-
+    public static List<SubjectStudent> studentToSubjectStudent(List<Student> list, Subject subject, String idCollegeClass) {
         return list
                 .stream()
-                .map(student -> studentToSubjectStudent(subject, student, classRoom))
+                .map(student -> studentToSubjectStudent(subject, student, idCollegeClass))
                 .collect(Collectors.toList());
     }
 

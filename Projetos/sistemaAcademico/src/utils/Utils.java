@@ -5,6 +5,10 @@ import general.Room;
 import general.Subject;
 
 import java.lang.reflect.Modifier;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -145,35 +149,27 @@ public class Utils {
             }
         }
     }
-
     public static <T extends Subject> Subject getSubjectWithBiggerName(List<T> subjects) {
         return subjects
                 .stream()
                 .reduce(subjects.get(0), (prev, curr) -> prev.getName().length() > curr.getName().length() ? prev : curr);
     }
 
-    public static List<String> getClassAttributes(Object object) {
+    public static String formatDayOfWeak(DayOfWeek dayOfWeek) {
+        return dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault());
+    }
 
-        Class<?> objectClass = object.getClass();
-
-        List<String> atributtersSuperClass = new ArrayList<>(Arrays.stream(objectClass.getSuperclass().getDeclaredFields())
-                        .filter(field -> !Modifier.isStatic(field.getModifiers()))
-                        .map(Field::getName)
-                        .toList());
-
-        List<String> atributtersCurrentClass = Arrays.stream(objectClass.getDeclaredFields())
-                 .filter(field -> !Modifier.isStatic(field.getModifiers()))
-                 .map(Field::getName)
-                 .toList();
-
-        atributtersSuperClass.addAll(atributtersCurrentClass);
-
-        return atributtersSuperClass;
+    public static String formatTime(LocalTime time) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        return time.format(formatter);
     }
 
     public static <T> void printTable(List<T> list, Function<T, List<?>> getRow, List<String> headers) {
         ArrayList<ArrayList<String>> body = new ArrayList<>();
         ArrayList<String> arrayListHeaders = new ArrayList<>(headers);
+        Integer count = 1;
+
+        arrayListHeaders.add(0, "#");
 
         for (T data : list) {
             List<String> currentRow = getRow
@@ -182,7 +178,13 @@ public class Utils {
                     .map(Object::toString)
                     .toList();
 
-            body.add(new ArrayList<>(currentRow));
+            ArrayList<String> arrayListCurrentRow = new ArrayList<>(currentRow);
+
+            arrayListCurrentRow.add(0, count + "°");
+
+            count++;
+
+            body.add(arrayListCurrentRow);
         }
 
         new ConsoleTable(arrayListHeaders, body).printTable();

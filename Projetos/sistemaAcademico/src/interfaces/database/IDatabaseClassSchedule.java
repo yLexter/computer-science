@@ -2,4 +2,8 @@ package interfaces.database;
 
 import general.ClassSchedule;
 
-public interface IDatabaseClassSchedule extends IDatabaseBase<ClassSchedule>{}
+import java.util.List;
+
+public interface IDatabaseClassSchedule extends IDatabaseBase<ClassSchedule>{
+    List<String> getTimeFormated(List<String> ids);
+}

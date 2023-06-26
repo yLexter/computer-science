@@ -16,8 +16,8 @@ public class HomeMenu implements IMenu {
         String registration, password;
         Employee employee;
 
-        registration = DataInput.getDataByUser("Digite a matricula", DataEntryValidator::validStringInput);
-        password = DataInput.getDataByUser("Digite a senha", DataEntryValidator::validStringInput);
+        registration = DataInput.getDataByUser("Digite a matricula", DataEntryValidator::validStringIsNotEmpty);
+        password = DataInput.getDataByUser("Digite a senha", DataEntryValidator::validStringIsNotEmpty);
         employee = db.autenticate(registration.toLowerCase(), password);
 
         loginEmployee(employee);

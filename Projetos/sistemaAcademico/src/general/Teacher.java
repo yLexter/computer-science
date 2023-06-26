@@ -6,9 +6,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Teacher extends Employee {
-    public Teacher(String name, String lastName, int age, LocalDate dateOfBirth, String cpf) {
-        super(name, lastName, age, dateOfBirth, Role.TEACHER, cpf);
+
+    public Teacher(String name, String lastName, LocalDate dateOfBirth, String cpf) {
+        super(name, lastName, dateOfBirth, Role.TEACHER, cpf);
     }
+
+
     public List<CollegeClass> getCollegeClasses() {
         AcademicSystem academicSystem = Global.getAcademicSystem();
 
@@ -16,6 +19,7 @@ public class Teacher extends Employee {
                 collegeClass -> collegeClass.getTeacher().getId().equals(this.getId())
         );
     }
+
 
     @Override
     public String toString() {

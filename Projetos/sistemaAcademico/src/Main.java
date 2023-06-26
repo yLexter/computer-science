@@ -13,14 +13,14 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.StringBuilder;
+import java.util.UUID;
+
 import database.Database.AllData;
 
 class Main {
     public static void main(String[] args) {
 
         teste3();
-
-
 
     }
 
@@ -40,7 +40,7 @@ class Main {
         //new StudentMenu(academicSystem.db.students.getAll().get(0).getId()).run();
     }
 
-
 }
+
 
 

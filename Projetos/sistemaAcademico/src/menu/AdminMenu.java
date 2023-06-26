@@ -8,10 +8,9 @@ import utils.*;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.time.format.TextStyle;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
+import java.util.UUID;
 import java.util.function.Function;
 
 
@@ -81,7 +80,6 @@ public class AdminMenu implements IMenuEmployee<Admin> {
         Student student = new Student(
             employee.getName(),
             employee.getLastName(),
-            employee.getAge(),
             employee.getDateOfBirth(),
             employee.getCpf(),
             null,
@@ -89,13 +87,14 @@ public class AdminMenu implements IMenuEmployee<Admin> {
             entranceExam
         );
 
-         student.setSubjects(
+         student.setCollegeClasses(
              collegeClasses
                      .stream()
                      .map(CollegeClass::getCollegeClassId)
                      .toList()
          );
 
+        academicSystem.db.collegeClass.addStudentToCollegesClasses(student, collegeClasses);
         academicSystem.db.students.save(student);
 
         System.out.println("Estudante adicionado");
@@ -110,6 +109,7 @@ public class AdminMenu implements IMenuEmployee<Admin> {
                 "Escolha o estudante"
         );
 
+        academicSystem.db.collegeClass.removeStudentFromCollegeClasses(studentRemoved.getId());
         academicSystem.db.students.delete(studentRemoved.getId());
 
         System.out.println("Estudante Removido");
@@ -118,13 +118,14 @@ public class AdminMenu implements IMenuEmployee<Admin> {
     private void optionDeleteTeatcher() {
         AcademicSystem academicSystem = Global.getAcademicSystem();
 
-        Teacher studentRemoved = DataInput.getElementFromListByUser(
+        Teacher teacherRemoved = DataInput.getElementFromListByUser(
                 academicSystem.db.teachers.getAll(),
                 Teacher::toString,
                 "Escolha o Professor`"
         );
 
-        academicSystem.db.teachers.delete(studentRemoved.getId());
+        academicSystem.db.collegeClass.removeCollegeClassFromTeacher(teacherRemoved.getId());
+        academicSystem.db.teachers.delete(teacherRemoved.getId());
 
         System.out.println("Professor Removido");
     }
@@ -148,7 +149,6 @@ public class AdminMenu implements IMenuEmployee<Admin> {
         Teacher teacher = new Teacher(
                 employee.getName(),
                 employee.getLastName(),
-                employee.getAge(),
                 employee.getDateOfBirth(),
                 employee.getCpf()
         );
@@ -187,9 +187,11 @@ public class AdminMenu implements IMenuEmployee<Admin> {
 
     // ToDo pegar os horarios da aula do usuario
     private void optionCreateCollegeClass() {
+
         AcademicSystem academicSystem = Global.getAcademicSystem();
         AllData allData = academicSystem.db.findAll();
         CollegeClass collegeClass;
+        String idCollegeClass = UUID.randomUUID().toString();
 
         Subject subject = DataInput.getElementFromListByUser(
                 allData.subjects(),
@@ -226,11 +228,13 @@ public class AdminMenu implements IMenuEmployee<Admin> {
 
                 DayOfWeek dayOfWeek = DataInput.getElementFromListByUser(
                         Arrays.stream(DayOfWeek.values()).toList(),
-                        day -> day.getDisplayName(TextStyle.FULL, Locale.getDefault()),
+                        Utils::formatDayOfWeak,
                         "Escolha o dia da semana"
                 );
 
-                return new ClassSchedule(time, dayOfWeek);
+                // ToDo pegar o id da college class e setar na class  Schedule
+
+                return new ClassSchedule(time, dayOfWeek, idCollegeClass);
                 }, 2
         );
 
@@ -249,7 +253,8 @@ public class AdminMenu implements IMenuEmployee<Admin> {
                 subject.getHours(),
                 teacher.getId(),
                 null,
-                classRoom.getId()
+                classRoom.getId(),
+                idCollegeClass
         );
 
         boolean createWithStudents = DataInput.getConfirmationByUser("Deseja adicionar estudantes?");
@@ -264,7 +269,7 @@ public class AdminMenu implements IMenuEmployee<Admin> {
              );
 
              collegeClass.setStudents(
-                Subject.studentToSubjectStudent(students, collegeClass, classRoom)
+                Subject.studentToSubjectStudent(students, collegeClass, idCollegeClass)
              );
          }
 
@@ -320,6 +325,7 @@ public class AdminMenu implements IMenuEmployee<Admin> {
 
         Utils.printTable(subjectStudents, getRow, headers);
     }
+
     private void optionDeleteColegeClass() {
 
         AcademicSystem academicSystem = Global.getAcademicSystem();
@@ -330,6 +336,7 @@ public class AdminMenu implements IMenuEmployee<Admin> {
                 "Escolha a turma"
         );
 
+        academicSystem.db.students.removeCollegeClassFromStudents(collegeClass.getCollegeClassId());
         academicSystem.db.collegeClass.delete(collegeClass.getCollegeClassId());
     }
 
@@ -349,24 +356,7 @@ public class AdminMenu implements IMenuEmployee<Admin> {
                 DataEntryValidator::validNumberIsPositive
         );
 
-        academicSystem.db.rooms.save(
-             new Room(id, capacity)
-        );
-
-    }
-
-    private void optionDeleteRoom() {
-
-        AcademicSystem academicSystem = Global.getAcademicSystem();
-        List<Room> rooms = academicSystem.db.rooms.getAll();
-
-        Room roomDeleted = DataInput.getElementFromListByUser(
-            rooms,
-            Room::toString,
-            "Escolha uma sala para deletar"
-        );
-
-        academicSystem.db.rooms.delete(roomDeleted.getRoomId());
+        academicSystem.db.rooms.save(new Room(id, capacity));
     }
 
     private void optionShowRooms() {
@@ -413,29 +403,37 @@ public class AdminMenu implements IMenuEmployee<Admin> {
         if (option.equals(options.get(0))) {
 
             // Verificar id existente
-            String newId = DataInput.getDataByUser(
+            String newIdRoom = DataInput.getDataByUser(
                  "Digite o novo id",
-                    (x) -> x
+                    (newId) -> {
+                       Room alreadyExistId = academicSystem.db.rooms.findById(newId.toLowerCase());
+
+                       if (alreadyExistId != null)
+                          throw new IllegalArgumentException("Id Existente");
+                    }
             );
 
-            changedRoom.setRoomId(newId);
+            changedRoom.setRoomId(newIdRoom);
+
             academicSystem.db.rooms.update(changedRoom.getRoomId(), changedRoom);
+
             return;
         }
 
         if (option.equals(options.get(1))) {
 
-            // Verifica novo numero
             int newCapacity = DataInput.getDataByUser(
                     "Digite A capacidade",
                     Integer::parseInt,
-                    (x) -> {}
+                    DataEntryValidator::validNumberIsPositive
             );
 
             changedRoom.setCapacity(newCapacity);
             academicSystem.db.rooms.update(changedRoom.getRoomId(), changedRoom);
             return;
         }
+
+        System.out.println("Sala atualizada com sucesso");
 
 
     }
@@ -447,15 +445,17 @@ public class AdminMenu implements IMenuEmployee<Admin> {
             new OptionMenu("Ver Estudantes", this::optionShowStudents),
             new OptionMenu("Adicionar estudante", this::optionAddStudent),
             new OptionMenu("Remover estudante", this::optionDeleteStudent),
+
             new OptionMenu("Ver Professores", this::optionShowTeatchers),
             new OptionMenu("Adicionar Professor", this::optionAddTeatcher),
             new OptionMenu("Remover Professor", this::optionDeleteTeatcher),
+
             new OptionMenu("Ver Turmas", this::optionShowCollegeClass),
             new OptionMenu("Adicionar turma", this::optionCreateCollegeClass),
             new OptionMenu("Deletar turma", this::optionDeleteColegeClass),
+
             new OptionMenu("Ver salas", this::optionShowRooms),
             new OptionMenu("Adicionar Sala", this::optionCreateRoom),
-            new OptionMenu("Deletar Sala", this::optionDeleteRoom),
             new OptionMenu("Atualizar sala", this::optionUpdateRoom)
         );
 

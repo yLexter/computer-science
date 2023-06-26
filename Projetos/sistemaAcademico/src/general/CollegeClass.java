@@ -6,24 +6,34 @@ import java.util.*;
 
 public class CollegeClass extends Subject {
         private String teacherId;
-        private List<SubjectStudent> students;
+        private ArrayList<SubjectStudent> students;
         private String collegeClassId;
         private List<RegisterClass> registerClasses;
         private String classRoomId;
-
         public CollegeClass(String code, String name, int hours, String teacherId, List<SubjectStudent> students, String classRoomId) {
                 super(code, name, hours);
                 this.teacherId = teacherId;
                 this.classRoomId = classRoomId;
-                this.students = students;
+                this.students = new ArrayList<>(students);
                 this.collegeClassId = UUID.randomUUID().toString();
                 this.registerClasses = new ArrayList<>();
         }
+
+        public CollegeClass(String code, String name, int hours, String teacherId, List<SubjectStudent> students, String classRoomId, String id) {
+                super(code, name, hours);
+                this.teacherId = teacherId;
+                this.classRoomId = classRoomId;
+                this.students = new ArrayList<>(students);
+                this.collegeClassId = id;
+                this.registerClasses = new ArrayList<>();
+        }
+
 
         public ClassRoom getClassRoom() {
             AcademicSystem academicSystem = Global.getAcademicSystem();
             return academicSystem.db.classRooms.findById(classRoomId);
         }
+        // ToDo esta bomba pode retornar nulo
 
         public Teacher getTeacher() {
               AcademicSystem academicSystem = Global.getAcademicSystem();
@@ -39,11 +49,11 @@ public class CollegeClass extends Subject {
         }
 
         public void setStudents(List<SubjectStudent> students) {
-                this.students = students;
+                this.students = new ArrayList<>(students);
         }
 
         public String getCollegeClassId() {
-                return collegeClassId;
+             return collegeClassId;
         }
 
         public void setCollegeClassId(String collegeClassId) {
@@ -54,6 +64,9 @@ public class CollegeClass extends Subject {
                 return registerClasses;
         }
 
+        public void addSubjectStudent(SubjectStudent subjectStudent) {
+             students.add(subjectStudent);
+        }
         public String getTeacherId() {
                 return teacherId;
         }
@@ -72,7 +85,7 @@ public class CollegeClass extends Subject {
 
         @Override
         public String toString() {
-            return String.format("%s | ClassID: %s | RoomId: %s ", super.toString(), collegeClassId, classRoomId);
+            return String.format("%s | CollegeClass: %s | RoomId: %s ", super.toString(), collegeClassId, classRoomId);
         }
 
 

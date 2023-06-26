@@ -6,12 +6,13 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 public class Examples {
     public static List<Admin> getAdmins() {
 
-        Admin adm1 = new Admin("Lucas", "Ferreira", 18, LocalDate.of(2003, 2, 2), "15151551");
+        Admin adm1 = new Admin("Lucas", "Ferreira",  LocalDate.of(2003, 2, 2), "15151551");
 
         System.out.println("Id Admin: " + adm1.getId());
 
@@ -19,7 +20,7 @@ public class Examples {
     }
     public static List<Teacher> getTeachers() {
 
-        Teacher t1 = new Teacher("Mateus", "Silva", 18, LocalDate.of(2003, 2, 2), "8789784");
+        Teacher t1 = new Teacher("Mateus", "Silva", LocalDate.of(2003, 2, 2), "8789784");
 
         System.out.println("Id Teacher: " + t1.getId());
 
@@ -27,11 +28,11 @@ public class Examples {
     }
     public static List<Student> getStudents() {
         return List.of(
-                new Student("Alice", "Smith", 20, LocalDate.of(2003, 5, 15), "12345678901", null, "CC", new EntranceExam(600.0, 700.0, 800.0, 900.0, 1000.0)),
-                new Student("Bob", "Johnson", 21, LocalDate.of(2002, 8, 10), "23456789012", null, "CC", new EntranceExam(550.0, 650.0, 750.0, 850.0, 950.0)),
-                new Student("Charlie", "Brown", 19, LocalDate.of(2004, 2, 28), "34567890123", null, "CC", new EntranceExam(700.0, 800.0, 900.0, 1000.0, 600.0)),
-                new Student("Daniela", "Silva", 22, LocalDate.of(2001, 11, 5), "45678901234", null, "CC", new EntranceExam(650.0, 750.0, 850.0, 950.0, 550.0)),
-                new Student("Eduardo", "Santos", 18, LocalDate.of(2005, 7, 20), "56789012345", null, "CC", new EntranceExam(800.0, 900.0, 1000.0, 600.0, 700.0))
+                new Student("Alice", "Smith", LocalDate.of(2003, 5, 15), "12345678901", null, "CC", new EntranceExam(600.0, 700.0, 800.0, 900.0, 1000.0)),
+                new Student("Bob", "Johnson", LocalDate.of(2002, 8, 10), "23456789012", null, "CC", new EntranceExam(550.0, 650.0, 750.0, 850.0, 950.0)),
+                new Student("Charlie", "Brown", LocalDate.of(2004, 2, 28), "34567890123", null, "CC", new EntranceExam(700.0, 800.0, 900.0, 1000.0, 600.0)),
+                new Student("Daniela", "Silva", LocalDate.of(2001, 11, 5), "45678901234", null, "CC", new EntranceExam(650.0, 750.0, 850.0, 950.0, 550.0)),
+                new Student("Eduardo", "Santos", LocalDate.of(2005, 7, 20), "56789012345", null, "CC", new EntranceExam(800.0, 900.0, 1000.0, 600.0, 700.0))
         );
     }
     public static List<Room> getRooms() {
@@ -109,14 +110,14 @@ public class Examples {
     public static List<CollegeClass> getGollegesClass() {
 
         ClassRoom c1 = new ClassRoom("B150", 50, null);
-
+        String idCollegeClass = UUID.randomUUID().toString();
         AcademicSystem academicSystem = Global.getAcademicSystem();
         Teacher teacher = academicSystem.db.teachers.getAll().get(0);
         Subject subject = getSubjects().get(0);
 
         academicSystem.db.classRooms.save(c1);
 
-        List<SubjectStudent> s1 = Subject.studentToSubjectStudent(academicSystem.db.students.getAll(), subject ,c1);
+        List<SubjectStudent> s1 = Subject.studentToSubjectStudent(academicSystem.db.students.getAll(), subject, idCollegeClass);
 
         return List.of(
             new CollegeClass(
@@ -125,7 +126,8 @@ public class Examples {
                     subject.getHours(),
                     teacher.getId(),
                     s1,
-                    c1.getId()
+                    c1.getId(),
+                    idCollegeClass
          )
         );
 
