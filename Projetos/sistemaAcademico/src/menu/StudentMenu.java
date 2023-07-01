@@ -3,6 +3,7 @@ package menu;
 import general.*;
 import interfaces.menu.IMenuEmployee;
 import interfaces.menu.ISubMenuOption;
+import utils.Decoration;
 import utils.Global;
 import utils.Utils;
 
@@ -10,19 +11,30 @@ import java.util.*;
 
 import java.util.function.Function;
 
-// ToDo Implementar Construtor, interface do rdm e pegar dados da db do estudante
 public class StudentMenu implements IMenuEmployee<Student> {
 
     private String studentId;
 
+  /**
+ * A classe StudentMenu implementa o menu de opções disponíveis para um estudante.
+ * Ele exibe opções como visualizar o RDM, a grade curricular, o histórico e o resultado do vestibular.
+ */
     public StudentMenu(String studentId) {
         this.studentId = studentId;
     }
 
+  /**
+     * Opção do menu para exibir o histórico acadêmico do estudante.
+     */
     public void optionShowHistoric() {
 
         Student student = getUser();
         List<SubjectStudent> subjects = student.getHistoric();
+
+        if (subjects.size() == 0) {
+            Decoration.showMessageAndClearScreen("Hustórico vazio");
+            return;
+        }
 
         List<String> headers = List.of(
                 "Código",
@@ -46,11 +58,25 @@ public class StudentMenu implements IMenuEmployee<Student> {
             );
         });
 
+        System.out.println("| ---------------------------------|");
+        System.out.printf("| Matricula: %s           |\n", student.getId());
+        System.out.printf("| CRA: %.2f                       |\n", student.getCRA());
+        System.out.println("---------------------------------|");
+
         Utils.printTable(subjects, callBack, headers);
      }
+
+   /**
+     * Opção do menu para exibir o RDM (Registro de Disciplinas Matriculadas) do estudante.
+     */
     public void optionShowRDM() {
         Student student = getUser();
-        List<SubjectStudent> subjects = student.getSubjectStudent();
+        ArrayList<SubjectStudent> subjects = student.getSubjectStudent();
+
+        if (subjects.size() == 0) {
+            Decoration.showMessageAndClearScreen("RDM vazio");
+            return;
+        }
 
         List<String> headers = List.of(
                 "Máteria",
@@ -62,21 +88,34 @@ public class StudentMenu implements IMenuEmployee<Student> {
         );
 
         Function<SubjectStudent, List<?>> callBack = (subject -> {
+            List<String> notes = subject.getListNotes();
+
             return List.of(
                     subject.getName(),
-                    subject.getNote1(),
-                    subject.getNote2(),
+                    notes.get(1),
+                    notes.get(1),
                     subject.getAbsences(),
-                    subject.getFinalExameScore(),
+                    notes.get(2),
                     subject.getStatus()
             );
         });
 
+
         Utils.printTable(subjects, callBack, headers);
     }
+
+/**
+     * Opção do menu para exibir a grade curricular.
+     */
+
     public void optionShowCurriculum() {
         AcademicSystem academicSystem = Global.getAcademicSystem();
         List<Subject> subjects = academicSystem.db.subjects.getAll();
+
+        if (subjects.size() == 0) {
+            Decoration.showMessageAndClearScreen("Grade Curricular vazio");
+            return;
+        }
 
         List<String> headers = List.of(
                 "Codígo",
@@ -94,6 +133,11 @@ public class StudentMenu implements IMenuEmployee<Student> {
 
         Utils.printTable(subjects, callBack, headers);
     }
+
+
+  /**
+     * Opção do menu para exibir os resultados do vestibular do estudante.
+     */
     public void optionShowEntranceExam() {
         Student student = getUser();
         EntranceExam entranceExam = student.getEntranceExam();
@@ -119,6 +163,9 @@ public class StudentMenu implements IMenuEmployee<Student> {
         Utils.printTable(List.of(entranceExam), callBack, headers);
     }
 
+    /**
+     * Obtem a lista de opções do menu.
+     */
     @Override
     public List<ISubMenuOption> getOptions() {
 
@@ -131,12 +178,28 @@ public class StudentMenu implements IMenuEmployee<Student> {
 
     }
 
+   /**
+     * Obtem a lista de opções do menu.
+     */
+    @Override
+    public String getHeader() {
+        Student student = getUser();
+        return Decoration.generateWelcomeHeader(student.getFullName());
+    }
+
+  /**
+     * Busca o estudante no banco de dados.
+     */
     @Override
     public Student getUser() {
         AcademicSystem academicSystem = Global.getAcademicSystem();
         return academicSystem.db.students.findById(studentId);
     }
 
+  
+  /**
+     * Executa o menu
+     */
     @Override
     public void run() {
         new MenuExecutor(this).run();

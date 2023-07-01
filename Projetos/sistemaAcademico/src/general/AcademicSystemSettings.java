@@ -1,27 +1,39 @@
 package general;
 
-public class GeneralInformation {
+public class AcademicSystemSettings {
 
     private String course;
     private int totalAbsemcesPerClass;
     private boolean isRegitrationPeriod;
     private String version;
     private int hourPerClass;
+    private int minimumAverage;
+    private int maximumLessonsPerSchedule;
 
-    public GeneralInformation(String course, int totalAbsemcesPerClass, boolean isRegitrationPeriod, String version, int hourPerClass) {
+    public AcademicSystemSettings(String course, int totalAbsemcesPerClass, boolean isRegitrationPeriod, String version, int hourPerClass, int minimumAverage, int maximumLessonsPerSchedule) {
         this.course = course;
         this.totalAbsemcesPerClass = totalAbsemcesPerClass;
         this.isRegitrationPeriod = isRegitrationPeriod;
         this.version = version;
         this.hourPerClass = hourPerClass;
+        this.minimumAverage = minimumAverage;
+        this.maximumLessonsPerSchedule = maximumLessonsPerSchedule;
     }
 
-    public GeneralInformation(GeneralInformation origin) {
-        this.course = origin.getCourse();
-        this.totalAbsemcesPerClass = origin.getTotalAbsemcesPerClass();
-        this.isRegitrationPeriod = origin.isRegitrationPeriod();
-        this.version = origin.getVersion();
-        this.hourPerClass = origin.hourPerClass;
+    public int getMinimumAverage() {
+        return minimumAverage;
+    }
+
+    public void setMinimumAverage(int minimumAverage) {
+        this.minimumAverage = minimumAverage;
+    }
+
+    public int getMaximumLessonsPerSchedule() {
+        return maximumLessonsPerSchedule;
+    }
+
+    public void setMaximumLessonsPerSchedule(int maximumLessonsPerSchedule) {
+        this.maximumLessonsPerSchedule = maximumLessonsPerSchedule;
     }
 
     public int getHourPerClass() {

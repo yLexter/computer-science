@@ -1,5 +1,8 @@
 package utils;
 
+/**
+ Status da disciplina de um estudante
+*/
 public enum StudentSubjectStatus {
 
     PENDING("Pendente"),

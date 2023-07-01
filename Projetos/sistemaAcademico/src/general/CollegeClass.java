@@ -3,37 +3,44 @@ package general;
 import utils.Global;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class CollegeClass extends Subject {
         private String teacherId;
         private ArrayList<SubjectStudent> students;
         private String collegeClassId;
         private List<RegisterClass> registerClasses;
-        private String classRoomId;
-        public CollegeClass(String code, String name, int hours, String teacherId, List<SubjectStudent> students, String classRoomId) {
+        private List<String> classSchedules;
+
+        public CollegeClass(String code, String name, int hours, String teacherId) {
                 super(code, name, hours);
                 this.teacherId = teacherId;
-                this.classRoomId = classRoomId;
-                this.students = new ArrayList<>(students);
                 this.collegeClassId = UUID.randomUUID().toString();
+                this.students = new ArrayList<>();
                 this.registerClasses = new ArrayList<>();
+                this.classSchedules = new ArrayList<>();
         }
 
-        public CollegeClass(String code, String name, int hours, String teacherId, List<SubjectStudent> students, String classRoomId, String id) {
+        public CollegeClass(String code, String name, int hours, String teacherId, String id) {
                 super(code, name, hours);
                 this.teacherId = teacherId;
-                this.classRoomId = classRoomId;
-                this.students = new ArrayList<>(students);
-                this.collegeClassId = id;
+                this.collegeClassId = UUID.fromString(id).toString();
+                this.students = new ArrayList<>();
                 this.registerClasses = new ArrayList<>();
+                this.classSchedules = new ArrayList<>();
         }
 
-
-        public ClassRoom getClassRoom() {
-            AcademicSystem academicSystem = Global.getAcademicSystem();
-            return academicSystem.db.classRooms.findById(classRoomId);
+        public void setStudents(ArrayList<SubjectStudent> students) {
+                this.students = students;
         }
-        // ToDo esta bomba pode retornar nulo
+
+        public List<String> getClassSchedules() {
+                return classSchedules;
+        }
+
+        public void setClassSchedules(List<String> classSchedules) {
+                this.classSchedules = classSchedules;
+        }
 
         public Teacher getTeacher() {
               AcademicSystem academicSystem = Global.getAcademicSystem();
@@ -71,21 +78,29 @@ public class CollegeClass extends Subject {
                 return teacherId;
         }
 
-        public String getClassRoomId() {
-                return classRoomId;
-        }
-
-        public void setClassRoomId(String classRoomId) {
-                this.classRoomId = classRoomId;
-        }
-
         public void setRegisterClasses(List<RegisterClass> registerClasses) {
                 this.registerClasses = registerClasses;
         }
 
+        public List<SubjectStudent> getStudentsInFinal() {
+            AcademicSystem academicSystem = Global.getAcademicSystem();
+
+            return students
+                    .stream()
+                    .filter(subjectStudent -> {
+                       Float avarage = subjectStudent.getAverage();
+
+                       if (avarage != null)
+                         return avarage < academicSystem.getSettings().getMinimumAverage();
+
+                       return false;
+                    })
+                    .collect(Collectors.toList());
+        }
+
         @Override
         public String toString() {
-            return String.format("%s | CollegeClass: %s | RoomId: %s ", super.toString(), collegeClassId, classRoomId);
+            return String.format("%s | CollegeClass: %s | Id: %s ", super.toString(), collegeClassId, collegeClassId);
         }
 
 

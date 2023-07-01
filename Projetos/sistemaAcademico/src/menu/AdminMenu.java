@@ -12,26 +12,48 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
-
-// ToDo melhorar a forma  de pegar os horario e pegar informações do vestibular
+/**
+ * A classe AdminMenu representa um menu específico para um usuário administrador em um sistema acadêmico.
+ * Ela fornece várias opções de menu para gerenciar estudantes, professores, turmas, salas e horários das aulas.
+ */
 public class AdminMenu implements IMenuEmployee<Admin> {
 
     private final String adminId;
 
+   /**
+     * Constrói um objeto AdminMenu com o ID do administrador fornecido.
+     *
+     * @param adminId o ID do usuário administrador
+     */
     public AdminMenu(String adminId) {
         this.adminId = adminId;
     }
 
+   /**
+     * Busca o usuário administrador no banco de dados.
+     *
+     * @return o usuário administrador
+     */
     @Override
     public Admin getUser() {
         AcademicSystem academicSystem = Global.getAcademicSystem();
         return academicSystem.db.admin.findById(adminId);
     }
 
+
+    /**
+     * Mostra a lista de estudantes.
+     */  
     private void optionShowStudents() {
         AcademicSystem academicSystem = Global.getAcademicSystem();
         List<Student> students = academicSystem.db.students.getAll();
+
+        if (students.size() == 0) {
+            Decoration.showMessageAndClearScreen("Lista de estudantes vazia");
+            return;
+        }
 
         List<String> headers = List.of(
                 "Nome",
@@ -56,15 +78,25 @@ public class AdminMenu implements IMenuEmployee<Admin> {
         Utils.printTable(students, callBack, headers);
     }
 
+    /**
+     * Adiciona um novo estudante.
+     */
+
     private void optionAddStudent() {
 
         Employee employee = Employee.createEmployeeByUser(Role.STUDENT);
 
         AcademicSystem academicSystem = Global.getAcademicSystem();
         AllData allData = academicSystem.db.findAll();
+        List<CollegeClass> allCollegeClass = allData.collegeClasses();
+
+        if (allCollegeClass.size() == 0) {
+            Decoration.showMessageAndClearScreen("A lista de turmas está vazia");
+            return;
+        }
 
         List<CollegeClass> collegeClasses = DataInput.getElementsFromListByUser(
-                allData.collegeClasses(),
+                allCollegeClass,
                 CollegeClass::toString,
                "Escolha a Cadeiras"
         );
@@ -82,8 +114,7 @@ public class AdminMenu implements IMenuEmployee<Admin> {
             employee.getLastName(),
             employee.getDateOfBirth(),
             employee.getCpf(),
-            null,
-            allData.generalInformation().getCourse(),
+            allData.academicSystemSettings().getCourse(),
             entranceExam
         );
 
@@ -97,14 +128,24 @@ public class AdminMenu implements IMenuEmployee<Admin> {
         academicSystem.db.collegeClass.addStudentToCollegesClasses(student, collegeClasses);
         academicSystem.db.students.save(student);
 
-        System.out.println("Estudante adicionado");
+        Decoration.showMessageAndClearScreen("Estudante adicionado com sucesso");
     }
 
+    /**
+     * Remove um estudante.
+     */
+  
     private void optionDeleteStudent() {
         AcademicSystem academicSystem = Global.getAcademicSystem();
+        List<Student> students = academicSystem.db.students.getAll();
+
+        if (students.size() == 0) {
+            Decoration.showMessageAndClearScreen("Lista de turmas vazia");
+            return;
+        }
 
         Student studentRemoved = DataInput.getElementFromListByUser(
-                academicSystem.db.students.getAll(),
+                students,
                 Student::toString,
                 "Escolha o estudante"
         );
@@ -112,38 +153,46 @@ public class AdminMenu implements IMenuEmployee<Admin> {
         academicSystem.db.collegeClass.removeStudentFromCollegeClasses(studentRemoved.getId());
         academicSystem.db.students.delete(studentRemoved.getId());
 
-        System.out.println("Estudante Removido");
+        Decoration.showMessageAndClearScreen("Estudante removido com sucesso");
+
     }
 
+
+  /**
+     * Remove um professor.
+     */
     private void optionDeleteTeatcher() {
         AcademicSystem academicSystem = Global.getAcademicSystem();
+        List<Teacher> teachers = academicSystem.db.teachers.getAll();
+
+        if (teachers.size() == 0) {
+            Decoration.showMessageAndClearScreen("Lista de de professores vazia");
+            return;
+        }
 
         Teacher teacherRemoved = DataInput.getElementFromListByUser(
-                academicSystem.db.teachers.getAll(),
+                teachers,
                 Teacher::toString,
                 "Escolha o Professor`"
         );
 
-        academicSystem.db.collegeClass.removeCollegeClassFromTeacher(teacherRemoved.getId());
+        academicSystem.db.collegeClass.removeTeacherFromCollegeClasses(teacherRemoved.getId());
         academicSystem.db.teachers.delete(teacherRemoved.getId());
 
-        System.out.println("Professor Removido");
+        Decoration.showMessageAndClearScreen("Professor removido com sucesso");
     }
 
+
+  /**
+     * Adiciona um professor.
+     */
     private void optionAddTeatcher() {
 
         AcademicSystem academicSystem = Global.getAcademicSystem();
         Employee employee = Employee.createEmployeeByUser(Role.TEACHER);
 
-        Double salary = DataInput.getDataByUser("Digite o salario do professor",
-                (x) -> {
-                    double convert = Double.parseDouble(x);
-
-                    if (convert <= 0)
-                        throw new IllegalArgumentException("Salario menor igual a 0");
-
-                    return convert;
-                }
+        List<CollegeClass> collegeClassesWithoutTeacher = academicSystem.db.collegeClass.findMany(
+                collegeClass -> collegeClass.getTeacher() == null
         );
 
         Teacher teacher = new Teacher(
@@ -153,14 +202,34 @@ public class AdminMenu implements IMenuEmployee<Admin> {
                 employee.getCpf()
         );
 
+        if (collegeClassesWithoutTeacher.size() != 0) {
+
+            List<CollegeClass> collegeClasses = DataInput.getElementsFromListByUser(
+                    collegeClassesWithoutTeacher,
+                    CollegeClass::toString,
+                    "Escolha uma turma para o professor"
+            );
+
+            academicSystem.db.collegeClass.addTeacherFromCollegeClasses(collegeClasses, teacher.getId());
+        }
+
+
         academicSystem.db.teachers.save(teacher);
 
+        Decoration.showMessageAndClearScreen("Professor adicionado com sucesso");
     }
 
+   /**
+     * Mostra todos professor.
+     */
     private void optionShowTeatchers() {
-
         AcademicSystem academicSystem = Global.getAcademicSystem();
         List<Teacher> teachers = academicSystem.db.teachers.getAll();
+
+        if (teachers.size() == 0) {
+            Decoration.showMessageAndClearScreen("Lista de Professores vazio");
+            return;
+        }
 
         List<String> headers = List.of(
                 "Mátricula",
@@ -185,13 +254,16 @@ public class AdminMenu implements IMenuEmployee<Admin> {
         Utils.printTable(teachers, callBack, headers);
     }
 
-    // ToDo pegar os horarios da aula do usuario
+     /**
+     * Cria uma nova turma
+     */
     private void optionCreateCollegeClass() {
 
         AcademicSystem academicSystem = Global.getAcademicSystem();
         AllData allData = academicSystem.db.findAll();
         CollegeClass collegeClass;
         String idCollegeClass = UUID.randomUUID().toString();
+        List<Teacher> teachers = academicSystem.db.teachers.getAll();
 
         Subject subject = DataInput.getElementFromListByUser(
                 allData.subjects(),
@@ -199,31 +271,29 @@ public class AdminMenu implements IMenuEmployee<Admin> {
                 "Escolha a Cadeira"
         );
 
+        if (teachers.size() == 0) {
+            Decoration.showMessageAndClearScreen("Lista de Professores vazio");
+            return;
+        }
+
         Teacher teacher = DataInput.getElementFromListByUser(
-             allData.teachers(),
+             teachers,
              Teacher::toString,
              "Escolha o professor"
         );
 
-        Room room = DataInput.getElementFromListByUser(
-            allData.rooms(),
-            Room::toString,
-            "Escolha uma sala"
-        );
-
         List<ClassSchedule> classSchedules = DataInput.getObjectInstancesByUser(
-                () -> {
+                (currentList) -> {
+
+                Room room = DataInput.getElementFromListByUser(
+                        allData.rooms(),
+                        Room::toString,
+                        "Escolha uma sala"
+                );
 
                 LocalTime time = DataInput.getDataByUser(
                         "Digite o horario no formato XX:XX",
-                        (t) -> {
-                            LocalTime validTime = DataEntryValidator.validTime(t);
-
-                            if (!academicSystem.db.classRooms.checkVacantClassCchedule(validTime, room.getRoomId()))
-                                throw new IllegalArgumentException("Horario em uso");
-
-                            return validTime;
-                        }
+                        DataEntryValidator::validTime
                 );
 
                 DayOfWeek dayOfWeek = DataInput.getElementFromListByUser(
@@ -232,19 +302,28 @@ public class AdminMenu implements IMenuEmployee<Admin> {
                         "Escolha o dia da semana"
                 );
 
-                // ToDo pegar o id da college class e setar na class  Schedule
+                boolean timeRepetead = academicSystem.db.classSchedule.checkTimeInUse(
+                        dayOfWeek,
+                        time,
+                        currentList,
+                        room.getId()
+                );
 
-                return new ClassSchedule(time, dayOfWeek, idCollegeClass);
-                }, 2
-        );
+                if (timeRepetead)
+                    throw new IllegalArgumentException("Você já forneceu este horario, ou colidi com os fornecidos");
 
-        ClassRoom classRoom = new ClassRoom(
-            room.getRoomId(),
-            room.getCapacity(),
-            classSchedules
-                    .stream()
-                    .map(ClassSchedule::getId)
-                    .toList()
+                boolean timeInUse = academicSystem.db.classSchedule.checkTimeInUse(
+                        dayOfWeek,
+                        time,
+                        allData.classSchedules(),
+                        room.getId()
+                );
+
+                if (timeInUse)
+                    throw new IllegalArgumentException("hórario em uso por outra tuma");
+
+                return new ClassSchedule(time, dayOfWeek, idCollegeClass, room.getId());
+           }, 2
         );
 
         collegeClass = new CollegeClass(
@@ -252,102 +331,108 @@ public class AdminMenu implements IMenuEmployee<Admin> {
                 subject.getName(),
                 subject.getHours(),
                 teacher.getId(),
-                null,
-                classRoom.getId(),
                 idCollegeClass
         );
 
-        boolean createWithStudents = DataInput.getConfirmationByUser("Deseja adicionar estudantes?");
-
-        if (createWithStudents) {
-
-            List<Student> students = DataInput.getElementsFromListByUser(
-                  allData.students(),
-                  Student::toString,
-                  "Escolha os estudantes",
-                  room.getCapacity()
-             );
-
-             collegeClass.setStudents(
-                Subject.studentToSubjectStudent(students, collegeClass, idCollegeClass)
-             );
-         }
+        collegeClass.setClassSchedules(
+            classSchedules
+                    .stream()
+                    .map(ClassSchedule::getId)
+                    .collect(Collectors.toList())
+        );
 
         academicSystem.db.collegeClass.save(collegeClass);
-        academicSystem.db.classRooms.save(classRoom);
         academicSystem.db.classSchedule.saveMany(classSchedules);
 
-        System.out.println("Turma adicionada");
+        Decoration.showMessageAndClearScreen("Turma adicionada com sucesso");
     }
 
+  /**
+     * Mostra todas as turmas turma
+     */
     public void optionShowCollegeClass() {
 
         AcademicSystem academicSystem = Global.getAcademicSystem();
         List<CollegeClass> collegeClasses = academicSystem.db.collegeClass.getAll();
 
-        CollegeClass collegeClass = DataInput.getElementFromListByUser(
-              collegeClasses,
-              CollegeClass::toString,
-              "Escolha uma turma"
-        );
-
-        System.out.println(collegeClass.toString());
-
-        List<SubjectStudent> subjectStudents = collegeClass.getStudents();
+        if (collegeClasses.size() == 0) {
+            Decoration.showMessageAndClearScreen("Lista de turmas vazia");
+            return;
+        }
 
         List<String> headers = List.of(
-                "Matricula",
+                "Codigo",
                 "Nome",
-                "Nota 1",
-                "Nota 2",
-                "Final",
-                "Faltas",
-                "Status",
-                "Periodo"
+                "Carga Horaria",
+                "Professor",
+                "Total de Alunos",
+                "ID"
         );
 
-        Function<SubjectStudent, List<?>> getRow = (subjectStudent -> {
-            Student student = subjectStudent.getStudent();
-            List<String> notes = subjectStudent.getListNotes();
+        Function<CollegeClass, List<?>> getRow = (collegeClass -> {
+            Teacher teacher = collegeClass.getTeacher();
+            String nameTeacher = teacher == null ? "--" : teacher.getFullName();
 
             return List.of(
-                student.getId(),
-                student.getFullName(),
-                notes.get(0),
-                notes.get(1),
-                notes.get(2),
-                subjectStudent.getAbsences(),
-                subjectStudent.getStatus().get(),
-                subjectStudent.getPeriod()
+               collegeClass.getCode(),
+               collegeClass.getName(),
+               collegeClass.getHours(),
+               nameTeacher,
+               collegeClass.getStudents().size(),
+               collegeClass.getCollegeClassId()
             );
 
         });
 
-        Utils.printTable(subjectStudents, getRow, headers);
+        Utils.printTable(collegeClasses, getRow, headers);
     }
 
+
+    /**
+     * deleta uma  turma
+     */
     private void optionDeleteColegeClass() {
 
         AcademicSystem academicSystem = Global.getAcademicSystem();
+        List<CollegeClass> collegeClasses = academicSystem.db.collegeClass.getAll();
+
+        if (collegeClasses.size() == 0) {
+            Decoration.showMessageAndClearScreen("Lista de turmas vazia");
+            return;
+        }
 
         CollegeClass collegeClass = DataInput.getElementFromListByUser(
-                academicSystem.db.collegeClass.getAll(),
+                collegeClasses,
                 CollegeClass::toString,
                 "Escolha a turma"
         );
 
         academicSystem.db.students.removeCollegeClassFromStudents(collegeClass.getCollegeClassId());
         academicSystem.db.collegeClass.delete(collegeClass.getCollegeClassId());
+
+        Decoration.showMessageAndClearScreen("Turma deletada com sucesso");
     }
 
+    /**
+     * Cria uma nova sala
+     */
     private void optionCreateRoom() {
 
-        // ToDo Não permitir nomes iguais e melhorar implementação
         AcademicSystem academicSystem = Global.getAcademicSystem();
 
-        String id = DataInput.getDataByUser(
-            "Digite o codigo da sala",
-                (x) -> {}
+        String name = DataInput.getDataByUser(
+            "Digite o nome da sala",
+                (roomId) -> {
+
+                  boolean nameRepetead = academicSystem.db.rooms.has(
+                          room -> room.getName().equalsIgnoreCase(roomId)
+                  );
+
+                  if(nameRepetead)
+                      throw new IllegalArgumentException("Este nome já está sendo usado");
+
+                  return roomId;
+                }
         );
 
         int capacity = DataInput.getDataByUser(
@@ -356,13 +441,23 @@ public class AdminMenu implements IMenuEmployee<Admin> {
                 DataEntryValidator::validNumberIsPositive
         );
 
-        academicSystem.db.rooms.save(new Room(id, capacity));
+        academicSystem.db.rooms.save(new Room(name, capacity));
+
+        Decoration.showMessageAndClearScreen("Sala criada com sucesso");
     }
 
+   /**
+     * Mostra todas as salas
+     */
+  
     private void optionShowRooms() {
-
         AcademicSystem academicSystem = Global.getAcademicSystem();
         List<Room> rooms = academicSystem.db.rooms.getAll();
+
+        if (rooms.size() == 0) {
+            Decoration.showMessageAndClearScreen("Lista de salas vazia");
+            return;
+        }
 
         List<String> headers = List.of(
                 "Sala",
@@ -371,7 +466,7 @@ public class AdminMenu implements IMenuEmployee<Admin> {
 
         Function<Room, List<?>> callBack = (room -> {
             return List.of(
-                    room.getRoomId(),
+                    room.getName(),
                     room.getCapacity()
             );
         });
@@ -379,65 +474,50 @@ public class AdminMenu implements IMenuEmployee<Admin> {
         Utils.printTable(rooms, callBack, headers);
     }
 
-    public void optionUpdateRoom() {
+     /**
+     * Mostra todos os horarios de aula das turmas
+     */
+    public void optionShowClassSchedule() {
 
         AcademicSystem academicSystem = Global.getAcademicSystem();
+        List<ClassSchedule> classSchedules = academicSystem.db.classSchedule.getAll();
 
-        Room changedRoom = DataInput.getElementFromListByUser(
-             academicSystem.db.rooms.getAll(),
-             Room::toString,
-             "Escolha a sala que deseja altera"
-        );
+        if (classSchedules.size() == 0) {
+            Decoration.showMessageAndClearScreen("Lista de horários de aula vazia");
+            return;
+        }
 
-        List<String> options = List.of(
+        List<String> headers = List.of(
                 "Sala",
-                "Capacidade"
+                "Capacidade",
+                "Professor",
+                "Dia",
+                "Hórario"
         );
 
-        String option = DataInput.getElementFromListByUser(
-             options,
-             String::toString,
-             "Escolha oque deseja atualizar"
-        );
+        Function<ClassSchedule, List<?>> callBack = (classSchedule -> {
+            CollegeClass collegeClass = academicSystem.db.collegeClass.findById(classSchedule.getCollegeClassId());
+            Room room = classSchedule.getRoom();
+            Teacher teacher = collegeClass.getTeacher();
 
-        if (option.equals(options.get(0))) {
-
-            // Verificar id existente
-            String newIdRoom = DataInput.getDataByUser(
-                 "Digite o novo id",
-                    (newId) -> {
-                       Room alreadyExistId = academicSystem.db.rooms.findById(newId.toLowerCase());
-
-                       if (alreadyExistId != null)
-                          throw new IllegalArgumentException("Id Existente");
-                    }
+            return List.of(
+                room.getName(),
+                room.getCapacity(),
+                teacher.getFullName(),
+                classSchedule.getDayOfWeekFormatted(),
+                classSchedule.getTimeFormatted()
             );
-
-            changedRoom.setRoomId(newIdRoom);
-
-            academicSystem.db.rooms.update(changedRoom.getRoomId(), changedRoom);
-
-            return;
-        }
-
-        if (option.equals(options.get(1))) {
-
-            int newCapacity = DataInput.getDataByUser(
-                    "Digite A capacidade",
-                    Integer::parseInt,
-                    DataEntryValidator::validNumberIsPositive
-            );
-
-            changedRoom.setCapacity(newCapacity);
-            academicSystem.db.rooms.update(changedRoom.getRoomId(), changedRoom);
-            return;
-        }
-
-        System.out.println("Sala atualizada com sucesso");
+        });
 
 
+        Utils.printTable(classSchedules, callBack, headers);
     }
 
+    /**
+     * Retorna as opções do menu.
+     *
+     * @return as opções do menu
+     */
     @Override
     public List<ISubMenuOption> getOptions() {
 
@@ -456,11 +536,24 @@ public class AdminMenu implements IMenuEmployee<Admin> {
 
             new OptionMenu("Ver salas", this::optionShowRooms),
             new OptionMenu("Adicionar Sala", this::optionCreateRoom),
-            new OptionMenu("Atualizar sala", this::optionUpdateRoom)
+
+            new OptionMenu("Ver horarios das turmas", this::optionShowClassSchedule)
         );
 
     }
 
+  /**
+     * Obtem o cabeçalho do menu.
+     */
+    @Override
+    public String getHeader() {
+        Admin admin = getUser();
+        return Decoration.generateWelcomeHeader(admin.getFullName());
+    }
+
+   /**
+     * Executa o menu.
+     */
     @Override
     public void run() {
        new MenuExecutor(this).run();

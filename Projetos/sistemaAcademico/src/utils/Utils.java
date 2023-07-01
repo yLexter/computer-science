@@ -1,20 +1,18 @@
 package utils;
-import java.lang.reflect.Field;
 
-import general.Room;
-import general.Subject;
-
-import java.lang.reflect.Modifier;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class Utils {
 
+    /**
+     Classe do github para printar uma tabela
+    */
     public static class ConsoleTable{
 
         /*
@@ -22,7 +20,6 @@ public class Utils {
          */
         private final int TABLEPADDING = 4;
         private final char SEPERATOR_CHAR = '-';
-
         private ArrayList<String> headers;
         private ArrayList<ArrayList<String>> table;
         private ArrayList<Integer> maxLength;
@@ -32,10 +29,8 @@ public class Utils {
          * Constructor that needs two arraylist
          * 1: The headersIs is one list containing strings with the columns headers
          * 2: The content is an matrix of Strings build up with ArrayList containing the content
-         *
          * Call the printTable method to print the table
          */
-
         public ConsoleTable(ArrayList<String> headersIn, ArrayList<ArrayList<String>> content){
             this.headers = headersIn;
             this.maxLength =  new ArrayList<Integer>();
@@ -149,21 +144,29 @@ public class Utils {
             }
         }
     }
-    public static <T extends Subject> Subject getSubjectWithBiggerName(List<T> subjects) {
-        return subjects
-                .stream()
-                .reduce(subjects.get(0), (prev, curr) -> prev.getName().length() > curr.getName().length() ? prev : curr);
-    }
 
+    /**
+      Formata o dia da semana formatado
+    */
     public static String formatDayOfWeak(DayOfWeek dayOfWeek) {
         return dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault());
     }
 
+    /**
+      Formata uma data
+    */
     public static String formatTime(LocalTime time) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         return time.format(formatter);
     }
 
+    /**
+     * Imprime uma tabela com os dados fornecidos.
+     * @param list     Lista de objetos que representam as linhas da tabela.
+     * @param getRow   Função que obtém os dados de uma linha a partir de um objeto.
+     * @param headers  Lista de strings que representam os cabeçalhos da tabela.
+     * @param <T>      O tipo dos objetos da lista.
+     */
     public static <T> void printTable(List<T> list, Function<T, List<?>> getRow, List<String> headers) {
         ArrayList<ArrayList<String>> body = new ArrayList<>();
         ArrayList<String> arrayListHeaders = new ArrayList<>(headers);
@@ -179,7 +182,6 @@ public class Utils {
                     .toList();
 
             ArrayList<String> arrayListCurrentRow = new ArrayList<>(currentRow);
-
             arrayListCurrentRow.add(0, count + "°");
 
             count++;
@@ -190,8 +192,50 @@ public class Utils {
         new ConsoleTable(arrayListHeaders, body).printTable();
     }
 
-    public static String numberToString(Number number) {
+  /**
+     * Retorna a interseção entre duas listas.
+     * @param list1 A primeira lista.
+     * @param list2 A segunda lista.
+     * @param <T>   O tipo dos elementos nas listas.
+     * @return A lista que representa a interseção entre list1 e list2, sem duplicatas.
+     */
+    public static <T> ArrayList<T> getIntersectionBetweenLists(List<T> list1, List<T> list2) {
+        List<T> listWithoutDuplicates = list1
+                .stream()
+                .filter(item -> !list2.contains(item))
+                .toList();
+
+        return new ArrayList<T>(listWithoutDuplicates);
+    }
+
+   /**
+     * Converte um objeto para uma representação de string.
+     * @param number O objeto a ser convertido.
+     * @return A representação em string do objeto, ou "--" se o objeto for nulo.
+     */
+    public static String objectToString(Object number) {
         return number == null ? "--" : number.toString();
     }
+
+
+    /**
+     * Gera um cabeçalho de boas-vindas com o nome fornecido.
+     * @param name O nome para exibir no cabeçalho.
+     * @return O cabeçalho formatado como uma string.
+     */
+
+
+  /**
+     * Formata uma data no formato dd/MM/yyyy.
+     * @param date A data a ser formatada.
+     * @return A data formatada como uma string.
+     */
+   public static String formatDate(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return date.format(formatter);
+    }
+
+
+
 
 }

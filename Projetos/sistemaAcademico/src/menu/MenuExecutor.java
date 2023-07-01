@@ -12,11 +12,19 @@ public class MenuExecutor {
     private final IMenu menu;
     private final List<ISubMenuOption> options;
 
+   /**
+     * Cria um novo MenuExecutor com base no menu fornecido.
+     *
+     * @param menu o menu a ser executado
+     */
     public MenuExecutor(IMenu menu) {
         this.menu = menu;
         this.options = menu.getOptions();
     }
 
+  /**
+     * Executa o menu, exibindo as opções disponíveis e processando a escolha do usuário.
+     */
     void run() {
 
         Scanner scanner = Global.getScanner();
@@ -25,6 +33,8 @@ public class MenuExecutor {
         while(true) {
 
             try {
+                System.out.println(menu.getHeader());
+
                 printMenu();
                 System.out.println("Digite a opção desejada: ");
                 intOption = Integer.parseInt(scanner.nextLine());
@@ -33,24 +43,28 @@ public class MenuExecutor {
                     break;
 
                 if (intOption < startOptionsIndex || intOption > options.size() + startOptionsIndex) {
-                    System.out.println("Opção inválida");
+                    Decoration.showMessageAndClearScreen("Opção inválida");
                 } else {
                     options.get(intOption - startOptionsIndex).run();
                 }
 
              } catch(NumberFormatException err) {
-                Decoration.clearScreen();
-                System.out.println("Forneça um número inteiro válido.");
+                Decoration.showMessageAndClearScreen("Forneça um número inteiro válido.");
              } catch (DatabaseException err) {
-                  System.out.printf("ERROR: %s\n", err.getMessage());
+                Decoration.showMessageAndClearScreen("ERROR: %s\n".formatted(err.getMessage()));
              } catch (LeftMenuException err) {
                 if (err.getMessage() != null)
-                  System.out.printf("Error: %s\n", err.getMessage());
+                    Decoration.showMessageAndClearScreen("ERROR: %s\n".formatted(err.getMessage()));
+            } catch (RuntimeException err) {
+                Decoration.showMessageAndClearScreen("Error: %s".formatted(err.getMessage()));
             }
 
         }
     }
 
+  /**
+     * Imprime as opções do menu na tela.
+     */
     void printMenu() {
 
         int index = startOptionsIndex;

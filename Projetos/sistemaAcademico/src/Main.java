@@ -6,28 +6,23 @@ import menu.TeacherMenu;
 
 import utils.*;
 
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.StringBuilder;
+import java.util.Locale;
 import java.util.UUID;
 
 import database.Database.AllData;
 
 class Main {
-    public static void main(String[] args) {
-
-        teste3();
-
-    }
-
-    public static void teste3() {
+    public static void main(String[] args)  {
 
         AcademicSystem academicSystem = Global.getAcademicSystem();
 
+        // Setar exemplos de instancias
         academicSystem.db.rooms.updateAll(Examples.getRooms());
         academicSystem.db.subjects.updateAll(Examples.getSubjects());
         academicSystem.db.teachers.updateAll(Examples.getTeachers());
@@ -35,10 +30,10 @@ class Main {
         academicSystem.db.admin.updateAll(Examples.getAdmins());
         academicSystem.db.collegeClass.updateAll(Examples.getGollegesClass());
 
-        new AdminMenu(academicSystem.db.admin.getAll().get(0).getId()).run();
-        //new TeacherMenu(academicSystem.db.teachers.getAll().get(0).getId()).run();
-        //new StudentMenu(academicSystem.db.students.getAll().get(0).getId()).run();
+
+        new HomeMenu().run();
     }
+
 
 }
 
