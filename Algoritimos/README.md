@@ -1,1 +1,3 @@
-- Exercícios de Algoritmos | Primeiro Período de Ciências da Computação
+# Exercícios 
+
+- Exercícios para disciplina de Algoritimos
