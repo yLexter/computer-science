@@ -1,6 +1,7 @@
 import statistics
 from functools import reduce
 
+
 print("#-----------------------------------------------")
 print("# Questão 4")
 print("#-----------------------------------------------")

@@ -5,6 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import statistics
 
+
 class OrdenacaoLinear:
   @staticmethod
   def bubbleSort(arr):

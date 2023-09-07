@@ -1,5 +1,6 @@
 # Lucas Ferreira Maia e Paulo Ricardo
 
+
 def questao1():
     numTorcedores = int(input('Quantidade de torcedores '))
     total = 0

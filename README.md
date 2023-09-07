@@ -1,3 +1,4 @@
-# Tarefas
+# Projetos/Exercicios
 
-Todos os Exercicios e Projetos feitos na faculdade.
+- Todos os projetos/exercícios feitos no curso de ciencias da computação da UEPB
+

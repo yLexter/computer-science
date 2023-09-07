@@ -1,5 +1,3 @@
-
-
 # Projeto 01 - Parte 01 - Insertion, Selection e Bubble
 
 1. Crie uma classe chamada OrdenacaoLinear e Implemente os seguintes algoritmos de ordenação lineares em python utilizando métodos:
