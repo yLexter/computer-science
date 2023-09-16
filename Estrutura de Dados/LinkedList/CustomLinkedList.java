@@ -1,6 +1,8 @@
 package LinkedList;
 
 import java.nio.channels.IllegalSelectorException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CustomLinkedList<T> {
 
@@ -10,15 +12,23 @@ public class CustomLinkedList<T> {
 
     public CustomLinkedList() {}
 
-    private static class CustomNode<K> {
+    private static class CustomNode<T> {
+        private CustomNode<T> next;
 
-        private CustomNode<K> next;
+        private T element;
 
-        private final K element;
-
-        public CustomNode(K element) {
+        public CustomNode(T element) {
             this.element = element;
         }
+
+        public void setElement(T element) {
+            this.element = element;
+        }
+
+        public T getElement() {
+            return element;
+        }
+
     }
 
     public int getSize() {
@@ -86,6 +96,14 @@ public class CustomLinkedList<T> {
          }
 
         throw new IllegalArgumentException("Elemento não está na lista");
+    }
+
+
+    public void reverse() {
+
+
+
+
     }
 
 
