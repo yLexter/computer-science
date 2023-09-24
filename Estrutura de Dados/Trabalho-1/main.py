@@ -354,4 +354,4 @@ class AlgoritmoBenchmark:
         self.salvarDados(dadosVetores)
 
 algoritmoBenchmark = AlgoritmoBenchmark()
-algoritmoBenchmark.teste()
+algoritmoBenchmark.run()
