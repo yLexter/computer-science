@@ -1,12 +1,11 @@
 package LinkedList;
 
-import java.nio.channels.IllegalSelectorException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class CustomLinkedList<T> {
 
-    public CustomNode<T> root;
+    private CustomNode<T> root;
 
     private int size;
 
@@ -101,8 +100,20 @@ public class CustomLinkedList<T> {
 
     public void reverse() {
 
+        CustomNode<T> prev = null, copyNext = null, current = root;
 
+        while(current != null) {
+            copyNext = current.next;
+            current.next = prev;
+            prev = current;
+            current = copyNext;
+        }
 
+        root = prev;
+    }
+
+    public static void main(String[] args) {
+        CustomLinkedList<Integer> linkedList = new CustomLinkedList<>();
 
     }
 
