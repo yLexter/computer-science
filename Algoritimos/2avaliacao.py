@@ -17,7 +17,7 @@ def somarLista(lista1, lista2):
             if 0 > element or element > 9:
               raise Exception('Voce só pode informar números de 1-9')
 
-        while lista[0] == 0 && len(lista) != 1:
+        while lista[0] == 0 and len(lista) != 1:
           lista.pop(0)
 
         return lista
