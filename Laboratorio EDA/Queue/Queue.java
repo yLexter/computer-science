@@ -1,17 +1,17 @@
 package AbstractData;
 
-public class Stack<T> {
+public class Queue<T> {
 
     private int size;
+    
+    private CustomNode<T> root;
 
     private CustomNode<T> last;
 
-    private CustomNode<T> root;
-
-    public static class CustomNode<T> {
-        private CustomNode<T> next;
-
+    public class CustomNode<T> {
         private CustomNode<T> previous;
+
+        private CustomNode<T> next;
 
         private T data;
 
@@ -35,11 +35,15 @@ public class Stack<T> {
 
     }
 
+    public int getSize() {
+        return size;
+    }
+
     public boolean isEmpty() {
         return size == 0;
     }
 
-    public void push(T data) {
+    public void enQueue(T data) {
 
         size++;
 
@@ -52,47 +56,42 @@ public class Stack<T> {
         last.next = new CustomNode<T>(data);
         last.next.previous = last;
         last = last.next;
-
     }
 
-    public T pop() {
+    public T deQueue() {
 
-        CustomNode<T> node = last;
+        CustomNode<T> aux = root;
 
         if (root == null)
-            throw new IllegalStateException("Pilha Vazia");
+            throw new IllegalStateException("Fila Vazia");
 
         size--;
 
-        if (node.previous == null) {
-            last = null;
+        if (root.next == null) {
             root = null;
-            return node.data;
+            return aux.data;
         }
 
-        last.previous.next = null;
-        last = last.previous;
+        root = root.next;
+        root.previous = null;
 
-        return node.data;
+        return aux.data;
     }
+
 
     public void show() {
 
         CustomNode<T> aux = root;
 
         while(aux != null) {
-            System.out.printf("%s " + aux.data);
+            System.out.println("Data: " + aux.data);
             aux = aux.next;
         }
-        
-    }
 
-    public CustomNode<T> getTop() {
+    }
+    
+    public CustomNode<T> getLast() {
         return last;
-    }
-
-    public int getSize() {
-        return size;
     }
 
     public CustomNode<T> getRoot() {
@@ -102,5 +101,7 @@ public class Stack<T> {
     public static void main(String[] args) {
 
     }
+
+
 
 }
