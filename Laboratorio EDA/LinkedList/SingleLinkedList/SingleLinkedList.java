@@ -8,10 +8,11 @@ interface ILinkedList<T> {
 
 public class SingleLinkedList<T> implements ILinkedList<T>{
 
-    private CustomNode root;
+    private CustomNode<T> root;
 
-    public class CustomNode {
-        private CustomNode next;
+    public static class CustomNode<T> {
+
+        private CustomNode<T> next;
 
         private T element;
 
@@ -20,7 +21,7 @@ public class SingleLinkedList<T> implements ILinkedList<T>{
             this.next = null;
         }
 
-        public CustomNode getNext() {
+        public CustomNode<T> getNext() {
             return next;
         }
 
@@ -30,21 +31,21 @@ public class SingleLinkedList<T> implements ILinkedList<T>{
 
     }
 
-    public CustomNode getRoot() {
+    public CustomNode<T> getRoot() {
         return root;
     }
 
     @Override
     public void insertAtBeginning(T element) {
 
-        CustomNode temp;
+        CustomNode<T> temp;
 
         if (root == null) {
-            root = new CustomNode(element);
+            root = new CustomNode<T>(element);
             return;
         }
 
-        temp = new CustomNode(element);
+        temp = new CustomNode<T>(element);
         temp.next = root;
 
         root = temp;

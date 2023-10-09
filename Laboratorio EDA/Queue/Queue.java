@@ -8,7 +8,8 @@ public class Queue<T> {
 
     private CustomNode<T> last;
 
-    public class CustomNode<T> {
+    public static class CustomNode<T> {
+
         private CustomNode<T> previous;
 
         private CustomNode<T> next;

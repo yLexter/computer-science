@@ -2,12 +2,13 @@ package AbstractData;
 
 public class DoublyLinkedList<T>  {
 
-    private CustomNode root;
+    private CustomNode<T> root;
 
-    public class CustomNode {
-        private CustomNode previous;
+    public static class CustomNode<T> {
 
-        private CustomNode next;
+        private CustomNode<T> previous;
+
+        private CustomNode<T> next;
 
         private T element;
 
@@ -17,11 +18,11 @@ public class DoublyLinkedList<T>  {
             this.previous = null;
         }
 
-        public CustomNode getPrevious() {
+        public CustomNode<T> getPrevious() {
             return previous;
         }
 
-        public CustomNode getNext() {
+        public CustomNode<T> getNext() {
             return next;
         }
 
@@ -33,14 +34,14 @@ public class DoublyLinkedList<T>  {
 
     public void insertAtBeninnig(T element) {
 
-        CustomNode node;
+        CustomNode<T> node;
 
         if (root == null) {
-            root = new CustomNode(element);
+            root = new CustomNode<T>(element);
             return;
         }
 
-        node = new CustomNode(element);
+        node = new CustomNode<T>(element);
 
         root.previous = node;
         node.next = root;
@@ -49,10 +50,10 @@ public class DoublyLinkedList<T>  {
 
     public void insert(T element) {
 
-        CustomNode prev = root, node;
+        CustomNode<T> prev = root, node;
 
         if (root == null) {
-            root =  new CustomNode(element);
+            root =  new CustomNode<T>(element);
             return;
         }
 
@@ -61,14 +62,14 @@ public class DoublyLinkedList<T>  {
         }
 
 
-        node = new CustomNode(element);
+        node = new CustomNode<T>(element);
         node.previous = prev;
         prev.next = node;
     }
 
     public void removeFromEnd() {
 
-        CustomNode prev = root, node;
+        CustomNode<T> prev = root, node;
 
         while (prev.next != null) {
             prev = prev.next;
@@ -77,7 +78,8 @@ public class DoublyLinkedList<T>  {
         prev.previous.next = null;
     }
 
-    public CustomNode getRoot() {
+    public CustomNode<T> getRoot() {
         return root;
     }
+
 }
