@@ -13,4 +13,6 @@ public abstract class BaseTree <T extends Comparable<T>> {
     public abstract void remove(T valor);
     public abstract boolean search(T valor);
     public abstract void clear();
+    public abstract int getHeight();
+    public abstract int getTotalRotations();
 }

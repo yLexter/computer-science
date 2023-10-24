@@ -1,19 +1,19 @@
 import app.BenchmarkInteger;
-import entities.AVLTree;
-import entities.BaseTree;
-import entities.BinaryTree;
-import entities.RedBlackTree;
+import entities.*;
+import infrastructure.BenchmarkDTO;
 import useCases.BenchmarkTree;
 
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
 
         List<BaseTree<Integer>> treeList = List.of(
-            new BinaryTree<Integer>("Árvore Bínaria"),
-            new RedBlackTree<Integer>("Árvore Red Black"),
-            new AVLTree<Integer>("Ávore AVL")
+                new BinarySearchTree<>(),
+                new RedBlackTree<>(),
+                new AVLTree<>(),
+                new SplayTree<>()
         );
 
         BenchmarkInteger benchmarkInteger = new BenchmarkInteger();
@@ -23,5 +23,8 @@ public class Main {
                 benchmarkInteger
         );
 
+        benchmarkTree.showBenchmarks();
     }
+
+
 }

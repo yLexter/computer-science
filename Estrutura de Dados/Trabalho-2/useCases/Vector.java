@@ -6,9 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Vector {
-
     private static final int MAX_VALUE = 300_000;
-
     public static List<Integer> generateAscendingVector(int size) {
         List<Integer> list = new ArrayList<>();
 

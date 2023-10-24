@@ -1,70 +1,65 @@
 package entities;
 
 public class AVLTree<T extends Comparable<T>> extends BaseTree<T> {
-
+    private Node<T> root;
+    private int totalRotations;
     private static class Node<T> {
-        public T value;
-        public Node<T> left;
-        public Node<T> right;
-        public int height;
-        public Node(T value) {
+        T value;
+        Node<T> left, right;
+        int height;
+
+        Node(T value) {
             this.value = value;
-            this.left = null;
-            this.right = null;
-            this.height = 1;
+            this.height = 0;
+            left = null;
+            right = null;
         }
     }
 
-    private Node<T> root;
-
-    public AVLTree(String name) {
-        super(name);
+    public AVLTree() {
+        super("Árvore AVL");
+        root = null;
+        totalRotations = 0;
     }
 
-    // Implementação dos métodos da interface ITreeOperations<T> aqui
-
+    @Override
     public void insert(T value) {
-        root = insertRec(root, value);
+        root = insert(root, value);
     }
 
-    private Node<T> insertRec(Node<T> node, T value) {
+    private Node<T> insert(Node<T> node, T value) {
         if (node == null) {
             return new Node<>(value);
         }
 
-        if (value.compareTo(node.value) < 0) {
-            node.left = insertRec(node.left, value);
-        } else if (value.compareTo(node.value) > 0) {
-            node.right = insertRec(node.right, value);
+        int compareResult = value.compareTo(node.value);
+
+        if (compareResult < 0) {
+            node.left = insert(node.left, value);
+        } else if (compareResult > 0) {
+            node.right = insert(node.right, value);
         } else {
-            // Valor já existe, não é inserido novamente.
             return node;
         }
 
-        // Atualiza a altura do nó atual
         node.height = 1 + Math.max(height(node.left), height(node.right));
 
-        // Verifica o equilíbrio do nó e realiza rotações, se necessário
-        int balance = getBalance(node);
+        int balanceFactor = getBalanceFactor(node);
 
-        // Rotação simples à direita
-        if (balance > 1 && value.compareTo(node.left.value) < 0) {
+        if (balanceFactor > 1 && value.compareTo(node.left.value) < 0) {
             return rotateRight(node);
         }
 
-        // Rotação simples à esquerda
-        if (balance < -1 && value.compareTo(node.right.value) > 0) {
+        if (balanceFactor < -1 && value.compareTo(node.right.value) > 0) {
             return rotateLeft(node);
         }
 
-        // Rotação dupla à direita-esquerda
-        if (balance > 1 && value.compareTo(node.left.value) > 0) {
+        if (balanceFactor > 1 && value.compareTo(node.left.value) > 0) {
             node.left = rotateLeft(node.left);
             return rotateRight(node);
         }
 
-        // Rotação dupla à esquerda-direita
-        if (balance < -1 && value.compareTo(node.right.value) < 0) {
+        if (balanceFactor < -1 && value.compareTo(node.right.value) < 0) {
             node.right = rotateRight(node.right);
             return rotateLeft(node);
         }
@@ -72,92 +67,152 @@ public class AVLTree<T extends Comparable<T>> extends BaseTree<T> {
         return node;
     }
 
-    public boolean search(T value) {
-        return searchRec(root, value);
-    }
-
-    private boolean searchRec(Node<T> node, T value) {
-        if (node == null) {
-            return false;
-        }
-
-        if (value.equals(node.value)) {
-            return true;
-        }
-
-        if (value.compareTo(node.value) < 0) {
-            return searchRec(node.left, value);
-        }
-
-        return searchRec(node.right, value);
-    }
-
+    @Override
     public void remove(T value) {
-        root = removeRec(root, value);
+        root = remove(root, value);
     }
 
-    private Node<T> removeRec(Node<T> node, T value) {
+    private Node<T> remove(Node<T> node, T value) {
         if (node == null) {
             return null;
         }
 
-        if (value.compareTo(node.value) < 0) {
-            node.left = removeRec(node.left, value);
-        } else if (value.compareTo(node.value) > 0) {
-            node.right = removeRec(node.right, value);
+        int compareResult = value.compareTo(node.value);
+
+        if (compareResult < 0) {
+            node.left = remove(node.left, value);
+        } else if (compareResult > 0) {
+            node.right = remove(node.right, value);
         } else {
+
             if ((node.left == null) || (node.right == null)) {
-                Node<T> temp = null;
-                if (temp == node.left) {
-                    temp = node.right;
-                } else {
+                Node<T> temp;
+
+                if (node.left != null)
                     temp = node.left;
-                }
+                else
+                    temp = node.right;
 
                 if (temp == null) {
                     temp = node;
                     node = null;
-                } else {
+                } else
                     node = temp;
-                }
             } else {
+
                 Node<T> temp = minValueNode(node.right);
+
                 node.value = temp.value;
-                node.right = removeRec(node.right, temp.value);
+
+                node.right = remove(node.right, temp.value);
             }
         }
 
-        if (node == null) {
-            return node;
-        }
+        if (node == null)
+            return null;
 
-        node.height = 1 + Math.max(height(node.left), height(node.right));
+        node.height = Math.max(height(node.left), height(node.right)) + 1;
 
-        int balance = getBalance(node);
+        int balanceFactor = getBalanceFactor(node);
 
-        // Rotação simples à direita
-        if (balance > 1 && getBalance(node.left) >= 0) {
+        if (balanceFactor > 1 && getBalanceFactor(node.left) >= 0)
             return rotateRight(node);
-        }
 
-        // Rotação simples à esquerda
-        if (balance < -1 && getBalance(node.right) <= 0) {
+        if (balanceFactor < -1 && getBalanceFactor(node.right) <= 0)
             return rotateLeft(node);
-        }
 
-        // Rotação dupla à direita-esquerda
-        if (balance > 1 && getBalance(node.left) < 0) {
+        if (balanceFactor > 1 && getBalanceFactor(node.left) < 0) {
             node.left = rotateLeft(node.left);
             return rotateRight(node);
         }
 
-        // Rotação dupla à esquerda-direita
-        if (balance < -1 && getBalance(node.right) > 0) {
+        if (balanceFactor < -1 && getBalanceFactor(node.right) > 0) {
             node.right = rotateRight(node.right);
             return rotateLeft(node);
         }
 
         return node;
+    }
+
+    @Override
+    public boolean search(T value) {
+        Node<T> current = root;
+
+        while (current != null && !current.value.equals(value)) {
+
+            int compareResult = value.compareTo(current.value);
+
+            if (compareResult < 0)
+                current = current.left;
+            else
+                current = current.right;
+        }
+
+        return current != null;
+    }
+
+    @Override
+    public void clear() {
+        root = null;
+        totalRotations = 0;
+    }
+
+    @Override
+    public int getHeight() {
+        return height(root);
+    }
+
+    @Override
+    public int getTotalRotations() {
+        return totalRotations;
+    }
+
+    private int height(Node<T> n) {
+        if (n == null) {
+            return -1;
+        } else {
+            return n.height;
+        }
+    }
+
+    private int getBalanceFactor(Node<T> n) {
+        if (n == null) {
+            return 0;
+        } else {
+            return height(n.left) - height(n.right);
+        }
+
+
+    }
+
+    private Node<T> rotateLeft(Node<T> y) {
+        Node<T> x = y.right;
+        Node<T> T2 = x.left;
+
+        totalRotations++;
+
+        x.left = y;
+        y.right = T2;
+
+        y.height = Math.max(height(y.left), height(y.right)) + 1;
+        x.height = Math.max(height(x.left), height(x.right)) + 1;
+
+        return x;
+    }
+
+    private Node<T> rotateRight(Node<T> x) {
+        Node<T> y = x.left;
+        Node<T> T2 = y.right;
+
+        y.right = x;
+        x.left = T2;
+
+        totalRotations++;
+
+        x.height = Math.max(height(x.left), height(x.right)) + 1;
+        y.height = Math.max(height(y.left), height(y.right)) + 1;
+
+        return y;
     }
 
     private Node<T> minValueNode(Node<T> node) {
@@ -168,46 +223,5 @@ public class AVLTree<T extends Comparable<T>> extends BaseTree<T> {
         return current;
     }
 
-    private int height(Node<T> node) {
-        if (node == null) {
-            return 0;
-        }
-        return node.height;
-    }
-
-    private int getBalance(Node<T> node) {
-        if (node == null) {
-            return 0;
-        }
-        return height(node.left) - height(node.right);
-    }
-
-    private Node<T> rotateRight(Node<T> y) {
-        Node<T> x = y.left;
-        Node<T> T2 = x.right;
-
-        x.right = y;
-        y.left = T2;
-
-        y.height = Math.max(height(y.left), height(y.right)) + 1;
-        x.height = Math.max(height(x.left), height(x.right)) + 1;
-
-        return x;
-    }
-
-    private Node<T> rotateLeft(Node<T> x) {
-        Node<T> y = x.right;
-        Node<T> T2 = y.left;
-
-        y.left = x;
-        x.right = T2;
-
-        x.height = Math.max(height(x.left), height(x.right)) + 1;
-        y.height = Math.max(height(y.left), height(y.right)) + 1;
-
-        return y;
-    }
-
-    public void clear() { root = null; }
 
 }
