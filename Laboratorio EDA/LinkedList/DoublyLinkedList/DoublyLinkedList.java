@@ -2,7 +2,9 @@ package AbstractData;
 
 public class DoublyLinkedList<T>  {
 
-    private CustomNode<T> root;
+    public CustomNode<T> root;
+
+    public CustomNode<T> tail;
 
     public static class CustomNode<T> {
 
@@ -32,54 +34,66 @@ public class DoublyLinkedList<T>  {
 
     }
 
-    public void insertAtBeninnig(T element) {
+    
+    public void insertAtBeginning(T element) {
 
-        CustomNode<T> node;
-
-        if (root == null) {
-            root = new CustomNode<T>(element);
-            return;
-        }
-
-        node = new CustomNode<T>(element);
-
-        root.previous = node;
-        node.next = root;
-        root = node;
-    }
-
-    public void insert(T element) {
-
-        CustomNode<T> prev = root, node;
+        CustomNode<T> node = new CustomNode<T>(element);
 
         if (root == null) {
-            root =  new CustomNode<T>(element);
-            return;
+            root = node;
+            tail = node;
+        } else {
+            root.previous = node;
+            node.next = root;
+            root = node;
         }
-
-        while (prev.next != null) {
-            prev = prev.next;
-        }
-
-
-        node = new CustomNode<T>(element);
-        node.previous = prev;
-        prev.next = node;
     }
 
+    public void insertAtEnd(T element) {
+
+        CustomNode<T> node = new CustomNode<T>(element);
+
+        if (root == null) {
+            root = node;
+            tail = node;
+        } else {
+            tail.next = node;
+            node.previous = tail;
+            tail = node;
+        }
+
+    }
+    
     public void removeFromEnd() {
 
-        CustomNode<T> prev = root, node;
-
-        while (prev.next != null) {
-            prev = prev.next;
+        if (root.next == null) {
+            root = null;
+            tail = null;
+        } else {
+            tail = tail.previous;
+            tail.next = null;
         }
 
-        prev.previous.next = null;
+    }
+
+    public void removeFromStart() {
+
+        if (root.next == null) {
+            root = null;
+            tail = null;
+        } else {
+            root = root.next;
+            root.previous = null;
+        }
+
     }
 
     public CustomNode<T> getRoot() {
         return root;
+    }
+
+    public CustomNode<T> getTail() {
+        return tail;
     }
 
 }

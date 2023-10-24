@@ -6,34 +6,91 @@ import org.junit.jupiter.api.BeforeEach;
 
 class DoublyLinkedListTest {
 
-    private DoublyLinkedList doublyLinkedList;
+    private DoublyLinkedList<Integer> list;
 
     @BeforeEach
-    public void start() {
-        this.doublyLinkedList = new DoublyLinkedList<Integer>();
+    public void setUp() {
+        list = new DoublyLinkedList<>();
+    }
+
+    @Test
+    public void testInsertAtBeginning() {
+        list.insertAtBeginning(1);
+        assertEquals(1, (int) list.getRoot().getElement());
+        assertEquals(1, (int) list.getTail().getElement());
+
+        list.insertAtBeginning(2);
+        assertEquals(2, (int) list.getRoot().getElement());
+        assertEquals(1, (int) list.getTail().getElement());
+        assertEquals(1, (int) list.getRoot().getNext().getElement());
+        assertNull(list.getRoot().getPrevious());
+
+        list.insertAtBeginning(3);
+        assertEquals(3, (int) list.getRoot().getElement());
+        assertEquals(1, (int) list.getTail().getElement());
+        assertEquals(2, (int) list.getRoot().getNext().getElement());
+        assertNull(list.getRoot().getPrevious());
+    }
+
+    @Test
+    public void testInsertAtEnd() {
+        list.insertAtEnd(1);
+        assertEquals(1, (int) list.getRoot().getElement());
+        assertEquals(1, (int) list.getTail().getElement());
+
+        list.insertAtEnd(2);
+        assertEquals(1, (int) list.getRoot().getElement());
+        assertEquals(2, (int) list.getTail().getElement());
+        assertEquals(2, (int) list.getRoot().getNext().getElement());
+        assertNull(list.getTail().getNext());
+
+        list.insertAtEnd(3);
+        assertEquals(1, (int) list.getRoot().getElement());
+        assertEquals(3, (int) list.getTail().getElement());
+        assertEquals(2, (int) list.getTail().getPrevious().getElement());
+        assertNull(list.getRoot().getPrevious());
     }
 
     @Test
     public void testRemoveFromEnd() {
+        list.insertAtBeginning(1);
+        list.insertAtBeginning(2);
+        list.insertAtBeginning(3);
 
-        doublyLinkedList.insert(10);
-        assertEquals(10, doublyLinkedList.getRoot().getElement());
+        list.removeFromEnd();
+        assertEquals(3, (int) list.getRoot().getElement());
+        assertEquals(2, (int) list.getTail().getElement());
+        assertNull(list.getTail().getNext());
 
-        assertNull(doublyLinkedList.getRoot().getPrevious());
-        assertNull(doublyLinkedList.getRoot().getNext());
+        list.removeFromEnd();
+        assertEquals(3, (int) list.getRoot().getElement());
+        assertEquals(3, (int) list.getTail().getElement());
+        assertNull(list.getTail().getNext());
 
+        list.removeFromEnd();
+        assertNull(list.getRoot());
+        assertNull(list.getTail());
     }
 
     @Test
-    public  void testInsertAtEnd() {
+    public void testRemoveFromStart() {
+        list.insertAtBeginning(1);
+        list.insertAtBeginning(2);
+        list.insertAtBeginning(3);
 
-        doublyLinkedList.insertAtBeninnig(10);
-        doublyLinkedList.insertAtBeninnig(20);
-        doublyLinkedList.removeFromEnd();
+        list.removeFromStart();
+        assertEquals(2, (int) list.getRoot().getElement());
+        assertEquals(1, (int) list.getTail().getElement());
+        assertNull(list.getRoot().getPrevious());
 
-        assertEquals(20, doublyLinkedList.getRoot().getElement());
-        assertNull(doublyLinkedList.getRoot().getNext());
+        list.removeFromStart();
+        assertEquals(1, (int) list.getRoot().getElement());
+        assertEquals(1, (int) list.getTail().getElement());
+        assertNull(list.getRoot().getPrevious());
+        assertNull(list.getRoot().getNext());
 
+        list.removeFromStart();
+        assertNull(list.getRoot());
+        assertNull(list.getTail());
     }
-
 }

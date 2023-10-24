@@ -8,7 +8,7 @@ interface ILinkedList<T> {
 }
 
 
-public class Main<T> implements ILinkedList<T> {
+public class LinkedList<T> implements ILinkedList<T> {
 
     private CustomNode<T> root;
 
