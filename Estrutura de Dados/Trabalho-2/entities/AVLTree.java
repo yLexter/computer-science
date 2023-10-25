@@ -3,6 +3,7 @@ package entities;
 public class AVLTree<T extends Comparable<T>> extends BaseTree<T> {
     private Node<T> root;
     private int totalRotations;
+    private int totalDoubleRotation;
     private static class Node<T> {
         T value;
         Node<T> left, right;
@@ -20,6 +21,7 @@ public class AVLTree<T extends Comparable<T>> extends BaseTree<T> {
         super("Árvore AVL");
         root = null;
         totalRotations = 0;
+        totalDoubleRotation = 0;
     }
 
     @Override
@@ -55,11 +57,13 @@ public class AVLTree<T extends Comparable<T>> extends BaseTree<T> {
         }
 
         if (balanceFactor > 1 && value.compareTo(node.left.value) > 0) {
+            totalDoubleRotation++;
             node.left = rotateLeft(node.left);
             return rotateRight(node);
         }
 
         if (balanceFactor < -1 && value.compareTo(node.right.value) < 0) {
+            totalDoubleRotation++;
             node.right = rotateRight(node.right);
             return rotateLeft(node);
         }
@@ -155,6 +159,7 @@ public class AVLTree<T extends Comparable<T>> extends BaseTree<T> {
     public void clear() {
         root = null;
         totalRotations = 0;
+        totalDoubleRotation = 0;
     }
 
     @Override
@@ -162,9 +167,15 @@ public class AVLTree<T extends Comparable<T>> extends BaseTree<T> {
         return height(root);
     }
 
+
     @Override
     public int getTotalRotations() {
         return totalRotations;
+    }
+
+    @Override
+    public int getTotalDoubleRotations() {
+        return totalDoubleRotation;
     }
 
     private int height(Node<T> n) {

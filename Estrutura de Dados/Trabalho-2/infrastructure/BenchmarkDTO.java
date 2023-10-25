@@ -1,4 +1,12 @@
 package infrastructure;
 
-public record BenchmarkDTO(long time, String name, int size, int heigth, int rotations, int secondVector) {}
+public record BenchmarkDTO(
+        long time,
+        String name,
+        int size,
+        int heigth,
+        int rotations,
+        int secondVector,
+        int dupleRotations
+) {}
 

@@ -19,14 +19,17 @@ public class BenchmarkTree<T extends Comparable<T>> {
         this.benchmark = benchmark;
     }
 
-    public Map<String, Map<String, Map<String, List<BenchmarkDTO>>>>  getBenchmarks() {
+    public Map<String, Map<String, Map<String, Map<String, List<BenchmarkDTO>>>>>  getBenchmarks() {
+
+        TreeOperations.BenchmarkInsert<T> benchmarkInsert = new TreeOperations.BenchmarkInsert<T>();
+        TreeOperations.BenchmarkSearch<T> benchmarkSearch = new TreeOperations.BenchmarkSearch<>();
 
         Map<String, List<List<T>>> data = benchmark.getMassTestForInsert();
-        Map<String, Map<String, Map<String, List<BenchmarkDTO>>>> benchMap = new LinkedHashMap<>();
+        Map<String, Map<String, Map<String, Map<String, List<BenchmarkDTO>>>>> benchMap = new LinkedHashMap<>();
 
         for (BaseTree<T> tree : trees) {
             String nameTree = tree.getName();
-            Map<String, Map<String, List<BenchmarkDTO>>> mapTree = new LinkedHashMap<>();
+            Map<String, Map<String, Map<String, List<BenchmarkDTO>>>> mapTree = new LinkedHashMap<>();
 
             if (!benchMap.containsKey(nameTree)) {
                 benchMap.put(nameTree, mapTree);
@@ -40,11 +43,19 @@ public class BenchmarkTree<T extends Comparable<T>> {
                     mapTree.put(typeVector, new LinkedHashMap<>());
                 }
 
-                Map<String, List<BenchmarkDTO>> mapVectors = mapTree.get(typeVector);
+                Map<String, Map<String, List<BenchmarkDTO>>> mapOperations = mapTree.get(typeVector);
+                String insert = benchmarkInsert.getName();
+                String search = benchmarkSearch.getName();
+
+                if (!mapOperations.containsKey(insert))
+                    mapOperations.put(benchmarkInsert.getName(), new LinkedHashMap<>());
+
+                if (!mapOperations.containsKey(benchmarkSearch.getName()))
+                    mapOperations.put(benchmarkSearch.getName(), new LinkedHashMap<>());
 
                 for (List<T> list : matrix) {
-                    insertBenchmarkInsert(mapVectors, tree, list);
-                    insertBenchmarkSearch(mapVectors, tree, list);
+                    insertBenchmarkInsert(mapOperations.get(insert), tree, list, benchmarkInsert);
+                    insertBenchmarkSearch(mapOperations.get(search), tree, list, benchmarkSearch);
 
                     tree.clear();
                 }
@@ -55,10 +66,9 @@ public class BenchmarkTree<T extends Comparable<T>> {
         return benchMap;
     }
 
-    public void insertBenchmarkInsert(Map<String, List<BenchmarkDTO>> map, BaseTree<T> tree, List<T> list) {
-        TreeOperations.BenchmarkInsert<T> benchmarkInsert = new TreeOperations.BenchmarkInsert<T>();
+    public void insertBenchmarkInsert(Map<String, List<BenchmarkDTO>> map, BaseTree<T> tree, List<T> list, TreeOperations.BenchmarkInsert<T> benchmarkInsert) {
         BenchmarkDTO benchmarkDTO = benchmarkInsert.run(tree, list);
-        String lenVector = String.format("Insert-%d", list.size());
+        String lenVector = String.format("%d", list.size());
 
         if (!map.containsKey(lenVector)) {
             map.put(lenVector, new ArrayList<>());
@@ -67,12 +77,11 @@ public class BenchmarkTree<T extends Comparable<T>> {
          map.get(lenVector).add(benchmarkDTO);
     }
 
-    public void insertBenchmarkSearch(Map<String, List<BenchmarkDTO>> map, BaseTree<T> tree, List<T> vectorTree) {
-        TreeOperations.BenchmarkSearch<T> benchmarkSearch = new TreeOperations.BenchmarkSearch<>();
+    public void insertBenchmarkSearch(Map<String, List<BenchmarkDTO>> map, BaseTree<T> tree, List<T> vectorTree, TreeOperations.BenchmarkSearch<T> benchmarkSearch) {
         Map<String, List<BenchmarkDTO>> data = benchmarkSearch.run(tree, benchmark, vectorTree);
 
         for (Map.Entry<String, List<BenchmarkDTO>> entry : data.entrySet()) {
-            String typeVector = String.format("Busca-%s",entry.getKey());
+            String typeVector = String.format("%s", entry.getKey());
             List<BenchmarkDTO> matrixBenchMark = entry.getValue();
 
             if (!map.containsKey(typeVector)) {
@@ -85,16 +94,29 @@ public class BenchmarkTree<T extends Comparable<T>> {
 
     public void showBenchmarks() {
 
-        Map<String, Map<String, Map<String, List<BenchmarkDTO>>>> mapBenchmark = getBenchmarks();
+        Map<String, Map<String, Map<String, Map<String, List<BenchmarkDTO>>>>> mapBenchmark = getBenchmarks();
 
-        for (Map.Entry<String, Map<String, Map<String, List<BenchmarkDTO>>>> entry1 : mapBenchmark.entrySet()) {
-            System.out.println("Tipo de Árvore : " + entry1.getKey());
-            for (Map.Entry<String, Map<String, List<BenchmarkDTO>>> entry2 : entry1.getValue().entrySet()) {
-                System.out.println("\tTipo de vetor: " + entry2.getKey());
-                for (Map.Entry<String, List<BenchmarkDTO>> entry3 : entry2.getValue().entrySet()) {
-                    System.out.println("\t\tTipo de Operação: " + entry3.getKey());
-                    for (BenchmarkDTO benchmark : entry3.getValue()) {
-                        System.out.println("\t\t\tBenchmarkDTO: time=" + benchmark.time() + ", name=" + benchmark.name() + ", size=" + benchmark.size() + ", height=" + benchmark.heigth() + ", Rotações=" + benchmark.rotations() + ", Vetor Auxuliar(Busca)=" + benchmark.secondVector());
+        for (Map.Entry<String, Map<String, Map<String, Map<String, List<BenchmarkDTO>>>>> entry1 : mapBenchmark.entrySet()) {
+            System.out.println("" + entry1.getKey());
+            for (Map.Entry<String, Map<String, Map<String, List<BenchmarkDTO>>>> entry2 : entry1.getValue().entrySet()) {
+                System.out.println("\t" + entry2.getKey());
+                for (Map.Entry<String, Map<String, List<BenchmarkDTO>>> entry3 : entry2.getValue().entrySet()) {
+                    System.out.println("\t\t" + entry3.getKey());
+                    for (Map.Entry<String, List<BenchmarkDTO>> entry4 : entry3.getValue().entrySet()) {
+                        System.out.println("\t\t\t" + entry4.getKey());
+                        for (BenchmarkDTO benchmark : entry4.getValue()) {
+                            float time = (float) benchmark.time();
+
+                            System.out.printf("\t\t\t\tBenchmarkDTO: time=%.5f | name= %s | size= %d, heigth=%d | rotations=%d | dupleRorations=%d | Vetor Auxiliar=%d \n",
+                                    time,
+                                    benchmark.name(),
+                                    benchmark.size(),
+                                    benchmark.heigth(),
+                                    benchmark.rotations(),
+                                    benchmark.dupleRotations(),
+                                    benchmark.secondVector()
+                            );
+                        }
                     }
                 }
             }

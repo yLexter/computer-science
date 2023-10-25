@@ -15,4 +15,5 @@ public abstract class BaseTree <T extends Comparable<T>> {
     public abstract void clear();
     public abstract int getHeight();
     public abstract int getTotalRotations();
+    public abstract int getTotalDoubleRotations();
 }

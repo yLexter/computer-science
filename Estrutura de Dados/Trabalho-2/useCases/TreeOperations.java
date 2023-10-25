@@ -23,9 +23,17 @@ public class TreeOperations {
             }
 
             long endTime = System.currentTimeMillis();
-            long elapsedTime = endTime - startTime;
+            long elapsedTime = (endTime - startTime) / 1000;
 
-            return new BenchmarkDTO(elapsedTime, tree.getName(), data.size(), tree.getHeight(), tree.getTotalRotations(), 0);
+            return new BenchmarkDTO(
+                    elapsedTime,
+                    tree.getName(),
+                    data.size(),
+                    tree.getHeight(),
+                    tree.getTotalRotations(),
+                    0,
+                    tree.getTotalDoubleRotations()
+            );
         }
 
         @Override
@@ -47,7 +55,7 @@ public class TreeOperations {
 
                   for(List<T> vector : matrix) {
 
-                    String key = String.format("%s-%d", typeVector, vector.size());
+                    String key = String.format("%s", typeVector);
 
                     long startTime = System.currentTimeMillis();
 
@@ -56,9 +64,17 @@ public class TreeOperations {
                      }
 
                      long endTime = System.currentTimeMillis();
-                     long elapsedTime = endTime - startTime;
+                     long elapsedTime = (endTime - startTime) / 1000;
 
-                     BenchmarkDTO benchmarkDTO = new BenchmarkDTO(elapsedTime, tree.getName(), vector.size(), tree.getHeight(), tree.getTotalRotations(), vectorTree.size());
+                     BenchmarkDTO benchmarkDTO = new BenchmarkDTO(
+                             elapsedTime,
+                             tree.getName(),
+                             vector.size(),
+                             tree.getHeight(),
+                             tree.getTotalRotations(),
+                             vectorTree.size(),
+                             tree.getTotalDoubleRotations()
+                     );
 
                      if (!benchmarskSearch.containsKey(key)) {
                          benchmarskSearch.put(key, new ArrayList<>());

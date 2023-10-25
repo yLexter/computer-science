@@ -5,6 +5,8 @@ public class SplayTree<T extends Comparable<T>> extends BaseTree<T> {
 
     private int totalRotations;
 
+    private int totalDoubleRotation;
+
     public SplayTree() {
         super("Árvore Splay");
         this.root = null;
@@ -30,6 +32,7 @@ public class SplayTree<T extends Comparable<T>> extends BaseTree<T> {
     public void clear() {
         root = null;
         totalRotations = 0;
+        totalDoubleRotation = 0;
     }
 
     @Override
@@ -48,6 +51,11 @@ public class SplayTree<T extends Comparable<T>> extends BaseTree<T> {
     @Override
     public int getTotalRotations() {
         return totalRotations;
+    }
+
+    @Override
+    public int getTotalDoubleRotations() {
+        return totalDoubleRotation;
     }
 
     private SplayNode<T> splayInsert(SplayNode<T> node, T value) {

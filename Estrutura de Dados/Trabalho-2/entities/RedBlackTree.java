@@ -3,6 +3,8 @@ package entities;
 public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
     private Node<T> root;
     private int totalRotations;
+
+    private int totalDoubleRotation;
     public RedBlackTree() {
         super("Árvore Red Black");
         root = null;
@@ -115,6 +117,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
     public void clear() {
         root = null;
         totalRotations = 0;
+        totalDoubleRotation = 0;
     }
 
     @Override
@@ -136,6 +139,11 @@ public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
     @Override
     public int getTotalRotations() {
         return totalRotations;
+    }
+
+    @Override
+    public int getTotalDoubleRotations() {
+        return totalDoubleRotation;
     }
 
     private boolean isRed(Node<T> node) {
@@ -181,6 +189,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
         if (isRed(node.right.left)) {
             node.right = rotateRight(node.right);
             node = rotateLeft(node);
+            totalDoubleRotation++;
             flipColors(node);
         }
         return node;
@@ -190,6 +199,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
         flipColors(node);
         if (isRed(node.left.left)) {
             node = rotateRight(node);
+            totalDoubleRotation++;
             flipColors(node);
         }
         return node;

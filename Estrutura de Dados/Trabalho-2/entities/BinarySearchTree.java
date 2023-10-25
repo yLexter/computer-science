@@ -43,6 +43,11 @@ public class BinarySearchTree<T extends Comparable<T>> extends BaseTree<T> {
         return totalRotations;
     }
 
+    @Override
+    public int getTotalDoubleRotations() {
+        return 0;
+    }
+
     private TreeNode<T> insertRec(TreeNode<T> root, T value) {
         if (root == null) {
             return new TreeNode<>(value);
