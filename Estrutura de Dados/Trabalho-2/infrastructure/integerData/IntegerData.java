@@ -1,14 +1,12 @@
-package app;
+package infrastructure.integerData;
 
-import interfaces.IBenchmark;
-import useCases.BenchmarkTree;
-import useCases.Vector;
+import interfaces.IDataProvider;
 
 import java.util.*;
 import java.util.function.Function;
 
 
-public class BenchmarkInteger implements IBenchmark<Integer> {
+public class IntegerData implements IDataProvider<Integer> {
     private record TypeVector (String name, Function<Integer, List<Integer>> function) {}
 
     //ToDo Mudar depois
@@ -79,7 +77,7 @@ public class BenchmarkInteger implements IBenchmark<Integer> {
             }
         }
 
-        SECOND_MASS_TEST = mapData;
+        this.SECOND_MASS_TEST = mapData;
 
         return mapData;
     }

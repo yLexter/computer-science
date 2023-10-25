@@ -2,7 +2,7 @@ package useCases;
 
 import entities.BaseTree;
 import infrastructure.BenchmarkDTO;
-import interfaces.IBenchmark;
+import interfaces.IDataProvider;
 import interfaces.ITreeOperationInsert;
 import interfaces.ITreeOperationSearch;
 
@@ -44,7 +44,7 @@ public class TreeOperations {
 
     public record BenchmarkSearch<T extends Comparable<T>>() implements ITreeOperationSearch<T> {
         @Override
-        public Map<String, List<BenchmarkDTO>> run(BaseTree<T> tree, IBenchmark<T> benchmark, List<T> vectorTree) {
+        public Map<String, List<BenchmarkDTO>> run(BaseTree<T> tree, IDataProvider<T> benchmark, List<T> vectorTree) {
             Map<String, List<List<T>>> dataSearch = benchmark.getMassTestForSearch();
             Map<String, List<BenchmarkDTO>> benchmarskSearch = new LinkedHashMap<>();
 

@@ -2,7 +2,7 @@ package useCases;
 
 import entities.BaseTree;
 import infrastructure.BenchmarkDTO;
-import interfaces.IBenchmark;
+import interfaces.IDataProvider;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -12,11 +12,11 @@ public class BenchmarkTree<T extends Comparable<T>> {
 
     private List<BaseTree<T>> trees;
 
-    private IBenchmark<T> benchmark;
+    private IDataProvider<T> dataProvider;
 
-    public BenchmarkTree(List<BaseTree<T>> trees, IBenchmark<T> benchmark) {
+    public BenchmarkTree(List<BaseTree<T>> trees, IDataProvider<T> dataProvider) {
         this.trees = trees;
-        this.benchmark = benchmark;
+        this.dataProvider = dataProvider;
     }
 
     public Map<String, Map<String, Map<String, Map<String, List<BenchmarkDTO>>>>>  getBenchmarks() {
@@ -24,7 +24,7 @@ public class BenchmarkTree<T extends Comparable<T>> {
         TreeOperations.BenchmarkInsert<T> benchmarkInsert = new TreeOperations.BenchmarkInsert<T>();
         TreeOperations.BenchmarkSearch<T> benchmarkSearch = new TreeOperations.BenchmarkSearch<>();
 
-        Map<String, List<List<T>>> data = benchmark.getMassTestForInsert();
+        Map<String, List<List<T>>> data = dataProvider.getMassTestForInsert();
         Map<String, Map<String, Map<String, Map<String, List<BenchmarkDTO>>>>> benchMap = new LinkedHashMap<>();
 
         for (BaseTree<T> tree : trees) {
@@ -78,7 +78,7 @@ public class BenchmarkTree<T extends Comparable<T>> {
     }
 
     public void insertBenchmarkSearch(Map<String, List<BenchmarkDTO>> map, BaseTree<T> tree, List<T> vectorTree, TreeOperations.BenchmarkSearch<T> benchmarkSearch) {
-        Map<String, List<BenchmarkDTO>> data = benchmarkSearch.run(tree, benchmark, vectorTree);
+        Map<String, List<BenchmarkDTO>> data = benchmarkSearch.run(tree, dataProvider, vectorTree);
 
         for (Map.Entry<String, List<BenchmarkDTO>> entry : data.entrySet()) {
             String typeVector = String.format("%s", entry.getKey());
@@ -107,7 +107,7 @@ public class BenchmarkTree<T extends Comparable<T>> {
                         for (BenchmarkDTO benchmark : entry4.getValue()) {
                             float time = (float) benchmark.time();
 
-                            System.out.printf("\t\t\t\tBenchmarkDTO: time=%.5f | name= %s | size= %d, heigth=%d | rotations=%d | dupleRorations=%d | Vetor Auxiliar=%d \n",
+                            System.out.printf("\t\t\t\tBenchmark: time=%.5f | name= %s | size= %d, heigth=%d | rotations=%d | dupleRorations=%d | Vetor Auxiliar=%d \n",
                                     time,
                                     benchmark.name(),
                                     benchmark.size(),

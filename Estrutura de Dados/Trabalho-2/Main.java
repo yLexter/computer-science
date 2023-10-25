@@ -1,10 +1,8 @@
-import app.BenchmarkInteger;
+import infrastructure.integerData.IntegerData;
 import entities.*;
-import infrastructure.BenchmarkDTO;
 import useCases.BenchmarkTree;
 
 import java.util.List;
-import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,11 +14,11 @@ public class Main {
                 new SplayTree<>()
         );
 
-        BenchmarkInteger benchmarkInteger = new BenchmarkInteger();
+        IntegerData integerData = new IntegerData();
 
         BenchmarkTree<Integer> benchmarkTree = new BenchmarkTree<>(
                 treeList,
-                benchmarkInteger
+                integerData
         );
 
         benchmarkTree.showBenchmarks();

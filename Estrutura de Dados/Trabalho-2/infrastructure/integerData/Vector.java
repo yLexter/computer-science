@@ -1,4 +1,4 @@
-package useCases;
+package infrastructure.integerData;
 
 import java.util.ArrayList;
 import java.util.Collections;
