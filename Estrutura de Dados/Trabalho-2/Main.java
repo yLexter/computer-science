@@ -21,7 +21,7 @@ public class Main {
                 integerData
         );
 
-        benchmarkTree.showBenchmarks();
+        benchmarkTree.run();
     }
 
 

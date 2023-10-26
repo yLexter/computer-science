@@ -35,6 +35,8 @@ public class BenchmarkTree<T extends Comparable<T>> {
                 benchMap.put(nameTree, mapTree);
             }
 
+            System.out.println("-- " + tree.getName() + "\n");
+
             for (Map.Entry<String, List<List<T>>> entry : data.entrySet()) {
                 String typeVector = entry.getKey();
                 List<List<T>> matrix = entry.getValue();
@@ -54,19 +56,21 @@ public class BenchmarkTree<T extends Comparable<T>> {
                     mapOperations.put(benchmarkSearch.getName(), new LinkedHashMap<>());
 
                 for (List<T> list : matrix) {
-                    insertBenchmarkInsert(mapOperations.get(insert), tree, list, benchmarkInsert);
-                    insertBenchmarkSearch(mapOperations.get(search), tree, list, benchmarkSearch);
+                    benchmarkInsert(mapOperations.get(insert), tree, list, benchmarkInsert);
+                    benchmarkSearch(mapOperations.get(search), tree, list, benchmarkSearch);
 
                     tree.clear();
                 }
 
             }
+
+            System.out.println("-".repeat(50) + "\n");
         }
 
         return benchMap;
     }
 
-    public void insertBenchmarkInsert(Map<String, List<BenchmarkDTO>> map, BaseTree<T> tree, List<T> list, TreeOperations.BenchmarkInsert<T> benchmarkInsert) {
+    public void benchmarkInsert(Map<String, List<BenchmarkDTO>> map, BaseTree<T> tree, List<T> list, TreeOperations.BenchmarkInsert<T> benchmarkInsert) {
         BenchmarkDTO benchmarkDTO = benchmarkInsert.run(tree, list);
         String lenVector = String.format("%d", list.size());
 
@@ -77,7 +81,7 @@ public class BenchmarkTree<T extends Comparable<T>> {
          map.get(lenVector).add(benchmarkDTO);
     }
 
-    public void insertBenchmarkSearch(Map<String, List<BenchmarkDTO>> map, BaseTree<T> tree, List<T> vectorTree, TreeOperations.BenchmarkSearch<T> benchmarkSearch) {
+    public void benchmarkSearch(Map<String, List<BenchmarkDTO>> map, BaseTree<T> tree, List<T> vectorTree, TreeOperations.BenchmarkSearch<T> benchmarkSearch) {
         Map<String, List<BenchmarkDTO>> data = benchmarkSearch.run(tree, dataProvider, vectorTree);
 
         for (Map.Entry<String, List<BenchmarkDTO>> entry : data.entrySet()) {
@@ -90,6 +94,16 @@ public class BenchmarkTree<T extends Comparable<T>> {
 
             map.get(typeVector).addAll(matrixBenchMark);
         }
+    }
+
+    private void generateMassTest() {
+        dataProvider.getMassTestForInsert();
+        dataProvider.getMassTestForSearch();
+    }
+
+    public void run() {
+        generateMassTest();
+        showBenchmarks();
     }
 
     public void showBenchmarks() {

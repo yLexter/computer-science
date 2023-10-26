@@ -1,5 +1,6 @@
 package infrastructure.integerData;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.Random;
 
 public class Vector {
     private static final int MAX_VALUE = 300_000;
+    private static final SecureRandom random = new SecureRandom();
     public static List<Integer> generateAscendingVector(int size) {
         List<Integer> list = new ArrayList<>();
 
@@ -16,66 +18,55 @@ public class Vector {
 
         return list;
     }
-
     public static List<Integer> generateDescendingVector(int size) {
         List<Integer> list = generateAscendingVector(size);
         Collections.reverse(list);
         return list;
     }
-
     public static List<Integer> generateAscendingVectorWithRandomEnd(int size) {
-        int percentage = getPercentage(size);
-        List<Integer> list1 = generateAscendingVector(percentage);
-        List<Integer> list2 = generateRandomOrderVector(size - percentage, size);
-        list1.addAll(list2);
+        int percentage = getPercentage(size), temp;
+        List<Integer> list1 = generateAscendingVector(size);
+
+        for (int i = percentage; i < list1.size(); i++) {
+            int randomPosition = random.nextInt(percentage, size);
+
+            temp = list1.get(i);
+            list1.set(i, list1.get(randomPosition));
+            list1.set(randomPosition, temp);
+
+        }
+
+
         return list1;
     }
-
     public static List<Integer> generateAscendingVectorWithRandomStart(int size) {
-        int percentage = getPercentage(size);
+        List<Integer> list1 = generateAscendingVector(size);
+        int percentageStart = size - getPercentage(size), temp;
 
-        List<Integer> list1 = generateRandomOrderVector(size - percentage, size);
-        List<Integer> list2 = generateAscendingVector(percentage);
-        list1.addAll(list2);
+        for (int i = 0; i < percentageStart; i++) {
+            int randomPosition = random.nextInt(percentageStart, size);
+            temp = list1.get(i);
+            list1.set(i, list1.get(randomPosition));
+            list1.set(randomPosition, temp);
+        }
 
         return list1;
     }
-
-    private static List<Integer> generateRandomOrderVector(int size, int interval) {
-        List<Integer> list = new ArrayList<>();
-
-        if (size > interval) {
-            size = interval;
-        }
-
-        List<Integer> availableNumbers = new ArrayList<>();
-
-        for (int i = 0; i < interval; i++) {
-            availableNumbers.add(i);
-        }
-
-        Random random = new Random();
+    public static List<Integer> generateRandomOrderVectorWithoutRepetition(int size) {
+        List<Integer> list = generateAscendingVector(size);
 
         for (int i = 0; i < size; i++) {
-            if (availableNumbers.isEmpty()) {
-                break;
-            }
+            int randomPosition = random.nextInt(0, size);
 
-            int index = random.nextInt(availableNumbers.size());
-            int randomValue = availableNumbers.remove(index);
-            list.add(randomValue);
+            int temp = list.get(i);
+            list.set(i, list.get(randomPosition));
+            list.set(randomPosition, temp);
         }
 
         return list;
     }
-
-    public static List<Integer> generateRandomOrderVector(int size) {
-        return generateRandomOrderVector(size, MAX_VALUE);
-    }
-
     public static List<Integer> generateRandomOrderVectorWithRepetiton(int size) {
         List<Integer> list = new ArrayList<>();
-        Random random = new Random();
 
         for (int i = 0; i < size; i++) {
             int randomValue = random.nextInt(MAX_VALUE);
@@ -84,19 +75,6 @@ public class Vector {
 
         return list;
     }
-
-    public static List<Integer> generateRandomOrderVectorWithRepeats(int size) {
-        List<Integer> list = new ArrayList<>();
-        Random random = new Random();
-
-        for (int i = 0; i < size; i++) {
-            int randomValue = random.nextInt(MAX_VALUE);
-            list.add(randomValue);
-        }
-
-        return list;
-    }
-
     public static int getPercentage(int size) {
         final int PERCENTAGE = 90;
         return (int) Math.ceil(size * (PERCENTAGE / 100.0));

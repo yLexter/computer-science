@@ -3,44 +3,91 @@ package entities;
 import java.util.*;
 
 public class BinarySearchTree<T extends Comparable<T>> extends BaseTree<T> {
-    private TreeNode<T> root;
-    private int totalRotations;
+    private Node root;
 
     public BinarySearchTree() {
-        super("Árvore de Busca Binária");
-        this.root = null;
-        this.totalRotations = 0;
+        super("Árvore Binária de Busca");
+        root = null;
     }
 
     @Override
-    public void insert(T value) {
-        root = insertRec(root, value);
-    }
+    public void insert(T valor) {
+        Node newNode = new Node(valor);
 
+        if (root == null) {
+            root = newNode;
+        } else {
+            Node current = root;
+            Node parent;
+            while (true) {
+                parent = current;
+                if (valor.compareTo(current.value) < 0) {
+                    current = current.left;
+                    if (current == null) {
+                        parent.left = newNode;
+                        return;
+                    }
+                } else {
+                    current = current.right;
+                    if (current == null) {
+                        parent.right = newNode;
+                        return;
+                    }
+                }
+            }
+        }
+    }
     @Override
-    public void remove(T value) {
-        root = removeRec(root, value);
-    }
+    public boolean search(T valor) {
+        Node current = root;
 
-    @Override
-    public boolean search(T value) {
-        return searchRec(root, value);
+        while (current != null) {
+            int cmp = valor.compareTo(current.value);
+            if (cmp == 0) {
+                return true;
+            } else if (cmp < 0) {
+                current = current.left;
+            } else {
+                current = current.right;
+            }
+        }
+        return false;
     }
-
     @Override
     public void clear() {
         root = null;
-        totalRotations = 0;
     }
-
     @Override
     public int getHeight() {
-        return getHeight(root);
+        if (root == null) {
+            return -1;
+        }
+
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        int height = -1;
+
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+            height++;
+
+            for (int i = 0; i < levelSize; i++) {
+                Node node = queue.poll();
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+                if (node.right != null) {
+                    queue.add(node.right);
+                }
+            }
+        }
+
+        return height;
     }
 
     @Override
     public int getTotalRotations() {
-        return totalRotations;
+        return 0;
     }
 
     @Override
@@ -48,88 +95,17 @@ public class BinarySearchTree<T extends Comparable<T>> extends BaseTree<T> {
         return 0;
     }
 
-    private TreeNode<T> insertRec(TreeNode<T> root, T value) {
-        if (root == null) {
-            return new TreeNode<>(value);
-        }
-
-        if (value.compareTo(root.data) < 0) {
-            root.left = insertRec(root.left, value);
-        } else if (value.compareTo(root.data) > 0) {
-            root.right = insertRec(root.right, value);
-        }
-
-        return root;
-    }
-
-    private TreeNode<T> removeRec(TreeNode<T> root, T value) {
-        if (root == null) {
-            return root;
-        }
-
-        if (value.compareTo(root.data) < 0) {
-            root.left = removeRec(root.left, value);
-        } else if (value.compareTo(root.data) > 0) {
-            root.right = removeRec(root.right, value);
-        } else {
-            if (root.left == null) {
-                return root.right;
-            } else if (root.right == null) {
-                return root.left;
-            }
-
-            root.data = minValue(root.right);
-            root.right = removeRec(root.right, root.data);
-        }
-
-        return root;
-    }
-
-    private T minValue(TreeNode<T> root) {
-        T minValue = root.data;
-        while (root.left != null) {
-            minValue = root.left.data;
-            root = root.left;
-        }
-        return minValue;
-    }
-
-    private boolean searchRec(TreeNode<T> root, T value) {
-        if (root == null) {
-            return false;
-        }
-
-        if (value.equals(root.data)) {
-            return true;
-        }
-
-        if (value.compareTo(root.data) < 0) {
-            return searchRec(root.left, value);
-        }
-
-        return searchRec(root.right, value);
-    }
-
-    private int getHeight(TreeNode<T> node) {
-        if (node == null) {
-            return 0;
-        }
-
-        int leftHeight = getHeight(node.left);
-        int rightHeight = getHeight(node.right);
-
-        return 1 + Math.max(leftHeight, rightHeight);
-    }
-
-    private static class TreeNode<T> {
-        T data;
-        TreeNode<T> left;
-        TreeNode<T> right;
-
-        TreeNode(T data) {
-            this.data = data;
+    private class Node {
+        T value;
+        Node left;
+        Node right;
+        Node parent;
+        Node(T value) {
+            this.value = value;
             left = null;
             right = null;
+            parent = null;
         }
     }
+
 }

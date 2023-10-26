@@ -25,6 +25,12 @@ public class TreeOperations {
             long endTime = System.currentTimeMillis();
             long elapsedTime = (endTime - startTime) / 1000;
 
+            System.out.printf(
+                    "Inserção - %d elementos  - Tempo: %.5f\n",
+                    data.size(),
+                    (float) elapsedTime
+            );
+
             return new BenchmarkDTO(
                     elapsedTime,
                     tree.getName(),
@@ -49,13 +55,11 @@ public class TreeOperations {
             Map<String, List<BenchmarkDTO>> benchmarskSearch = new LinkedHashMap<>();
 
             for (Map.Entry<String, List<List<T>>> entry : dataSearch.entrySet()) {
-                  String typeVector = entry.getKey();
+                  String typeVectorName = entry.getKey();
 
                   List<List<T>> matrix = entry.getValue();
 
-                  for(List<T> vector : matrix) {
-
-                    String key = String.format("%s", typeVector);
+                  for (List<T> vector : matrix) {
 
                     long startTime = System.currentTimeMillis();
 
@@ -66,7 +70,16 @@ public class TreeOperations {
                      long endTime = System.currentTimeMillis();
                      long elapsedTime = (endTime - startTime) / 1000;
 
-                     BenchmarkDTO benchmarkDTO = new BenchmarkDTO(
+                      System.out.printf(
+                              "Busca - %d elementos na árvore - Tempo: %.5f - Tipo: %s (%d elementos para busca)",
+                              vectorTree.size(),
+                              (float) elapsedTime,
+                              typeVectorName,
+                              vector.size()
+                      );
+
+
+                      BenchmarkDTO benchmarkDTO = new BenchmarkDTO(
                              elapsedTime,
                              tree.getName(),
                              vector.size(),
@@ -76,14 +89,17 @@ public class TreeOperations {
                              tree.getTotalDoubleRotations()
                      );
 
-                     if (!benchmarskSearch.containsKey(key)) {
-                         benchmarskSearch.put(key, new ArrayList<>());
+                     if (!benchmarskSearch.containsKey(typeVectorName)) {
+                         benchmarskSearch.put(typeVectorName, new ArrayList<>());
                      }
 
-                     benchmarskSearch.get(key).add(benchmarkDTO);
+                     benchmarskSearch.get(typeVectorName).add(benchmarkDTO);
                 }
 
+                System.out.println();
             }
+
+            System.out.println();
 
             return benchmarskSearch;
         }

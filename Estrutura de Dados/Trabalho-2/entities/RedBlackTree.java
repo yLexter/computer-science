@@ -1,115 +1,73 @@
 package entities;
 
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
-    private Node<T> root;
+    private static final boolean RED = true;
+    private static final boolean BLACK = false;
+
     private int totalRotations;
 
     private int totalDoubleRotation;
+
+    private Node root;
+
     public RedBlackTree() {
-        super("Árvore Red Black");
+        super("Árvore Preto e Vermelho");
         root = null;
     }
 
-    private static class Node<T> {
-        T value;
-        Node<T> left, right;
-        boolean isRed;
-
-        Node(T value, boolean isRed) {
-            this.value = value;
-            this.isRed = isRed;
-            left = null;
-            right = null;
-        }
-    }
-
     @Override
-    public void insert(T value) {
-        root = insert(root, value);
-        root.isRed = false;
-    }
+    public void insert(T valor) {
+        Node newNode = new Node(valor, RED);
 
-    private Node<T> insert(Node<T> node, T value) {
-        if (node == null) {
-            return new Node<>(value, true);
-        }
-
-        if (value.compareTo(node.value) < 0) {
-            node.left = insert(node.left, value);
-        } else if (value.compareTo(node.value) > 0) {
-            node.right = insert(node.right, value);
+        if (root == null) {
+            root = newNode;
         } else {
-            return node;
+            Node parent = null;
+            Node current = root;
+
+            while (current != null) {
+                parent = current;
+                int cmp = valor.compareTo(current.value);
+                if (cmp < 0) {
+                    current = current.left;
+                } else if (cmp > 0) {
+                    current = current.right;
+                } else {
+                    return; // Valor já existe na árvore
+                }
+            }
+
+            newNode.parent = parent;
+            if (valor.compareTo(parent.value) < 0) {
+                parent.left = newNode;
+            } else {
+                parent.right = newNode;
+            }
+            insertFixup(newNode);
         }
 
-        if (isRed(node.right) && !isRed(node.left)) {
-            node = rotateLeft(node);
-        }
-        if (isRed(node.left) && isRed(node.left.left)) {
-            node = rotateRight(node);
-        }
-        if (isRed(node.left) && isRed(node.right)) {
-            flipColors(node);
-        }
-
-        return node;
+        root.color = BLACK;
     }
 
     @Override
-    public void remove(T value) {
-        root = remove(root, value);
-    }
+    public boolean search(T valor) {
+        Node current = root;
 
-    private Node<T> remove(Node<T> node, T value) {
-        if (node == null) {
-            return null;
-        }
-
-        if (value.compareTo(node.value) < 0) {
-            if (!isRed(node.left) && !isRed(node.left.left)) {
-                node = moveRedLeft(node);
-            }
-            node.left = remove(node.left, value);
-        } else {
-            if (isRed(node.left)) {
-                node = rotateRight(node);
-            }
-            if (value.compareTo(node.value) == 0 && node.right == null) {
-                return null;
-            }
-            if (!isRed(node.right) && !isRed(node.right.left)) {
-                node = moveRedRight(node);
-            }
-            if (value.compareTo(node.value) == 0) {
-                Node<T> minNode = findMinNode(node.right);
-                node.value = minNode.value;
-                node.right = deleteMinNode(node.right);
-            } else {
-                node.right = remove(node.right, value);
-            }
-        }
-
-        return balance(node);
-    }
-
-    @Override
-    public boolean search(T value) {
-        return search(root, value);
-    }
-
-    private boolean search(Node<T> node, T value) {
-        while (node != null) {
-            int cmp = value.compareTo(node.value);
-
-            if (cmp < 0) {
-                node = node.left;
-            } else if (cmp > 0) {
-                node = node.right;
-            } else {
+        while (current != null) {
+            int cmp = valor.compareTo(current.value);
+            if (cmp == 0) {
                 return true;
+            } else if (cmp < 0) {
+                current = current.left;
+            } else {
+                current = current.right;
             }
         }
-
         return false;
     }
 
@@ -122,18 +80,31 @@ public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
 
     @Override
     public int getHeight() {
-        return getHeight(root);
-    }
 
-    private int getHeight(Node<T> node) {
-        if (node == null) {
+        if (root == null) {
             return -1;
         }
 
-        int leftHeight = getHeight(node.left);
-        int rightHeight = getHeight(node.right);
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        int height = -1;
 
-        return Math.max(leftHeight, rightHeight) + 1;
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+            height++;
+
+            for (int i = 0; i < levelSize; i++) {
+                Node node = queue.poll();
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+                if (node.right != null) {
+                    queue.add(node.right);
+                }
+            }
+        }
+
+        return height;
     }
 
     @Override
@@ -146,98 +117,141 @@ public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
         return totalDoubleRotation;
     }
 
-    private boolean isRed(Node<T> node) {
-        return node != null && node.isRed;
+    private void insertFixup(Node node) {
+
+        boolean isDoubleRotateLeft = false;
+        boolean isDoubleRotateRigth = false;
+
+        while (node.parent != null && node.parent.color == RED) {
+
+            if (node.parent == node.parent.parent.left) {
+                Node uncle = node.parent.parent.right;
+
+                if (uncle != null && uncle.color == RED) {
+                    node.parent.color = BLACK;
+                    uncle.color = BLACK;
+                    node.parent.parent.color = RED;
+                    node = node.parent.parent;
+                } else {
+
+                    if (node == node.parent.right) {
+                        node = node.parent;
+
+                        if (isDoubleRotateLeft) {
+                            totalDoubleRotation++;
+                            isDoubleRotateLeft = false;
+                        } else {
+                            isDoubleRotateRigth = false;
+                            isDoubleRotateLeft = true;
+                        }
+
+                        rotateLeft(node);
+                    }
+
+                    node.parent.color = BLACK;
+                    node.parent.parent.color = RED;
+
+                    if (isDoubleRotateRigth) {
+                        totalDoubleRotation++;
+                        isDoubleRotateRigth = false;
+                    } else {
+                        isDoubleRotateRigth = true;
+                        isDoubleRotateLeft = false;
+                    }
+
+                    rotateRight(node.parent.parent);
+                }
+            } else {
+                Node uncle = node.parent.parent.left;
+                if (uncle != null && uncle.color == RED) {
+                    node.parent.color = BLACK;
+                    uncle.color = BLACK;
+                    node.parent.parent.color = RED;
+                    node = node.parent.parent;
+                } else {
+                    if (node == node.parent.left) {
+                        node = node.parent;
+
+                        if (isDoubleRotateRigth) {
+                            totalDoubleRotation++;
+                            isDoubleRotateRigth = false;
+                        } else {
+                            isDoubleRotateRigth = true;
+                            isDoubleRotateLeft = false;
+                        }
+
+                        rotateRight(node);
+                    }
+                    node.parent.color = BLACK;
+                    node.parent.parent.color = RED;
+
+                    if (isDoubleRotateLeft) {
+                        totalDoubleRotation++;
+                        isDoubleRotateLeft = false;
+                    } else {
+                        isDoubleRotateRigth = false;
+                        isDoubleRotateLeft = true;
+                    }
+
+                    rotateLeft(node.parent.parent);
+
+                }
+            }
+        }
     }
 
-    private Node<T> rotateLeft(Node<T> h) {
-        Node<T> x = h.right;
-
-        h.right = x.left;
-        x.left = h;
-
-        x.isRed = h.isRed;
-        h.isRed = true;
-
+    private void rotateLeft(Node node) {
+        Node rightChild = node.right;
+        node.right = rightChild.left;
+        if (rightChild.left != null) {
+            rightChild.left.parent = node;
+        }
+        rightChild.parent = node.parent;
+        if (node.parent == null) {
+            root = rightChild;
+        } else if (node == node.parent.left) {
+            node.parent.left = rightChild;
+        } else {
+            node.parent.right = rightChild;
+        }
+        rightChild.left = node;
+        node.parent = rightChild;
         totalRotations++;
-
-        return x;
     }
 
-    private Node<T> rotateRight(Node<T> h) {
-        Node<T> x = h.left;
-
-        h.left = x.right;
-        x.right = h;
-
-        x.isRed = h.isRed;
-        h.isRed = true;
-
+    private void rotateRight(Node node) {
+        Node leftChild = node.left;
+        node.left = leftChild.right;
+        if (leftChild.right != null) {
+            leftChild.right.parent = node;
+        }
+        leftChild.parent = node.parent;
+        if (node.parent == null) {
+            root = leftChild;
+        } else if (node == node.parent.right) {
+            node.parent.right = leftChild;
+        } else {
+            node.parent.left = leftChild;
+        }
+        leftChild.right = node;
+        node.parent = leftChild;
         totalRotations++;
-
-        return x;
     }
 
-    private void flipColors(Node<T> h) {
-        h.isRed = true;
-        h.left.isRed = false;
-        h.right.isRed = false;
-    }
+    private class Node {
+        T value;
+        Node left;
+        Node right;
+        Node parent;
+        boolean color;
 
-    private Node<T> moveRedLeft(Node<T> node) {
-        flipColors(node);
-        if (isRed(node.right.left)) {
-            node.right = rotateRight(node.right);
-            node = rotateLeft(node);
-            totalDoubleRotation++;
-            flipColors(node);
+        Node(T value, boolean color) {
+            this.value = value;
+            this.color = color;
+            left = null;
+            right = null;
+            parent = null;
         }
-        return node;
-    }
-
-    private Node<T> moveRedRight(Node<T> node) {
-        flipColors(node);
-        if (isRed(node.left.left)) {
-            node = rotateRight(node);
-            totalDoubleRotation++;
-            flipColors(node);
-        }
-        return node;
-    }
-
-    private Node<T> deleteMinNode(Node<T> node) {
-        if (node.left == null) {
-            return null;
-        }
-
-        if (!isRed(node.left) && !isRed(node.left.left)) {
-            node = moveRedLeft(node);
-        }
-
-        node.left = deleteMinNode(node.left);
-
-        return balance(node);
-    }
-
-    private Node<T> findMinNode(Node<T> node) {
-        while (node.left != null) {
-            node = node.left;
-        }
-        return node;
-    }
-
-    private Node<T> balance(Node<T> node) {
-        if (isRed(node.right)) {
-            node = rotateLeft(node);
-        }
-        if (isRed(node.left) && isRed(node.left.left)) {
-            node = rotateRight(node);
-        }
-        if (isRed(node.left) && isRed(node.right)) {
-            flipColors(node);
-        }
-
-        return node;
     }
 
 }
