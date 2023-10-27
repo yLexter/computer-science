@@ -82,10 +82,10 @@ public class TreeOperations {
                       BenchmarkDTO benchmarkDTO = new BenchmarkDTO(
                              elapsedTime,
                              tree.getName(),
-                             vector.size(),
+                             vectorTree.size(),
                              tree.getHeight(),
                              tree.getTotalRotations(),
-                             vectorTree.size(),
+                             vector.size(),
                              tree.getTotalDoubleRotations()
                      );
 

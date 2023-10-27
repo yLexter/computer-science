@@ -8,6 +8,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class BenchmarkTree<T extends Comparable<T>> {
 
     private List<BaseTree<T>> trees;
@@ -103,14 +108,68 @@ public class BenchmarkTree<T extends Comparable<T>> {
 
     public void run() {
         generateMassTest();
-        showBenchmarks();
-    }
-
-    public void showBenchmarks() {
 
         Map<String, Map<String, Map<String, Map<String, List<BenchmarkDTO>>>>> mapBenchmark = getBenchmarks();
 
-        for (Map.Entry<String, Map<String, Map<String, Map<String, List<BenchmarkDTO>>>>> entry1 : mapBenchmark.entrySet()) {
+        showBenchmarks(mapBenchmark);
+        saveBenchmarks(mapBenchmark);
+    }
+
+    public void saveBenchmarks(Map<String, Map<String, Map<String, Map<String, List<BenchmarkDTO>>>>> data) {
+
+        JSONObject jsonObject = mapToJson(data);
+
+        String jsonStr = jsonObject.toString();
+
+        String fileName = "data.json";
+
+        try (FileWriter fileWriter = new FileWriter(fileName)) {
+            fileWriter.write(jsonStr);
+            System.out.println("JSON salvo com sucesso em " + fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static JSONObject benchmarkDtoToJson(BenchmarkDTO benchmark) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("time", benchmark.time());
+        jsonObject.put("name", benchmark.name());
+        jsonObject.put("sizeVectorInsertion", benchmark.sizeVectorInsertion());
+        jsonObject.put("heigth", benchmark.heigth());
+        jsonObject.put("rotations", benchmark.rotations());
+        jsonObject.put("sizeVectorSearch", benchmark.sizeVectorSearch());
+        jsonObject.put("doubleRotations", benchmark.doubleRotations());
+        return jsonObject;
+    }
+
+    public static JSONObject mapToJson(Map<String, ?> map) {
+        JSONObject jsonObject = new JSONObject();
+        for (Map.Entry<String, ?> entry : map.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
+            if (value instanceof Map) {
+                jsonObject.put(key, mapToJson((Map<String, ?>) value));
+            } else if (value instanceof List) {
+                JSONArray jsonArray = new JSONArray();
+                for (Object item : (List<?>) value) {
+                    if (item instanceof BenchmarkDTO) {
+                        jsonArray.put(benchmarkDtoToJson((BenchmarkDTO) item));
+                    } else {
+                        jsonArray.put(item);
+                    }
+                }
+                jsonObject.put(key, jsonArray);
+            } else {
+                jsonObject.put(key, value);
+            }
+        }
+        return jsonObject;
+    }
+
+    public void showBenchmarks(Map<String, Map<String, Map<String, Map<String, List<BenchmarkDTO>>>>> data) {
+
+        for (Map.Entry<String, Map<String, Map<String, Map<String, List<BenchmarkDTO>>>>> entry1 : data.entrySet()) {
             System.out.println("" + entry1.getKey());
             for (Map.Entry<String, Map<String, Map<String, List<BenchmarkDTO>>>> entry2 : entry1.getValue().entrySet()) {
                 System.out.println("\t" + entry2.getKey());
@@ -121,21 +180,21 @@ public class BenchmarkTree<T extends Comparable<T>> {
                         for (BenchmarkDTO benchmark : entry4.getValue()) {
                             float time = (float) benchmark.time();
 
-                            System.out.printf("\t\t\t\tBenchmark: time=%.5f | name= %s | size= %d, heigth=%d | rotations=%d | dupleRorations=%d | Vetor Auxiliar=%d \n",
+                            System.out.printf(
+                                    "\t\t\t\tBenchmark: time=%.5f | name= %s | sizeVectorInsertion= %d, heigth=%d | rotations=%d | doubleRotations=%d | sizeVectorSearch=%d \n",
                                     time,
                                     benchmark.name(),
-                                    benchmark.size(),
+                                    benchmark.sizeVectorInsertion(),
                                     benchmark.heigth(),
                                     benchmark.rotations(),
-                                    benchmark.dupleRotations(),
-                                    benchmark.secondVector()
+                                    benchmark.doubleRotations(),
+                                    benchmark.sizeVectorSearch()
                             );
                         }
                     }
                 }
             }
         }
-
 
     }
 

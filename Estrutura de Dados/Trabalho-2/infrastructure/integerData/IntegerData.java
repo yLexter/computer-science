@@ -22,8 +22,8 @@ public class IntegerData implements IDataProvider<Integer> {
     private static final TypeVector[] TYPES_VECTORS_FIRST_MASS_TEST = {
             new TypeVector("Vetor Ordem Crescente", Vector::generateAscendingVector),
             new TypeVector("Vetor Ordem Descrecente", Vector::generateDescendingVector),
-            new TypeVector("Vetor com 10% Desordenado no Final", Vector::generateAscendingVectorWithRandomEnd),
-            new TypeVector("Vetor com 10% Desordenado no Começo", Vector::generateAscendingVectorWithRandomStart)
+            new TypeVector("Vetor Ordenado com 10% Desordenado no Final", Vector::generateAscendingVectorWithRandomEnd),
+            new TypeVector("Vetor Ordenado com 10% Desordenado no Começo", Vector::generateAscendingVectorWithRandomStart)
     };
 
     private static final TypeVector[] TYPES_VECTORS_SECOND_MASS_TEST = {
