@@ -11,17 +11,18 @@ public class IntegerData implements IDataProvider<Integer> {
 
     //ToDo Mudar depois
     private static final int[] SIZE_VECTORS_FIRST_MASS_TEST = {
-            1_000,
-            2_000,
-            3_000
+            10_000,
+            20_000,
+            30_000
     };
 
     private static final int[] SIZE_VECTORS_SECOND_MASS_TEST = {
-           1_000
+           10_000
     };
     private static final TypeVector[] TYPES_VECTORS_FIRST_MASS_TEST = {
             new TypeVector("Vetor Ordem Crescente", Vector::generateAscendingVector),
             new TypeVector("Vetor Ordem Descrecente", Vector::generateDescendingVector),
+            new TypeVector("Vetor Ordem Aleatória", Vector::generateRandomOrderVector),
             new TypeVector("Vetor Ordenado com 10% Desordenado no Final", Vector::generateAscendingVectorWithRandomEnd),
             new TypeVector("Vetor Ordenado com 10% Desordenado no Começo", Vector::generateAscendingVectorWithRandomStart)
     };

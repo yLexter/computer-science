@@ -6,10 +6,6 @@ import java.util.Queue;
 public class SplayTree<T extends Comparable<T>> extends BaseTree<T> {
     private SplayNode<T> root;
 
-    private int totalRotations;
-
-    private int totalDoubleRotation;
-
     private static class SplayNode<T> {
         T value;
         SplayNode<T> left, right;
@@ -34,16 +30,9 @@ public class SplayTree<T extends Comparable<T>> extends BaseTree<T> {
     }
 
     @Override
-    public boolean search(T value) {
-        root = splaySearch(root, value);
-        return root != null && root.value.equals(value);
-    }
-
-    @Override
     public void clear() {
         root = null;
-        totalRotations = 0;
-        totalDoubleRotation = 0;
+        clearRotations();
     }
 
     @Override
@@ -77,72 +66,61 @@ public class SplayTree<T extends Comparable<T>> extends BaseTree<T> {
     }
 
     @Override
-    public int getTotalRotations() {
-        return totalRotations;
-    }
+    public boolean search(T value) {
 
-    @Override
-    public int getTotalDoubleRotations() {
-        return totalDoubleRotation;
-    }
-
-    private SplayNode<T> splaySearch(SplayNode<T> node, T value) {
-        if (node == null || node.value.equals(value)) {
-            return node;
+        if (root == null) {
+            return false;
         }
 
-        int cmp = value.compareTo(node.value);
-        if (cmp < 0) {
-            if (node.left == null) {
-                return node;
-            }
+        SplayNode<T> currentNode = root;
+        SplayNode<T> prevNode = null;
 
-            int cmp2 = value.compareTo(node.left.value);
-            if (cmp2 < 0) {
-                node.left.left = splaySearch(node.left.left, value);
-                node = splayRightRotate(node);
-            } else if (cmp2 > 0) {
-                node.left.right = splaySearch(node.left.right, value);
-                if (node.left.right != null) {
-                    node.left = splayLeftRotate(node.left);
-                }
-            }
+        while (currentNode != null && !currentNode.value.equals(value)) {
 
-            return (node.left == null) ? node : splayRightRotate(node);
+            prevNode = currentNode;
+
+            if (value.compareTo(currentNode.value) < 0) {
+                currentNode = currentNode.left;
+            } else {
+                currentNode = currentNode.right;
+            }
+        }
+
+        if (currentNode == null) {
+            root = splay(root, prevNode, value);
+            return false;
         } else {
-            if (node.right == null) {
-                return node;
-            }
-
-            int cmp2 = value.compareTo(node.right.value);
-            if (cmp2 < 0) {
-                node.right.left = splaySearch(node.right.left, value);
-                if (node.right.left != null) {
-                    node.right = splayRightRotate(node.right);
-                }
-            } else if (cmp2 > 0) {
-                node.right.right = splaySearch(node.right.right, value);
-                node = splayLeftRotate(node);
-            }
-
-            return (node.right == null) ? node : splayLeftRotate(node);
+            root = splay(root, currentNode, value);
+            return true;
         }
     }
 
-    private SplayNode<T> splayLeftRotate(SplayNode<T> x) {
-        SplayNode<T> y = x.right;
-        x.right = y.left;
-        y.left = x;
-        totalRotations++;
-        return y;
-    }
+    private SplayNode<T> splay(SplayNode<T> root, SplayNode<T> targetNode, T value) {
+        if (targetNode == null) {
+            return root;
+        }
 
-    private SplayNode<T> splayRightRotate(SplayNode<T> y) {
-        SplayNode<T> x = y.left;
-        y.left = x.right;
-        x.right = y;
-        totalRotations++;
-        return x;
+        while (root != targetNode) {
+            if (value.compareTo(root.value) < 0) {
+                if (root.left != null && value.compareTo(root.left.value) < 0) {
+                    root = rotateRight(root);
+                }
+                if (root.left == null) {
+                    break;
+                }
+                root = rotateRight(root);
+            } else {
+                if (root.right != null && value.compareTo(root.right.value) > 0) {
+                    root = rotateLeft(root);
+                }
+                if (root.right == null) {
+                    break;
+                }
+                root = rotateLeft(root);
+            }
+        }
+
+        return root;
     }
 
     private int height(SplayNode<T> node) {
@@ -160,6 +138,8 @@ public class SplayTree<T extends Comparable<T>> extends BaseTree<T> {
         y.height = Math.max(height(y.left), height(y.right)) + 1;
         x.height = Math.max(height(x.left), height(x.right)) + 1;
 
+        totalRotations++;
+
         return x;
     }
 
@@ -173,11 +153,15 @@ public class SplayTree<T extends Comparable<T>> extends BaseTree<T> {
         x.height = Math.max(height(x.left), height(x.right)) + 1;
         y.height = Math.max(height(y.left), height(y.right)) + 1;
 
+        totalRotations++;
+
         return y;
     }
 
     private SplayNode<T> insert(SplayNode<T> node, T value) {
-        if (node == null) return new SplayNode<>(value);
+
+        if (node == null)
+            return new SplayNode<>(value);
 
         SplayNode<T> dummy = new SplayNode<>(null);
         dummy.left = dummy.right = null;
@@ -188,11 +172,14 @@ public class SplayTree<T extends Comparable<T>> extends BaseTree<T> {
         boolean isDoubleRotateRigth = false;
 
         while (true) {
+
             if (value.compareTo(node.value) < 0) {
+
                 if (node.left == null) {
                     node.left = new SplayNode<>(value);
                     break;
                 }
+
                 if (value.compareTo(node.left.value) < 0) {
 
                     if (isDoubleRotateRigth) {
@@ -206,13 +193,17 @@ public class SplayTree<T extends Comparable<T>> extends BaseTree<T> {
                     node = rotateRight(node);
                     if (node.left == null) break;
                 }
+
                 if (rightMin == dummy) rightMin = node;
                 node = node.left;
+
             } else if (value.compareTo(node.value) > 0) {
+
                 if (node.right == null) {
                     node.right = new SplayNode<>(value);
                     break;
                 }
+
                 if (value.compareTo(node.right.value) > 0) {
 
                     if (isDoubleRotateLeft) {
@@ -229,8 +220,9 @@ public class SplayTree<T extends Comparable<T>> extends BaseTree<T> {
                 if (leftMax == dummy) leftMax = node;
                 node = node.right;
             } else {
-                break; // Chaves iguais não são permitidas na árvore
+                break;
             }
+
         }
 
         leftMax.right = node.left;

@@ -1,7 +1,7 @@
 package useCases;
 
 import entities.BaseTree;
-import infrastructure.BenchmarkDTO;
+import infrastructure.BenchmarkTreeDTO;
 import interfaces.IDataProvider;
 import interfaces.ITreeOperationInsert;
 import interfaces.ITreeOperationSearch;
@@ -13,9 +13,16 @@ import java.util.Map;
 
 public class TreeOperations {
 
+    public static final int ONE_SECOND_IN_MILLISECONDS = 1000;
+
+    // ToDo Transformar o tempo sem segundos depois
+    private static long getElapsedTime(long startTime, long endTime) {
+        return (endTime - startTime);
+    }
+
     public record BenchmarkInsert<T extends Comparable<T>>() implements ITreeOperationInsert<T> {
         @Override
-        public BenchmarkDTO run(BaseTree<T> tree, List<T> data) {
+        public BenchmarkTreeDTO run(BaseTree<T> tree, List<T> data) {
             long startTime = System.currentTimeMillis();
 
             for (T element : data) {
@@ -23,7 +30,7 @@ public class TreeOperations {
             }
 
             long endTime = System.currentTimeMillis();
-            long elapsedTime = (endTime - startTime) / 1000;
+            long elapsedTime = getElapsedTime(startTime, endTime);
 
             System.out.printf(
                     "Inserção - %d elementos  - Tempo: %.5f\n",
@@ -31,7 +38,7 @@ public class TreeOperations {
                     (float) elapsedTime
             );
 
-            return new BenchmarkDTO(
+            return new BenchmarkTreeDTO(
                     elapsedTime,
                     tree.getName(),
                     data.size(),
@@ -50,9 +57,9 @@ public class TreeOperations {
 
     public record BenchmarkSearch<T extends Comparable<T>>() implements ITreeOperationSearch<T> {
         @Override
-        public Map<String, List<BenchmarkDTO>> run(BaseTree<T> tree, IDataProvider<T> benchmark, List<T> vectorTree) {
+        public Map<String, List<BenchmarkTreeDTO>> run(BaseTree<T> tree, IDataProvider<T> benchmark, List<T> vectorTree) {
             Map<String, List<List<T>>> dataSearch = benchmark.getMassTestForSearch();
-            Map<String, List<BenchmarkDTO>> benchmarskSearch = new LinkedHashMap<>();
+            Map<String, List<BenchmarkTreeDTO>> benchmarskSearch = new LinkedHashMap<>();
 
             for (Map.Entry<String, List<List<T>>> entry : dataSearch.entrySet()) {
                   String typeVectorName = entry.getKey();
@@ -68,7 +75,7 @@ public class TreeOperations {
                      }
 
                      long endTime = System.currentTimeMillis();
-                     long elapsedTime = (endTime - startTime) / 1000;
+                     long elapsedTime = getElapsedTime(startTime, endTime);
 
                       System.out.printf(
                               "Busca - %d elementos na árvore - Tempo: %.5f - Tipo: %s (%d elementos para busca)",
@@ -79,7 +86,7 @@ public class TreeOperations {
                       );
 
 
-                      BenchmarkDTO benchmarkDTO = new BenchmarkDTO(
+                      BenchmarkTreeDTO benchmarkTreeDTO = new BenchmarkTreeDTO(
                              elapsedTime,
                              tree.getName(),
                              vectorTree.size(),
@@ -93,7 +100,7 @@ public class TreeOperations {
                          benchmarskSearch.put(typeVectorName, new ArrayList<>());
                      }
 
-                     benchmarskSearch.get(typeVectorName).add(benchmarkDTO);
+                     benchmarskSearch.get(typeVectorName).add(benchmarkTreeDTO);
                 }
 
                 System.out.println();

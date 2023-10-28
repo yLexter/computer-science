@@ -93,4 +93,28 @@ class DoublyLinkedListTest {
         assertNull(list.getRoot());
         assertNull(list.getTail());
     }
+
+    @Test
+    public void testeRemove() {
+        list.insertAtBeginning(1);
+        list.insertAtBeginning(2);
+        list.insertAtEnd(3);
+        list.remove(2);
+        assertFalse(list.search(2));
+        list.remove(3);
+        assertFalse(list.search(3));
+    }
+
+    @Test
+    public void testeInsert() {
+        list.insertAtBeginning(1);
+        list.insertAtBeginning(2);
+        list.insert(3, 1);
+        assertEquals(3, list.root.next.element);
+        list.insert(4, 0);
+        assertEquals(4, list.root.element);
+        list.insert(5, 10);
+        assertEquals(5, list.cauda.element);
+    }
+
 }

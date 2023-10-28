@@ -19,6 +19,7 @@ public class BinarySearchTree<T extends Comparable<T>> extends BaseTree<T> {
         } else {
             Node current = root;
             Node parent;
+
             while (true) {
                 parent = current;
                 if (valor.compareTo(current.value) < 0) {
@@ -35,7 +36,9 @@ public class BinarySearchTree<T extends Comparable<T>> extends BaseTree<T> {
                     }
                 }
             }
+
         }
+
     }
     @Override
     public boolean search(T valor) {
@@ -51,6 +54,7 @@ public class BinarySearchTree<T extends Comparable<T>> extends BaseTree<T> {
                 current = current.right;
             }
         }
+
         return false;
     }
     @Override
@@ -83,16 +87,6 @@ public class BinarySearchTree<T extends Comparable<T>> extends BaseTree<T> {
         }
 
         return height;
-    }
-
-    @Override
-    public int getTotalRotations() {
-        return 0;
-    }
-
-    @Override
-    public int getTotalDoubleRotations() {
-        return 0;
     }
 
     private class Node {

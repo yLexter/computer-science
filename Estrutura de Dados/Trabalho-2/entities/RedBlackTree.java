@@ -9,10 +9,6 @@ public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
     private static final boolean RED = true;
     private static final boolean BLACK = false;
 
-    private int totalRotations;
-
-    private int totalDoubleRotation;
-
     private Node root;
 
     public RedBlackTree() {
@@ -47,8 +43,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
                 parent.left = newNode;
             } else {
                 parent.right = newNode;
-            }
-            insertFixup(newNode);
+            }insertFixup(newNode);
         }
 
         root.color = BLACK;
@@ -74,8 +69,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
     @Override
     public void clear() {
         root = null;
-        totalRotations = 0;
-        totalDoubleRotation = 0;
+        clearRotations();
     }
 
     @Override
@@ -105,16 +99,6 @@ public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
         }
 
         return height;
-    }
-
-    @Override
-    public int getTotalRotations() {
-        return totalRotations;
-    }
-
-    @Override
-    public int getTotalDoubleRotations() {
-        return totalDoubleRotation;
     }
 
     private void insertFixup(Node node) {

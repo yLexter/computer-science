@@ -1,6 +1,6 @@
 package AbstractData;
 
-public class DoublyLinkedList<T>  {
+public class DoublyLinkedList<T> {
 
     public CustomNode<T> root;
 
@@ -34,7 +34,6 @@ public class DoublyLinkedList<T>  {
 
     }
 
-    
     public void insertAtBeginning(T element) {
 
         CustomNode<T> node = new CustomNode<T>(element);
@@ -63,7 +62,7 @@ public class DoublyLinkedList<T>  {
         }
 
     }
-    
+
     public void removeFromEnd() {
 
         if (root.next == null) {
@@ -94,6 +93,65 @@ public class DoublyLinkedList<T>  {
 
     public CustomNode<T> getTail() {
         return tail;
+    }
+
+    public void remove(T value) {
+        Node current = root, aux = null;
+
+        if (root == null)
+            return;
+
+        if (root.element == value) {
+            if (root.next != null) {
+                root = root.next;
+                root.previous = null;
+            } else {
+                root = null;
+                tail = null;
+            }
+            return;
+        }
+
+        while (current != null) {
+            if (current.element == value) {
+                if (current.equals(tail)) {
+                    tail = tail.previous;
+                    tail.next = null;
+                }
+                aux = current.previous;
+                aux.next = current.next;
+            }
+            current = current.next;
+        }
+
+    }
+
+    public void insert(int value, int index) {
+        CustomNode<T> current = root, node = new CustomNode<>(value), aux = null;
+        int count = 0;
+
+        if (index == 0) {
+            insertAtBeginning(value);
+            return;
+        }
+
+        while (current != null && count < index) {
+            current = current.next;
+            count++;
+        }
+
+        if (current == null && index >= count) {
+            insertAtEnd(value);
+            return;
+        }
+
+        current = current.previous;
+
+        aux = current.next;
+        current.next = node;
+        node.previous = current;
+        node.next = aux;
+        aux.previous = node;
     }
 
 }

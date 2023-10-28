@@ -6,8 +6,7 @@ import java.util.Stack;
 
 public class AVLTree<T extends Comparable<T>> extends BaseTree<T> {
     private Node root;
-    private int totalRotations;
-    private int totalDoubleRotation;
+
     private class Node {
         T value;
         Node left, right;
@@ -53,8 +52,7 @@ public class AVLTree<T extends Comparable<T>> extends BaseTree<T> {
     @Override
     public void clear() {
         root = null;
-        totalRotations = 0;
-        totalDoubleRotation = 0;
+        clearRotations();
     }
 
     @Override
@@ -83,16 +81,6 @@ public class AVLTree<T extends Comparable<T>> extends BaseTree<T> {
         }
 
         return height;
-    }
-
-    @Override
-    public int getTotalRotations() {
-        return totalRotations;
-    }
-
-    @Override
-    public int getTotalDoubleRotations() {
-        return totalDoubleRotation;
     }
 
     private int height(Node node) {
