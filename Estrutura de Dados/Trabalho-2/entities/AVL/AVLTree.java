@@ -1,24 +1,13 @@
-package entities;
+package entities.AVL;
+
+import entities.BaseTree;
 
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
 public class AVLTree<T extends Comparable<T>> extends BaseTree<T> {
-    private Node root;
-
-    private class Node {
-        T value;
-        Node left, right;
-        int height;
-
-        Node(T value) {
-            this.value = value;
-            this.height = 0;
-            left = null;
-            right = null;
-        }
-    }
+    private Node<T> root;
 
     public AVLTree() {
         super("Árvore AVL");
@@ -34,7 +23,7 @@ public class AVLTree<T extends Comparable<T>> extends BaseTree<T> {
 
     @Override
     public boolean search(T value) {
-        Node current = root;
+        Node<T> current = root;
 
         while (current != null && !current.value.equals(value)) {
 
@@ -61,7 +50,7 @@ public class AVLTree<T extends Comparable<T>> extends BaseTree<T> {
             return -1;
         }
 
-        Queue<Node> queue = new LinkedList<>();
+        Queue<Node<T>> queue = new LinkedList<>();
         queue.add(root);
         int height = -1;
 
@@ -70,7 +59,7 @@ public class AVLTree<T extends Comparable<T>> extends BaseTree<T> {
             height++;
 
             for (int i = 0; i < levelSize; i++) {
-                Node node = queue.poll();
+                Node<T> node = queue.poll();
                 if (node.left != null) {
                     queue.add(node.left);
                 }
@@ -83,20 +72,20 @@ public class AVLTree<T extends Comparable<T>> extends BaseTree<T> {
         return height;
     }
 
-    private int height(Node node) {
+    private int height(Node<T> node) {
         if (node == null)
             return 0;
         return node.height;
     }
 
-    private int getBalance(Node node) {
+    private int getBalance(Node<T> node) {
         if (node == null) return 0;
         return height(node.left) - height(node.right);
     }
 
-    private Node rotateRight(Node y) {
-        Node x = y.left;
-        Node T2 = x.right;
+    private Node<T> rotateRight(Node<T> y) {
+        Node<T> x = y.left;
+        Node<T> T2 = x.right;
 
         x.right = y;
         y.left = T2;
@@ -109,9 +98,9 @@ public class AVLTree<T extends Comparable<T>> extends BaseTree<T> {
         return x;
     }
 
-    private Node rotateLeft(Node x) {
-        Node y = x.right;
-        Node T2 = y.left;
+    private Node<T> rotateLeft(Node<T> x) {
+        Node<T> y = x.right;
+        Node<T> T2 = y.left;
 
         y.left = x;
         x.right = T2;
@@ -124,25 +113,25 @@ public class AVLTree<T extends Comparable<T>> extends BaseTree<T> {
         return y;
     }
 
-    private Node insert(Node node, T value) {
-        if (node == null) return new Node(value);
+    private Node<T> insert(Node<T> node, T value) {
+        if (node == null) return new Node<T>(value);
 
-        Stack<Node> stack = new Stack<>();
+        Stack<Node<T>> stack = new Stack<>();
         stack.push(node);
 
         while (true) {
-            Node current = stack.pop();
+            Node<T> current = stack.pop();
 
             if (value.compareTo(current.value) < 0) {
                 if (current.left == null) {
-                    current.left = new Node(value);
+                    current.left = new Node<T>(value);
                     break;
                 } else {
                     stack.push(current.left);
                 }
             } else if (value.compareTo(current.value) > 0) {
                 if (current.right == null) {
-                    current.right = new Node(value);
+                    current.right = new Node<T>(value);
                     break;
                 } else {
                     stack.push(current.right);
@@ -153,7 +142,7 @@ public class AVLTree<T extends Comparable<T>> extends BaseTree<T> {
         }
 
         while (!stack.isEmpty()) {
-            Node current = stack.pop();
+            Node<T> current = stack.pop();
             current.height = 1 + Math.max(height(current.left), height(current.right));
 
             int balance = getBalance(current);
@@ -187,7 +176,7 @@ public class AVLTree<T extends Comparable<T>> extends BaseTree<T> {
             if (stack.isEmpty()) {
                 node = current;
             } else {
-                Node parent = stack.peek();
+                Node<T> parent = stack.peek();
                 if (value.compareTo(parent.value) < 0) {
                     parent.left = current;
                 } else {

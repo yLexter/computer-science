@@ -1,13 +1,16 @@
+import entities.AVL.AVLTree;
+import entities.BinarySearchTree.BinarySearchTree;
+import entities.RedBlackTree.RedBlackTree;
+import entities.SplayTree.SplayTree;
 import infrastructure.integerData.IntegerData;
 import entities.*;
 import useCases.BenchmarkTree;
 
 import java.util.List;
 
-
-// ToDo verificar os ToDo
 public class Main {
     public static void main(String[] args) {
+
 
         List<BaseTree<Integer>> treeList = List.of(
                 new BinarySearchTree<>(),
@@ -24,6 +27,7 @@ public class Main {
         );
 
         benchmarkTree.run();
+
     }
 
 

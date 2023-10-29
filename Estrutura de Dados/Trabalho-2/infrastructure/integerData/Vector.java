@@ -3,7 +3,6 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class Vector {
 
@@ -35,7 +34,7 @@ public class Vector {
             int randomPosition = random.nextInt(percentage, size);
 
             temp = list1.get(i);
-            list1.set(i, list1.get(randomPosition));
+            list1.set(i, random.nextInt(size));
             list1.set(randomPosition, temp);
 
         }
@@ -49,9 +48,9 @@ public class Vector {
         int percentageStart = size - getPercentage(size), temp;
 
         for (int i = 0; i < percentageStart; i++) {
-            int randomPosition = random.nextInt(percentageStart, size);
+            int randomPosition = random.nextInt(0, percentageStart);
             temp = list1.get(i);
-            list1.set(i, list1.get(randomPosition));
+            list1.set(i, random.nextInt(size));
             list1.set(randomPosition, temp);
         }
 

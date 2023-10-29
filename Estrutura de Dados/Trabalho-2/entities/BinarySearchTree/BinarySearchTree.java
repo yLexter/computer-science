@@ -1,10 +1,11 @@
-package entities;
+package entities.BinarySearchTree;
+
+import entities.BaseTree;
 
 import java.util.*;
 
 public class BinarySearchTree<T extends Comparable<T>> extends BaseTree<T> {
-    private Node root;
-
+    private Node<T> root;
     public BinarySearchTree() {
         super("Árvore Binária de Busca");
         root = null;
@@ -12,13 +13,13 @@ public class BinarySearchTree<T extends Comparable<T>> extends BaseTree<T> {
 
     @Override
     public void insert(T valor) {
-        Node newNode = new Node(valor);
+        Node<T> newNode = new Node<>(valor);
 
         if (root == null) {
             root = newNode;
         } else {
-            Node current = root;
-            Node parent;
+            Node<T> current = root;
+            Node<T> parent;
 
             while (true) {
                 parent = current;
@@ -42,7 +43,7 @@ public class BinarySearchTree<T extends Comparable<T>> extends BaseTree<T> {
     }
     @Override
     public boolean search(T valor) {
-        Node current = root;
+        Node<T> current = root;
 
         while (current != null) {
             int cmp = valor.compareTo(current.value);
@@ -67,7 +68,7 @@ public class BinarySearchTree<T extends Comparable<T>> extends BaseTree<T> {
             return -1;
         }
 
-        Queue<Node> queue = new LinkedList<>();
+        Queue<Node<T>> queue = new LinkedList<>();
         queue.add(root);
         int height = -1;
 
@@ -76,7 +77,7 @@ public class BinarySearchTree<T extends Comparable<T>> extends BaseTree<T> {
             height++;
 
             for (int i = 0; i < levelSize; i++) {
-                Node node = queue.poll();
+                Node<T> node = queue.poll();
                 if (node.left != null) {
                     queue.add(node.left);
                 }
@@ -87,19 +88,6 @@ public class BinarySearchTree<T extends Comparable<T>> extends BaseTree<T> {
         }
 
         return height;
-    }
-
-    private class Node {
-        T value;
-        Node left;
-        Node right;
-        Node parent;
-        Node(T value) {
-            this.value = value;
-            left = null;
-            right = null;
-            parent = null;
-        }
     }
 
 }

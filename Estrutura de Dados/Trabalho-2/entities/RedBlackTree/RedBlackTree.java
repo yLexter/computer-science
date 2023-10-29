@@ -1,7 +1,7 @@
-package entities;
+package entities.RedBlackTree;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import entities.BaseTree;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -9,7 +9,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
     private static final boolean RED = true;
     private static final boolean BLACK = false;
 
-    private Node root;
+    private Node<T> root;
 
     public RedBlackTree() {
         super("Árvore Preto e Vermelho");
@@ -18,13 +18,13 @@ public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
 
     @Override
     public void insert(T valor) {
-        Node newNode = new Node(valor, RED);
+        Node<T> nodeInsert = new Node<T>(valor, RED);
 
         if (root == null) {
-            root = newNode;
+            root = nodeInsert;
         } else {
-            Node parent = null;
-            Node current = root;
+            Node<T> parent = null;
+            Node<T> current = root;
 
             while (current != null) {
                 parent = current;
@@ -38,12 +38,12 @@ public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
                 }
             }
 
-            newNode.parent = parent;
+            nodeInsert.parent = parent;
             if (valor.compareTo(parent.value) < 0) {
-                parent.left = newNode;
+                parent.left = nodeInsert;
             } else {
-                parent.right = newNode;
-            }insertFixup(newNode);
+                parent.right = nodeInsert;
+            }insertFixup(nodeInsert);
         }
 
         root.color = BLACK;
@@ -51,7 +51,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
 
     @Override
     public boolean search(T valor) {
-        Node current = root;
+        Node<T> current = root;
 
         while (current != null) {
             int cmp = valor.compareTo(current.value);
@@ -79,7 +79,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
             return -1;
         }
 
-        Queue<Node> queue = new LinkedList<>();
+        Queue<Node<T>> queue = new LinkedList<>();
         queue.add(root);
         int height = -1;
 
@@ -88,7 +88,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
             height++;
 
             for (int i = 0; i < levelSize; i++) {
-                Node node = queue.poll();
+                Node<T> node = queue.poll();
                 if (node.left != null) {
                     queue.add(node.left);
                 }
@@ -101,7 +101,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
         return height;
     }
 
-    private void insertFixup(Node node) {
+    private void insertFixup(Node<T> node) {
 
         boolean isDoubleRotateLeft = false;
         boolean isDoubleRotateRigth = false;
@@ -109,7 +109,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
         while (node.parent != null && node.parent.color == RED) {
 
             if (node.parent == node.parent.parent.left) {
-                Node uncle = node.parent.parent.right;
+                Node<T> uncle = node.parent.parent.right;
 
                 if (uncle != null && uncle.color == RED) {
                     node.parent.color = BLACK;
@@ -146,7 +146,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
                     rotateRight(node.parent.parent);
                 }
             } else {
-                Node uncle = node.parent.parent.left;
+                Node<T> uncle = node.parent.parent.left;
                 if (uncle != null && uncle.color == RED) {
                     node.parent.color = BLACK;
                     uncle.color = BLACK;
@@ -184,9 +184,10 @@ public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
         }
     }
 
-    private void rotateLeft(Node node) {
-        Node rightChild = node.right;
+    private void rotateLeft(Node<T> node) {
+        Node<T> rightChild = node.right;
         node.right = rightChild.left;
+
         if (rightChild.left != null) {
             rightChild.left.parent = node;
         }
@@ -203,8 +204,8 @@ public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
         totalRotations++;
     }
 
-    private void rotateRight(Node node) {
-        Node leftChild = node.left;
+    private void rotateRight(Node<T> node) {
+        Node<T> leftChild = node.left;
         node.left = leftChild.right;
         if (leftChild.right != null) {
             leftChild.right.parent = node;
@@ -222,21 +223,7 @@ public class RedBlackTree<T extends Comparable<T>> extends BaseTree<T> {
         totalRotations++;
     }
 
-    private class Node {
-        T value;
-        Node left;
-        Node right;
-        Node parent;
-        boolean color;
 
-        Node(T value, boolean color) {
-            this.value = value;
-            this.color = color;
-            left = null;
-            right = null;
-            parent = null;
-        }
-    }
 
 }
 
