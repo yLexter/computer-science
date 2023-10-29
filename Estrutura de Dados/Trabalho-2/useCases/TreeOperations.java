@@ -17,7 +17,7 @@ public class TreeOperations {
 
     // ToDo Transformar o tempo sem segundos depois
     private static long getElapsedTime(long startTime, long endTime) {
-        return (endTime - startTime);
+        return (endTime - startTime) / ONE_SECOND_IN_MILLISECONDS;
     }
 
     public record BenchmarkInsert<T extends Comparable<T>>() implements ITreeOperationInsert<T> {

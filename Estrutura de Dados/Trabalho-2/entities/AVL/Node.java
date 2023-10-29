@@ -1,13 +1,14 @@
 package entities.AVL;
 
-public class Node<T> {
-    public T value;
-    public Node<T> left, right;
+public class Node<T extends Comparable<T>> {
+    public T data;
+    public Node<T> left;
+    public Node<T> right;
     public int height;
-    public Node(T value) {
-        this.value = value;
-        this.height = 0;
-        left = null;
-        right = null;
+    public int balanceFactor;
+    public Node(T data) {
+        this.data = data;
     }
+
+
 }

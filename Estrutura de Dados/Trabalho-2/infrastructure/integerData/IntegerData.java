@@ -11,13 +11,13 @@ public class IntegerData implements IDataProvider<Integer> {
 
     //ToDo Mudar depois
     private static final int[] SIZE_VECTORS_FIRST_MASS_TEST = {
-            10_000,
-            20_000,
-            30_000
+            1_000_000,
+            2_000_000,
+            3_000_000
     };
 
     private static final int[] SIZE_VECTORS_SECOND_MASS_TEST = {
-           10_000
+           1_000_000
     };
     private static final TypeVector[] TYPES_VECTORS_FIRST_MASS_TEST = {
             new TypeVector("Vetor Ordem Crescente", Vector::generateAscendingVector),
