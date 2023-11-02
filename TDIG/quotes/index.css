@@ -1,0 +1,169 @@
+html, body {
+    height: 100vh;
+    width: 100vw;
+}
+  
+body {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+:root {
+  --radius: 4px; 
+  --height-button: 40px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#text {
+  display: flex;
+  gap: 0 8px;
+  color: black;
+  margin-bottom: 20px;
+  font-family: Meticula, Sans-serif, Typeface;
+  font-size: 1.2rem;  
+  font-weight: 500
+}
+
+#title {
+  text-align: center;
+}
+
+#quote-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--radius);
+  width: 40vw;
+  height: 20vw;
+  background-color: white;
+  min-width: 500px;
+  min-height: 300px;
+}
+
+.box {
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 3fr;
+}
+
+.buttons { 
+  display: flex;
+  justify-content: space-between;
+}
+
+.quote {
+  width: 100%
+}
+
+#new-quote {
+  width: 100px;
+  height: var(--height-button);
+  color: white;
+}
+
+#tweet-button {
+  height: var(--height-button);
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+i {
+  width: 20px;
+  height: 20px;
+  margin-left: 4px;
+}
+
+.author {
+  font-style: italic;
+}
+
+.button {
+  border-radius: var(--radius);
+  border: none;
+  color: white;
+}
+
+.retry-button {
+  align-self: center;
+  background-color: #0074d9; 
+  color: #fff; 
+  padding: 5px 10px; 
+  font-size: 16px; 
+  cursor: pointer; */
+  transition: background-color 0.3s ease;
+}
+
+.retry-button:hover {
+    background-color: #0056b3;
+}
+
+.retry-button:active {
+  background-color: #003b75; 
+}
+
+.button:hover {
+  opacity: 0.92;
+  cursor: pointer;
+}
+
+.quote-author {
+  text-align: right;
+}
+
+.decoration {
+  margin-right: 4px;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.loading-spinner {
+  border: 6px solid rgba(0, 0, 0, 0.3);
+  border-top: 6px solid #0074d9;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+.error-container {
+  max-width: 250px;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  background-color: #ffcccc;
+  border: 1px solid #ff0000;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+}
+
+.error-message {
+  color: #ff0000;
+  font-weight: bold;
+  text-align: justify;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+  
