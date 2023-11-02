@@ -13,11 +13,8 @@ import java.util.Map;
 
 public class TreeOperations {
 
-    public static final int ONE_SECOND_IN_MILLISECONDS = 1000;
-
-    // ToDo Transformar o tempo sem segundos depois
     private static long getElapsedTime(long startTime, long endTime) {
-        return (endTime - startTime) / ONE_SECOND_IN_MILLISECONDS;
+        return (endTime - startTime);
     }
 
     public record BenchmarkInsert<T extends Comparable<T>>() implements ITreeOperationInsert<T> {
