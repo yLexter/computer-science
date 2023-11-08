@@ -1,8 +1,8 @@
-#Laboratório de Estrutura de Dados
+# Laboratório de Estrutura de Dados
 
 Este é um repositório desenvolvido como parte da disciplina de Laboratório de Estrutura de Dados. O objetivo deste repositório é explorar conceitos e implementações relacionados a algoritmos, notação de complexidades, pilhas, filas, listas encadeadas, árvores binárias e tabelas hash.
 
-#Tópicos Abordados
+# Tópicos Abordados
 
 - Algoritmos: Implementações de algoritmos essenciais para ordenção de dados, tanto os lineares como os de divisão e conquista
 
