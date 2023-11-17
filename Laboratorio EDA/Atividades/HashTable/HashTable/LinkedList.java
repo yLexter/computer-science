@@ -1,42 +1,72 @@
 package AbstractData.HashTable.HashTable;
 
-public class LinkedList<T> {
+/**
+ * Implementação de uma lista duplamente encadeada em Java.
+ * A lista mantém uma referência para o início (root) e o final (tail).
+ * Cada nó na lista contém um elemento genérico.
+ *
+ * @param <K,V> O tipo dos elementos armazenados na lista.
+ */
 
-    public Node<T> root;
+public class LinkedList<K,V> {
 
-    public Node<T> tail;
+    /**
+     * Nó inicial (cabeça) da lista encadeada.
+     */
+    public Node<K,V> root;
 
-    public static class Node<T> {
+    /**
+     * Nó final (cauda) da lista encadeada.
+     */
+    public Node<K,V> tail;
 
-        private Node<T> previous;
+    /**
+     * Classe interna que representa um nó na lista encadeada.
+     *
+     * @param <K> é a key
+     * @param <V> é o valor
+     */
+    public static class Node<K,V> {
 
-        private Node<T> next;
+        /**
+         * Referência para o nó anterior.
+         */
+        private Node<K,V> previous;
 
-        private T element;
+        /**
+         * Referência para o próximo nó.
+         */
+        private Node<K,V> next;
 
-        public Node(T element) {
-            this.element = element;
+        /**
+         * Elemento armazenado no nó.
+         */
+        private V value;
+
+        private K key;
+
+        /**
+         * Construtor que cria um nó com o elemento fornecido.
+         *
+         * @param value O elemento a ser armazenado no nó.
+         */
+        public Node(K key, V value) {
+            this.key = key;
+            this.value = value;
             this.next = null;
             this.previous = null;
         }
 
-        public Node<T> getPrevious() {
-            return previous;
-        }
-
-        public Node<T> getNext() {
-            return next;
-        }
-
-        public T getElement() {
-            return element;
-        }
-
     }
 
-    public void insert(T element) {
+    /**
+     * Insere um novo elemento no final da lista encadeada.
+     *
+     * @param value O elemento a ser inserido.
+     */
+    public void insert(K key, V value) {
 
-        Node<T> node = new Node<T>(element);
+        Node<K,V> node = new Node<>(key,value);
 
         if (root == null) {
             root = node;
@@ -48,24 +78,42 @@ public class LinkedList<T> {
         }
 
     }
-    public boolean search(T data) {
-        Node<T> current = root;
-        
-        while(current != null) {
-            
-            if (current.element.equals(data)) 
+
+    /**
+     * Verifica se um determinado elemento está presente na lista encadeada.
+     *
+     * @param key O elemento a ser pesquisado.
+     * @return true se o elemento estiver presente, false caso contrário.
+     */
+    public boolean search(K key) {
+        Node<K,V> current = root;
+
+        while (current != null) {
+
+            if (current.key.equals(key))
                 return true;
-                
+
             current = current.next;
         }
 
         return false;
     }
 
-    public Node<T> getRoot() {
+    /**
+     * Obtém o nó inicial (cabeça) da lista encadeada.
+     *
+     * @return O nó inicial da lista encadeada.
+     */
+    public Node<K,V> getRoot() {
         return root;
     }
-    public Node<T> getTail() {
+
+    /**
+     * Obtém o nó final (cauda) da lista encadeada.
+     *
+     * @return O nó final da lista encadeada.
+     */
+    public Node<K,V> getTail() {
         return tail;
     }
 
