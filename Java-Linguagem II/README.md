@@ -24,10 +24,6 @@ Este repositório abrange os seguintes tópicos de Programação Orientada a Obj
 
 - **Tratamento de Exceções:** Exploramos o tratamento de exceções para lidar com erros de forma estruturada.
 
-## Resoluções de Exercícios
-
-Este repositório contém resoluções de exercícios relacionados aos tópicos de POO mencionados acima. Você encontrará exemplos de código, explicações e demonstrações práticas para cada tópico.
-
 ## Como Usar
 
 Este repositório contém uma série de diretórios, cada um relacionado a um tópico específico de POO. Dentro de cada diretório, você encontrará códigos de exemplo e resoluções de exercícios relacionados a esse tópico.
