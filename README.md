@@ -5,7 +5,7 @@ Este repositório abrange uma variedade de exercícios das seguintes disciplinas
 1. **Algoritmos (Python)**
 - Estruturas de Controle Condicional (if statements)
 - Laços de Repetição (while loops)
-- Funções em Python
+- Funções
 - Manipulação de Variáveis
 - Boas Práticas de Programação
 - Listas e Manipulação de Listas
@@ -14,13 +14,13 @@ Este repositório abrange uma variedade de exercícios das seguintes disciplinas
 2. **Linguagem I (C)**
 - Estruturas de Controle Condicional (if statements)
 - Laços de Repetição (while loops, for loops)
-- Funções em C
+- Funções 
 - Manipulação de Variáveis
-- Boas Práticas de Programação em C
-- Listas e Manipulação de Listas em C
-- Ponteiros em C
-- Structs em C
-- Manipulação de Arquivos em C
+- Boas Práticas de Programação 
+- Listas e Manipulação de Listas 
+- Ponteiros 
+- Structs 
+- Manipulação de Arquivos 
 
 3. **Linguagem II (Java)**
 - **Classes e Objetos:** Exploramos a criação de classes e a instância de objetos para modelar entidades do mundo real.
@@ -59,8 +59,6 @@ Este repositório abrange uma variedade de exercícios das seguintes disciplinas
 
 7. **Projetos**
 
-# Projetos para Prática em Python
-
 ## Projeto de Quitanda
 Este projeto simula um sistema de gestão para uma quitanda. Oferece funcionalidades para gerenciar inventário, adicionar/remover itens do estoque, calcular preços, registrar vendas e controlar finanças. Ótimo para praticar programação e gestão de dados em Python.
 
@@ -68,7 +66,7 @@ Este projeto simula um sistema de gestão para uma quitanda. Oferece funcionalid
 A aplicação de locadora gerencia um catálogo de filmes e séries. Permite pesquisar títulos, visualizar detalhes, fazer reservas, acompanhar datas de devolução e mais. Explore conceitos de programação e estruturas de dados em um contexto prático.
 
 ## Projeto da Netflix
-Uma recriação simplificada de um serviço de streaming, com recursos de registro/login, exibição de catálogo, seleção de conteúdo, criação de perfis e histórico de visualização. Ideal para praticar desenvolvimento web e criação de interfaces interativas.
+Uma recriação simplificada de um serviço de streaming, com recursos de registro/login, exibição de catálogo, seleção de conteúdo, criação de perfis e histórico de visualização.
 
 ## Projeto de Sistema Acadêmico
 A aplicação gerencia informações acadêmicas, incluindo registros de alunos, professores, disciplinas, notas e horários de aula. Explore o desenvolvimento de sistemas complexos e a interação com bancos de dados.
