@@ -2,6 +2,9 @@
 
 Esta disciplina oferece uma imersão completa em tecnologias fundamentais para o desenvolvimento de interfaces gráficas de alta qualidade e experiências de usuário atraentes. Os tópicos abordados incluem:
 
+## Professor
+- **Professor:** Allan Vilar
+
 ## HTML
 
 - **HTML (Hypertext Markup Language):** A linguagem de marcação que define a estrutura e o conteúdo de uma página web. Aprenda a criar páginas web com elementos HTML, criar links, formulários e integrar conteúdo multimídia.

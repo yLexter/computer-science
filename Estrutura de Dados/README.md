@@ -2,6 +2,9 @@
 
 Este repositório é dedicado à disciplina de Estrutura de Dados, onde exploramos conceitos avançados de organização e manipulação de dados. O repositório abrange diversos tópicos, incluindo:
 
+## Professor
+- **Professor:** Heron
+
 ## Trabalho de Benchmarks
 
 - **Benchmarks de Algoritmos de Ordenação:** Este trabalho envolve a análise de desempenho de diferentes algoritmos de ordenação, como QuickSort, MergeSort, Heap Sort, Counting Sort e outros. Você encontrará códigos e resultados de benchmarks para avaliar a eficiência desses algoritmos.
@@ -25,5 +28,3 @@ Este repositório é dedicado à disciplina de Estrutura de Dados, onde exploram
 ## Como Usar
 
 Este repositório contém uma série de diretórios, cada um relacionado a um tópico específico. Dentro de cada diretório, você encontrará códigos de exemplo, resoluções de exercícios e resultados de benchmarks para os tópicos correspondentes.
-
-Sinta-se à vontade para explorar os diretórios de acordo com os tópicos que deseja estudar. Cada pasta pode conter arquivos de código, documentos e dados de benchmarks.

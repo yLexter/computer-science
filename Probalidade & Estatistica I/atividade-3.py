@@ -1,5 +1,5 @@
 '''
-   Feito junto com Lisa Ashley 
+   Feito junto com Lisa Ashley (https://github.com/lisacsiqueira)
 '''
 
 import math

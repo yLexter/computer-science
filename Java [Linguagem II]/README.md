@@ -2,6 +2,9 @@
 
 Este repositório é dedicado à disciplina de Linguagem de Programação II, onde exploramos os princípios e tópicos da Programação Orientada a Objetos (POO). Abaixo, são listados alguns dos tópicos cobertos e as respectivas resoluções de exercícios:
 
+## Professor
+- **Professor:** Welligton
+
 ## Tópicos de POO Abordados
 
 Este repositório abrange os seguintes tópicos de Programação Orientada a Objetos:

@@ -49,28 +49,12 @@ Este repositório abrange uma variedade de exercícios das seguintes disciplinas
 - **Redux:** Uma biblioteca para gerenciamento de estado em aplicativos JavaScript. Saiba como centralizar o estado do aplicativo e gerenciar ações e redutores para criar aplicativos previsíveis e escaláveis.
 - **React Native:** Uma estrutura para desenvolvimento de aplicativos móveis multiplataforma usando JavaScript e React. Explore a criação de aplicativos nativos para iOS e Android com uma base de código compartilhada.
 
-# 6. **Estatística**
+# 6. **Estatística I**
 - Cálculo da Média
 - Cálculo da Mediana
 - Cálculo da Moda
 - Distribuição Binomial
 - Distribuição de Poisson
 - Cálculos de Probabilidades
-
-# 7. **Projetos**
-
-## Projeto de Quitanda
-Este projeto simula um sistema de gestão para uma quitanda. Oferece funcionalidades para gerenciar inventário, adicionar/remover itens do estoque, calcular preços, registrar vendas e controlar finanças. Ótimo para praticar programação e gestão de dados em Python.
-
-## Projeto de Locadora
-A aplicação de locadora gerencia um catálogo de filmes e séries. Permite pesquisar títulos, visualizar detalhes, fazer reservas, acompanhar datas de devolução e mais. Explore conceitos de programação e estruturas de dados em um contexto prático.
-
-## Projeto da Netflix
-Uma recriação simplificada de um serviço de streaming, com recursos de registro/login, exibição de catálogo, seleção de conteúdo, criação de perfis e histórico de visualização. Ideal para praticar desenvolvimento web e criação de interfaces interativas.
-
-## Projeto de Sistema Acadêmico
-A aplicação gerencia informações acadêmicas, incluindo registros de alunos, professores, disciplinas, notas e horários de aula. Explore o desenvolvimento de sistemas complexos e a interação com bancos de dados.
-
-#
 
 Cada diretório no repositório corresponde a uma disciplina específica e contém uma coleção de exercícios, problemas práticos e projetos relacionados ao respectivo tópico. Os exercícios foram desenvolvidos para auxiliar no aprimoramento de habilidades de programação e na compreensão dos conceitos fundamentais abordados em cada disciplina.

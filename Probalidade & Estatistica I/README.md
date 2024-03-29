@@ -13,8 +13,11 @@ Neste repositório, você encontrará resoluções de exercícios relacionados a
 - Distribuição de Poisson
 - Cálculos de Probabilidades
 
+
+## Professora
+- **Professora:** Janaína
+
+
 ## Como Usar
 
 Este repositório contém uma série de diretórios, cada um relacionado a um tópico específico. Dentro de cada diretório, você encontrará resoluções de exercícios, exemplos e explicações relevantes para o tópico correspondente.
-
-Sinta-se à vontade para explorar os diretórios de acordo com os tópicos que deseja estudar. Cada pasta pode conter arquivos com resoluções de exercícios, fórmulas e cálculos estatísticos.
