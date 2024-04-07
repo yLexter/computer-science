@@ -5,13 +5,13 @@ import java.util.Scanner;
 
 public class Global {
     private static ControleAcademico controleAcademico;
-    private static Scanner scanner;
 
     public static ControleAcademico getControleAcademico() {
-        if (controleAcademico != null) {
-            return controleAcademico;
+
+        if (controleAcademico == null) {
+            controleAcademico = new ControleAcademico();
         }
 
-        return controleAcademico = new ControleAcademico();
+        return controleAcademico;
     }
 }

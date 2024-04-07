@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Examples {
 
@@ -17,7 +18,6 @@ public class Examples {
 
         // Disciplinas
         Disciplina d1 = new Disciplina("CPT01093", "PARADIGMAS DE PROGRAMAÇÃO", 60, 5);
-
         Disciplina d2 = new Disciplina("CPT01092", "ENGENHARIA DE SOFTWARE I", 60, 5);
 
         // Alunos
@@ -27,21 +27,29 @@ public class Examples {
         // Turmas
         Turma t1 = new Turma(d1);
 
-        t1.adicionarHorario("2W12");
-        t1.adicionarHorario("3D45");
+        t1.getHorarios().add(new Horario("1D15", t1.getId()));
+        t1.getHorarios().add(new Horario("1Z91", t1.getId()));
 
-        for (Aluno aluno : alunos) {
-            t1.adicionarAluno(aluno);
-        }
+        // Criação de alunos turmas
+        t1.getAlunos().addAll(
+                alunos
+                        .stream()
+                        .map(aluno -> new AlunoTurma(aluno.getMatricula()))
+                        .toList()
+        );
 
         Turma t2 = new Turma(d2);
 
-        t2.adicionarHorario("1F45");
-        t2.adicionarHorario("5N45");
+        t2.getHorarios().add(new Horario("1F45", t2.getId()));
+        t2.getHorarios().add(new Horario("1F41", t2.getId()));
 
-        for (Aluno aluno : alunos.subList(0, 1)) {
-            t2.adicionarAluno(aluno);
-        }
+        // Criação de alunos turmas
+        t2.getAlunos().addAll(
+                alunos.subList(0, 1)
+                        .stream()
+                        .map(aluno -> new AlunoTurma(aluno.getMatricula()))
+                        .toList()
+        );
 
         turmas.add(t1);
         turmas.add(t2);
@@ -50,8 +58,8 @@ public class Examples {
         Professor p1 = new Professor("Carlos", "Silveira", "4484646");
         Professor p2 = new Professor("Renata", "Lima", "4854325230223");
 
-        p1.addTurma(turmas.get(0));
-        p1.addTurma(turmas.get(1));
+        p1.getTurmas().add(turmas.get(0));
+        p1.getTurmas().add(turmas.get(1));
 
         professores.add(p1);
         professores.add(p2);

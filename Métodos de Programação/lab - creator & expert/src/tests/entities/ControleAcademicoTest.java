@@ -20,10 +20,12 @@ public class ControleAcademicoTest {
     private Professor professor;
     private Turma turma;
 
-    private ControleAcademico controleAcademico = Global.getControleAcademico();
+    private ControleAcademico controleAcademico;
 
     @BeforeEach
     public void setUp() {
+        this.controleAcademico = Global.getControleAcademico();
+
         ControleAcademico.setarBancoDeDados();
 
         this.aluno = controleAcademico.getAlunos().get(0);
@@ -40,7 +42,7 @@ public class ControleAcademicoTest {
 
     @Test
     public void testVerificarHorarioEmUso() {
-        Horario horario = controleAcademico.getTurmas().get(0).getHorarios().get(0);
+        Horario horario = turma.getHorarios().get(0);
 
         assertTrue(controleAcademico.verificarHorarioEmUso(horario));
     }

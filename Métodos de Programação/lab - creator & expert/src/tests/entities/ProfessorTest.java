@@ -17,10 +17,12 @@ public class ProfessorTest {
 
     private Turma turma;
 
-    private ControleAcademico controleAcademico = Global.getControleAcademico();
+    private ControleAcademico controleAcademico;
 
     @BeforeEach
     public void setUp() {
+        this.controleAcademico = Global.getControleAcademico();
+
         ControleAcademico.setarBancoDeDados();
 
         this.professor = new Professor("Carlos", "Silveira", "s8948486466546");

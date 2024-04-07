@@ -46,9 +46,9 @@ public class Lab2 extends BaseLab {
 
         // Adicioanndo alunos a turmas
         turma1.adicionarAluno(aluno1);
-        turma1.adicionarAluno(aluno2);
-
         turma2.adicionarAluno(aluno1);
+
+        turma1.adicionarAluno(aluno2);
 
         // Adicionar turma a professores
         prof1.addTurma(turma1);

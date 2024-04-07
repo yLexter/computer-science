@@ -43,6 +43,14 @@ public class Funcionario {
         return matricula;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
     @Override
     public String toString() {
         return "%s %s (%s)".formatted(nome, sobrenome, matricula);

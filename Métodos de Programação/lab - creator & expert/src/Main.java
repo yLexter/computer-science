@@ -1,5 +1,6 @@
 import entities.*;
 import labs.*;
+import utils.Global;
 
 public class Main {
 

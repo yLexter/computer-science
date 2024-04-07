@@ -39,6 +39,10 @@ public class Disciplina {
         return nome;
     }
 
+    public int getPeriodo() {
+        return periodo;
+    }
+
     public void setNome(String nome) {
         this.nome = nome;
     }

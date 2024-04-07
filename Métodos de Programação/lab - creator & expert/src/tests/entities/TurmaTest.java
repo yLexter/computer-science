@@ -21,10 +21,12 @@ public class TurmaTest {
 
     public Horario horario;
 
-    private ControleAcademico controleAcademico = Global.getControleAcademico();
+    private ControleAcademico controleAcademico;
 
     @BeforeEach
     public void setUp() {
+        this.controleAcademico = Global.getControleAcademico();
+
         ControleAcademico.setarBancoDeDados();
 
         this.turma = controleAcademico.getTurmas().get(0);
