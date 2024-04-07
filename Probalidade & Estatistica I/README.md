@@ -14,7 +14,7 @@ Neste repositório, você encontrará resoluções de exercícios relacionados a
 - Cálculos de Probabilidades
 
 
-## Professora
+## Professor
 - **Professora:** Janaína
 
 

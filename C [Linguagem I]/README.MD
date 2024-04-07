@@ -1,4 +1,4 @@
-# Laboratório de Progamação II 
+# Laboratório de Progamação I
 
 Esta disciplina tem como objetivo ensinar os conceitos fundamentais da linguagem de programação C, com foco em manipulação de arquivos e ponteiros. Os exercícios propostos visam solidificar o conhecimento sobre linguagens imperativas e a resolução de algoritmos.
 

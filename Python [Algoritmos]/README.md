@@ -2,7 +2,7 @@
 
 Este repositório é dedicado à disciplina de Algoritmos, onde exploramos conceitos básicos de programação em Python. Os tópicos abordados incluem estruturas de controle condicional (if), laços (while), funções, variáveis, boas práticas de programação, listas, operadores de multiplicação e outros conceitos fundamentais.
 
-## Professora
+## Professor
 - **Professora:** Kézia Vasconcelos
 
 ## Conceitos Abordados

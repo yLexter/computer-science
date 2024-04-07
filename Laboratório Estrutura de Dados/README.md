@@ -2,8 +2,8 @@
 
 Este é um repositório desenvolvido como parte da disciplina de Laboratório de Estrutura de Dados. O objetivo deste repositório é explorar conceitos e implementações relacionados a algoritmos, notação de complexidades, pilhas, filas, listas encadeadas, árvores binárias e tabelas hash.
 
-## Professora
-- **Professora:** Daniel
+## Professor
+- **Professor:** Daniel
 
 # Tópicos Abordados
 

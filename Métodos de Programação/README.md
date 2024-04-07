@@ -2,7 +2,7 @@
 
 Esta disciplina aborda técnicas avançadas de análise e projeto de software orientado a objetos, bem como padrões de projeto, técnicas de refatoramento de software e conceitos sobre frameworks e desenvolvimento orientado a componentes.
 
-## Professora
+## Professor
 - **Professora:** Sabrina Souto
 
 ## Tópicos Abordados
