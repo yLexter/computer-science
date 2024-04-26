@@ -1,6 +1,6 @@
-# Repositório de Exercícios - Curso de Computação (UEPB)
+# Repositório de Exercícios/Projetos - Curso de Computação (UEPB)
 
-Este repositório abrange uma variedade de exercícios das seguintes disciplinas do curso de Computação da Universidade Estadual da Paraíba (UEPB):
+Este repositório abrange uma variedade de exercícios/projetos das disciplinas do curso de Computação da Universidade Estadual da Paraíba (UEPB):
 
 # 1. **Algoritmos (Python)**
 - Estruturas de Controle Condicional (if statements)
@@ -46,8 +46,6 @@ Este repositório abrange uma variedade de exercícios das seguintes disciplinas
 - **CSS (Cascading Style Sheets):** A linguagem de estilização que permite controlar a aparência e o layout de páginas web. Explore seletores CSS, propriedades de estilo, layout responsivo e animações.
 - **JavaScript:** A linguagem de programação fundamental para tornar as páginas web interativas. Aprenda a manipular o DOM (Document Object Model), lidar com eventos, criar funções, realizar validações e muito mais.
 - **React:** Uma biblioteca JavaScript de código aberto para criação de interfaces de usuário reativas. Domine a criação de componentes reutilizáveis, gerenciamento de estado e o ciclo de vida dos componentes.
-- **Redux:** Uma biblioteca para gerenciamento de estado em aplicativos JavaScript. Saiba como centralizar o estado do aplicativo e gerenciar ações e redutores para criar aplicativos previsíveis e escaláveis.
-- **React Native:** Uma estrutura para desenvolvimento de aplicativos móveis multiplataforma usando JavaScript e React. Explore a criação de aplicativos nativos para iOS e Android com uma base de código compartilhada.
 
 # 6. **Estatística I**
 - Cálculo da Média
