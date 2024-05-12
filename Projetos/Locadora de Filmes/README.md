@@ -19,16 +19,16 @@ O sistema possui as seguintes funcionalidades:
 11. **Alterar quantidade dos filmes:** Permite alterar a quantidade de cópias disponíveis de um filme.
 12. **Sair:** Encerra o programa.
 
-## Funcionalidades de Ordenação
+## Funcionalidades de Ordenação (Cliente)
 
-O sistema possui as seguintes opções de ordenação para os filmes:
+O sistema possui as seguintes opções de ordenação para os Clientes:
 
-1. **Crescente:** Ordena os filmes em ordem crescente.
-2. **Decrescente:** Ordena os filmes em ordem decrescente.
-3. **Por Idade:** Ordena os filmes por idade (provavelmente por data de lançamento).
+1. **Crescente:** Ordena os clientes em ordem crescente.
+2. **Decrescente:** Ordena os clientes em ordem decrescente.
+3. **Por Idade:** Ordena os clientes por idade.
 4. **Nenhuma:** Não aplica nenhuma ordenação.
 
-## Funções de Ordenação de Filmes
+## Funcionalidades de Ordenação de (Filmes)
 
 1. `ordenarFilmesPorTituloCrescente`: Ordena os filmes por título em ordem crescente.
 2. `ordenarFilmesPorTituloDecrescente`: Ordena os filmes por título em ordem decrescente.

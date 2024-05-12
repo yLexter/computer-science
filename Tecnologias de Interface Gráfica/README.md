@@ -21,12 +21,4 @@ Esta disciplina oferece uma imersão completa em tecnologias fundamentais para o
 
 - **React:** Uma biblioteca JavaScript de código aberto para criação de interfaces de usuário reativas. Domine a criação de componentes reutilizáveis, gerenciamento de estado e o ciclo de vida dos componentes.
 
-## Redux
-
-- **Redux:** Uma biblioteca para gerenciamento de estado em aplicativos JavaScript. Saiba como centralizar o estado do aplicativo e gerenciar ações e redutores para criar aplicativos previsíveis e escaláveis.
-
-## React Native
-
-- **React Native:** Uma estrutura para desenvolvimento de aplicativos móveis multiplataforma usando JavaScript e React. Explore a criação de aplicativos nativos para iOS e Android com uma base de código compartilhada.
-
 Esta disciplina oferece uma base sólida para aqueles que desejam criar interfaces gráficas modernas e funcionais, seja para páginas web ou aplicativos móveis. Ao dominar essas tecnologias, você estará preparado para criar experiências de usuário inovadoras e atraentes.

@@ -5,6 +5,9 @@ Esta disciplina aborda técnicas avançadas de análise e projeto de software or
 ## Professor
 - **Professora:** Sabrina Souto
 
+## Dupla
+- **Lisa Costa** ([GitHub](https://github.com/lisacsiqueira))
+
 ## Tópicos Abordados
 
 1. **Análise e Projeto de Software Orientado a Objetos:** Estudo avançado sobre análise e projeto de software, com foco em abordagens orientadas a objetos.
