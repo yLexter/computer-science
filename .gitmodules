@@ -1,0 +1,6 @@
+[submodule "Projetos/Locadora"]
+	path = Projetos/Locadora
+	url = https://github.com/yLexter/locadora-filmes.git
+[submodule "Projetos/Sistema Academico"]
+	path = Projetos/Sistema Academico
+	url = https://github.com/yLexter/sistema-academico
