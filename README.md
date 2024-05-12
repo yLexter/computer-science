@@ -55,17 +55,19 @@ Este repositório abrange uma variedade de exercícios/projetos das disciplinas 
 - Distribuição de Poisson
 - Cálculos de Probabilidades
 
-# 7. Métodos avançados de Progamação
+# 7. Métodos Avançados de Progamação
 
 ### Padrões de Projeto
 - Visitor
 - Facade
 - Singleton
-- [GRASP] Creator & Expert
-- [GRASP] Coesão e Acoplamento
-- [GRASP] Interface / Polimorfismo / Herança / Composição
+- **[GRASP]** Creator & Expert
+- **[GRASP]** Coesão e Acoplamento
+- **[GRASP]** Interface / Polimorfismo / Herança / Composição
 
 ### Testes Unitários
 - Testes unitários feitos com JUNIT para cada laboratório.
+
+---
 
 Cada diretório no repositório corresponde a uma disciplina específica e contém uma coleção de exercícios, problemas práticos e projetos relacionados ao respectivo tópico. Os exercícios foram desenvolvidos para auxiliar no aprimoramento de habilidades de programação e na compreensão dos conceitos fundamentais abordados em cada disciplina.
