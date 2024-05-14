@@ -10,28 +10,31 @@ Este repositório abrange uma variedade de exercícios/projetos das disciplinas 
 - Boas Práticas de Programação
 - Listas e Manipulação de Listas
 - Operadores de Multiplicação e Aritméticos
+- Pandas e Matplotlib
 
 # 2. **Linguagem I (C)**
 - Estruturas de Controle Condicional (if statements)
 - Laços de Repetição (while loops, for loops)
-- Funções em C
+- Funções
 - Manipulação de Variáveis
-- Boas Práticas de Programação em C
-- Listas e Manipulação de Listas em C
-- Ponteiros em C
-- Structs em C
-- Manipulação de Arquivos em C
+- Boas Práticas de Programação
+- Listas e Manipulação de Listas
+- Alocação Dinâmica de Memória
+- Ponteiros
+- Structs
+- Manipulação de Arquivos
+- Estrutura de Dados (Árvores e Listas Encadeadas)
 
 # 3. **Linguagem II (Java)**
-- **Classes e Objetos:** Exploramos a criação de classes e a instância de objetos para modelar entidades do mundo real.
-- **Encapsulamento:** Discutimos o conceito de encapsulamento e como controlar o acesso aos membros de uma classe.
-- **Herança:** Abordamos a herança, permitindo a criação de classes derivadas (subclasses) com base em classes existentes (superclasses).
-- **Polimorfismo:** Estudamos o polimorfismo, que permite que objetos de diferentes classes compartilhem uma interface comum.
-- **Abstração:** Aplicamos o conceito de abstração para criar classes e interfaces que definem comportamentos.
-- **Interfaces:** Exploramos a implementação de interfaces, permitindo que as classes cumpram contratos específicos.
-- **Métodos e Propriedades:** Abordamos a criação e uso de métodos e propriedades em classes.
-- **Construtores e Destrutores:** Discutimos a utilização de construtores e destrutores nas classes.
-- **Tratamento de Exceções:** Exploramos o tratamento de exceções para lidar com erros de forma estruturada.
+- Classes e Objetos:
+- Encapsulamento
+- Herança
+- Polimorfismo
+- Abstração
+- Interfaces
+- Métodos e Propriedades
+- Construtores e Destrutores
+- Tratamento de Exceções
 
 # 4. **Estrutura de Dados**
 - **Algoritmos:** Implementações de algoritmos essenciais para ordenção de dados, tanto os lineares como os de divisão e conquista
@@ -42,10 +45,10 @@ Este repositório abrange uma variedade de exercícios/projetos das disciplinas 
 - **Tabelas Hash:** Implementações de tabelas hash, estruturas de dados que permitem acesso rápido a dados por meio de funções de hash.
 
 # 5. **Tecnologias de Interface Gráficas**
-- **HTML (Hypertext Markup Language):** A linguagem de marcação que define a estrutura e o conteúdo de uma página web. Aprenda a criar páginas web com elementos HTML, criar links, formulários e integrar conteúdo multimídia.
-- **CSS (Cascading Style Sheets):** A linguagem de estilização que permite controlar a aparência e o layout de páginas web. Explore seletores CSS, propriedades de estilo, layout responsivo e animações.
-- **JavaScript:** A linguagem de programação fundamental para tornar as páginas web interativas. Aprenda a manipular o DOM (Document Object Model), lidar com eventos, criar funções, realizar validações e muito mais.
-- **React:** Uma biblioteca JavaScript de código aberto para criação de interfaces de usuário reativas. Domine a criação de componentes reutilizáveis, gerenciamento de estado e o ciclo de vida dos componentes.
+- HTML (Hypertext Markup Language)
+- CSS3 (Cascading Style Sheets)
+- JavaScript
+- React
 
 # 6. **Estatística I**
 - Cálculo da Média
@@ -56,8 +59,6 @@ Este repositório abrange uma variedade de exercícios/projetos das disciplinas 
 - Cálculos de Probabilidades
 
 # 7. Métodos Avançados de Progamação
-
-### Padrões de Projeto
 - Visitor
 - Facade
 - Singleton
