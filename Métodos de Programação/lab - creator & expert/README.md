@@ -16,3 +16,15 @@ sistema deve informar:
 ## Lab 2: Creator   
 
 - Adaptação  para a utilização do Padrão Creator
+
+## Estrutura do Projeto
+
+O projeto está estruturado da seguinte forma:
+
+- `entities`: Contém as classes do sistema acadêmico.
+- `enums`: Enum para o tipo de triangulo.
+- `testes`: Todos os testes das entidades.
+- `erros`: Exceções customizadas.
+- `labs`: Menus do sistemas.
+- `UTILS`: Classes utilitárias.
+- `Main`: Criação e resultados do Expert.

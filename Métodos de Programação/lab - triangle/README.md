@@ -17,6 +17,12 @@ Para criar casos de teste, você pode considerar os seguintes cenários:
 - Triângulo com Lado Inválido: Um dos lados é maior ou igual à soma dos outros dois lados.
 - Triângulo com Lado não natural: Um dos lados tem comprimento menor ou igual a 0.
 
+## Estrutura do Projeto
+
+O projeto está estruturado da seguinte forma:
+
+- `Triangulo`: Contém as classes do Triangulo.
+- `testes`: Testes para o triangulo
 
 
 

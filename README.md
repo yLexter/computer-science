@@ -35,14 +35,16 @@ Este repositório abrange uma variedade de exercícios/projetos das disciplinas 
 - Métodos e Propriedades
 - Construtores e Destrutores
 - Tratamento de Exceções
+- JUnit
 
 # 4. **Estrutura de Dados**
-- **Algoritmos:** Implementações de algoritmos essenciais para ordenção de dados, tanto os lineares como os de divisão e conquista
-- **Notação de Complexidade:** Compreender e analisar a complexidade temporal e espacial dos algoritmos é fundamental para a eficiência de qualquer programa. Este projeto explora como avaliar e expressar a complexidade em notações como O(n), Θ(n), Ω(n), entre outras.
-- **Pilhas e Filas:** Implementações de pilhas (stacks) e filas (queues), estruturas de dados fundamentais para gerenciar dados em um contexto de LIFO (Last-In-First-Out) ou FIFO (First-In-First-Out).
-- **Listas Encadeadas:** Estudo de listas encadeadas simples e duplas, incluindo inserção, remoção e busca em listas encadeadas.
-- **Árvores Binárias:** Exploração das árvores binárias, incluindo árvores de busca binária (BSTs), AVL, Splay e Rubro Negro e também percusos em árvores, inserção e exclusão.
-- **Tabelas Hash:** Implementações de tabelas hash, estruturas de dados que permitem acesso rápido a dados por meio de funções de hash.
+- Algoritmos de Ordenação (Bubble-Sort, Insertion-Sort, Selection-Sort, Merge-Sort, Quick-Sort, Couting-Sort) 
+- Analise de Complexidade (O(n), Θ(n), Ω(n), Teorema Mestre, Árvore de Recursão) 
+- Vector
+- Listas Encadeadas (Simples, Dupla e Circular)
+- Pilhas e Filas
+- Árvores Binárias (BSTs, AVL, Red Back & Splay) 
+- Tabelas Hash
 
 # 5. **Tecnologias de Interface Gráficas**
 - HTML (Hypertext Markup Language)
@@ -67,7 +69,7 @@ Este repositório abrange uma variedade de exercícios/projetos das disciplinas 
 - **[GRASP]** Interface / Polimorfismo / Herança / Composição
 
 ### Testes Unitários
-- Testes unitários feitos com JUNIT para cada laboratório.
+- Testes unitários feitos com JUnit para cada laboratório.
 
 ---
 

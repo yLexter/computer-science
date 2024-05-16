@@ -19,3 +19,15 @@ O padrão Facade nos permitiu encapsular a complexidade de interações entre os
 
 - Interface unificada para acesso aos subsistemas do SIG.
 - Métodos para obter informações administrativas, financeiras, relacionadas a professores, alunos, almoxarifado e infraestrutura.
+
+## Estrutura do Projeto
+
+O projeto está estruturado da seguinte forma:
+
+## Admin e School
+- `entities`: Contém as classes das figuras geométricas.
+- `facades`: Implementação do facade para aclopar as funcionalidades.
+- `servicos`: Serviços de uma determinada classe.
+- `testes`: Todos os testes das figuras e facade.
+- `erros`: Exceções customizadas.
+- `Main`: Criação e resultados do facade.

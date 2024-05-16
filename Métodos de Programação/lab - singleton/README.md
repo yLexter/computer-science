@@ -26,3 +26,13 @@ Implementação de uma "Fábrica" de figuras geométricas onde é possível cria
     Figura quadrado2 = factory.criarQuadrado(lado2);
     Figura quadrado3 = factory.criarQuadrado(lado3);
 ```
+
+## Estrutura do Projeto
+
+O projeto está estruturado da seguinte forma:
+
+- `entities`: Contém as classes das figuras geométricas.
+- `enums`: Enum para o tipo de triangulo.
+- `testes`: Todos os testes das figuras e singleton.
+- `erros`: Exceções customizadas.
+- `Main`: Criação e resultados do singleton.

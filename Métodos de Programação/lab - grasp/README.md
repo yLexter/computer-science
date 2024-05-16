@@ -16,3 +16,12 @@ Acoplamento
 - A classe BrincandoComAsFigurasGeometricas está fortemente acoplada à classe FigurasGeometricas, pois utiliza diretamente seus métodos estáticos e constantes. Isso dificulta a manutenção e a reutilização do código, uma vez que qualquer alteração na classe FigurasGeometricas pode impactar a classe BrincandoComAsFigurasGeometricas.
 
 - O acoplamento poderia ser reduzido movendo a lógica de cálculo e exibição das figuras geométricas para classes separadas, tornando a classe BrincandoComAsFigurasGeometricas mais genérica e fácil de manter.
+
+## Estrutura do Projeto
+
+O projeto está estruturado da seguinte forma:
+
+- `entities`: Contém as classes das figuras geométricas.
+- `testes`: Todos os testes das figuras e singleton.
+- `erros`: Exceções customizadas.
+- `Main`: Criação e resultados do padrão de coesãoe aclopamento.
