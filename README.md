@@ -68,6 +68,14 @@ Este repositório abrange uma variedade de exercícios/projetos das disciplinas 
 - **[GRASP]** Coesão e Acoplamento
 - **[GRASP]** Interface / Polimorfismo / Herança / Composição
 
+# 7. Banco de Dados
+- Diagramas de Entidade-Relacionamento (DER):
+- Projeto Relacional
+- Álgebra Relacional
+- Dicionário de Dados
+- Linguagem SQL
+- SGBDs
+
 ### Testes Unitários
 - Testes unitários feitos com JUnit para cada laboratório.
 
