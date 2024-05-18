@@ -27,3 +27,9 @@ Este projeto foi desenvolvido para a disciplina de Paradigmas de Programação, 
 ## Projeto Netflix
 
 Este projeto simples em C foi desenvolvido para a disciplina de Laboratório de Programação I, ministrada pelo professor Ramon. O objetivo é mostrar informações sobre filmes disponíveis na Netflix e permitir que o usuário marque filmes como favoritos e explorar **conceitos básicos** de **C**.
+
+---
+
+## Como Usar
+
+Este repositório contém uma série de diretórios, cada um relacionado a um tópico específico. Dentro de cada diretório, você encontrará códigos de exemplo, resoluções de exercícios e para os tópicos correspondentes.

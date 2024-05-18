@@ -5,7 +5,7 @@ Esta disciplina tem como objetivo ensinar os conceitos fundamentais da linguagem
 ## Professor
 - **Professor:** Ramon
 
-## Tópicos Abordados
+## Conteúdo da Disciplina
 
 1. **Conceitos Básicos de C:** Introdução à linguagem C, estrutura básica de um programa em C, tipos de dados, operadores e estruturas de controle.
 2. **Manipulação de Arquivos:** Leitura e escrita de arquivos em C, utilizando funções como `fopen`, `fclose`, `fread` e `fwrite`.

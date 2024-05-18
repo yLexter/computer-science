@@ -5,7 +5,7 @@ Este repositório é dedicado à disciplina de Algoritmos, onde exploramos conce
 ## Professor
 - **Professora:** Kézia Vasconcelos
 
-## Conceitos Abordados
+## Conteúdo da Disciplina
 
 Neste repositório, você encontrará exemplos e exercícios relacionados aos seguintes tópicos:
 
@@ -18,7 +18,5 @@ Neste repositório, você encontrará exemplos e exercícios relacionados aos se
 - Operadores de Multiplicação e Aritméticos
 
 ## Como Usar
-Este repositório contém uma série de diretórios, cada um relacionado a um tópico específico. Dentro de cada diretório, você encontrará código de exemplo, exercícios e explicações relevantes para o tópico correspondente.
 
-## Como Usar
-Este repositório contém uma série de diretórios, cada um relacionado a um tópico específico. Dentro de cada diretório, você encontrará código de exemplo, exercícios e explicações relevantes para o tópico correspondente.
+Este repositório contém uma série de diretórios, cada um relacionado a um tópico específico. Dentro de cada diretório, você encontrará códigos de exemplo, resoluções de exercícios e para os tópicos correspondentes.

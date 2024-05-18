@@ -21,4 +21,6 @@ Esta disciplina oferece uma imersão completa em tecnologias fundamentais para o
 
 - **React:** Uma biblioteca JavaScript de código aberto para criação de interfaces de usuário reativas. Domine a criação de componentes reutilizáveis, gerenciamento de estado e o ciclo de vida dos componentes.
 
-Esta disciplina oferece uma base sólida para aqueles que desejam criar interfaces gráficas modernas e funcionais, seja para páginas web ou aplicativos móveis. Ao dominar essas tecnologias, você estará preparado para criar experiências de usuário inovadoras e atraentes.
+## Como Usar
+
+Este repositório contém uma série de diretórios, cada um relacionado a um tópico específico. Dentro de cada diretório, você encontrará códigos de exemplo, resoluções de exercícios e para os tópicos correspondentes.

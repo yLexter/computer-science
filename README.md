@@ -61,14 +61,18 @@ Este repositório abrange uma variedade de exercícios/projetos das disciplinas 
 - Cálculos de Probabilidades
 
 # 7. Métodos Avançados de Progamação
-- Visitor
-- Facade
-- Singleton
 - **[GRASP]** Creator & Expert
 - **[GRASP]** Coesão e Acoplamento
 - **[GRASP]** Interface / Polimorfismo / Herança / Composição
+- Visitor
+- Facade
+- Singleton
+- Adapter
 
-# 7. Banco de Dados
+### Testes Unitários
+- Testes unitários feitos com JUnit para cada laboratório.
+
+# 8. Banco de Dados
 - Diagramas de Entidade-Relacionamento (DER):
 - Projeto Relacional
 - Álgebra Relacional
@@ -76,8 +80,18 @@ Este repositório abrange uma variedade de exercícios/projetos das disciplinas 
 - Linguagem SQL
 - SGBDs
 
-### Testes Unitários
-- Testes unitários feitos com JUnit para cada laboratório.
+# 9. Técnicas de Análise de Algoritmos
+- Análise de Complexidade de Algoritmos
+- Análise Amortizada
+- Indução Matemática
+- Árvores de Recursão
+- Teorema Mestre
+- Invariantes de Laço
+- Backtracking
+- Branch and Bound
+- Problema da Mochila
+- Algoritmo de Huffman
+- Algoritmos Gulosos
 
 ---
 

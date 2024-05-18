@@ -5,9 +5,7 @@ Este repositório é dedicado à disciplina de Linguagem de Programação II, on
 ## Professor
 - **Professor:** Welligton
 
-## Tópicos de POO Abordados
-
-Este repositório abrange os seguintes tópicos de Programação Orientada a Objetos:
+## Conteúdo da Disciplina
 
 - **Classes e Objetos:** Exploramos a criação de classes e a instância de objetos para modelar entidades do mundo real.
 
@@ -29,6 +27,4 @@ Este repositório abrange os seguintes tópicos de Programação Orientada a Obj
 
 ## Como Usar
 
-Este repositório contém uma série de diretórios, cada um relacionado a um tópico específico de POO. Dentro de cada diretório, você encontrará códigos de exemplo e resoluções de exercícios relacionados a esse tópico.
-
-Sinta-se à vontade para explorar os diretórios de acordo com os tópicos que deseja estudar. Cada pasta pode conter arquivos de código, documentos e dados de exemplos.
+Este repositório contém uma série de diretórios, cada um relacionado a um tópico específico. Dentro de cada diretório, você encontrará códigos de exemplo, resoluções de exercícios e para os tópicos correspondentes.

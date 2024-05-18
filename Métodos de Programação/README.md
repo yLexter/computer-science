@@ -8,7 +8,7 @@ Esta disciplina aborda técnicas avançadas de análise e projeto de software or
 ## Dupla
 - **Lisa Costa** ([GitHub](https://github.com/lisacsiqueira))
 
-## Tópicos Abordados
+## Conteúdo da Disciplina
 
 1. **Análise e Projeto de Software Orientado a Objetos:** Estudo avançado sobre análise e projeto de software, com foco em abordagens orientadas a objetos.
 2. **Padrões de Projeto:** Estudo e aplicação de padrões de projeto comuns, como Singleton, Factory Method, Observer, entre outros.
@@ -16,6 +16,9 @@ Esta disciplina aborda técnicas avançadas de análise e projeto de software or
 4. **Frameworks:** Conceitos e práticas relacionadas a frameworks de desenvolvimento de software.
 5. **Desenvolvimento Orientado a Componentes:** Exploração de conceitos e práticas relacionadas ao desenvolvimento baseado em componentes reutilizáveis.
 
+## Como Usar
+
+Este repositório contém uma série de diretórios, cada um relacionado a um tópico específico. Dentro de cada diretório, você encontrará códigos de exemplo, resoluções de exercícios e para os tópicos correspondentes.
 
 
 

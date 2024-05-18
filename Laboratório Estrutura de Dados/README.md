@@ -5,7 +5,7 @@ Este é um repositório desenvolvido como parte da disciplina de Laboratório de
 ## Professor
 - **Professor:** Daniel
 
-# Tópicos Abordados
+## Conteúdo da Disciplina
 
 - Algoritmos: Implementações de algoritmos essenciais para ordenção de dados, tanto os lineares como os de divisão e conquista
 
@@ -18,3 +18,7 @@ Este é um repositório desenvolvido como parte da disciplina de Laboratório de
 - Árvores Binárias: Exploração das árvores binárias, incluindo árvores de busca binária (BSTs), travessias em árvores, inserção e exclusão.
 
 - Tabelas Hash: Implementações de tabelas hash, estruturas de dados que permitem acesso rápido a dados por meio de funções de hash.
+
+## Como Usar
+
+Este repositório contém uma série de diretórios, cada um relacionado a um tópico específico. Dentro de cada diretório, você encontrará códigos de exemplo, resoluções de exercícios e para os tópicos correspondentes.
