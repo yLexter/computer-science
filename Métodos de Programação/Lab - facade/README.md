@@ -1,4 +1,4 @@
-# Sistema de Informação Geral (SIG) - UEPB
+# Lab7: Visitor
 
 Este é uma atividade desenvolvido em dupla com [Lisa Costa](https://github.com/lisacsiqueira). A atividade consistiu na implementação do Sistema de Informação Geral (SIG) utilizado na UEPB, que compreende vários subsistemas responsáveis por atividades relacionadas a setores específicos da universidade.
 

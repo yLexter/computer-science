@@ -1,4 +1,4 @@
-# Lab4: Interface / Polimorfismo / Herança / Composição
+# Lab-4: Interface / Polimorfismo / Herança / Composição
 
 Implementação de um sistema para controle de acesso aos funcionários da Globo Filmes. Os funcionários podem ter diferentes funções em cada filme. As funcionalidades incluem:
 

@@ -1,4 +1,4 @@
-# Laboratório: Visitor
+# Lab-7: Visitor
 
 Este projeto implementa um exemplo do padrão de projeto Visitor, utilizando as figuras geométricas: Círculo, Triângulo, Retângulo e Trapézio.
 

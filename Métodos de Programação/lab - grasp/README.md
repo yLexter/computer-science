@@ -1,4 +1,4 @@
-# Lab3: Coesão e Acoplamento
+# Lab-3: Coesão e Acoplamento
 
 Refatoração das classes "Ofuscadas", forão encotrada os seguintes problema:
 

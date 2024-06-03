@@ -1,4 +1,4 @@
-# Laboratório: Singleton
+# Lab-6: Singleton
 
 ## Descrição
 Implementação de uma "Fábrica" de figuras geométricas onde é possível criar um único círculo, três instâncias de triângulos (um isósceles, um equilátero e um retângulo) e inúmeros quadrados.
