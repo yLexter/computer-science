@@ -34,4 +34,25 @@ Opções de relatórios que interessam são:
 
 ---
 
-[![imagem-2024-05-18-192328018.png](https://i.postimg.cc/02SfpbD2/imagem-2024-05-18-192328018.png)](https://postimg.cc/7fx04PKp)
+## Questões
+
+### 1° Parte
+
+- Preparar  (DER, Projeto relacional, Dicionários de dados, e Scripts de criação de tabelas)
+
+### 2 Parte
+
+- Escreva scripts de inserção de dados que validem e comprovem as consultas solicitadas a seguir
+
+### 3° Questão
+
+- Liste os candidatos pelo nome e CPF que obtiveram votos na cidade de "Campina Grande" e que gastaram mais de R$ 5.000,00 na campanha;
+- Liste os candidatos pelo nome e CPF e código do partido, total declarado, total recebido em doação e  total gasto em campanha que possuíram mais de 500 votos na eleição de 2018 na cidade de Campina Grande;
+- Liste o nome de todas as cidades e o respectivo total de votos no pleito de 2018 para o candidato"João". 
+- Selecione o total de doação partidária recebido pelos candidatos do partido ‘CDU’.
+- Apresente uma relação dos 3 partidos que receberam maior número de verbas partidárias 
+- Relacione os 5 partidos mais bem votados na eleição de 2018 na Paraíba (considere apenas candidatos cujo registros esteja apto).
+- Relacione os 10 candidatos mais ricos que foram eleitos na Paraíba em 2018 (considere apenas candidatos cujo registros esteja apto)
+- Crie uma função que retorne uma lista de todas as cidades e seus respectivos quantitativos de votos nos candidatos do partido ‘CDU’. Ordene pela quantidade de votos válidos.
+
+
