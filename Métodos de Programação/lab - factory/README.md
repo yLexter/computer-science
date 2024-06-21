@@ -1,4 +1,4 @@
-# Lab10: Factory
+# Lab-10: Factory
 
 Neste laboratório, implementamos o padrão de projeto Factory Method para criar diferentes combinações de sanduíches. Cada sanduíche possui uma estrutura básica composta por duas fatias de pão, uma fatia de queijo, uma fatia de presunto, um ovo e tomate. Os ingredientes podem variar entre as seguintes opções:
 
