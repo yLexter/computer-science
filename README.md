@@ -68,6 +68,8 @@ Este repositório abrange uma variedade de exercícios/projetos das disciplinas 
 - Facade
 - Singleton
 - Adapter
+- Observer & MVC
+- Factory
 
 ### Testes Unitários
 - Testes unitários feitos com JUnit para cada laboratório.

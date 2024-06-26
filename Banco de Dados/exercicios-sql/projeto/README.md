@@ -36,15 +36,19 @@ Opções de relatórios que interessam são:
 
 ## Questões
 
-### 1° Parte
+### 1° Parte - Modelo Entidade & Relacionamento
 
-- Preparar  (DER, Projeto relacional, Dicionários de dados, e Scripts de criação de tabelas)
+- Preparar DER, Projeto relacional e Dicionários de dados
 
-### 2 Parte
+### 2° Parte - Create
 
-- Escreva scripts de inserção de dados que validem e comprovem as consultas solicitadas a seguir
+- Escreva Scripts de criação de tabelas
 
-### 3° Questão
+### 3 Parte - Insert
+
+- Escreva scripts de inserção de dados
+
+### 4° Questão - Query
 
 - Liste os candidatos pelo nome e CPF que obtiveram votos na cidade de "Campina Grande" e que gastaram mais de R$ 5.000,00 na campanha;
 - Liste os candidatos pelo nome e CPF e código do partido, total declarado, total recebido em doação e  total gasto em campanha que possuíram mais de 500 votos na eleição de 2018 na cidade de Campina Grande;
