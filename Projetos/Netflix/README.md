@@ -1,14 +1,17 @@
-# Projeto Netflix
+# Quitanda Project in Python
 
-Este é um projeto simples em C para a disciplina de Laborátorio de Progamação I (Professor Ramon) que mostra informações sobre filmes e favoritos. Foi desenvolvido como um primeiro projeto para se familiarizar com a linguagem C.
+This project was developed as part of the Algorithms discipline, taught by professor Kezia. The objective of the project is to create a system for a grocery store, with features to manage inventory and make purchases.
 
-## Funcionalidades
+## Functionalities
 
-O sistema possui as seguintes funcionalidades:
+The system has the following functionalities:
 
-1. **Ver Catálogo:** Permite visualizar o catálogo de filmes disponíveis na Netflix.
-2. **Ver Favoritos:** Exibe a lista de filmes marcados como favoritos pelo usuário.
-3. **Ver Melhores da Semana:** Mostra os filmes mais bem avaliados da semana.
-4. **Sair:** Encerra o programa.
+1. **Stock Menu:** Allows you to view stock, create new products, update products, remove products and purchase products.
+2. **Shopping Menu:** Allows you to view products and add them to the cart, view the cart, make a purchase, remove products from the cart and clear the cart.
+3. **Home Menu:** Allows you to enter the stock menu, enter the purchase menu and view your purchase history.
 
-O projeto foi desenvolvido para ajudar a entender os conceitos básicos da linguagem C e serve como um ponto de partida para projetos mais complexos.
+## Database
+
+The system uses Excel files as a database, which are manipulated with the Pandas library to carry out stock and purchasing operations.
+
+The project aims to apply the concepts learned in the Algorithms discipline and practice data manipulation in Python with Pandas.

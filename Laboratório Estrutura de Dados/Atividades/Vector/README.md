@@ -1,11 +1,11 @@
-# Tipos Abstratos de Dados
+# Abstract Data Types
 
-Construa uma estrutura de dados dinâmica com Array (estrutura estática) na linguagem Java, com as operações básicas
+Build a dynamic data structure with Array (static structure) in Java language, with basic operations
 
-- PesquisarElemento(Vetor V, elemento K)
-- MenorElemento(Vetor V)
-- MaiorElemento(Vetor V)
-- Sucessor(Vetor v, Elemento K)
-- Antecessor(Vetor v, Elemento K)
-- Inserir(Vetor v, Elemento K)
-- Deletar(Vetor v, Elemento K)
+- SearchElement(Vector V, element K)
+- SmallestElement(Vector V)
+- LargestElement(Vector V)
+- Successor(Vector v, Element K)
+- Predecessor(Vector v, Element K)
+- Insert(Vector v, Element K)
+- Delete(Vector v, Element K)

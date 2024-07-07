@@ -1,27 +1,26 @@
-# Projeto Uno - Paradigmas de Programação
+# Project Uno - Programming Paradigms
 
-Este é um projeto desenvolvido para a disciplina de Paradigmas de Programação, ministrada pelo professor Kláudio. O objetivo do projeto é explorar os diferentes paradigmas de programação através da implementação do jogo Uno em linguagem D.
+This is a project developed for the Programming Paradigms course, taught by professor Kláudio. The objective of the project is to explore different programming paradigms through the implementation of the Uno game in D language.
 
-## Integrantes do Projeto
+## Project Members
 
 - Lisa Costa ([GitHub](https://github.com/lisacsiqueira))
 - Shara Isabell ([GitHub](https://github.com/SharaIsabell))
 - Rennan Silva ([GitHub](https://github.com/Rennan0102))
 
-## Sobre o Jogo Uno
+## About Uno Game
 
-O Uno é um jogo de cartas muito popular, conhecido por suas regras simples e dinâmicas. Neste projeto, utilizamos a linguagem D para implementar o jogo, o que nos permitiu explorar um paradigma de programação totalmente desconhecido para nós.
+Uno is a very popular card game, known for its simple and dynamic rules. In this project, we used the D language to implement the game, which allowed us to explore a programming paradigm completely unknown to us.
 
-## Funcionalidades Implementadas
+## Implemented Features
 
-- Embaralhamento das cartas
-- Distribuição das cartas aos jogadores
-- Implementação das regras do jogo Uno
-- Possibilidade de jogar contra o computador
+- Shuffling the cards
+- Distribution of cards to players
+- Implementation of the Uno game rules
+- Possibility to play against the computer
 
-## Como Executar o Jogo
+## How to Run the Game
 
-1. Clone este repositório em sua máquina local.
-2. Compile o código-fonte usando um compilador D compatível com seu sistema operacional.
-3. Execute o arquivo compilado para iniciar o jogo.
-
+1. Clone this repository to your local machine.
+2. Compile the source code using a D compiler compatible with your operating system.
+3. Run the compiled file to start the game.

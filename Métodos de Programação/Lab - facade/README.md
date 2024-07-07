@@ -1,33 +1,33 @@
-# Lab7: Visitor
+#Lab7: Facade
 
-Este é uma atividade desenvolvido em dupla com [Lisa Costa](https://github.com/lisacsiqueira). A atividade consistiu na implementação do Sistema de Informação Geral (SIG) utilizado na UEPB, que compreende vários subsistemas responsáveis por atividades relacionadas a setores específicos da universidade.
+The activity consisted of implementing the General Information System (GIS) used at UEPB, which comprises several subsystems responsible for activities related to specific sectors of the university.
 
-## Descrição da Atividade
+## Activity description
 
-Implementamos o SIG utilizando o padrão de projeto Facade, que proporciona uma interface unificada para um conjunto de interfaces em um subsistema. Isso simplifica o uso e a comunicação com os diferentes subsistemas do SIG, como:
+We implemented GIS using the Facade design pattern, which provides a unified interface for a set of interfaces in a subsystem. This simplifies use and communication with the different GIS subsystems, such as:
 
-- **Administrativo:** Reuniões agendadas com a diretoria, entrevistas.
-- **Financeiro:** Balanço de contas, folha de pagamento.
-- **Professores:** Alocação por disciplina, tempo de casa.
-- **Alunos:** Histórico e RDM.
-- **Almoxarifado:** Estoque, pedido de compra.
-- **Infraestrutura:** Alocação de salas.
+- **Administrative:** Scheduled meetings with the board, interviews.
+- **Financial:** Balance of accounts, payroll.
+- **Teachers:** Allocation by subject, time spent at home.
+- **Students:** History and RDM.
+- **Warehouse:** Stock, purchase order.
+- **Infrastructure:** Allocation of rooms.
 
-O padrão Facade nos permitiu encapsular a complexidade de interações entre os subsistemas do SIG, fornecendo uma interface simplificada para uso pelos usuários do sistema.
+The Facade pattern allowed us to encapsulate the complexity of interactions between GIS subsystems, providing a simplified interface for use by system users.
 
-## Funcionalidades Implementadas
+## Implemented Features
 
-- Interface unificada para acesso aos subsistemas do SIG.
-- Métodos para obter informações administrativas, financeiras, relacionadas a professores, alunos, almoxarifado e infraestrutura.
+- Unified interface for accessing GIS subsystems.
+- Methods for obtaining administrative, financial information related to teachers, students, warehouse and infrastructure.
 
-## Estrutura do Projeto
+## Project Structure
 
-O projeto está estruturado da seguinte forma:
+The project is structured as follows:
 
-## Admin e School
-- `entities`: Contém as classes das figuras geométricas.
-- `facades`: Implementação do facade para aclopar as funcionalidades.
-- `servicos`: Serviços de uma determinada classe.
-- `testes`: Todos os testes das figuras e facade.
-- `erros`: Exceções customizadas.
-- `Main`: Criação e resultados do facade.
+## Admin and School
+- `entities`: Contains the classes of geometric figures.
+- `facades`: Implementation of facade to combine features.
+- `services`: Services of a given class.
+- `tests`: All figure and facade tests.
+- `errors`: Custom exceptions.
+- `Main`: Creation and results of the facade.

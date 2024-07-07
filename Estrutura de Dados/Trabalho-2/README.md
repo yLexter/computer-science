@@ -1,23 +1,23 @@
-# Análise de Árvores de Busca
+# Search Tree Analysis
 
-Neste projeto, realizamos uma análise comparativa das implementações de árvores de busca, incluindo a Árvore de Busca Binária, Árvore AVL, Árvore Preto-Vermelho e Árvore Splay. O objetivo é estudar o desempenho dessas árvores sob várias condições.
+In this project, we perform a comparative analysis of search tree implementations, including the Binary Search Tree, AVL Tree, Black-Red Tree and Splay Tree. The goal is to study the performance of these trees under various conditions.
 
-## Requisitos
+## Requirements
 
-1. **Obtenção de Implementações**: Inicialmente, buscamos as implementações dessas árvores de busca em algum repositório. Preferencialmente, obtivemos as implementações do mesmo repositório para garantir consistência.
+1. **Obtaining Implementations**: Initially, we look for the implementations of these search trees in some repository. Preferably, we obtained the implementations from the same repository to ensure consistency.
 
-2. **Contagem de Rotações**: Nos códigos-fonte de cada implementação, modificamos-os para registrar a quantidade de rotações executadas por cada algoritmo durante as operações de manutenção do balanceamento das árvores. Contamos cada rotação isoladamente, especialmente quando várias rotações são necessárias para corrigir o balanceamento.
+2. **Rotation Count**: In the source codes of each implementation, we modified them to record the number of rotations performed by each algorithm during tree balancing maintenance operations. We count each rotation in isolation, especially when multiple rotations are needed to correct the balance.
 
-3. **Testes Diversificados**: Executamos os algoritmos com várias massas de testes, incluindo valores desordenados, valores ordenados em ordem crescente, valores ordenados em ordem decrescente, e valores parcialmente ordenados crescentemente (90%) com dados desordenados no final da amostra. Realizamos esses testes com 1.000.000, 2.000.000 e 3.000.000 de números não repetidos.
+3. **Diverse Tests**: We run the algorithms with various masses of tests, including jumbled values, sorted values ​​in ascending order, sorted values ​​in descending order, and partially sorted values ​​in increasing order (90%) with jumbled data at the end of the sample . We perform these tests with 1,000,000, 2,000,000 and 3,000,000 non-repeating numbers.
 
-4. **Altura das Árvores**: Após a inserção de todos os valores, informamos a altura de cada árvore e a quantidade de rotações necessárias para construir as árvores binárias, quando aplicável.
+4. **Tree Height**: After entering all the values, we inform the height of each tree and the number of rotations necessary to build the binary trees, when applicable.
 
-5. **Testes com Números Repetidos**: Preparamos duas massas de teste, uma com números aleatórios não repetidos e outra com números repetidos. Para a segunda massa de testes, geramos números aleatórios no intervalo de 0 a 300.000 para garantir repetições.
+5. **Tests with Repeated Numbers**: We prepared two test masses, one with non-repeating random numbers and the other with repeated numbers. For the second batch of tests, we generated random numbers in the range 0 to 300,000 to ensure repetitions.
 
-6. **Operações de Busca**: Executamos operações de busca em cada algoritmo e em suas árvores resultantes usando as duas massas de teste mencionadas acima. Computamos o tempo total necessário para buscar todos os valores pesquisados.
+6. **Search Operations**: We perform search operations on each algorithm and its resulting trees using the two test masses mentioned above. We compute the total time required to fetch all searched values.
 
-7. **Relatório de Análise**: Finalmente, apresentamos um relatório analisando as alturas das árvores obtidas, as quantidades de rotações necessárias e o tempo necessário para a busca em cada árvore gerada. Isso é feito com base nas respectivas massas de teste do item 3, quando pesquisados os valores das massas de teste do item 5.
+7. **Analysis Report**: Finally, we present a report analyzing the heights of the trees obtained, the number of rotations required and the time required to search each tree generated. This is done based on the respective test masses from item 3, when the values ​​of the test masses from item 5 are researched.
 
-## Conclusão
+## Conclusion
 
-Esta análise oferece insights valiosos sobre o desempenho e a eficiência das árvores de busca em diferentes cenários e pode ser uma referência útil para tomada de decisões em relação à escolha de algoritmos de busca em projetos futuros.
+This analysis provides valuable insights into the performance and efficiency of search trees in different scenarios and can be a useful reference for making decisions regarding the choice of search algorithms in future projects.

@@ -1,22 +1,22 @@
-# Lab-9: Observer & MVC
+#Lab-9: Observer & MVC
 
-## Sistema de Informações de Assentos para Rodoviária
-O Sistema de Informações de Assentos é uma solução projetada para fornecer informações em tempo real sobre os assentos disponíveis, reservados e indisponíveis em um ônibus específico. Esse sistema é implementado tanto no painel central da rodoviária quanto nos quiosques espalhados pelo terminal.
+## Bus Station Seating Information System
+Seat Information System is a solution designed to provide real-time information about available, reserved and unavailable seats on a specific bus. This system is implemented both in the central panel of the bus station and in the kiosks spread throughout the terminal.
 
-## Funcionalidades Principais
+## Main Features
 
-### Atualização Automática
-Sempre que um cliente se dirige ao guichê e compra ou reserva uma passagem, o sistema é atualizado instantaneamente.
-Essa atualização reflete nos painéis centrais e nos quiosques, garantindo que todos os passageiros tenham acesso às informações mais recentes.
+### Automatic Update
+Whenever a customer goes to the ticket window and buys or reserves a ticket, the system is updated instantly.
+This update is reflected on central dashboards and kiosks, ensuring all passengers have access to the latest information.
 
-### Painel Central:
-O painel central exibe a disposição das cadeiras do ônibus.
+### Central Panel:
+The central panel displays the arrangement of the bus's seats.
 
-Os assentos são coloridos conforme o status:
-- Verde: Disponível
-- Amarelo: Reservado
-- Vermelho: Indisponível
+Seats are colored according to status:
+- Green: Available
+- Yellow: Reserved
+- Red: Unavailable
 
-### Quiosques
-Os quiosques apresentam uma listagem numerada dos assentos, juntamente com seus respectivos status.
-Os passageiros podem verificar rapidamente quais assentos estão disponíveis ou reservados.
+### Kiosks
+The kiosks display a numbered list of seats, along with their respective status.
+Passengers can quickly check which seats are available or reserved.

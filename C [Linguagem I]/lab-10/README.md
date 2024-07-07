@@ -1,258 +1,258 @@
 # Lab 10
 
-## Recapitulando: uso de ponteiros
+## To recap: use of pointers
 
-Ponteiros são usados para acessar o endereço de memória das variáveis, fazendo um controle de mais baixo nível. Por exemplo:
-
-```
-#include <stdio.h>
-
-int main(void) {
-
-  int x = 10;
-  double y = 20.50;
-  char z = 'a';
-
-  int *xPtr = &x;
-  double *yPtr = &y;
-  char *zPtr = &z;
-
-  printf("Endereço de x = %p - Valor de x = %d\n", xPtr, *xPtr);
-  printf("Endereço de y = %p - Valor de y = %.2lf\n", yPtr, *yPtr);
-  printf("Endereço de z = %p - Valor de z = %c\n", zPtr, *zPtr);
-
-  return 0;
-}
-```
-
-Um exemplo de saída para o código acima é este:
-
-```
-Endereço de x = 0x7ffdd971f84c - Valor de x = 10
-Endereço de y = 0x7ffdd971f840 - Valor de y = 20.50
-Endereço de z = 0x7ffdd971f83f - Valor de z = 97
-```
-
-Ao contrário da declaração de variáveis, com ponteiros é preciso ter atenção aos sinais utilizados para indicar o apontamento e o desreferenciamento:
-
-```
-#include <stdio.h>
-
-int main(void) {
-  // declaração de variável 1
-  int x = 10;
-  
-  // declaração de variável 2
-  int x;
-  x = 10;
-
-  // declaração de ponteiro 1
-  int *xPtr;
-  xPtr = &x;
-
-  // declaração de ponteiro 2
-  int *xPtr = &x;
-  
-  return 0;
-}
-```
-
-Operações podem ser feitas entre valores por meio de ponteiros, por exemplo:
+Pointers are used to access the memory address of variables, providing lower-level control. For example:
 
 ```
 #include <stdio.h>
 
 int main(void) {
 
-  int x = 10;
-  double y = 20.50;
-  
-  int *xPtr = &x;
-  double *yPtr = &y;
+ int x = 10;
+ double y = 20.50;
+ char z = 'a';
 
-  double soma = *xPtr + *yPtr;
-  
-  printf("Soma = %.2lf\n", soma);
- 
-  return 0;
+ int *xPtr = &x;
+ double *yPtr = &y;
+ char *zPtr = &z;
+
+ printf("Address of x = %p - Value of x = %d\n", xPtr, *xPtr);
+ printf("Address of y = %p - Value of y = %.2lf\n", yPtr, *yPtr);
+ printf("Address of z = %p - Value of z = %c\n", zPtr, *zPtr);
+
+ return 0;
 }
 ```
 
-O resultado deste código é:
-```
-Soma = 30.50
-```
-O que aconteceu para esse resultado é que temos o acesso aos valores nos endereços de memória indicados pelos ponteiros `xPtr` e `yPtr`. O sinal `*` acessa o valor a partir do ponteiro.
-
-## Incrementando os ponteiros com o qualificador const
-
-O qualificador const permite que você informe ao compilador que o valor de uma variável específica não deve ser modificado, reforçando assim o princípio do menor privilégio. Isso pode reduzir o tempo de depuração e evitar efeitos colaterais não intencionais, tornando um programa mais robusto e mais fácil de modificar e manter. Se for feita uma tentativa de modificar um valor declarado const, o compilador o detecta e emite um erro.
-
-### Usando um ponteiro não constante em dados não constantes
-
-O exemplo de função no desafio do último tutorial exemplifica bem o risco de efeito colateral ao trabalhar com uma informação sem esse qualificador. Na situação a seguir, vemos que o nível mais alto de acesso a dados é concedido por um ponteiro não constante para dados não constantes.
+An example output for the above code is this:
 
 ```
-#include <stdio.h>
-#include <ctype.h> 
-
-void converteParaMaiusculas(char *sPtr);
-
-int main(void) {
-  char palavra[] = "aula dE laboraToRio De proGramaCaO";
-
-  printf("Antes da conversão: %s\n", palavra);
-  converteParaMaiusculas(palavra);
-  printf("Depois da conversão: %s\n", palavra);
-
-  return 0;
-}
-
-void converteParaMaiusculas(char *sPtr) {
-  while (*sPtr != '\0') {
-    *sPtr = toupper(*sPtr);
-    ++sPtr;
-  }
-}
+Address of x = 0x7ffdd971f84c - Value of x = 10
+y-address = 0x7ffdd971f840 - y-value = 20.50
+Address of z = 0x7ffdd971f83f - Value of z = 97
 ```
 
-Saída do exemplo anterior: 
-
-```
-Antes da conversão: aula dE laboraToRio De proGramaCaO
-Depois da conversão: AULA DE LABORATORIO DE PROGRAMACAO
-```
-
-Os dados podem ser modificados por meio do ponteiro desreferenciado e o ponteiro pode ser modificado para apontar para outros itens de dados. Uma função pode usar esse ponteiro para receber um argumento de string e, em seguida, processar (e possivelmente modificar) cada caractere da string.
-
-A função converteParaMaiusculas acima declara seu parâmetro, um ponteiro não constante para dados não constantes chamado `sPtr`. A função processa a string da matriz (apontada por `sPtr`) um caractere por vez. A função da biblioteca padrão C `toupper` do cabeçalho `<ctype.h>` converte cada caractere em sua letra maiúscula correspondente. 
-
-Se o caractere original não for uma letra ou já estiver em maiúscula, toupper retornará o caractere original. No final do laço o ponteiro é incrementado para apontar para o próximo caractere na string. O Capítulo 8 apresenta muitas funções de processamento de strings e caracteres da biblioteca padrão C.
-
-### Usando um ponteiro não constante em dados constantes
-
-Um ponteiro não constante para dados constantes pode ser modificado para apontar para qualquer item de dados do tipo apropriado, mas os dados para os quais ele aponta não podem ser modificados. Uma função pode receber tal ponteiro para processar os elementos de um argumento de matriz sem modificá-los. Por exemplo, observe o uso da função a seguir:
-
-```
-#include <stdio.h>
-
-void imprimeCaracteres(const char *sPtr);
-
-int main(void) {
-  char palavra[] = "aula dE laboraToRio De proGramaCaO";
-
-  puts("A String é: ");
-  imprimeCaracteres(palavra);
-
-  return 0;
-}
-
-void imprimeCaracteres(const char *sPtr) {
-  while (*sPtr != '\0') {
-    printf("%c", *sPtr);
-    ++sPtr;
-  }
-}
-```
-
-A função `imprimeCaracteres` declara o parâmetro `sPtr` como sendo do tipo `const char *`. A declaração é lida da direita para a esquerda como “sPtr é um ponteiro para uma constante de caractere”. A estrutura de repetição contida na função exibe cada caractere até encontrar um caractere nulo. Depois de exibir cada caractere, o loop incrementa o ponteiro sPtr para apontar para o próximo caractere da string.
-
-**Exercício 1**: Mude o núcleo da função `imprimeCaracteres` para alguma instrução que modifique cada caractere, usando o operador de desreferenciamento, e anote no código, usando comentários, qual o erro que apareceu.
-
-### Tentando modificar um ponteiro constante para dados não constantes
-
-Um ponteiro constante para dados não constantes sempre aponta para o mesmo local de memória, mas os dados nesse local podem ser modificados por meio do ponteiro.
+Unlike declaring variables, with pointers you need to pay attention to the signs used to indicate pointing and dereferencing:
 
 ```
 #include <stdio.h>
 
 int main(void) {
-  int x = 0;
-  int y = 0;
+ // variable declaration 1
+ int x = 10;
 
-  int *const ptr = &x;
+ // variable declaration 2
+ intx;
+ x = 10;
 
-  *ptr = 7;  // é permitido pois constante não é o valor, e sim o ponteiro
-  printf("%d", x);
-  // ptr = &y; // erro: o ponteiro é constante, não pode ser apontado para outro endereço de memória
-  
-  return 0;
+ // pointer declaration 1
+ int *xPtr;
+ xPtr = &x;
+
+ // pointer declaration 2
+ int *xPtr = &x;
+
+ return 0;
 }
 ```
 
-O ponteiro `ptr` é definido no exemplo anterior como sendo do tipo `int *const`, que é lido da direita para a esquerda como “ptr é um ponteiro constante para um inteiro”. Depois de  é inicializado (linha 11) com o endereço da variável inteira x. O programa tenta atribuir o endereço de y a ptr (linha 14), mas o compilador gera um erro.
-
-**Exercício 2**: Crie uma função análoga ao primeiro exemplo, que imprime todas as letras minúsculas, usando um ponteiro do tipo `char *const` e anote com comentários o que acontece.
-
-### Tentando modificar um ponteiro constante para dados constantes
-
-O menor privilégio de acesso é concedido por um ponteiro constante para dados constantes. Esse ponteiro sempre aponta para o mesmo local de memória e os dados nesse local de memória não podem ser modificados.
-
-É assim, por exemplo, que que um array deve ser passado para uma função que apenas olha para os elementos do array usando a notação de índice de array e não modifica os elementos.
-
-Para entender melhor, veja o exemplo a seguir:
-
-```
-#include <stdio.h>
-
-int main(void) {
-  int x = 0;
-  int y = 0;
-
-  const int *const ptr = &x;
-
-  //*ptr = 7;  // erro: não é permitido pois o valor não é constante
-  printf("%d", x);
-  // ptr = &y; // erro: não é permitido pois o ponteiro também não é constante  
-
-  return 0;
-}
-```
-
-**Exercício 3**: Modifique a função do exercício anterior, que imprime todas as letras minúsculas, para, desta vez, usar um ponteiro do tipo `const char *const` e anote com comentários o que acontece.
-
-## Arrays e Ponteiros
-
-O uso de ponteiros para arrays é um pouco diferente, pois não é preciso utilizar o operador `&` nem copiar o tamanho do array para o ponteiro. Observe o exemplo a seguir:
+Operations can be done between values ​​using pointers, for example:
 
 ```
 #include <stdio.h>
 
 int main(void) {
 
-  int vetorExemplo[3] = {1,2,3};
+ int x = 10;
+ double y = 20.50;
 
-  int *vetorPtr = vetorExemplo; 
-  // a linha de código anterior é a mesma coisa 
-  // que colocar int *vetorPtr = &vetorExemplo[0]
-  // mas não é necessário especificar dessa forma
+ int *xPtr = &x;
+ double *yPtr = &y;
 
-  printf("%d\n", *vetorPtr);
-  printf("%p", vetorPtr);
+ double sum = *xPtr + *yPtr;
 
-  return 0;
+ printf("Sum = %.2lf\n", sum);
+
+ return 0;
 }
 ```
 
-Se você observou, não é necessário especificar para qual valor do array estaremos apontando, pois, automaticamente, é feito o apontamento para o primeiro índice. 
+The result of this code is:
+```
+Sum = 30.50
+```
+What happened for this result is that we have access to the values ​​at the memory addresses indicated by the `xPtr` and `yPtr` pointers. The `*` sign accesses the value from the pointer.
 
-Caso seja necessário apontar especificamente para um outro item do array, pode-se fazer o seguinte:
+## Incrementing pointers with the const qualifier
+
+The const qualifier allows you to tell the compiler that the value of a specific variable should not be modified, thus enforcing the principle of least privilege. This can reduce debugging time and avoid unintended side effects, making a program more robust and easier to modify and maintain. If an attempt is made to modify a value declared const, the compiler detects it and issues an error.
+
+### Using a non-constant pointer on non-constant data
+
+The function example in the challenge in the last tutorial exemplifies the risk of side effects when working with information without this qualifier. In the following situation, we see that the highest level of data access is granted by a non-constant pointer to non-constant data.
+
+```
+#include <stdio.h>
+#include <ctype.h>
+
+void convertToCapital(char *sPtr);
+
+int main(void) {
+ char word[] = "programming laboratory class";
+
+ printf("Before conversion: %s\n", word);
+ convertToCapital(word);
+ printf("After conversion: %s\n", word);
+
+ return 0;
+}
+
+void convertToCapital(char *sPtr) {
+ while (*sPtr != '\0') {
+ *sPtr = toupper(*sPtr);
+ ++sPtr;
+ }
+}
+```
+
+Output of the previous example:
+
+```
+Before conversion: program lab class
+After conversion: PROGRAMMING LABORATORY CLASS
+```
+
+Data can be modified through the dereferenced pointer, and the pointer can be modified to point to other data items. A function can use this pointer to receive a string argument and then process (and possibly modify) each character in the string.
+
+The convertToCapital function above declares its parameter, a non-constant pointer to non-constant data called `sPtr`. The function processes the array string (pointed to by `sPtr`) one character at a time. The C standard library function `toupper` of the `<ctype.h>` header converts each character to its corresponding uppercase letter.
+
+If the original character is not a letter or is already capitalized, toupper returns the original character. At the end of the loop the pointer is incremented to point to the next character in the string. Chapter 8 introduces many string and character processing functions from the C standard library.
+
+### Using a non-constant pointer in constant data
+
+A non-constant pointer to constant data can be modified to point to any data item of the appropriate type, but the data it points to cannot be modified. A function can receive such a pointer to process the elements of an array argument without modifying them. For example, observe the use of the following function:
+
+```
+#include <stdio.h>
+
+void printCharacters(const char *sPtr);
+
+int main(void) {
+ char word[] = "programming laboratory class";
+
+ puts("The String is: ");
+ printCharacters(word);
+
+ return 0;
+}
+
+void printCharacters(const char *sPtr) {
+ while (*sPtr != '\0') {
+ printf("%c", *sPtr);
+ ++sPtr;
+ }
+}
+```
+
+The `imprimeCaracteres` function declares the `sPtr` parameter as being of type `const char *`. The declaration reads from right to left as “sPtr is a pointer to a character constant”. The repeat structure tion contained in the function displays each character until it encounters a null character. After displaying each character, the loop increments the spPtr pointer to point to the next character in the string.
+
+**Exercise 1**: Change the core of the `imprimeCaracteres` function to some instruction that modifies each character, using the dereferencing operator, and note in the code, using comments, which error appeared.
+
+### Trying to modify a constant pointer for non-constant data
+
+A constant pointer to non-constant data always points to the same memory location, but the data in that location can be modified through the pointer.
+
+```
+#include <stdio.h>
+
+int main(void) {
+ int x = 0;
+ int y = 0;
+
+ int *const ptr = &x;
+
+ *ptr = 7; // is allowed because constant is not the value, but the pointer
+ printf("%d", x);
+ // ptr = &y; // error: pointer is constant, cannot be pointed to another memory address
+
+ return 0;
+}
+```
+
+The pointer `ptr` is defined in the previous example as being of type `int *const`, which is read from right to left as “ptr is a constant pointer to an integer”. After is initialized (line 11) with the address of the integer variable x. The program tries to assign the address of y to ptr (line 14), but the compiler generates an error.
+
+**Exercise 2**: Create a function analogous to the first example, which prints all lowercase letters, using a pointer like `char *const` and write down what happens with comments.
+
+### Trying to modify a constant pointer to constant data
+
+The least access privilege is granted by a constant pointer to constant data. This pointer always points to the same memory location, and data in that memory location cannot be modified.
+
+This is how, for example, an array must be passed to a function that just looks at the elements of the array using array index notation and does not modify the elements.
+
+To understand better, see the following example:
+
+```
+#include <stdio.h>
+
+int main(void) {
+ int x = 0;
+ int y = 0;
+
+ const int *const ptr = &x;
+
+ //*ptr = 7; // error: not allowed because the value is not constant
+ printf("%d", x);
+ // ptr = &y; // error: not allowed because the pointer is not constant either
+
+ return 0;
+}
+```
+
+**Exercise 3**: Modify the function from the previous exercise, which prints all lowercase letters, to, this time, use a pointer like `const char *const` and write down with comments what happens.
+
+## Arrays and Pointers
+
+The use of pointers for arrays is a little different, as it is not necessary to use the `&` operator or copy the size of the array to the pointer. Observe the following example:
 
 ```
 #include <stdio.h>
 
 int main(void) {
 
-  int vetorExemplo[3] = {1,2,3};
-  int *vetorPtr = &vetorExemplo[1]; 
+ int vectorExample[3] = {1,2,3};
 
-  printf("%d\n", *vetorPtr);
-  printf("%p", vetorPtr); // Um outro endereço de memória, diferentemente do exemplo anterior
+ int *vectorPtr = vectorExample;
+ // the previous line of code is the same
+ // put int *vetorPtr = &vetorExample[0]
+ // but it is not necessary to specify it this way
 
-  return 0;
+ printf("%d\n", *vectorPtr);
+ printf("%p", vectorPtr);
+
+ return 0;
 }
 ```
 
-É possível percorrer um array da mesma forma que fizemos com as strings, e acessar os valores a partir do incremento do ponteiro.
+If you noticed, it is not necessary to specify which value in the array we will be pointing to, as the first index is automatically pointed to.
 
-**Exercício 4**: Baseado no exemplo anterior e no que discutimos sobre strings, elabore um programa que percorra arrays dos seguintes tipos: float, double e char. Usando comentários, responda: o que pode-se notar quando acessamos o endereço de memória a cada iteração de cada um desses arrays? 
+If it is necessary to specifically point to another item in the array, you can do the following:
+
+```
+#include <stdio.h>
+
+int main(void) {
+
+ int vectorExample[3] = {1,2,3};
+ int *vetorPtr = &vetorExample[1];
+
+ printf("%d\n", *vetorPtr);
+ printf("%p", vectorPtr); // Another memory address, unlike the previous example
+
+ return 0;
+}
+```
+
+It is possible to traverse an array in the same way as we did with strings, and access the values ​​by incrementing the pointer.
+
+**Exercise 4**: Based on the previous example and what we discussed about strings, create a program that loops through arrays of the following types: float, double and char. Using comments, answer: what can you notice when we access the memory address at each iteration of each of these arrays?

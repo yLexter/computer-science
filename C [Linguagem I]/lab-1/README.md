@@ -1,69 +1,69 @@
 # Lab 1
 
-Vamos ao nosso lab de hoje. Você já conhece um pouco de C e já consegue resolver alguns problemas simples usando a linguagem para programar soluções para esses problemas, certo? Vejamos como trabalhar melhor com o armazenamento em variáveis, os dados, considerando seus tipos, e o que é o escopo.
+Let's go to our lab today. You already know a little about C and can solve some simple problems using the language to program solutions to these problems, right? Let's see how to work better with storing variables, data, considering its types, and what scope is.
 
-## Escopo de variáveis
+## Variable scope
 
-Começando de trás para frente, o que vimos na aula passada irá contribuir para definir o que é o escopo. Na maioria das linguagens derivadas do C, existe a delimitação explícita de um bloco de código. Veja o exemplo da função principal, a função `main`:
-
-```
-#include <stdio.h>
-
-int main()
-{  
-  return 0;
-}
-```
-
-Note que a função é um bloco de código, e que deve estar dentro de chaves `{}`. A esse espaço da função principal podemos chamar de _escopo local_, onde, o que está definido ali não é "enxergado" de quem está fora da função.
-
-Porém, considere este outro exemplo:
+Starting backwards, what we saw in the last class will help to define what the scope is. In most languages ​​derived from C, there is an explicit delimitation of a block of code. See the example of the main function, the `main` function:
 
 ```
 #include <stdio.h>
-
-int soma;
 
 int main()
 {
-  return 0;
+ return 0;
 }
 ```
 
-A variável soma está disponível para ser utilizada não só na função `main`, mas em qualquer função neste mesmo código. Isso quer dizer que esta variável pode ser "enxergada" por todo o código, sendo considerada de _escopo global_. 
+Note that the function is a block of code, and that it must be enclosed in braces `{}`. We can call this space of the main function the _local scope_, where what is defined there is not "seen" by those outside the function.
 
-Logo, se uma variável está definida fora das funções, é de escopo global, senão, será de escopo local.
+However, consider this other example:
 
-**Exercício 1**: Escreva um código que pede um número ao usuário, e, em seguida, mostre a mensagem "O número informado foi [número]". Esse número deve ser armazenado em uma variável global.
+```
+#include <stdio.h>
 
-**Exercício 2**: Reescreva o programa do **exercício 2 do Lab 0**, sendo que, as variáveis que representam os números recebidos do usuário devem ser de escopo global e, o resultado final, deve ser de escopo local.
+int sum;
 
-## Tipos de Dados
+int main()
+{
+ return 0;
+}
+```
 
-Dentre as informações que podemos utilizar para resolver problemas usando C, há cinco tipos básicos: caractere, inteiro, ponto flutuante, ponto flutuante de precisão dupla e sem valor (_char_, _int_, _float_, _double_ e _void_, respectivamente). 
+The sum variable is available to be used not only in the `main` function, but in any function in this same code. This means that this variable can be "seen" throughout the code, being considered _global scope_.
 
-Para testar, execute o código a seguir:
+Therefore, if a variable is defined outside the functions, it is of global scope, otherwise, it will be of local scope.
+
+**Exercise 1**: Write a code that asks the user for a number, and then displays the message "The number entered was [number]". This number must be stored in a global variable.
+
+**Exercise 2**: Rewrite the program from **exercise 2 of Lab 0**, considering that the variables that represent the numbers received from the user must be of global scope and the final result must be of local scope.
+
+## Data Types
+
+Among the information we can use to solve problems using C, there are five basic types: character, integer, floating point, double precision floating point and no value (_char_, _int_, _float_, _double_ and _void_, respectively).
+
+To test, run the following code:
 
 ```
 #include <stdio.h>
 
 int main()
-{  
-  char caractere;
-  int inteiro;
-  float pontoFlutuante;
-  double precisaoDupla;
-  
-  printf("%s\n", caractere);
-  printf("%d\n", inteiro);
-  printf("%f\n", pontoFlutuante);
-  printf("%lf\n", precisaoDupla);
-  
-  return 0;
+{
+ char character;
+ int integer;
+ floatfloatpoint;
+ double doubleprecise;
+
+ printf("%s\n", character);
+ printf("%d\n", integer);
+ printf("%f\n", Floatingpoint);
+ printf("%lf\n", doubleprecise);
+
+ return 0;
 }
 ```
 
-Você deve encontrar uma saída semelhante a essa:
+You should see output similar to this:
 
 ```
 (null)
@@ -72,95 +72,95 @@ Você deve encontrar uma saída semelhante a essa:
 0.000000
 ```
 
-Veja que, o valor de `caractere`, sem qualquer atribuição de tamanho ou informação, é `null`, ou seja, informação nula, vazia. Já o número inteiro difere dos demais por não ter casas decimais. Os tipos `float` e `double` diferem na sua precisão (6 e 10 dígitos, respectivamente).
+Note that the value of `character`, without any size or information assignment, is `null`, that is, null, empty information. The whole number differs from the others because it does not have decimal places. The `float` and `double` types differ in their precision (6 and 10 digits, respectively).
 
-Para formatar um valor decimal, poderíamos fazer o seguinte: 
+To format a decimal value, we could do the following:
 
 ```
 #include <stdio.h>
 
 int main()
-{  
-  float pontoFlutuante;
-  double precisaoDupla;
-  
-  printf("%.6f\n", pontoFlutuante);
-  printf("%.10lf\n", precisaoDupla);
-  
-  return 0;
+{
+ floatfloatpoint;
+ double doubleprecise;
+
+ printf("%.6f\n", Floatingpoint);
+ printf("%.10lf\n", doubleprecise);
+
+ return 0;
 }
 ```
 
-E então, você deve encontrar uma saída semelhante a essa:
+And then, you should find output similar to this:
 
 ```
 0.000000
 0.0000000000
 ```
 
-Já para o caractere, é preciso ter o cuidado de definir o seu tamanho. Por exemplo, se quisermos coletar apenas uma letra do teclado, poderíamos resolver da seguinte forma:
+As for the character, you need to be careful to define its size. For example, if we wanted to collect just one letter from the keyboard, we could solve it as follows:
 
 ```
 #include <stdio.h>
 
 int main()
-{  
-  char letra[1];
-  
-  printf("Digite uma letra: ");
-  scanf("%c", &letra);
-  printf("%s", letra);
-  
-  return 0;
+{
+ char letter[1];
+
+ printf("Enter a letter: ");
+ scanf("%c", &letter);
+ printf("%s", letter);
+
+ return 0;
 }
 ```
 
-E então, você deve encontrar uma saída semelhante a essa (digitando a letra C no teclado):
+And then, you should find output similar to this (by typing the letter C on your keyboard):
 
 ```
-Digite uma letra: C
-C
+Enter a letter: C
+W
 ```
 
-O mesmo `char` também funciona para nomes (strings). Só definir um tamanho um pouco maior, ou até mesmo nenhum tamanho:
+The same `char` also works for names (strings). Just set a slightly larger size, or even no size at all:
 
 ```
 #include <stdio.h>
 
 int main()
-{ 
-  char professorLP1[5] = "Ramon";
-  char professorP1[] = "Não sei dizer ainda";
+{
+ char professorLP1[5] = "Ramon";
+ char professorP1[] = "I don't know yet";
 
-  printf("O professor de LP1 a tarde é: %s", professorLP1);  
-  printf("\n");
-  printf("O professor de P1 da outra turma é: %s", professorP1);
+ printf("LP1's teacher in the afternoon is: %s", teacherLP1);
+ printf("\n");
+ printf("P1's teacher in the other class is: %s", teacherP1);
 }
 ```
 
-E então, você deve encontrar uma saída semelhante a essa:
+And then, you should find output similar to this:
 
 ```
-O professor de LP1 a tarde é: Ramon
-O professor de P1 da outra turma é: Não sei dizer ainda
+The LP1 teacher in the afternoon is: Ramon
+The P1 teacher in the other class is: I don't know yet
 ```
 
-**Exercício 3**: Tendo como dados de entrada o nome e a altura de uma pessoa, construa um programa que calcule seu peso ideal, usando a seguinte fórmula: (72.7*altura) - 58, sendo o resultado formatado com 3 dígitos dentro de uma mensagem final com o nome fornecido pelo usuário.
+**Exercise 3**: Taking a person's name and height as input data, build a program that calculates their ideal weight, using the following formula: (72.7*height) - 58, with the result formatted with 3 digits within a final message with the name provided by the user.
 
-**Desafio 1**: Faça um Programa que peça a temperatura em graus Fahrenheit, transforme e mostre a temperatura em graus Celsius. (Formate bem a sua entrada e saída!) A fórmula para conversão é: C = 5 * ((F-32) / 9). 
+**Challenge 1**: Make a Program that asks for the temperature in degrees Fahrenheit, transforms it and displays the temperature in degrees Celsius. (Format your input and output well!) The formula for conversion is: C = 5 * ((F-32) / 9).
 
-**Desafio 2**: Faça um Programa que pergunte quanto você ganha por hora, o número de horas trabalhadas no mês, e as porcentagens de desconto do Imposto de Renda e INSS. 
-Calcule e mostre o total do seu salário no referido mês em um programa que nos dê:
-- salário bruto
-- quanto pagou ao INSS
-- quanto pagou de IR
-- e o salário líquido.
+**Challenge 2**: Create a Program that asks how much you earn per hour, the number of hours worked in the month, and the Income Tax and INSS discount percentages.
+Calculate and display your total salary for that month in a program that gives us:
+- gross salary
+- how much you paid to INSS
+- how much IR you paid
+- and net salary.
 
-Exiba o resultado conforme a tabela abaixo (considere que foi fornecido um salário de 1000 reais e porcentagens de desconto do IR e INSS de 11 e 8 por cento, respectivamente):
+Display the result as per the table below (consider that a salary of 1000 reais was provided and IR and INSS discount percentages of 11 and 8 percent, respectively):
 
 ```
-+ Salário Bruto : R$ 1000.00
-- IR (11%) : R$ 110.00
-- INSS (8%) : R$ 80.00
-= Salário Liquido : R$ 810.00
++ Gross Salary: R$ 1000.00
+- IR (11%): R$ 110.00
+- INSS (8%): ​​R$ 80.00
+= Net Salary: R$ 810.00
 ```

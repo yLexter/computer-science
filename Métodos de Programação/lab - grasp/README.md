@@ -1,27 +1,27 @@
-# Lab-3: Coesão e Acoplamento
+#Lab-3: Cohesion and Coupling
 
-Refatoração das classes "Ofuscadas", forão encotrada os seguintes problema:
+Refactoring the "Obfuscated" classes, the following problems were encountered:
 
-## Coesão
+## Cohesion
 
-- A classe FigurasGeometricas possui métodos que lidam com diferentes tipos de figuras geométricas, como retângulos, quadrados e círculos. Isso viola o princípio da coesão, pois a classe está lidando com mais de uma responsabilidade.
+- The Geometric Figures class has methods that deal with different types of geometric figures, such as rectangles, squares and circles. This violates the principle of cohesion, as the class is handling more than one responsibility.
 
-- O método a(int tipoDaFigura) é responsável por calcular e exibir a área das figuras, enquanto o método p(int tipoDaFigura) calcula e exibe o perímetro. Esses métodos deveriam estar em classes separadas, cada uma responsável por um tipo específico de figura geométrica.
+- The method a(int typeOfFigure) is responsible for calculating and displaying the area of ​​the figures, while the method p(int typeOfFigure) calculates and displays the perimeter. These methods should be in separate classes, each responsible for a specific type of geometric figure.
 
-- O método toStringDaFigura(int tipoDaFigura) também viola o princípio da coesão, pois está responsável por retornar uma representação textual da figura. Esta responsabilidade deveria estar em uma classe separada.
-Acoplamento
+- The toStringDaFigure(inttipoDaFigure) method also violates the principle of cohesion, as it is responsible for returning a textual representation of the figure. This responsibility should be in a separate class.
+Coupling
 
-## Aclopamento
+## Coupling
 
-- A classe BrincandoComAsFigurasGeometricas está fortemente acoplada à classe FigurasGeometricas, pois utiliza diretamente seus métodos estáticos e constantes. Isso dificulta a manutenção e a reutilização do código, uma vez que qualquer alteração na classe FigurasGeometricas pode impactar a classe BrincandoComAsFigurasGeometricas.
+- The BrincandoComAs FigurasGeometricas class is strongly coupled to the FigurasGeometricas class, as it directly uses its static and constant methods. This makes code maintenance and reuse difficult, since any change to the FigurasGeometricas class can impact the BrincandoComAsFiguresGeometricas class.
 
-- O acoplamento poderia ser reduzido movendo a lógica de cálculo e exibição das figuras geométricas para classes separadas, tornando a classe BrincandoComAsFigurasGeometricas mais genérica e fácil de manter.
+- Coupling could be reduced by moving the logic for calculating and displaying geometric figures to separate classes, making the BrincandoComAs FigurasGeometricas class more generic and easier to maintain.
 
-## Estrutura do Projeto
+## Project Structure
 
-O projeto está estruturado da seguinte forma:
+The project is structured as follows:
 
-- `entities`: Contém as classes das figuras geométricas.
-- `testes`: Todos os testes das figuras e singleton.
-- `erros`: Exceções customizadas.
-- `Main`: Criação e resultados do padrão de coesãoe aclopamento.
+- `entities`: Contains the classes of geometric figures.
+- `tests`: All figure and singleton tests.
+- `errors`: Custom exceptions.
+- `Main`: Creation and results of the cohesion and coupling pattern.

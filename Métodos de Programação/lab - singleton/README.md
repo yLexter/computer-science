@@ -1,38 +1,38 @@
-# Lab-6: Singleton
+#Lab-6: Singleton
 
-## Descrição
-Implementação de uma "Fábrica" de figuras geométricas onde é possível criar um único círculo, três instâncias de triângulos (um isósceles, um equilátero e um retângulo) e inúmeros quadrados.
+## Description
+Implementation of a "Factory" of geometric figures where it is possible to create a single circle, three instances of triangles (one isosceles, one equilateral and one rectangle) and countless squares.
 
-## Funcionalidades
-- Criação de um único círculo
-- Criação de três instâncias de triângulos (isósceles, equilátero e retângulo)
-- Criação de inúmeros quadrados
+## Functionalities
+- Creation of a single circle
+- Creation of three instances of triangles (isosceles, equilateral and rectangle)
+- Creation of countless squares
 
-## Como utilizar
-1. Instancie a fábrica de figuras geométricas (`FiguraFactory`).
-2. Utilize os métodos da fábrica para criar as figuras desejadas.
+## How to use
+1. Instantiate the geometric figure factory (`FigureFactory`).
+2. Use factory methods to create the desired figures.
 
-## Exemplo de uso
+## Example of use
 ```java
-    FiguraFactory factory = new FiguraFactory();
+ FiguraFactory factory = new FiguraFactory();
 
-    Figura circulo = factory.criarCirculo(raio);
+ Circle figure = factory.createCircle(radius);
 
-    Figura trianguloIsoceles = factory.criarTrianguloIsosceles(lado1, lado2, base);
-    Figura trianguloEquilatero = factory.criarTrianguloEquilatero(lado);
-    Figura trianguloRetangulo = factory.criarTrianguloRetangulo(cateto1, cateto2);
+ Isoceles triangle figure = factory.createIsoscelesTriangle(side1, side2, base);
+ FigureEquilateral triangle = factory.createEquilateralTriangle(side);
+ Rectangular triangle figure = factory.criarRectangularTriangle(cathet1, cathet2);
 
-    Figura quadrado1 = factory.criarQuadrado(lado1);
-    Figura quadrado2 = factory.criarQuadrado(lado2);
-    Figura quadrado3 = factory.criarQuadrado(lado3);
+ Figure square1 = factory.createSquare(side1);
+ Figure square2 = factory.createSquare(side2);
+ Figure square3 = factory.createSquare(side3);
 ```
 
-## Estrutura do Projeto
+## Project Structure
 
-O projeto está estruturado da seguinte forma:
+The project is structured as follows:
 
-- `entities`: Contém as classes das figuras geométricas.
-- `enums`: Enum para o tipo de triangulo.
-- `testes`: Todos os testes das figuras e singleton.
-- `erros`: Exceções customizadas.
-- `Main`: Criação e resultados do singleton.
+- `entities`: Contains the classes of geometric figures.
+- `enums`: Enum for the triangle type.
+- `tests`: All figure and singleton tests.
+- `errors`: Custom exceptions.
+- `Main`: Singleton creation and results.

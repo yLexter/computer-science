@@ -1,5 +1,5 @@
-# 1° Atividade Digirida
+# 1st Digital Activity
 
-## Primeira atividade diriga valendo 20% da nota
+## First driving activity worth 20% of the grade
 
-### Integrantes: [Tássio Sales](https://github.com/Tassio-Sales) e Lucas Ferreira
+### Members: [Tássio Sales](https://github.com/Tassio-Sales) and Lucas Ferreira

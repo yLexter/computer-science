@@ -1,26 +1,26 @@
-# Tecnologias de Desenvolvimento de Interfaces Gráficas
+# Graphical Interface Development Technologies
 
-Esta disciplina oferece uma imersão completa em tecnologias fundamentais para o desenvolvimento de interfaces gráficas de alta qualidade e experiências de usuário atraentes. Os tópicos abordados incluem:
+This subject offers a complete immersion in fundamental technologies for developing high-quality graphical interfaces and attractive user experiences. Topics covered include:
 
-## Professor
-- **Professor:** Allan Vilar
+## Teacher
+- **Teacher:** Allan Vilar
 
-## HTML
+##HTML
 
-- **HTML (Hypertext Markup Language):** A linguagem de marcação que define a estrutura e o conteúdo de uma página web. Aprenda a criar páginas web com elementos HTML, criar links, formulários e integrar conteúdo multimídia.
+- **HTML (Hypertext Markup Language):** The markup language that defines the structure and content of a web page. Learn how to create web pages with HTML elements, create links, forms and integrate multimedia content.
 
 ## CSS
 
-- **CSS (Cascading Style Sheets):** A linguagem de estilização que permite controlar a aparência e o layout de páginas web. Explore seletores CSS, propriedades de estilo, layout responsivo e animações.
+- **CSS (Cascading Style Sheets):** The styling language that allows you to control the appearance and layout of web pages. Explore CSS selectors, style properties, responsive layout, and animations.
 
 ## JavaScript
 
-- **JavaScript:** A linguagem de programação fundamental para tornar as páginas web interativas. Aprenda a manipular o DOM (Document Object Model), lidar com eventos, criar funções, realizar validações e muito mais.
+- **JavaScript:** The fundamental programming language for making web pages interactive. Learn how to manipulate the DOM (Document Object Model), handle events, create functions, perform validations and much more.
 
 ## React
 
-- **React:** Uma biblioteca JavaScript de código aberto para criação de interfaces de usuário reativas. Domine a criação de componentes reutilizáveis, gerenciamento de estado e o ciclo de vida dos componentes.
+- **React:** An open source JavaScript library for creating reactive user interfaces. Master the creation of reusable components, state management, and the component lifecycle.
 
-## Como Usar
+## How to use
 
-Este repositório contém uma série de diretórios, cada um relacionado a um tópico específico. Dentro de cada diretório, você encontrará códigos de exemplo, resoluções de exercícios e para os tópicos correspondentes.
+This repository contains a series of directories, each related to a specific topic. Within each directory, you will find example codes, exercise resolutions, and solutions for the corresponding topics.

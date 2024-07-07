@@ -1,57 +1,57 @@
-# Análise de Algoritmos de Ordenação
+# Analysis of Sorting Algorithms
 
-- Grupo: Mateus Vitor, Joana Dark e João Gabriel
+- Group: Mateus Vitor, Joana Dark and João Gabriel
 
-Neste projeto, implementamos e analisamos os seguintes algoritmos de ordenação em Python:
+In this project, we implemented and analyzed the following sorting algorithms in Python:
 
 1. **Bubble Sort**
-     - Valores Desordenados: Tempo de execução elevado em amostras maiores, uso significativo de memória.
-     - Valores Ordenados Crescentemente: Melhor desempenho, mas ainda lento em amostras maiores.
-     - Valores Ordenados Decrescentemente: Desempenho semelhante aos valores desordenados.
-     - Valores Constantes: Melhor Desempenho.
-     - Valores Parcialmente Ordenados (Final Desordenado): Tempo de execução razoável.
-     - Valores Parcialmente Ordenados (Início Desordenado): Tempo de execução razoável.
+ - Disordered Values: High execution time on larger samples, significant memory usage.
+ - Values ​​Sorted Increasingly: Better performance, but still slow in larger samples.
+ - Values ​​Sorted Descendingly: Performance similar to disordered values.
+ - Constant Values: Better Performance.
+ - Partially Ordered Values ​​(Disordered Final): Reasonable execution time.
+ - Partially Ordered Values ​​(Disordered Start): Reasonable execution time.
 
 2. **Selection Sort**
-     - Valores Desordenados: Tempo de execução elevado em amostras maiores, uso moderado de memória.
-     - Valores Ordenados Crescentemente: Desempenho semelhante aos valores desordenados.
-     - Valores Ordenados Decrescentemente: Melhor desempenho, mas ainda lento em amostras maiores.
-     - Valores Constantes: Desempenho razoável.
-     - Valores Parcialmente Ordenados (Final Desordenado): Tempo de execução razoável.
-     - Valores Parcialmente Ordenados (Início Desordenado): Tempo de execução razoável.
+ - Disordered Values: High execution time on larger samples, moderate memory usage.
+ - Increasingly Ordered Values: Performance similar to disordered values.
+ - Values ​​Sorted Descending: Better performance, but still slow in larger samples.
+ - Constant Values: Reasonable performance.
+ - Partially Ordered Values ​​(Disordered Final): Reasonable execution time.
+ - Partially Ordered Values ​​(Disordered Start): Reasonable execution time.
 
 3. **Insertion Sort**
-     - Valores Desordenados: Tempo de execução razoável, uso moderado de memória.
-     - Valores Ordenados Crescentemente: Melhor desempenho, rápido mesmo em amostras maiores.
-     - Valores Ordenados Decrescentemente: Desempenho semelhante aos valores desordenados.
-     - Valores Constantes: Desempenho razoável.
-     - Valores Parcialmente Ordenados (Final Desordenado): Tempo de execução razoável.
-     - Valores Parcialmente Ordenados (Início Desordenado): Tempo de execução razoável.
+ - Disordered Values: Reasonable execution time, moderate memory usage.
+ - Values ​​Sorted Increasingly: Better performance, fast even in larger samples.
+ - Values ​​Sorted Descendingly: Performance similar to unordered values.
+ - Constant Values: Reasonable performance.
+ - Partially Ordered Values ​​(Disordered Final): Reasonable execution time.
+ - Partially Ordered Values ​​(Disordered Start): Reasonable execution time.
 
 4. **Merge Sort**
-     - Valores Desordenados: Bom desempenho, uso moderado de memória.
-     - Valores Ordenados Crescentemente: Tempo de execução razoável.
-     - Valores Ordenados Decrescentemente: Tempo de execução razoável.
-     - Valores Constantes: Bom desempenho.
-     - Valores Parcialmente Ordenados (Final Desordenado): Bom desempenho.
-     - Valores Parcialmente Ordenados (Início Desordenado): Bom desempenho.
+ - Disordered Values: Good performance, moderate memory usage.
+ - Values ​​Sorted Increasingly: Reasonable execution time.
+ - Values ​​Ordered Descendingly: Reasonable execution time.
+ - Constant Values: Good performance.
+ - Partially Ordered Values ​​(Disordered Final): Good performance.
+ - Partially Ordered Values ​​(Disordered Start): Good performance.
 
 5. **Quick Sort**
-     - Valores Desordenados: Bom desempenho em amostras maiores, uso moderado de memória.
-     - Valores Ordenados Crescentemente: Tempo de execução razoável.
-     - Valores Ordenados Decrescentemente: Tempo de execução razoável.
-     - Valores Constantes: Bom desempenho.
-     - Valores Parcialmente Ordenados (Final Desordenado): Bom desempenho.
-     - Valores Parcialmente Ordenados (Início Desordenado): Bom desempenho.
+ - Disordered Values: Good performance on larger samples, moderate memory usage.
+ - Values ​​Sorted Increasingly: Reasonable execution time.
+ - Values ​​Ordered Descendingly: Reasonable execution time.
+ - Constant Values: Good performance.
+ - Partially Ordered Values ​​(Disordered Final): Good performance.
+ - Partially Ordered Values ​​(Disordered Start): Good performance.
 
 6. **Counting Sort**
-     - Valores Desordenados: Excelente desempenho em amostras maiores, uso mínimo de memória.
-     - Valores Ordenados Crescentemente: Excelente desempenho.
-     - Valores Ordenados Decrescentemente: Excelente desempenho.
-     - Valores Constantes: Excelente desempenho.
-     - Valores Parcialmente Ordenados (Final Desordenado): Excelente desempenho.
-     - Valores Parcialmente Ordenados (Início Desordenado): Excelente desempenho.
+ - Unordered Values: Excellent performance on larger samples, minimal memory usage.
+ - Values ​​Sorted Increasingly: Excellent performance.
+ - Values ​​Ordered Descendingly: Excellent performance.
+ - Constant Values: Excellent performance.
+ - Partially Ordered Values ​​(Disordered Final): Excellent performance.
+ - Partially Ordered Values ​​(Disordered Start): Excellent performance.
 
-## Conclusão
+## Conclusion
 
-Os resultados da análise indicam que o algoritmo Counting Sort é o mais eficiente em termos de tempo de execução e uso de memória na maioria dos cenários de entrada. No entanto, a escolha do algoritmo de ordenação depende das características específicas dos dados e dos requisitos de desempenho do seu aplicativo.
+The analysis results indicate that the Counting Sort algorithm is the most efficient in terms of execution time and memory usage in most input scenarios. However, the choice of sorting algorithm depends on the specific characteristics of the data and the performance requirements of your application.

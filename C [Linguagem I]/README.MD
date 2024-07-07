@@ -1,17 +1,14 @@
-# Laboratório de Progamação I
+# Programming Laboratory I
 
-Esta disciplina tem como objetivo ensinar os conceitos fundamentais da linguagem de programação C, com foco em manipulação de arquivos e ponteiros. Os exercícios propostos visam solidificar o conhecimento sobre linguagens imperativas e a resolução de algoritmos.
+This subject aims to teach the fundamental concepts of the C programming language, focusing on manipulating files and pointers. The proposed exercises aim to solidify knowledge about imperative languages ​​and solving algorithms.
 
-## Professor
-- **Professor:** Ramon
+## Teacher
+- **Teacher:** Ramon
 
-## Conteúdo da Disciplina
+## Subject Content
 
-1. **Conceitos Básicos de C:** Introdução à linguagem C, estrutura básica de um programa em C, tipos de dados, operadores e estruturas de controle.
-2. **Manipulação de Arquivos:** Leitura e escrita de arquivos em C, utilizando funções como `fopen`, `fclose`, `fread` e `fwrite`.
-3. **Ponteiros:** Conceito de ponteiros em C, operadores `*` e `&`, alocação dinâmica de memória com `malloc` e `free`.
-4. **Linguagens Imperativas:** Estudo das características das linguagens de programação imperativas, com foco na linguagem C.
-5. **Resolução de Algoritmos:** Exercícios práticos para aplicar os conceitos aprendidos, resolvendo problemas comuns de programação.
-
-
-
+1. **Basic Concepts of C:** Introduction to the C language, basic structure of a C program, data types, operators and control structures.
+2. **File Manipulation:** Reading and writing files in C, using functions such as `fopen`, `fclose`, `fread` and `fwrite`.
+3. **Pointers:** Concept of pointers in C, operators `*` and `&`, dynamic memory allocation with `malloc` and `free`.
+4. **Imperative Languages:** Study of the characteristics of imperative programming languages, focusing on the C language.
+5. **Algorithm Solving:** Practical exercises to apply the concepts learned, solving common programming problems.

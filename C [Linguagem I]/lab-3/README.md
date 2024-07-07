@@ -1,206 +1,207 @@
 # Lab 3
 
-Conheceremos algumas das estruturas de controle de fluxo na linguagem C, entendendo todas as alternativas para avaliar condições e produzir diferentes saídas para os nossos programas.
+We will learn about some of the flow control structures in the C language, understanding all the alternatives to evaluate conditions and produce different outputs for our programs.
 
-## Revisando a mais básica estrutura de decisão: if-else
+## Reviewing the most basic decision structure: if-else
 
-Para decidir entre duas soluções possíveis para um problema, é necessário comparar valores e decidir o que fazer. Em C, utilizamos `if` seguido de uma expressão para denotar que dali em diante, um novo bloco de código será executado dado que uma condição seja atendida. 
+To decide between two possible solutions to a problem, you need to compare values ​​and decide what to do. In C, we use `if` followed by an expression to denote that from then on, a new block of code will be executed given that a condition is met.
 
-Já a palavra `else` significa senão, ou seja, se a condição da expressão do `if` não for satisfeita, então o que estará dentro do bloco do else será executado. 
+The word `else` means otherwise, that is, if the condition of the `if` expression is not satisfied, then what will be inside the else block will be executed.
 
-Apenas o código associado ao `if` ou o código associado ao `else` será executado, nunca ambos.
+Only the code associated with `if` or the code associated with `else` will be executed, never both.
 
-A forma geral da sentença **if-else** é a seguinte:
-
-```
-  if (expressão) 
-  {
-    comando;
-  } 
-  else 
-  {
-    comando;
-  }
-```
-
-Atenção: o `else` nem sempre é necessário, ou seja, ele é opcional.
-
-**Exercício 1**: Faça um Programa que peça um valor e mostre na tela se o valor é um múltiplo de 3, 4 ou 5. Dica: consulte o exemplo de par ou ímpar do lab anterior.
-
-## Operador Ternário: ?
-
-Existe uma forma econômica de escrever um if-else onde avalia-se apenas uma expressão, utilizando o operador ternário `?`.
-
-A forma genérica de escrita com esse operador é como no exemplo a seguir:
+The general form of the **if-else** sentence is as follows:
 
 ```
-expressão ? comando : outroComando;
+ if (expression)
+ {
+ command;
+ }
+ else
+ {
+ command;
+ }
 ```
 
-Por exemplo, o problema do número par ou ímpar poderia ser resolvido em uma única linha, da seguinte forma:
+Attention: `else` is not always necessary, that is, it is optional.
+
+**Exercise 1**: Write a Program that asks for a value and shows on the screen whether the value is a multiple of 3, 4 or 5. Tip: see the even or odd example from the previous lab.
+
+## Ternary Operator: ?
+
+There is an economical way to write an if-else where only one expression is evaluated, using the ternary operator `?`.
+
+The generic way to write this operator is as in the following example:
+
+```
+expression? command: otherCommand;
+```
+
+For example, the odd or even number problem could be solved in a single line, as follows:
 
 ```
 #include <stdio.h>
 
 int main() {
-  int num;
+ int num;
 
-  printf("Digite um número: ");
-  scanf("%d", &num);
-  
-  num % 2 == 0 ? printf("O número é par!") : printf("O número é ímpar!");
+ printf("Enter a number: ");
+ scanf("%d", &num);
 
-  return 0;
+ num % 2 == 0 ? printf("The number is even!") : printf("The number is odd!");
+
+ return 0;
 }
 ```
 
-Vale lembrar que é possível escrever várias expressões aninhadas com operadores ternários, ao invés de um comando.
+It is worth remembering that it is possible to write several nested expressions with ternary operators, instead of one command.
 
 ```
-exp1 ? comando : exp2 ? comando : outroComando;
+exp1 ? command: exp2? command: otherCommand;
 ```
 
-**Exercício 2**: Reescreva a solução do desafio 2 do lab anterior com o uso de operador ternário. Substitua as possíveis entradas por números (1-Matutino, 2-Vespertino e 3-Noturno).
+**Exercise 2**: Rewrite the solution to challenge 2 from the previous lab using the ternary operator. Replace the possible entries with numbers (1-Morning, 2-Evening and 3-Night).
 
-## Condições Aninhadas
+## Nested Conditions
 
-Um comando `if` pode ser o objeto de outro `if` ou `else`. Condições aninhadas são comuns em programação. 
+An `if` statement can be the object of another `if` or `else`. Nested conditions are common in programming.
 
-Em C, o `else` sempre se refere ao `if` mais próximo, que está dentro do mesmo bloco do `else` e não está associado a outro `if`. Para entender esse conceito, considere o exemplo genérico a seguir.
+In C, `else` always refers to the nearest `if`, which is within the same block as `else` and is not associated with another `if`. To understand this concept, consider the following generic example.
 
 ```
 if(exp1)
 {
-    if(exp2) comando 1;
-    if(exp3) comando 2; // este if está associado
-    else comando 3;     // a este else
-} else comando 4; // esse aqui está associado ao if(exp1)
+ if(exp2) command 1;
+ if(exp3) command 2; // this if is associated
+ else command 3; // to this else
+} else command 4; // this one is associated with if(exp1)
 ```
 
-O padrão C ANSI especifica que pelo menos 15 níveis de aninhamento devem ser suportados. Na prática, a maioria dos compiladores permite mais que isso.
+The ANSI C standard specifies that at least 15 levels of nesting must be supported. In practice, most compilers allow more than this.
 
-**Exercício 3**: Faça um programa para a leitura de duas notas parciais de um aluno. O programa deve calcular a média alcançada por aluno e apresentar:
-A mensagem "Aprovado", se a média alcançada for maior ou igual a sete;
-A mensagem "Reprovado", se a média for menor do que sete;
-A mensagem "Aprovado com Distinção", se a média for igual a dez.
+**Exercise 3**: Make a program to read two partial notes from a student. The program must calculate the average achieved per student and present:
+The message "Approved", if the average achieved is greater than or equal to seven;
+The message "Failed" if the average is less than seven;
+The message "Approved with Distinction", if the average is ten.
 
-## Uma estrutura mais formal de decisão: switch
+## A more formal decision structure: switch
 
-O comando switch testa sucessivamente o valor de uma expressão contra uma lista de constantes inteiras ou de caractere. Quando o valor coincide, os comandos associados são executados. Um switch pode ter pelo menos 257 comandos case (C ANSI).
+The switch command successively tests the value of an expression against a list of integer or character constants. When the value matches, the associated commands are executed. A switch can have at least 257 case statements (C ANSI).
 
-Sua estrutura básica conta com os seguintes comandos:
+Its basic structure has the following commands:
 
 ```
 switch (expr) {
-  case const1:
-	sequência de comandos;
-	break;
-  case const2:
-	sequência de comandos;
-	break;
-	...
-  case constn:
-  	sequência de comandos;
-	break;
-  default:
-	sequência de comandos;
-    	break;
+ case const1:
+  sequence of commands;
+  break;
+ case const2:
+  sequence of commands;
+  break;
+  ...
+ case constn:
+  sequence of commands;
+  break;
+ default:
+  sequence of commands;
+  break;
 }
 ```
 
-A expressão neste caso pode ser uma variável do tipo `int` ou um `char`, que podem ser recebidos do teclado ou não. 
+The expression in this case can be a variable of type `int` or a `char`, which can be received from the keyboard or not.
 
-As cláusulas (cases) `const1`, `const2`, ..., `constn` são espécies de `if` que avalia se a expressão é igual ao valor do `case`. Se algum dos valores corresponder, então o bloco será executado. 
+The clauses (cases) `const1`, `const2`, ..., `constn` are types of `if` that evaluate whether the expression is equal to the value of `case`. If any of the values ​​match, then the block will be executed.
 
-A cláusula `default` deve sempre ser incluída, caso contrário, os valores não testados explicitamente em um `switch` e serão ignorados. E, por fim, em cada cláusula é necessário o uso da palavra reservada `break`.
+The `default` clause must always be included, otherwise values ​​not explicitly tested in a `switch` will be ignored. And, finally, in each clause it is necessary to use the reserved word `break`.
 
-Para entender melhor, veja o seguinte exemplo. Para resolver o problema do turno, poderíamos criar um `switch`, começando pelo caso padrão, onde nenhuma letra válida é identificada. 
+To understand better, see the following example. To solve the shift problem, we could create a `switch`, starting with the standard case, where no valid letter is identified.
 
 ```
 #include <stdio.h>
 
-int main() 
+int main()
 {
-  int turno = 0;
-  printf("Digite 1-Matutino, 2-Vespertino e 3-Noturno: ");
-  scanf("%d", &turno);
+ int shift = 0;
+ printf("Enter 1-Morning, 2-Evening and 3-Evening: ");
+ scanf("%d", &turn);
 
-  switch (turno) {
-    
-    default:
-      printf("Valor Inválido!");
-      break;
-  }
+ switch (shift) {
 
-  return 0;
+ default:
+ printf("Invalid Value!");
+ break;
+ }
+
+ return 0;
 }
 ```
 
-Vamos incluir a primeira cláusula: ao reconhecer o valor 1, é impresso "Bom dia!";
+Let's include the first clause: when recognizing the value 1, "Good morning!" is printed;
 
 ```
 #include <stdio.h>
 
-int main() 
+int main()
 {
-  int turno = 0;
-  printf("Digite 1-Matutino, 2-Vespertino e 3-Noturno: ");
-  scanf("%d", &turno);
+ int shift = 0;
+ printf("Enter 1-Morning, 2-Evening and 3-Evening: ");
+ scanf("%d", &turn);
 
-  switch (turno) {
-    case 1:
-      printf("Bom dia!");
-      break;
-    default:
-      printf("Valor Inválido!");
-      break;
-  }
+ switch (shift) {
+ case 1:
+ printf("Good morning!");
+ break;
+ default:
+ printf("Invalid Value!");
+ break;
+ }
 
-  return 0;
+ return 0;
 }
+
 ```
 
-Da mesma forma, podem ser incluídas as demais cláusulas:
+Likewise, the other clauses can be included:
 
 ```
 #include <stdio.h>
 
-int main() 
+int main()
 {
-  int turno = 0;
-  printf("Digite 1-Matutino, 2-Vespertino e 3-Noturno: ");
-  scanf("%d", &turno);
+ int shift = 0;
+ printf("Enter 1-Morning, 2-Evening and 3-Evening: ");
+ scanf("%d", &turn);
 
-  switch (turno) {
-    case 1:
-      printf("Bom dia!");
-      break;
-    case 2:
-      printf("Boa tarde!");
-      break;
-    case 3:
-      printf("Boa noite!");
-      break;
-    default:
-      printf("Valor Inválido!");
-      break;
-  }
+ switch (shift) {
+ case 1:
+ printf("Good morning!");
+ break;
+ case 2:
+ printf("Good afternoon!");
+ break;
+ case 3:
+ printf("Good evening!");
+ break;
+ default:
+ printf("Invalid Value!");
+ break;
+ }
 
-  return 0;
+ return 0;
 }
 ```
 
-**Exercício 4**: Simule, com a ajuda de um `switch`, um atendimento telefônico em um banco. São cinco opções: consultar saldo, fazer empréstimo, consultar fatura do cartão de crédito, pedir novo cartão ou falar diretamente com atendente, sendo esta última, a opção padrão.
+**Exercise 4**: Simulate, with the help of a switch, a telephone service at a bank. There are five options: check your balance, take out a loan, check your credit card statement, request a new card or speak directly to an attendant, the latter being the default option.
 
-**Desafio 1**: (Use `if` e `switch` em sua resolução) Faça um programa que lê as duas notas parciais obtidas por um aluno numa disciplina ao longo de um semestre, e calcule a sua média. A atribuição de conceitos obedece à tabela abaixo:
+**Challenge 1**: (Use `if` and `switch` in your solution) Write a program that reads the two partial grades obtained by a student in a subject over the course of a semester, and calculates their average. The attribution of concepts follows the table below:
 
 ```
-Média de Aproveitamento  Conceito
-  Entre 9.0 e 10.0        A
-  Entre 7.5 e 9.0         B
-  Entre 6.0 e 7.5         C
-  Entre 4.0 e 6.0         D
-  Entre 4.0 e zero        E
+Average Utilization Concept
+ Between 9.0 and 10.0 A
+ Between 7.5 and 9.0 B
+ Between 6.0 and 7.5 C
+ Between 4.0 and 6.0 D
+ Between 4.0 and zero E
 ```
 
-O algoritmo deve mostrar na tela as notas, a média, o conceito correspondente e a mensagem “APROVADO” se o conceito for A, B ou C ou “REPROVADO” se o conceito for D ou E.
+The algorithm must show on the screen the grades, the average, the corresponding concept and the message “PASSED” if the concept is A, B or C or “FAIL” if the concept is D or E.

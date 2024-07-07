@@ -1,17 +1,17 @@
-# Projeto Quitanda em Python
+# Quitanda Project in Python
 
-Este projeto foi desenvolvido como parte da disciplina de Algoritmos, ministrada pela professora Kezia. O objetivo do projeto é criar um sistema para uma quitanda, com funcionalidades para gerenciar o estoque e realizar compras.
+This project was developed as part of the Algorithms discipline, taught by professor Kezia. The objective of the project is to create a system for a grocery store, with features to manage inventory and make purchases.
 
-## Funcionalidades
+## Functionalities
 
-O sistema possui as seguintes funcionalidades:
+The system has the following functionalities:
 
-1. **Menu do Estoque:** Permite visualizar o estoque, criar novos produtos, atualizar produtos, remover produtos e comprar produtos.
-2. **Menu de Compras:** Permite visualizar produtos e adicioná-los ao carrinho, ver o carrinho, efetuar a compra, remover produtos do carrinho e limpar o carrinho.
-3. **Menu Inicial:** Permite entrar no menu de estoque, entrar no menu de compras e ver o histórico de compras.
+1. **Stock Menu:** Allows you to view stock, create new products, update products, remove products and purchase products.
+2. **Shopping Menu:** Allows you to view products and add them to the cart, view the cart, make a purchase, remove products from the cart and clear the cart.
+3. **Home Menu:** Allows you to enter the stock menu, enter the purchase menu and view your purchase history.
 
-## Banco de Dados
+## Database
 
-O sistema utiliza arquivos Excel como banco de dados, sendo manipulados com a biblioteca Pandas para realizar as operações de estoque e compras.
+The system uses Excel files as a database, which are manipulated with the Pandas library to carry out stock and purchasing operations.
 
-O projeto visa aplicar os conceitos aprendidos na disciplina de Algoritmos e praticar a manipulação de dados em Python com o Pandas.
+The project aims to apply the concepts learned in the Algorithms discipline and practice data manipulation in Python with Pandas.

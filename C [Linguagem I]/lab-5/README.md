@@ -1,172 +1,172 @@
 # Lab 5
 
-Neste roteiro, iremos nos especializar no uso de outras estruturas de repetição, controladas ou não por condições predefinidas, ou seja, que podem ter  um fim determinado com base em uma contagem.
+In this script, we will specialize in the use of other repetition structures, controlled or not by predefined conditions, that is, which can have a determined end based on a count.
 
-## Revisando o Uso de Estruturas de Repetição
+## Reviewing the Use of Repetition Structures
 
-As estruturas de repetição permitem que um conjunto de instruções seja executado até que ocorra uma certa condição ou até que determinada condição deixe de ser satisfeita. A primeira estrutura que vimos, `while` (que quer dizer "enquanto"), tem o funcionamento muito parecido com o bloco `if`, sendo que, com `if`, o que está dentro do bloco é executado apenas uma vez; no bloco `while`, o que está dentro do bloco pode ser executado mais de uma vez.
-
-```
-  if (expressão) 
-  {
-    comando; // executado uma única vez
-  } 
-
-  while (expressão) 
-  {
-    comando; // executado mais de uma vez
-  } 
-```
-
-Como não se sabe quantas vezes a condição será satisfeita, dizemos que a estrutura de repetição `while` tem final em aberto.
-
-Se quisermos criar um programa que imprima uma contagem de 1 a 5, teremos a seguinte solução:
+Repetition structures allow a set of instructions to be executed until a certain condition occurs or until a certain condition is no longer satisfied. The first structure we saw, `while` (which means "while"), works very similarly to the `if` block, whereas, with `if`, what is inside the block is executed only once; in the `while` block, what is inside the block can be executed more than once.
 
 ```
-#include <stdio.h>
+ if (expression)
+ {
+ command; // executed once
+ }
 
-int main() {
-  int contador = 1; // inicialização
-  
-  while (contador <= 5) { // condição de parada/continuidade
-    printf("%d ", contador);
-    ++contador; // incremento
-  }
-  puts("");
-  
-  return 0;
-}
+ while (expression)
+ {
+ command; // executed more than once
+ }
 ```
 
-Note que precisamos atualizar o contador ao final do laço `while` sempre com uma variável do tipo `int`. Os valores de ponto flutuante podem ser aproximados, portanto, controlar laços de contagem com variáveis de ponto flutuante pode resultar em valores de contador imprecisos e testes de terminação imprecisos. Por esse motivo, você deve sempre controlar os laços de contagem com valores inteiros.
+As it is not known how many times the condition will be satisfied, we say that the `while` repetition structure has an open ending.
 
-**Exercício 1**: Faça um programa que leia 5 números e informe a soma dos números.
-
-**Exercício 2**: Faça um programa que calcule a média aritmética de um número determinado de números, por exemplo:
-
-```
-Média de quantos números? 3
-Digite um número: 6
-Digite um número: 9
-Digite um número: 7
-A média dos valores é 7.
-```
-
-## Estruturas de Repetição: for
-
-Em uma solução envolvendo contagem é possível utilizar o laço `for`, com uma sintaxe menos verbosa, da seguinte forma:
-
-```
-for(inicialização; condição de parada/continuidade; incremento) {
-  comando;
-}
-```
-
-Com esse laço, portanto, a solução da impressão de contagem ficaria da seguinte forma:
+If we want to create a program that prints a count from 1 to 5, we will have the following solution:
 
 ```
 #include <stdio.h>
 
 int main() {
-  // inicialização; condição de parada/continuidade; incremento
-  for (int contador = 1; contador <= 5; ++contador) {
-    printf("%d ", contador);
-  }
-  
-  puts("");
-  
-  return 0;
+ int counter = 1; // initialization
+
+ while (counter <= 5) { // stop/continuity condition
+ printf("%d ", counter);
+ ++counter; // increment
+ }
+ puts("");
+
+ return 0;
 }
 ```
 
-A parte do incremento pode ser reescrita de várias maneiras, inclusive com variações para permitir incremento de dois em dois, de três em três, etc.
+Note that we need to update the counter at the end of the `while` loop, always with a variable of type `int`. Floating point values ​​can be approximate, so controlling counting loops with floating point variables can result in inaccurate counter values ​​and inaccurate termination tests. For this reason, you should always control count loops with integer values.
+
+**Exercise 1**: Make a program that reads 5 numbers and reports the sum of the numbers.
+
+**Exercise 2**: Write a program that calculates the arithmetic mean of a given number of numbers, for example:
 
 ```
-contador = contador + 1
-contador += 1
-++contador
-contador++
+Average of how many numbers? 3
+Enter a number: 6
+Enter a number: 9
+Enter a number: 7
+The average of the values ​​is 7.
 ```
 
-**Exercício 3**: Reescreva a solução do exercício 2 utilizando `for`.
+## Repetition Structures: for
 
-**Exercício 4**: Faça um programa que calcule o fatorial de um número inteiro fornecido pelo usuário. Exemplo: 5! = 5.4.3.2.1 = 120.
-
-## Estruturas de Repetição: do-while
-
-Novamente iremos utilizar `while`, só que com uma pequena diferença: exigir que, o conteúdo do bloco de repetição seja executado pelo menos uma vez. Isso porque, ao contrário dos laços `for` e `while`, que testam a condição do laço no começo, o `do-while` testa a condição no final do laço. 
+In a solution involving counting, it is possible to use the `for` loop, with a less verbose syntax, as follows:
 
 ```
-do {
-  comando;
-} while (condição);
-
+for(initialization; stop/continue condition; increment) {
+ command;
+}
 ```
 
-Então, se precisarmos reescrever a solução do primeiro exemplo, ficaremos com o seguinte:
+With this loop, therefore, the counting printing solution would look like this:
 
 ```
 #include <stdio.h>
 
 int main() {
-  int contador = 1; // inicialização
-  
-  do { 
-    printf("%d ", contador);
-  } while (++contador <= 5);
-  puts("");
-  
-  return 0;
+ // initialization; stop/continuity condition; increment
+ for (int counter = 1; counter <= 5; ++counter) {
+ printf("%d ", counter);
+ }
+
+ puts("");
+
+ return 0;
 }
 ```
 
-É possível mesclar a atualização do contador com a avaliação da condição também, como no exemplo anterior.
+The increment part can be rewritten in several ways, including variations to allow increments of two by two, three by three, etc.
 
-**Exercício 5**: Reescreva novamente a solução do exercício 2 utilizando `do-while`.
+```
+counter = counter + 1
+counter += 1
+++accountant
+counter++
+```
 
-## Forçando a Parada de um Laço
+**Exercise 3**: Rewrite the solution to exercise 2 using `for`.
 
-Assim como na estrutura `switch`, também é possível utilizar a palavra reservada `break` para frear a execução de uma repetição. Por exemplo:
+**Exercise 4**: Write a program that calculates the factorial of an integer provided by the user. Example: 5! = 5.4.3.2.1 = 120.
+
+## Repetition Structures: do-while
+
+Again we will use `while`, but with a small difference: requiring that the content of the repetition block be executed at least once. This is because, unlike `for` and `while` loops, which test the loop condition at the beginning, `do-while` tests the condition at the end of the loop.
+
+```
+of {
+ command;
+} while (condition);
+
+```
+
+So, if we need to rewrite the solution from the first example, we will be left with the following:
 
 ```
 #include <stdio.h>
 
 int main() {
-  // inicialização; condição de parada/continuidade; incremento
-  for (int contador = 1; contador <= 5; ++contador) {
-    printf("%d ", contador);
+ int counter = 1; // initialization
 
-    if (contador == 3)
-      break;
-  }
-  
-  puts("");
-  
-  return 0;
+ of {
+ printf("%d ", counter);
+ } while (++counter <= 5);
+ puts("");
+
+ return 0;
 }
 ```
 
-Uma operação contrária ao freio seria permitir que o laço continuasse de maneira forçada, ou pulasse uma etapa. Para isso, podemos utilizar a palavra reservada `continue`:
+It is possible to merge the counter update with the condition evaluation as well, as in the previous example.
+
+**Exercise 5**: Rewrite the solution to exercise 2 using `do-while`.
+
+## Forcing a Loop to Stop
+
+As with the `switch` structure, it is also possible to use the reserved word `break` to brake the execution of a repetition. For example:
 
 ```
 #include <stdio.h>
 
 int main() {
-  // inicialização; condição de parada/continuidade; incremento
-  for (int contador = 1; contador <= 5; ++contador) {
-    if (contador == 3)
-      continue;
-      
-    printf("%d ", contador);
+ // initialization; stop/continuity condition; increment
+ for (int counter = 1; counter <= 5; ++counter) {
+ printf("%d ", counter);
 
-  }
-  
-  puts("");
-  
-  return 0;
+ if (counter == 3)
+ break;
+ }
+
+ puts("");
+
+ return 0;
 }
 ```
 
-**Exercício 6**: Replique os dois códigos anteriores invertendo a ordem da função `printf` e do bloco `if` para avaliar o efeito das palavras `break` e `continue`.
+An operation contrary to the brake would be to allow the loop to continue forcibly, or to skip a step. To do this, we can use the reserved word `continue`:
 
-**Desafio 1**: Faça um programa que peça dois números, base e expoente, calcule e mostre o primeiro número elevado ao segundo número. Forneça várias soluções utilizando dos três laços que você aprendeu, mas não utilize a função de potência da linguagem.
+```
+#include <stdio.h>
+
+int main() {
+ // initialization; stop/continuity condition; increment
+ for (int counter = 1; counter <= 5; ++counter) {
+ if (counter == 3)
+ continues;
+
+ printf("%d ", counter);
+
+ }
+
+ puts("");
+
+ return 0;
+}
+```
+
+**Exercise 6**: Replicate the two previous codes by reversing the order of the `printf` function and the `if` block to evaluate the effect of the words `break` and `continue`.
+
+**Challenge 1**: Write a program that asks for two numbers, base and exponent, calculates and displays the first number mere raised to the second number. Provide several solutions using the three loops you learned, but do not use the language's power function.

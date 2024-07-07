@@ -1,212 +1,212 @@
 # Lab 6
 
-A maioria dos programas de computador que resolvem problemas do mundo real são muito maiores do que os apresentados nos primeiros capítulos. A experiência mostrou que a melhor maneira de desenvolver e manter um programa é construí-lo a partir de partes menores, cada uma mais fácil de manter do que o programa original. Essa técnica é chamada de dividir e conquistar. Descreveremos alguns recursos-chave do C para projetar, implementar, operar e manter grandes programas.
+Most computer programs that solve real-world problems are much larger than those presented in the first few chapters. Experience has shown that the best way to develop and maintain a program is to build it from smaller parts, each easier to maintain than the original program. This technique is called divide and conquer. We will describe some key features of C for designing, implementing, operating, and maintaining large programs.
 
-## Como funcionam as funções já conhecidas
+## How known functions work
 
-Em C, você usa funções para modularizar programas combinando as novas funções que você escreve com funções da biblioteca padrão de C, pré-empacotadas. A biblioteca padrão `stdio.h` C fornece uma rica coleção de funções para realizar cálculos matemáticos comuns, manipulações de strings, manipulações de caracteres, entrada/saída e muitas outras operações úteis. As funções pré-empacotadas facilitam seu trabalho porque fornecem muitos dos recursos de que você precisa.
+In C, you use functions to modularize programs by combining new functions you write with prepackaged C standard library functions. The `stdio.h` C standard library provides a rich collection of functions to perform common mathematical calculations, string manipulations, character manipulations, input/output, and many other useful operations. Pre-packaged functions make your job easier because they provide many of the features you need.
 
-As funções são invocadas por uma chamada de função, que especifica o nome da função e fornece informações (como argumentos) de que a função precisa para executar sua tarefa designada. Uma analogia comum para isso é a forma hierárquica de gerenciamento. Um chefe (a função de chamada ou chamador) pede a um trabalhador (a função de chamada) para executar uma tarefa e relatar quando estiver concluída.
+Functions are invoked by a function call, which specifies the name of the function and provides information (such as arguments) that the function needs to perform its designated task. A common analogy for this is the hierarchical form of management. A boss (the calling role or caller) asks a worker (the calling role) to perform a task and report when it is complete.
 
-Por exemplo, uma função que exibe dados na tela chama a função de trabalho printf para executar essa tarefa. A função printf exibe os dados e relata - ou retorna - ao chamador quando conclui sua tarefa. A função de chefe não sabe como a função de trabalhador executa sua tarefa designada. O trabalhador pode chamar outras funções de trabalhador, e o chefe não saberá disso.
+For example, a function that displays data on the screen calls the printf worker function to perform this task. The printf function displays the data and reports - or returns - to the caller when it completes its task. The boss role does not know how the worker role performs its assigned task. The worker can call other worker functions, and the boss will not know about it.
 
-O diagrama a seguir mostra uma função de chefe se comunicando hierarquicamente com várias funções de trabalhador:
+The following diagram shows a boss role communicating hierarchically with multiple worker roles:
 
 ![image](boss-workers.png)
 
-As funções printf, scanf e pow que usamos nos roteiros anteriores são da biblioteca padrão. O trecho de código `main()` também é uma função, responsável pela execução do programa.
+The printf, scanf and pow functions that we used in the previous scripts are from the standard library. The `main()` code snippet is also a function, responsible for executing the program.
 
 ```
 #include <stdio.h>
 
 int main()
-{  
-  char letra[1];
-  
-  printf("Digite uma letra: ");
-  scanf("%c", &letra);
-  printf("%s", letra);
-  
-  return 0;
+{
+ char letter[1];
+
+ printf("Enter a letter: ");
+ scanf("%c", &letter);
+ printf("%s", letter);
+
+ return 0;
 }
 ```
 
-É interessante conhecer a rica coleção de funções da biblioteca padrão C para ajudar a reduzir o tempo de desenvolvimento do programa. Quando possível, use funções padrão em vez de escrever novas. As funções da biblioteca padrão C são escritas por especialistas, bem testadas e eficientes. Além disso, usar as funções da biblioteca padrão C ajuda a tornar os programas mais portáteis.
+It is interesting to know the rich collection of functions in the C standard library to help reduce program development time. When possible, use standard functions rather than writing new ones. The C standard library functions are written by experts, well tested and efficient. Additionally, using functions from the C standard library helps make programs more portable.
 
-Não só as funções da biblioteca padrão, mas também da biblioteca `math.h`, que nos ajudam a desempenhar cálculos matemáticos. 
+Not only the functions from the standard library, but also from the `math.h` library, which help us perform mathematical calculations.
 
 ```
 #include <stdio.h>
 #include <math.h>
 
 int main()
-{  
-  int numero;
-  
-  printf("Digite um número inteiro: ");
-  scanf("%d", &numero);
-  printf("%d", sqrt(numero)); // raiz quadrada
-  printf("%d", log(numero)); // logaritmo natural
-  printf("%d", log10(numero)); // logaritmo de base 10
-  printf("%d", pow(numero, 2)); // potência
-  
-  return 0;
+{
+ int number;
+
+ printf("Enter an integer: ");
+ scanf("%d", &number);
+ printf("%d", sqrt(number)); // square root
+ printf("%d", log(number)); // natural logarithm
+ printf("%d", log10(number)); // base 10 logarithm
+ printf("%d", pow(number, 2)); // power
+
+ return 0;
 }
 ```
 
-**Exercício 1**: Pesquise funções matemáticas de trigonometria e elabore um código com exemplos de uso delas.
+**Exercise 1**: Research mathematical trigonometry functions and create a code with examples of their use.
 
-## Definindo as primeiras funções 
+## Defining the first functions
 
-Você pode definir funções para executar tarefas específicas que podem ser usadas em vários pontos de um programa. As instruções que definem a função são escritas uma vez e são ocultadas de outras funções. Como veremos, essa ocultação é crucial para uma boa prática de codificação na Engenharia de Software.
+You can define functions to perform specific tasks that can be used at multiple points in a program. The instructions that define the function are written once and are hidden from other functions. As we will see, this hiding is crucial for good coding practice in Software Engineering.
 
-O formato de uma função geralmente cumpre o seguinte esquema: 
+The format of a function generally follows the following scheme:
 
 ```
-tipoDeRetorno nomeDaFuncao(parametros) {
-  // codigo
-  // return ;
+returntypefunctionname(parameters) {
+ // code
+ //return;
 }
 ```
 
-Todo e qualquer código pode ser redefinido em uma função, com o intuito de reutilizar soluções para complementar outras, em uma estratégia de dividir para conquistar: nossa solução para um problema inteiro deverá ser composta de soluções menores (e reutilizáveis).
+Any and all code can be redefined in a function, with the aim of reusing solutions to complement others, in a divide and conquer strategy: our solution to an entire problem must be composed of smaller (and reusable) solutions.
 
-Vamos a um primeiro exemplo. No exercício 3 do Lab 1, foi pedido o seguinte: Tendo como dados de entrada o nome e a altura de uma pessoa, construa um programa que calcule seu peso ideal, usando a seguinte fórmula: (72.7*altura) - 58, sendo o resultado formatado com 3 dígitos dentro de uma mensagem final com o nome fornecido pelo usuário.
+Let's look at a first example. In exercise 3 of Lab 1, the following was requested: Taking a person's name and height as input data, build a program that calculates their ideal weight, using the following formula: (72.7*height) - 58, being the result formatted with 3 digits within a final message with the name provided by the user.
 
-Pois bem, sua solução foi ligeiramente parecida ou igual a essa:
+Well, your solution was slightly similar or the same as this:
 
 ```
 #include <stdio.h>
 
 
 int main()
-{  
-  float altura = 0.0;
-  printf("Digite sua altura: ");
-  scanf("%f", &altura);
-  
-  float pesoIdeal = (72.7*altura) - 58;
-  printf("O seu peso ideal é %.3f", pesoIdeal);
-  
-  return 0;
+{
+ float height = 0.0;
+ printf("Enter your height: ");
+ scanf("%f", &height);
+
+ floatIdealweight = (72.7*height) - 58;
+ printf("Your ideal weight is %.3f", Idealweight);
+
+ return 0;
 }
 ```
 
-Dispensando o comentário de escopo (por enquanto), toda a nossa solução foi codificada dentro da função principal. Porém, e se precisássemos dessa funcionalidade mais de uma vez? Como ficaria nosso código? Repetir o código inteiro é uma solução?
+Dispensing with the scope comment (for now), our entire solution was coded inside the main function. However, what if we needed this functionality more than once? What would our code look like? Is repeating the entire code a solution?
 
 ```
 #include <stdio.h>
 
-int numero = 0;
+int number = 0;
 
 int main()
-{  
-  float altura = 0.0;
-  printf("Digite sua altura: ");
-  scanf("%f", &altura);
-  
-  float pesoIdeal = (72.7*altura) - 58;
-  printf("O seu peso ideal é %.3f", pesoIdeal);
+{
+ float height = 0.0;
+ printf("Enter your height: ");
+ scanf("%f", &height);
 
-  float altura = 0.0;
-  printf("Digite sua altura: ");
-  scanf("%f", &altura);
-  
-  float pesoIdeal = (72.7*altura) - 58;
-  printf("O seu peso ideal é %.3f", pesoIdeal);
+ floatIdealweight = (72.7*height) - 58;
+ printf("Your ideal weight is %.3f", Idealweight);
 
-  // ... ?
-  return 0;
+ float height = 0.0;
+ printf("Enter your height: ");
+ scanf("%f", &height);
+
+ floatIdealweight = (72.7*height) - 58;
+ printf("Your ideal weight is %.3f", Idealweight);
+
+ // ... ?
+ return 0;
 }
 ```
 
-Sim, mas não a melhor. Até, por que, se essa funcionalidade fosse invocada várias vezes em laços ou em condicionais, por exemplo, ficaria ainda mais difícil de manter e controlar qualquer mudança no código.
+Yes, but not the best. Even because, if this functionality were invoked several times in loops or conditionals, for example, it would become even more difficult to maintain and control any changes to the code.
 
-Vamos então criar uma função para informar qual o peso ideal de qualquer pessoa. Inicialmente, podemos extrair todo o código envolvido na solução para uma definição em um bloco à parte:
+Let's then create a function to inform anyone's ideal weight. Initially, we can extract all the code involved in the solution to a definition in a separate block:
 
 ```
 #include <stdio.h>
 
-int numero = 0;
+int number = 0;
 
-float calculaPesoIdeal(); // prototype 
+float calculateIdealPeso(); // prototype
 
 int main()
-{  
-  float peso = calculaPesoIdeal(); // chamada
-  
-  return 0;
+{
+ float weight = calculatePesoIdeal(); // call
+
+ return 0;
 }
 
-float calculaPesoIdeal() { // definição
-  float altura = 0.0;
-  printf("Digite sua altura: ");
-  scanf("%f", &altura);
-  
-  float pesoIdeal = (72.7*altura) - 58;
-  printf("O seu peso ideal é %.3f", pesoIdeal);
+float calculateIdealPesto() { // definition
+ float height = 0.0;
+ printf("Enter your height: ");
+ scanf("%f", &height);
 
-  return pesoIdeal;
+ floatIdealweight = (72.7*height) - 58;
+ printf("Your ideal weight is %.3f", Idealweight);
+
+ returnIdealweight;
 }
 ```
 
-Note que, além de definirmos a função, como estamos acostumados em linguagens mais simples, definimos um `prototype`, ou seja, uma espécie de "esqueleto" preparando o compilador para entender como será a nossa função. Isso é feito antes da função principal, onde chamamos nossa função `calculaPesoIdeal()`. 
+Note that, in addition to defining the function, as we are used to in simpler languages, we define a `prototype`, that is, a kind of "skeleton" preparing the compiler to understand what our function will be like. This is done before the main function, where we call our function `calculaPesoIdeal()`.
 
-Ela resolve o nosso problema. Porém, se quisermos que a função apenas execute os cálculos para a obtenção do peso ideal, sem pedir valores do usuário? 
+It solves our problem. However, if we want the function to just perform the calculations to obtain the ideal weight, without asking for values ​​from the user?
 
 ```
 #include <stdio.h>
 
-float calculaPesoIdeal(); // prototype 
+float calculateIdealPeso(); // prototype
 
 int main()
-{  
-  float peso = calculaPesoIdeal(); // chamada
-  
-  return 0;
+{
+ float weight = calculatePesoIdeal(); // call
+
+ return 0;
 }
 
-float calculaPesoIdeal() { // definição
-  float pesoIdeal = (72.7*altura) - 58; // altura?
-  printf("O seu peso ideal é %.3f", pesoIdeal);
+float calculateIdealPesto() { // definition
+ floatIdealweight = (72.7*height) - 58; // height?
+ printf("Your ideal weight is %.3f", Idealweight);
 
-  return pesoIdeal;
+ returnIdealweight;
 }
 ```
 
-É preciso que a função receba a altura antes de realizar o cálculo, como argumento, ou parâmetro.
+The function must receive the height before performing the calculation, as an argument or parameter.
 
 ```
 #include <stdio.h>
 
-float calculaPesoIdeal(float altura); // prototype 
+float calculateIdealPesto(float height); // prototype
 
 int main()
-{  
-  float altura = 0.0;
-  printf("Digite sua altura: ");
-  scanf("%f", &altura);
+{
+ float height = 0.0;
+ printf("Enter your height: ");
+ scanf("%f", &height);
 
-  float pesoIdeal = calculaPesoIdeal(altura); // chamada
-  printf("O seu peso ideal é %.3f", pesoIdeal);
-  
-  return 0;
+ float PesoIdeal = calculatePesoIdeal(height); // call
+ printf("Your ideal weight is %.3f", Idealweight);
+
+ return 0;
 }
 
-float calculaPesoIdeal(float altura) { // definição
-  float pesoIdeal = (72.7*altura) - 58;
-  return pesoIdeal;
+float calculateIdealPeso(float height) { // definition
+ floatIdealweight = (72.7*height) - 58;
+ returnIdealweight;
 }
 ```
 
-Note que "escondemos" o cálculo do peso ideal da função principal. Se houver alguma mudança interna, ela ficará encapsulada na função, cumprindo, assim, com boas práticas de código.
+Note that we "hide" the calculation of the ideal weight of the main function. If there is any internal change, it will be encapsulated in the function, thus complying with good code practices.
 
-**Exercício 2**: Defina uma função que retorna o maior dentre 4 números inteiros passados como parâmetro.
+**Exercise 2**: Define a function that returns the largest of 4 integers passed as a parameter.
 
-**Exercício 3**: Modifique o exemplo da função do cálculo de peso para inserir condições entre peso ideal para mulheres e homens, aplicando as seguintes fórmulas - mulheres: (62.1\*altura) - 44.7 e  homens: (72.7*altura) - 58.
+**Exercise 3**: Modify the example weight calculation function to insert conditions between ideal weight for women and men, applying the following formulas - women: (62.1\*height) - 44.7 and men: (72.7*height) - 58.
 
-**Desafio 1**: Faça um programa que converta da notação de 24 horas para a notação de 12 horas. Por exemplo, o programa deve converter 14:25 em 2:25 P.M. A entrada é dada em dois inteiros. Seu programa deve contar com duas funções: uma para fazer a conversão e uma para a saída. Registre a informação A.M./P.M. como um valor ‘A’ para A.M. e ‘P’ para P.M. Assim, a função para efetuar as conversões terá um parâmetro formal para registrar se é A.M. ou P.M. Inclua um loop que permita que o usuário repita esse cálculo para novos valores de entrada todas as vezes que desejar.
+**Challenge 1**: Write a program that converts from 24-hour notation to 12-hour notation. For example, the program must convert 2:25 p.m. to 2:25 p.m. The input is given as two integers. Your program must have two functions: one to perform the conversion and one to output. Record the A.M./P.M. information. as a value 'A' for A.M. and 'P' for P.M. Thus, the function to perform the conversions will have a formal parameter to record whether it is A.M. or P.M. Include a loop that allows the user to repeat this calculation for new input values ​​every as many times as you wish.
 
-**Desafio 2**: Pesquise qual a função para gerar números aleatórios e monte um "jogo" onde você tenta advinhar o número gerado pelo computador.
+**Challenge 2**: Research the function to generate random numbers and set up a "game" where you try to guess the number generated by the computer.
 
-**Desafio 3**: Construa uma função que receba uma data no formato DD/MM/AAAA e devolva uma string no formato D de mesPorExtenso de AAAA. Opcionalmente, valide a data e retorne "NULL" caso a data seja inválida. Você pode utilizar funções da biblioteca <time.h>.
+**Challenge 3**: Build a function that receives a date in the format DD/MM/YYYY and returns a string in the format D of monthByExtenso of YYYY. Optionally, validate the date and return "NULL" if the date is invalid. You can use functions from the <time.h> library.

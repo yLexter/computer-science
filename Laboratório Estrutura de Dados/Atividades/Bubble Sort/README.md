@@ -1,83 +1,83 @@
-# Análise de Desempenho de Algoritmos de Ordenação
+# Performance Analysis of Sorting Algorithms
 
-Nesta análise de desempenho, examinamos o tempo de execução e o número de comparações para dois algoritmos do Bubble Sort: "Classico" e "Otimizado". 
+In this performance analysis, we examine the execution time and number of comparisons for two Bubble Sort algorithms: "Classic" and "Optimized".
 
-# Especificações do Computador 
-- Processador Intel Core i5 2410M
-- 8 GB de RAM
+# Computer Specifications
+- Intel Core i5 2410M processor
+- 8GB RAM
 
-## Para um vetor de 1.000 elementos
+## For a vector of 1,000 elements
 
-### Vetores Desordenados
+### Disordered Vectors
 
-- Algoritmo: Classico
-  - Tempo de Execução: 16ms
-  - Total de Comparações: 999.000
+- Algorithm: Classic
+ - Execution Time: 16ms
+ - Total Comparisons: 999,000
 
-- Algoritmo: Otimizado
-  - Tempo de Execução: 12ms
-  - Total de Comparações: 499.175
+- Algorithm: Optimized
+ - Execution Time: 12ms
+ - Total Comparisons: 499,175
 
-### Vetores Ordenados
+### Ordered Vectors
 
-- Algoritmo: Classico
-  - Tempo de Execução: 3ms
-  - Total de Comparações: 999.000
+- Algorithm: Classic
+ - Execution Time: 3ms
+ - Total Comparisons: 999,000
 
-- Algoritmo: Otimizado
-  - Tempo de Execução: 0ms
-  - Total de Comparações: 999
+- Algorithm: Optimized
+ - Execution Time: 0ms
+ - Total Comparisons: 999
 
-## Para um vetor de 10.000 elementos
+## For a vector of 10,000 elements
 
-### Vetores Desordenados
+### Disordered Vectors
 
-- Algoritmo: Classico
-  - Tempo de Execução: 385ms
-  - Total de Comparações: 99.990.000
+- Algorithm: Classic
+ - Execution Time: 385ms
+ - Total Comparisons: 99,990,000
 
-- Algoritmo: Otimizado
-  - Tempo de Execução: 322ms
-  - Total de Comparações: 49.992.515
+- Algorithm: Optimized
+ - Execution Time: 322ms
+ - Total Comparisons: 49,992,515
 
-### Vetores Ordenados
+### Ordered Vectors
 
-- Algoritmo: Classico
-  - Tempo de Execução: 238ms
-  - Total de Comparações: 99.990.000
+- Algorithm: Classic
+ - Execution Time: 238ms
+ - Total Comparisons: 99,990,000
 
-- Algoritmo: Otimizado
-  - Tempo de Execução: 1ms
-  - Total de Comparações: 9.999
+- Algorithm: Optimized
+ - Execution Time: 1ms
+ - Total Comparisons: 9,999
 
-## Para um vetor com 100.000 elementos
+## For a vector with 100,000 elements
 
-### Vetores Desordenados
+### Disordered Vectors
 
-- Algoritmo: Classico
-  - Tempo de Execução: 30.559ms
-  - Total de Comparações: 1.409.965.408
+- Algorithm: Classic
+ - Execution Time: 30,559ms
+ - Total Comparisons: 1,409,965,408
 
-- Algoritmo: Otimizado
-  - Tempo de Execução: 22.839ms
-  - Total de Comparações: 704.867.744
+- Algorithm: Optimized
+ - Execution Time: 22,839ms
+ - Total Comparisons: 704,867,744
 
-### Vetores Ordenados
+### Ordered Vectors
 
-- Algoritmo: Classico
-  - Tempo de Execução: 18.017ms
-  - Total de Comparações: 1.409.965.408
+- Algorithm: Classic
+ - Execution Time: 18,017ms
+ - Total Comparisons: 1,409,965,408
 
-- Algoritmo: Otimizado
-  - Tempo de Execução: 1ms
-  - Total de Comparações: 99.999
+- Algorithm: Optimized
+ - Execution Time: 1ms
+ - Total Comparisons: 99,999
 
-## Complexidades
+## Complexities
 
-- **Otimizado**
-  - Ordenado: O(n)
-  - Não ordenado: O(≅ n²/2)
+- **Optimized**
+ - Ordered: O(n)
+ - Unordered: O(≅ n²/2)
 
-- **Tradicional**
-  - Ordenado: O(n²)
-  - Não ordenado: O(n²)
+- **Traditional**
+ - Ordered: O(n²)
+ - Unordered: O(n²)

@@ -2,29 +2,29 @@
 
 ## Lab 1: Expert
 
-Implemente, em java, um sistema para o controle acadêmico simplificado. O
-sistema deve informar:
+Implement, in Java, a system for simplified academic control. O
+system should inform:
 
-- Quais disciplinas um professor está ministrando;
-- Qual o horário de um professor;
-- Quais os alunos de uma dada disciplina;
-- Quais as disciplinas de um aluno;
-- Qual o horário de um aluno;
-- Qual o número de alunos de uma disciplina.
+- What subjects a teacher is teaching;
+- What is a teacher’s schedule;
+- Who are the students of a given subject;
+- What subjects a student takes;
+- What is a student’s schedule;
+- What is the number of students in a subject.
 
 
-## Lab 2: Creator   
+## Lab 2: Creator
 
-- Adaptação  para a utilização do Padrão Creator
+- Adaptation to use the Creator Standard
 
-## Estrutura do Projeto
+## Project Structure
 
-O projeto está estruturado da seguinte forma:
+The project is structured as follows:
 
-- `entities`: Contém as classes do sistema acadêmico.
-- `enums`: Enum para o tipo de triangulo.
-- `testes`: Todos os testes das entidades.
-- `erros`: Exceções customizadas.
-- `labs`: Menus do sistemas.
-- `UTILS`: Classes utilitárias.
-- `Main`: Criação e resultados do Expert.
+- `entities`: Contains the classes of the academic system.
+- `enums`: Enum for the triangle type.
+- `tests`: All entity tests.
+- `errors`: Custom exceptions.
+- `labs`: System menus.
+- `UTILS`: Utility classes.
+- `Main`: Expert creation and results.

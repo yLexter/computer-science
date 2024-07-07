@@ -1,12 +1,12 @@
-# Lab-10: Factory
+#Lab-10: Factory
 
-Neste laboratório, implementamos o padrão de projeto Factory Method para criar diferentes combinações de sanduíches. Cada sanduíche possui uma estrutura básica composta por duas fatias de pão, uma fatia de queijo, uma fatia de presunto, um ovo e tomate. Os ingredientes podem variar entre as seguintes opções:
+In this lab, we implemented the Factory Method design pattern to create different sandwich combinations. Each sandwich has a basic structure consisting of two slices of bread, a slice of cheese, a slice of ham, an egg and tomato. Ingredients may vary between the following options:
 
-    Pão: Integral, Francês, Bola
-    Queijo: Prato, Mussarela, Cheddar
-    Presunto: Frango, Peru
-    Ovo: Capoeira, Granja
+ Bread: Wholemeal, French, Ball
+ Cheese: Prato, Mozzarella, Cheddar
+ Ham: Chicken, Turkey
+ Egg: Capoeira, Granja
 
-## Objetivo
+## Goal
 
-O objetivo deste projeto é demonstrar como o padrão Factory Method pode ser utilizado para criar objetos de diferentes tipos de sanduíches sem acoplar o código a classes específicas de sanduíches. Implementamos três combinações distintas de ingredientes para obter três sanduíches diferentes.
+The objective of this project is to demonstrate how the Factory Method pattern can be used to create objects of different types of sandwiches without coupling the code to specific sandwich classes. We implemented three different combinations of ingredients to obtain three different sandwiches.

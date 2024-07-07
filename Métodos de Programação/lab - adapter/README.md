@@ -1,10 +1,10 @@
-# Lab-8: Adapter
+#Lab-8: Adapter
 
-## Descrição
+## Description
 
-Este projeto demonstra a implementação do Padrão de Projeto Adapter para permitir que uma classe cliente manipule objetos das interfaces `Map` e `List` através da interface estabelecida por `List` e `Map`, respectivamente. Esta adaptação é feita nos dois sentidos, conforme ilustrado nos slides da aula.
+This project demonstrates the implementation of the Adapter Design Pattern to allow a client class to manipulate objects from the `Map` and `List` interfaces through the interface established by `List` and `Map`, respectively. This adaptation goes both ways, as illustrated in the class slides.
 
-### Métodos a serem Considerados
+### Methods to Consider
 
 #### Interface Map
 - `clear`
@@ -30,12 +30,12 @@ Este projeto demonstra a implementação do Padrão de Projeto Adapter para perm
 - `size`
 - `toArray`
 
-## Implementação
+## Implementation
 
-### List para Map Adapter
+### List to Map Adapter
 
-Para adaptar uma `List` para a interface `Map`, criamos uma classe `ListToMapAdapter` que implementa os métodos necessários da interface `Map`.
+To adapt a `List` to the `Map` interface, we create a `ListToMapAdapter` class that implements the necessary methods of the `Map` interface.
 
-### Map para List Adapter
+### Map to List Adapter
 
-Para adaptar um `Map` para a interface `List`, criamos uma classe `MapToListAdapter` que implementa os métodos necessários da interface `List`.
+To adapt a `Map` to the `List` interface, we create a `MapToListAdapter` class that implements the necessary methods of the `List` interface.

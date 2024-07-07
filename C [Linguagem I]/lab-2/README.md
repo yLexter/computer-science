@@ -1,283 +1,283 @@
 # Lab 2
 
-Aprofundando nossos conhecimentos na linguagem C, veremos o poder dos operadores e o incremento de funcionalidades dos nossos programas com a adição de fluxos condicionais.
+Deepening our knowledge of the C language, we will see the power of operators and the increase in functionality of our programs with the addition of conditional flows.
 
-## Antes de tudo, os tipos
+## First of all, the types
 
-Sem esquecer que estamos trabalhando com uma lingugagem fortemente tipada, C possui os seguintes tipos:
+Without forgetting that we are working with a strongly typed language, C has the following types:
 
-Tipo | Tamanho (aprox. em bits) | Faixa de valores (mínima)
+Type | Size (approx. in bits) | Value range (minimum)
 -- | -- | --
-char | 8 | -127 a 127
-unsigned char | 8 | 0 a 255
-signed char | 8 | -127 a 127
-int | 16 | -32.767 a 32.767
-unsigned int | 16 | 0 a 65.535
-signed int | 16 | O mesmo que `int`
-short int | 16 | O mesmo que `int`
-unsigned short int | 16 | 0 a 65.535
-signed short int | 16 | O mesmo que `short int`
-long int | 32 | -2.147.483.647 a 2.147.483.647
-signed long int | 32 | O mesmo que `long int`
-unsigned long int | 32 | 0 a 4.294.967.295
-float | 32 | Seis dígitos de precisão
-double | 64 | Dez dígitos de precisão
-long double | 80 | Dez dígitos de precisão
+char | 8 | -127 to 127
+unsigned char | 8 | 0 to 255
+signed char | 8 | -127 to 127
+int | 16 | -32,767 to 32,767
+unsigned int | 16 | 0 to 65,535
+signed int | 16 | Same as `int`
+short int | 16 | Same as `int`
+unsigned short int | 16 | 0 to 65,535
+signed short int | 16 | Same as `short int`
+long int | 32 | -2,147,483,647 to 2,147,483,647
+signed long int | 32 | Same as `long int`
+unsigned long int | 32 | 0 to 4,294,967,295
+float | 32 | Six digits of precision
+double | 64 | Ten digits of precision
+long double | 80 | Ten digits of precision
 
-Sabendo disso, nós podemos tratar do nosso primeiro operador, o de atribuição.
+Knowing this, we can deal with our first operator, the assignment operator.
 
-## Operadores de Atribuição
+## Assignment Operators
 
-O operador de atribuição `=` pode ser usado dentro de qualquer expressão válida em C: `nome_da_variavel = expressao;`, onde a expressão pode ser tão simples quanto uma constante ou tão complexa quanto a sua necessidade. Veja os exemplos a seguir:
+The assignment operator `=` can be used within any valid expression in C: `variable_name = expression;`, where the expression can be as simple as a constant or as complex as your need. See the following examples:
 
 ```
 int main() {
-  int idade = 29;
-  
-  char inicialNome = "R";
+ int age = 29;
 
-  float peso = 74.5;
-  float altura = 1.80;
-  float imc = calculaImc(peso, altura);
-  return 0;
+ char initialName = "R";
+
+ float weight = 74.5;
+ float height = 1.80;
+ float imc = calculateImc(weight, height);
+ return 0;
 }
 
-float calculaImc(float peso, float altura) {
-  // cálculo de IMC
-  return 
+float calculateImc(float weight, float height) {
+ // BMI calculation
+ return
 }
 ```
 
-O destino, ou a parte esquerda, da atribuição deve ser uma variável ou um ponteiro (veremos o significado disso mais a frente).
+The destination, or left part, of the assignment must be a variable or a pointer (we will see what this means later).
 
-Em um comando de atribuição, a regra de conversão de tipos é simples: o valor do lado direito de uma atribuição é convertido no tipo do lado esquerdo. Para entender melhor essa operação, vejamos o código a seguir:
+In an assignment statement, the type conversion rule is simple: the value on the right side of an assignment is converted to the type on the left side. To better understand this operation, let's look at the following code:
 
 ```
-int x;
+intx;
 char ch;
 float f;
 
 int main()
 {
-	ch = x;	/* linha 1 */
-	x = f;	/* linha 2 */
-	f = ch;	/* linha 3 */
-	f = x;	/* linha 4 */
-  return 0;
+  ch = x; /* line 1 */
+  x = f; /* line 2 */
+  f = ch; /* line 3 */
+  f = x; /* line 4 */
+ return 0;
 }
 ```
-Na linha 1, os bits mais significativos do inteiro `x` são ignorados, deixando `ch` com os 8 bits menos significativos. Se `x` está entre 256 e 0, `ch` e `x` têm o mesmo valor; do contrário, `ch` reflete apenas os bits menos significativos de `x`.
+In line 1, the most significant bits of the integer `x` are ignored, leaving `ch` with the 8 least significant bits. If `x` is between 256 and 0, `ch` and `x` have the same value; otherwise, `ch` reflects only the least significant bits of `x`.
 
-Na linha 2, `x` recebe apenas a parte inteira de `f`.
+In line 2, `x` receives only the integer part of `f`.
 
-Na linha 3, `f` converte o valor inteiro de 8 bits de `ch` no mesmo valor em ponto flutuante. 
+On line 3, `f` converts the 8-bit integer value of `ch` to the same floating point value.
 
-Na linha 4, `f` converte o valor inteiro de 16 bits no formato em ponto flutuante.
+On line 4, `f` converts the 16-bit integer value to floating point format.
 
-Veja algumas conversões de tipos em atribuições na tabela a seguir:
+See some type conversions into assignments in the following table:
 
-Tipo do destino | Tipo da expressão | Possível informação perdida
+Destination type | Expression type | Possible lost information
 -- | -- | --
-signed char | char | Se valor > 127, o destino é negativo
-char | short int | Os 8 bits mais significativos
-char | int | Os 8 bits mais significativos
-char | long int | Os 24 bits mais significativos
-int | long int | Os 16 bits mais significativos
-int | float | A parte fracionária, no mínimo
-float | double | Precisão, o resultado é arredondado
-double | long double | Precisão, o resultado é arredondado
+signed char | char | If value > 127, the target is negative
+char | short int | The 8 most significant bits
+char | int | The 8 most significant bits
+char | long int | The 24 most significant bits
+int | long int | The 16 most significant bits
+int | float | The fractional part, at least
+float | double | Precision, the result is rounded
+double | long double | Precision, the result is rounded
 
-Por fim, em C é possível realizar atribuições múltiplas, como no exemplo a seguir:
+Finally, in C it is possible to perform multiple assignments, as in the following example:
 
 ```
 int main() {
-  int x, y, z;
-	x = y = z = 0;
-  return 0;
+ int x, y, z;
+  x = y = z = 0;
+ return 0;
 }
 ```
 
-Além do operador `=`, temos a possibilidade de combiná-lo com operadores matemáticos (`+` para adição, `-` para subtração, `*` para multiplicação, `/` para divisão e `%` para resto da divisão).
+In addition to the `=` operator, we have the possibility of combining it with mathematical operators (`+` for addition, `-` for subtraction, `*` for multiplication, `/` for division and `%` for remainder of division) .
 
 ```
 int main() {
-  int c = 3, d = 5, e = 4, f = 6, g = 12;
+ int c = 3, d = 5, e = 4, f = 6, g = 12;
 
-  c += 7; /* mesmo que c = c + 7, resulta em c = 10 */
-  d -= 4; /* mesmo que d = d - 4, resulta em d = 1 */
-  e *= 5; /* mesmo que e = e * 5, resulta em e = 20 */
-  f /= 3; /* mesmo que f = f / 3, resulta em f = 2 */
-  g %= 9; /* mesmo que g = g % 9, resulta em g = 3 */
+ c += 7; /* even if c = c + 7, it results in c = 10 */
+ d -= 4; /* even if d = d - 4, results in d = 1 */
+ and *= 5; /* even if e = e * 5, results in e = 20 */
+ f /= 3; /* even if f = f / 3, results in f = 2 */
+ g %= 9; /* even if g = g % 9, results in g = 3 */
 
-  return 0;
+ return 0;
 }
 ```
 
-**Exercício 1**: Escreva um progama que recebe um número inteiro negativo e um número decimal positivo. Em seguida, converta o primeiro número em um decimal e o decimal em inteiro, testando pelo menos dois tipos diferentes de conversões. Realize também uma operação combinada com atribuição com cada número após a conversão.
+**Exercise 1**: Write a program that receives a negative integer and a positive decimal number. Then convert the first number to a decimal and the decimal to an integer, testing at least two different types of conversions. Also perform a combined operation with assignment with each number after conversion.
 
-## Operadores de Incremento e Decremento
+## Increment and Decrement Operators
 
-Para este tipo de operação, só é possível trabalhar com adição e subtração, em duas ordens diferentes em relação à variável. Observe a tabela a seguir:
+For this type of operation, it is only possible to work with addition and subtraction, in two different orders in relation to the variable. Observe the following table:
 
-Operador | Exemplo | Significado
+Operator | Example | Meaning
 -- | -- | --
-++ | ++a | Incrementa `a` em 1 e, em seguida, use o novo valor de `a` na expressão em que `a` reside.
-++ | a++ | Usa o valor atual de `a` na expressão em que `a` reside e, em seguida, incrementa `a` por 1.
--- | --b | Decrementa `b` em 1 e, em seguida, use o novo valor de `b` na expressão em que `b` reside.
--- | b-- | Usa o valor atual de `b` na expressão em que `b` reside e, em seguida, decrementa `b` por 1.
+++ | ++a | Increment `a` by 1, then use the new value of `a` in the expression where `a` resides.
+++ | a++ | Uses the current value of `a` in the expression where `a` resides, then increments `a` by 1.
+-- | --b | Decrease `b` by 1 and then use the new value of `b` in the expression where `b` resides.
+-- | b-- | Uses the current value of `b` in the expression where `b` resides, then decrements `b` by 1.
 
-Para ficar mais claro, observe o exemplo a seguir:
+To make it clearer, look at the following example:
 
 ```
 #include <stdio.h>
 
 int main() {
-  int c = 5;
-  printf("%d", c); // imprime o valor de c antes do pós-incremento
-  printf("%d", c++); // imprime 5 e então incrementa
-  printf("%d", c); // imprime 6
+ int c = 5;
+ printf("%d", c); // print the value of c before post-increment
+ printf("%d", c++); // print 5 and then increment
+ printf("%d", c); // print ime 6
 
-  int c = 5;
-  printf("%d", c); // imprime o valor de c antes do pré-incremento
-  printf("%d", ++c); // incrementa c e então imprime 6
-  printf("%d", c); // imprime 6
+ int c = 5;
+ printf("%d", c); // print the value of c before pre-increment
+ printf("%d", ++c); // increment c and then print 6
+ printf("%d", c); // print 6
 
-  return 0;
+ return 0;
 }
 ```
 
-**Exercício 2**: Verifique qual o resultado, dado dois números `a` e `b` fornecidos pelo usuário, das seguintes operações: 
+**Exercise 2**: Check the result, given two numbers `a` and `b` provided by the user, of the following operations:
 1) a = 5; b = a * (a++);
 2) a = 5; b = a * ++a;
 3) a = 5; b = a * a++;
 
-## Operadores de Comparação
+## Comparison Operators
 
-Antes de começarmos a incrementar os nossos programas com fluxos condicionais, é importante conhecer os operadores envolvidos na comparação, primeiramente, entendendo quais são os operadores de igualdade:
+Before we start enhancing our programs with conditional flows, it is important to know the operators involved in the comparison, firstly, understanding what the equality operators are:
 
-Operador | Exemplo | Condição avaliada
+Operator | Example | Condition evaluated
 -- | -- | --
-== | x == y | `x` é igual a `y`
-!= | x != y | `x` é diferente de `y`
+== | x == y | `x` is equal to `y`
+!= | x != y | `x` is different from `y`
 
-E em seguida, os operadores relativos:
+And then, the relative operators:
 
-Operador | Exemplo | Condição avaliada
+Operator | Example | Condition evaluated
 -- | -- | --
-Operador > | x > y | `x` é maior a `y`
-Operador < | x < y | `x` é menor a `y`
-Operador >= | x >= y | `x` é maior ou igual a `y`
-Operador <= | x <= y | `x` é menor ou igual a `y`
+Operator > | x > y | `x` is greater than `y`
+Operator < | x < y | `x` is smaller than `y`
+Operator >= | x >= y | `x` is greater than or equal to `y`
+Operator <= | x <= y | `x` is less than or equal to `y`
 
-Os operadores retornam o resultado inteiro, sendo o resultado 0 quando a expressão é falsa e 1 quando verdadeira. Para testar, vamos imprimir como no exemplo:
-
-```
-#include <stdio.h>
-
-int main() {
-  int x = 5;
-  int y = 10;
-  
-  printf("%d\n", x < y); // imprime 1
-  printf("%d\n", x == y); // imprime 0
-
-  return 0;
-}
-```
-
-**Exercício 3**: Faça um programa que recebe dois valores inteiros e os compara, imprimindo os resultados das comparações.
-
-**Desafio 1**: Pesquise como imprimir "true" ou "false" ao invés de 0 ou 1 usando o operador ternário `?`. 
-
-Essas comparações irão nos ajudar a tomar decisões no nosso programa. Vamos começar com a estrutura mais simples, o **if-else**.
-
-## Estrutura de Decisão: if-else
-
-Para decidir entre duas soluções possíveis para um problema, é necessário comparar valores e decidir o que fazer. Em C, utilizamos `if` seguido de uma expressão para denotar que dali em diante, um novo bloco de código será executado dado que uma condição seja atendida. 
-
-Já a palavra `else` significa senão, ou seja, se a condição da expressão do `if` não for satisfeita, então o que estará dentro do bloco do else será executado. 
-
-Apenas o código associado ao `if` ou o código associado ao `else` será executado, nunca ambos.
-
-A forma geral da sentença **if-else** é a seguinte:
-
-```
-  if (expressão) 
-  {
-    comando;
-  } 
-  else 
-  {
-    comando;
-  }
-```
-
-Atenção: o `else` nem sempre é necessário, ou seja, ele é opcional.
-
-Veja o exemplo a seguir: Para verificar se um número é par ou ímpar, utilizamos o operador `%`: se o resto da divisão for 0, o número é par, caso contrário, será ímpar.
-
-Uma forma de resolver esse problema é a seguinte: 
+Operators return the entire result, with the result being 0 when the expression is false and 1 when true. To test, let's print as in the example:
 
 ```
 #include <stdio.h>
 
 int main() {
-  int num;
+ int x = 5;
+ int y = 10;
 
-  printf("Digite um número: ");
-  scanf("%d", &num);
-  
-  if (num % 2 == 0) 
-  {
-    printf("O número é par!");
-  } 
-  else 
-  {
-    printf("O número é ímpar!");
-  }
+ printf("%d\n", x < y); // print 1
+ printf("%d\n", x == y); // print 0
 
-  return 0;
+ return 0;
 }
 ```
 
-Veja que, ao avaliar a expressão `num % 2 == 0` (o resto da divisão por 2 é igual a zero), eu abro dois blocos de código. Um para se a condição for verdadeira e o outro, se for falsa.
+**Exercise 3**: Write a program that receives two integer values ​​and compares them, printing the results of the comparisons.
 
-Como cada bloco só tem uma linha, poderíamos abrir mão das chaves (somente nesse caso). 
+**Challenge 1**: Research how to print "true" or "false" instead of 0 or 1 using the ternary operator `?`.
+
+These comparisons will help us make decisions in our program. Let's start with the simplest structure, the **if-else**.
+
+## Decision Structure: if-else
+
+To decide between two possible solutions to a problem, you need to compare values ​​and decide what to do. In C, we use `if` followed by an expression to denote that from then on, a new block of code will be executed given that a condition is met.
+
+The word `else` means otherwise, that is, if the condition of the `if` expression is not satisfied, then what will be inside the else block will be executed.
+
+Only the code associated with `if` or the code associated with `else` will be executed, never both.
+
+The general form of the **if-else** sentence is as follows:
+
+```
+ if (expression)
+ {
+ command;
+ }
+ else
+ {
+ command;
+ }
+```
+
+Attention: `else` is not always necessary, that is, it is optional.
+
+See the following example: To check whether a number is even or odd, we use the `%` operator: if the remainder of the division is 0, the number is even, otherwise, it will be odd.
+
+One way to resolve this problem is as follows:
 
 ```
 #include <stdio.h>
 
 int main() {
-  int num;
+ int num;
 
-  printf("Digite um número: ");
-  scanf("%d", &num);
-  
-  if (num % 2 == 0) printf("O número é par!");
-  else printf("O número é ímpar!");
+ printf("Enter a number: ");
+ scanf("%d", &num);
 
-  return 0;
+ if (num % 2 == 0)
+ {
+ printf("The number is even!");
+ }
+ else
+ {
+ printf("The number is odd!");
+ }
+
+ return 0;
 }
 ```
 
-E ainda há mais uma forma: como o `else` é opcional, podemos dispensar ele também.
+See that, when evaluating the expression `num % 2 == 0` (the remainder of division by 2 is equal to zero), I open two blocks of code. One for if the condition is true and the other if it is false.
+
+As each block only has one line, we could give up the keys (only in this case).
 
 ```
 #include <stdio.h>
 
 int main() {
-  int num;
+ int num;
 
-  printf("Digite um número: ");
-  scanf("%d", &num);
-  
-  if (num % 2 == 0) printf("O número é par!");
-  printf("O número é ímpar!");
+ printf("Enter a number: ");
+ scanf("%d", &num);
 
-  return 0;
+ if (num % 2 == 0) printf("The number is even!");
+ else printf("The number is odd!");
+
+ return 0;
 }
 ```
 
-**Exercício 4**: Faça um Programa que peça um valor e mostre na tela se o valor é positivo ou negativo.
+And there is one more way: as `else` is optional, we can do without it too.
 
-**Desafio 2**: Faça um Programa que pergunte em que turno você estuda. Peça para digitar 1-matutino ou 2-Vespertino ou 3-Noturno. Imprima a mensagem "Bom Dia!", "Boa Tarde!" ou "Boa Noite!" ou "Valor Inválido!", conforme o caso.
+```
+#include <stdio.h>
+
+int main() {
+ int num;
+
+ printf("Enter a number: ");
+ scanf("%d", &num);
+
+ if (num % 2 == 0) printf("The number is even!");
+ printf("The number is odd!");
+
+ return 0;
+}
+```
+
+**Exercise 4**: Make a Program that asks for a value and shows on the screen whether the value is positive or negative.
+
+**Challenge 2**: Make a Program that asks which shift you study. Ask to enter 1-morning or 2-evening or 3-evening. Print the message "Good Morning!", "Good Afternoon!" or good night!" or "Invalid Value!", as applicable.

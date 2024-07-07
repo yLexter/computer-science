@@ -1,29 +1,25 @@
-# Lab-0: Testes para o Programa do Triângulo
+#Lab-0: Tests for the Triangle Program
 
-Neste laboratório, o objetivo é criar testes para o programa do Triângulo.
+In this laboratory, the objective is to create tests for the Triângulo program.
 
-## Instruções
+## Instructions
 
-1. Crie uma classe `TriangleTest.java` com seus casos de teste.
-2. Execute os testes para garantir que todos passem.
+1. Create a `TriangleTest.java` class with your test cases.
+2. Run the tests to ensure they all pass.
 
-## Como Criar Casos de Teste
+## How to Create Test Cases
 
-Para criar casos de teste, você pode considerar os seguintes cenários:
+To create test cases, you can consider the following scenarios:
 
-- Triângulo Equilátero: Todos os lados são iguais.
-- Triângulo Isósceles: Dois lados são iguais.
-- Triângulo Escaleno: Todos os lados são diferentes.
-- Triângulo com Lado Inválido: Um dos lados é maior ou igual à soma dos outros dois lados.
-- Triângulo com Lado não natural: Um dos lados tem comprimento menor ou igual a 0.
+- Equilateral Triangle: All sides are equal.
+- Isosceles Triangle: Two sides are equal.
+- Scalene Triangle: All sides are different.
+- Triangle with Invalid Side: One of the sides is greater than or equal to the sum of the other two sides.
+- Triangle with unnatural side: One of the sides has a length less than or equal to 0.
 
-## Estrutura do Projeto
+## Project Structure
 
-O projeto está estruturado da seguinte forma:
+The project is structured as follows:
 
-- `Triangulo`: Contém as classes do Triangulo.
-- `testes`: Testes para o triangulo
-
-
-
-
+- `Triangle`: Contains the Triangle classes.
+- `tests`: Tests for the triangle

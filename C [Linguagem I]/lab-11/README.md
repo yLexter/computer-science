@@ -1,177 +1,177 @@
 # Lab 11
 
-Arquivos são usados para retenção permanente de grandes quantidades de dados. Os computadores armazenam arquivos em dispositivos de armazenamento secundário, como unidades de estado sólido, unidades flash e discos rígidos.
+Archives are used for permanent retention of large amounts of data. Computers store files on secondary storage devices such as solid-state drives, flash drives, and hard drives.
 
-Nesse roteiro iremos trabalhar com arquivos, entendendo uma forma de armazenamento persistente para os dados dos nossos programas.
+In this script we will work with files, understanding a form of persistent storage for our program data.
 
-## Lidando com arquivos na linguagem C
+## Dealing with files in C language
 
-C visualiza cada arquivo como um fluxo sequencial de bytes (stream). Streams fornecem canais de comunicação entre arquivos e programas. 
+C views each file as a sequential stream of bytes (stream). Streams provide communication channels between files and programs.
 
-Quando um arquivo é aberto, um fluxo é associado ao arquivo. Três fluxos são abertos automaticamente quando a execução do programa começa — a entrada padrão, a saída padrão e o erro padrão. O fluxo de entrada padrão permite que um programa leia dados do teclado, e o fluxo de saída padrão permite que um programa imprima dados na tela. 
+When a file is opened, a stream is associated with the file. Three streams are automatically opened when program execution begins — standard input, standard output, and standard error. The standard input stream allows a program to read data from the keyboard, and the standard output stream allows a program to print data to the screen.
 
-Abrir um arquivo retorna um ponteiro para uma estrutura FILE (definida em <stdio.h>) que contém as informações usadas para processar o arquivo. Essa estrutura inclui um descritor de arquivo - um índice em uma matriz do sistema operacional chamada de tabela de arquivo aberto. Cada elemento da matriz contém um bloco de controle de arquivo que o sistema operacional usa para administrar um determinado arquivo.
-
-```
-#include <stdio.h>
-
-int main (void) {
-
-  FILE *file;
-
-  // caminho até o arquivo incluindo o nome
-  // modo de abertura: read, write ou append
-  file = fopen("caminhho/ate/o/arquivo/meu_arquivo.txt", "w"); 
-
-  return 0;
-}
-```
-
-Como no exemplo acima, é necessário um novo tipo de dados, o tipo FILE, para acessar o arquivo, por meio de um ponteiro que aponta para esse dado.
-
-Observe que abrir um arquivo é atribuir ao ponteiro a chamada da função `fopen`, que tem dois parâmetros: o caminho até o arquivo (no Windows, deve-se separar as pastas com duas barras e, no Linux, ...) contendo, inclusive, o nome do arquivo, e o modo de abertura, que pode ser de leitura (r - read), escrita (w - write) ou adição (a - append). Nesse caso, estamos atribuindo a função de escrita, onde um novo arquivo será criado.
-
-Caso não especifiquemos o caminho completo, o arquivo será criado no mesmo diretório que está rodando o nosso programa.
+Opening a file returns a pointer to a FILE structure (defined in <stdio.h>) that contains the information used to process the file. This structure includes a file descriptor - an index into an operating system array called the open file table. Each element of the array contains a file control block that the operating system uses to manage a particular file.
 
 ```
 #include <stdio.h>
 
 int main (void) {
 
-  FILE *file;
+ FILE *file;
 
-  // caminho até o arquivo incluindo o nome
-  // modo de abertura: read, write ou append
-  file = fopen("meu_arquivo.txt", "w"); 
+ // path to the file including the name
+ // opening mode: read, write or append
+ file = fopen("path/to/the/file/my_file.txt", "w");
 
-  return 0;
+ return 0;
 }
 ```
 
-## Guardando informação em arquivos
+As in the example above, a new data type, the FILE type, is needed to access the file, through a pointer that points to this data.
 
-Para guardar uma informação em um arquivo basta apenas utilizar o mesmo princípio de imprimir uma informação no terminal. Isso mesmo, iremos utilizar a função `printf`, mas com um diferencial.
+Note that opening a file means assigning the `fopen` function call to the pointer, which has two parameters: the path to the file (in Windows, you must separate the folders with two slashes and, in Linux, ...) containing , including the file name, and the opening mode, which can be reading (r - read), writing (w - write) or addition (a - append). In this case, we are assigning the write function, where a new file will be created.
+
+If we do not specify the full path, the file will be created in the same directory as our program.
 
 ```
 #include <stdio.h>
 
 int main (void) {
 
-  FILE *file;
+ FILE *file;
 
-  // caminho até o arquivo incluindo o nome
-  // modo de abertura: read, write ou append
-  file = fopen("meu_arquivo.txt", "w"); 
+ // path to the file including the name
+ // opening mode: read, write or append
+ file = fopen("my_file.txt", "w");
 
-  fprintf(file, "Aula de Programação em C");
-  
-  return 0;
+ return 0;
 }
 ```
 
-A função `fprintf` recebe o arquivo que irá ser escrito e a informação a ser guardada, como parâmetro. 
+## Saving information in files
 
-Para fechar esse exemplo, lembre-se de fazer como estamos acostumados em um editor de texto, de salvar as alterações quando clicamos para fechar. Na linguagem C, isso é equivalente a chamar a função `fclose` passando o nosso ponteiro como parâmetro.
+To save information in a file, simply use the same principle as printing information on the terminal. That's right, we will use the `printf` function, but with a difference.
 
 ```
 #include <stdio.h>
 
 int main (void) {
 
-  FILE *file;
+ FILE *file;
 
-  // caminho até o arquivo incluindo o nome
-  // modo de abertura: read, write ou append
-  file = fopen("meu_arquivo.txt", "w"); 
+ // path to the file including the name
+ // opening mode: read, write or append
+ file = fopen("my_file.txt", "w");
 
-  fprintf(file, "Aula de Programação em C");
+ fprintf(file, "C Programming Class");
 
-  fclose(file);
-  
-  return 0;
+ return 0;
 }
 ```
 
-Isso é só por segurança. Caso você não invoque essa função, as coisas acontecem normalmente. 
+The `fprintf` function receives the file that will be written and the information to be saved, as a parameter.
 
-**Exercício 1**: Replique o exemplo acima escrevendo em um arquivo chamado "lab11.txt" a seguinte frase: "Estou aprendendo a escrever em arquivos usando C."
-
-**Exercício 2**: Reutilizando o mesmo código, troque o modo de abertura para `append` e escreva outra frase e observe o resultado. Em seguida, retorne novamente o modo de abertura para `write` e escreva uma terceira frase no arquivo, observando o resultado.
-
-**Desafio 1**: Pesquise uma forma diferente de incluir informações nos arquivos utilizando as funções `fputs` e `fputc` e produza uma versão diferente dos programas feitos nos dois exercícios anteriores.
-
-## Recuperando informações dos arquivos
-
-Assim como utilizamos uma função parente do `printf` para "imprimir" informações em arquivos, vamos utilizar uma função parente do `scanf` para ler informações deles, assim como lemos do teclado.
+To close this example, remember to do what we are used to in a text editor, to save the changes when we click to close. In the C language, this is equivalent to calling the `fclose` function passing our pointer as a parameter.
 
 ```
 #include <stdio.h>
 
 int main (void) {
 
-  FILE *file;
+ FILE *file;
 
-  // caminho até o arquivo incluindo o nome
-  // read, write ou append
-  file = fopen("meu_arquivo.txt", "r"); 
+ // path to the file including the name
+ // opening mode: read, write or append
+ file = fopen("my_file.txt", "w");
 
-  int x, y, z;
+ fprintf(file, "C Programming Class");
 
-  // ponteiro para o arquivo
-  // formato que as informações estão escritas
-  // variáveis de destino das informações
-  fscanf(file, "%d %d %d", &x, &y, &z);
+ fclose(file);
 
-  printf("%d %d %d", x, y, z);
-
-  fclose(file);
-
-  return 0;
+ return 0;
 }
 ```
 
-A função `fscanf` procura, no arquivo apontado pelo ponteiro passado no primeiro parâmetro, pelo formato especificado no segundo parâmetro, e guarda essas informações nas variáveis especificadas. Bem parecido com o `scanf`, não é verdade? No nosso exemplo acima, temos um arquivo que armazena três números inteiros, separados por espaço.
+This is just to be safe. If you don't invoke this function, things happen normally.
 
-Mas, e se o arquivo não existir? Como fazer? O programa exibirá outras informações, porém não exatamente as que estariam no arquivo. Na verdade, é exibido qualquer outra informação previamente armazenada no endereço de memória utilizado. Ou seja, a função `fscanf` não foi chamada.
+**Exercise 1**: Replicate the example above by writing the following sentence in a file called "lab11.txt": "I'm learning to write to files using C."
 
-É preciso ter a garantia de que o ponteiro `file` aponte para um arquivo válido. Uma saída é informar ao usuário o que houve:
+**Exercise 2**: Reusing the same code, change the opening mode to `append` and write another sentence and observe the result. Then return the open mode to `write` again and write a third sentence to the file, observing the result.
+
+**Challenge 1**: Research a different way of including information in files using the `fputs` and `fputc` functions and produce a different version of the programs made in the two previous exercises.
+
+## Recovering information from files
+
+Just as we use a function related to `printf` to "print" information in files, we will use a function related to `scanf` to read information from them, just as we read from the keyboard.
 
 ```
 #include <stdio.h>
 
 int main (void) {
 
-  FILE *file;
-  char fileName [] = "meu_arquivo2.txt";
+ FILE *file;
 
-  // caminho até o arquivo até o nome
-  // read, write ou append
-  file = fopen(fileName, "r"); 
-  if (file == NULL) {
-    printf("O arquivo %s não pode ser aberto\n", fileName);
-    return 0;
-  }
+ // path to the file including the name
+ // read, write or append
+ file = fopen("my_file.txt", "r");
 
-  int x, y, z;
+ int x, y, z;
 
-  // ponteiro para o arquivo
-  // formato que as informações estão escritas
-  // variáveis de destino das informações
-  fscanf(file, "%d %d %d", &x, &y, &z);
+ // pointer to file
+ // format in which the information is written
+ // information destination variables
+ fscanf(file, "%d %d %d", &x, &y, &z);
 
-  printf("%d %d %d", x, y, z);
+ printf("%d %d %d", x, y, z);
 
-  fclose(file);
+ fclose(file);
 
-  return 0;
+ return 0;
 }
 ```
 
-**Exercício 3**: Utilizando a função `fscanf`, tente realizar a leitura de 5 números decimais no arquivo chamado "notas.txt" e imprima a média dessas notas no terminal.
+The `fscanf` function searches the file pointed to by the pointer passed in the first pparameter, in the format specified in the second parameter, and stores this information in the specified variables. Very similar to `scanf`, right? In our example above, we have a file that stores three integers, separated by space.
 
-Tem mais uma coisa, e se o arquivo não tiver formatado exatamente como o especificado no segundo parâmetro da função `fscanf`? Primeiramente, seriam novamente coletados os dados previamente armazenados nos endereços de memórias utilizados. 
+But what if the file doesn't exist? How to make? The program will display other information, but not exactly what would be in the file. In fact, any other information previously stored at the memory address used is displayed. That is, the `fscanf` function was not called.
 
-Em segundo lugar, precisamos de uma função com mais possibilidades de processamento e menos limitações. Para entendermos isso, observe o próximo exemplo:
+It is necessary to ensure that the `file` pointer points to a valid file. One way out is to inform the user what happened:
+
+```
+#include <stdio.h>
+
+int main (void) {
+
+ FILE *file;
+ char fileName [] = "my_file2.txt";
+
+ // path to file up to name
+ // read, write or append
+ file = fopen(fileName, "r");
+ if (file == NULL) {
+ printf("File %s cannot be opened\n", fileName);
+ return 0;
+ }
+
+ int x, y, z;
+
+ // pointer to file
+ // format in which the information is written
+ // information destination variables
+ fscanf(file, "%d %d %d", &x, &y, &z);
+
+ printf("%d %d %d", x, y, z);
+
+ fclose(file);
+
+ return 0;
+}
+```
+
+**Exercise 3**: Using the `fscanf` function, try to read 5 decimal numbers in the file called "notas.txt" and print the average of these grades in the terminal.
+
+There's one more thing, what if the file is not formatted exactly as specified in the second parameter of the `fscanf` function? Firstly, the data previously stored in the memory addresses used would be collected again.
+
+Secondly, we need a function with more processing possibilities and fewer limitations. To understand this, look at the next example:
 
 ```
 #include <stdio.h>
@@ -179,28 +179,28 @@ Em segundo lugar, precisamos de uma função com mais possibilidades de processa
 
 int main (void) {
 
-  FILE *file;
-  char fileName [] = "frases.txt";
+ FILE *file;
+ char fileName [] = "frases.txt";
 
-  file = fopen(fileName, "r"); 
-  if (file == NULL) {
-    printf("O arquivo %s não pode ser aberto\n", fileName);
-    return 0;
-  }
+ file = fopen(fileName, "r");
+ if (file == NULL) {
+ printf("File %s cannot be opened\n", fileName);
+ return 0;
+ }
 
-  char frase [100];
-  while(fgets(frase, 100, file) != NULL) {
-    printf("%s", frase);
-  }
+ char phrase[100];
+ while(fgets(sentence, 100, file) != NULL) {
+ printf("%s", sentence);
+ }
 
-  fclose(file);
+ fclose(file);
 
-  return 0;
+ return 0;
 }
 ```
 
-A função utilizada `fgets` utilizada no laço faz a leitura de uma linha até 100 caracteres, que é o número especificado no segundo parâmetro, e armazena no array de caracteres do mesmo tamanho a string contida no arquivo apontado pelo ponteiro do terceiro parâmetro.
+The function `fgets` used in the loop reads a line of up to 100 characters, which is the number specified in the second parameter, and stores in the character array of the same size the string contained in the file pointed to by the third parameter pointer.
 
-**Exercício 4**: Faça um programa que lê apenas a primeira linha de um arquivo em duas versões: a primeira, usando a função `fgets` e a segunda usando `fscanf` (utilize apenas um %s para formatar a coleta no arquivo). Observe a diferença entre as abordagens.
+**Exercise 4**: Write a program that reads only the first line of a file in two versions: the first, using the `fgets` function and the second using `fscanf` (use just a %s to format the collection in file). Note the difference between the approaches.
 
-**Desafio 2**: Crie um programa que tenha uma função onde se copia o conteúdo de um arquivo para outro. Dica: use a função `fputs` pesquisada anteriormente.
+**Challenge 2**: Create a program that has a function to copy the contents of one file to another. Tip: use the `fputs` function researched previously.

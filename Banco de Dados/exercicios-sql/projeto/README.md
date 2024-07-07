@@ -1,62 +1,60 @@
-# Acompanhamento De Atividade Fisica E Nutricao Para O Bem Estar Dos Pacientes Nutrição
+# Monitoring Physical Activity and Nutrition for the Well-Being of Patients Nutrition
 
-## Dupla: **Lisa Costa** ([GitHub](https://github.com/lisacsiqueira))
+## Duo: **Lisa Costa** ([GitHub](https://github.com/lisacsiqueira))
 
-## Descrição
+## Description
 
-- As suas consultas consistem em realizar pesagem, medir circunferência abdominal além de outras medidas (coxas, bíceps, busto, quadril), idade, tipo de atividade física realizada pelo paciente, índice de massa corporal, gordura visceral e gordura total). Após a primeira consulta, é necessário que o paciente faça um checkup, apresentando resultados de alguns exames (hemograma, colesterol, triglicerídeos, glicemia de jejum, vitamina D, TSH e T4 livre).
+- Your consultations consist of weighing, measuring abdominal circumference and other measurements (thighs, biceps, bust, hips), age, type of physical activity performed by the patient, body mass index, visceral fat and total fat). After the first consultation, the patient must undergo a checkup, presenting the results of some tests (blood count, cholesterol, triglycerides, fasting blood glucose, vitamin D, TSH and free T4).
 
-- A partir dessas informações, a equipe de nutricionista traça um plano alimentar com a quantidade de refeições diárias, o horário de cada uma, e o que deve ser consumido em calorias diárias. Esse plano deve ser impresso e armazenado para futuras consultas a ele.
+- Based on this information, the nutritionist team draws up a meal plan with the number of daily meals, the time for each one, and what should be consumed in daily calories. This plan must be printed and stored for future reference.
 
-- Ao final de um mês, o paciente retorna e são atualizadas as medidas inicialmente coletadas (tudo deve ser medido novamente), e o plano alimentar é ajustado a partir delas. É necessário manter um histórico dessas informações, por paciente. As necessidades ou desejos do paciente (ganhar massa muscular ou perder peso) são anotadas também. As consultas são cobradas por mês, com direito a retorno a cada 30 dias para reavaliação. Os pacientes podem realizar consultas particulares ou por algum plano de saúde.
+- At the end of a month, the patient returns and the measurements initially collected are updated (everything must be measured again), and the eating plan is adjusted based on them. It is necessary to maintain a history of this information, per patient. The patient's needs or desires (gaining muscle mass or losing weight) are also noted. Consultations are charged per month, with the right to return every 30 days for reevaluation. Patients can have private consultations or through a health plan.
 
-- É necessário manter um registro dos planos de saúde credenciados. Além disso, existe a possibilidade de o cliente aderir a pacotes, que dão descontos nas mensalidades e fidelizam. Assim, deve ser possível para o sistema cadastrar esses pacotes (custo e período de validade).
+- It is necessary to maintain a record of accredited health plans. Furthermore, there is the possibility for the customer to subscribe to packages, which provide discounts on monthly fees and build loyalty. Therefore, it must be possible for the system to register these packages (cost and validity period).
 
-Os pagamentos podem ser realizados no cartão ou à vista. Flávia quer também a opção de relatórios no sistema.
+Payments can be made by card or in cash. Flávia also wants the reporting option in the system.
 
-Opções de relatórios que interessam são:
+Reporting options that interest you are:
 
-1. Quantidade de pacientes por plano de saúde e que pagam consultas, com informações a respeito dos valores que são repassados por plano e total recebido por consultas
+1. Number of patients per health plan who pay for consultations, with information regarding the amounts that are transferred by plan and the total received for consultations
 
-2. Relatórios de evolução por paciente a cada consulta (por exemplo: quantos quilos emagreceu, quanto de gordura visceral perdeu, percentual de gordura total, imc), gráficos são desejados para cada uma desses relatórios individuais.
+2. Progress reports per patient at each appointment (for example: how many kilos you lost, how much visceral fat you lost, percentage of total fat, BMI), graphs are desired for each of these individual reports.
 
-### Atividades físicas
+### Physical activities
 
-- Sistema para gerenciamento integrado com a academia e a equipe de nutricionista. Ela possui um sistema de fichas, que devem ser levadas pelos pacientes sempre que vão treinar, para acompanhamento dos seus treinos. Acontece que as fichas rasgam ou se perdem e os clientes não estão satisfeitos com isso. Por isso, é preciso que o sistema auxilie os pacientes a acompanharem seus treinos via celular, ou um sistema desktop que dê a opção do cliente imprimir seu treino antes de realizá-lo.
+- Integrated management system with the gym and nutritionist team. It has a system of cards, which must be taken by patients whenever they go to train, to monitor their training. It happens that chips get torn or lost and customers are not happy about it. Therefore, the system needs to help patients follow their training via cell phone, or a desktop system that gives the client the option to print their training before carrying out it.
 
-- Antes de iniciar qualquer programa de atividade física, o paciente deve preencher uma ficha de anamnese complementar a que foi preenchida para o módulo nutricional, onde são anotados o seu nome, idade, objetivo da realização da atividade física, problemas de saúde que o paciente já possui, se está em tratamento médico ou usa algum medicamento de uso contínuo e se é ou foi fumante. O sistema precisa manter dados coletados das medidas dos clientes como peso e medidas em centímetros de: tórax, cintura, abdômen superior, quadril, braço direito, antebraço direito, braço esquerdo, antebraço esquerdo, coxa direita superior, coxa direita média,  coxa esquerda superior, coxa esquerda média, panturrilha esquerda, panturrilha direita e data que foram tiradas as medidas.
+- Before starting any physical activity program, the patient must fill out a supplementary anamnesis form to the one filled out for the nutritional module, where their name, age, objective of carrying out the physical activity, and health problems that the patient has are noted. already have, if you are undergoing medical treatment or use any ongoing medication and if you are or were a smoker. The system needs to maintain data collected from customer measurements such as weight and measurements in centimeters of: chest, waist, upper abdomen, hip, right arm, right forearm, left arm, left forearm, upper right thigh, middle right thigh, upper left thigh , middle left thigh, left calf, right calf and date the measurements were taken.
 
-- Dentro de um período definido pelos educadores físicos, os clientes devem refazer sua avaliação física e os dados coletados devem ser cadastrados no sistema, e comparados com os dados anteriores para que o cliente saiba onde ele está evoluindo e onde precisa melhorar. Além disso, os exercícios realizados devem ser registrados no sistema a cada avaliação.
+- Within a period defined by physical educators, clients must redo their physical assessment and the data collected must be registered in the system, and compared with previous data so that the client knows where they are improving and where they need to improve. Furthermore, the exercises performed must be recorded in the system at each assessment.
 
-- Os exercícios devem ser cadastrados por dia da semana que são realizados, quais equipamentos são usados, quais grupos musculares trabalham, quantidade de séries e repetições por série (por exemplo, um cliente na segunda-feira realiza exercícios para perna, então ele usa faz agachamento guiado, 4 séries de 15 repetições cada, panturrilha sentado, 4 séries de 10 repetições cada, e assim por diante). Tudo isso deve ser registrado no sistema.
+- Exercises must be registered by day of the week that they are performed, which equipment is used, which muscle groups they work, number of sets and repetitions per set (for example, a client performs leg exercises on Monday, then he uses guided squats, 4 sets of 15 repetitions each, seated calf raises, 4 sets of 10 repetitions each, and so on). All of this must be registered in the system.
 
-- O sistema deve ainda permitir que o cliente registre seu perfil com foto, com contrato atual, data de início e fim do contrato e possíveis promoções que o cliente possa aderir.
+- The system must also allow the customer to register their profile with photo, with current contract, start and end date of the contract and possible promotions that the customer can join.
 
 ---
 
-## Questões
+## Questions
 
-### 1° Parte - Modelo Entidade & Relacionamento
+### 1st Part - Entity & Relationship Model
 
-- Preparar DER, Projeto relacional e Dicionários de dados
+- Prepare DER, Relational Project and Data Dictionaries
 
-### 2° Parte - Create
+### 2nd Part - Create
 
-- Escreva Scripts de criação de tabelas
+- Write table creation scripts
 
-### 3 Parte - Insert
+### 3 Part - Insert
 
-- Escreva scripts de inserção de dados
+- Write data insertion scripts
 
-### 4° Questão - Query
+### 4th Question - Query
 
-- Liste os candidatos pelo nome e CPF que obtiveram votos na cidade de "Campina Grande" e que gastaram mais de R$ 5.000,00 na campanha;
-- Liste os candidatos pelo nome e CPF e código do partido, total declarado, total recebido em doação e  total gasto em campanha que possuíram mais de 500 votos na eleição de 2018 na cidade de Campina Grande;
-- Liste o nome de todas as cidades e o respectivo total de votos no pleito de 2018 para o candidato"João". 
-- Selecione o total de doação partidária recebido pelos candidatos do partido ‘CDU’.
-- Apresente uma relação dos 3 partidos que receberam maior número de verbas partidárias 
-- Relacione os 5 partidos mais bem votados na eleição de 2018 na Paraíba (considere apenas candidatos cujo registros esteja apto).
-- Relacione os 10 candidatos mais ricos que foram eleitos na Paraíba em 2018 (considere apenas candidatos cujo registros esteja apto)
-- Crie uma função que retorne uma lista de todas as cidades e seus respectivos quantitativos de votos nos candidatos do partido ‘CDU’. Ordene pela quantidade de votos válidos.
-
-
+- List the candidates by name and CPF who obtained votes in the city of "Campina Grande" and who spent more than R$5,000.00 on the campaign;
+- List candidates by name and CPF and party code, total declaredo, total received in donations and total spent on campaigns that had more than 500 votes in the 2018 election in the city of Campina Grande;
+- List the names of all cities and their respective total votes in the 2018 election for the candidate “João”.
+- Select the total party donation received by candidates from the ‘CDU’ party.
+- Present a list of the 3 parties that received the highest number of party funds
+- List the 5 best-voted parties in the 2018 election in Paraíba (only consider candidates whose registration is valid).
+- List the 10 richest candidates who were elected in Paraíba in 2018 (only consider candidates whose records are valid)
+- Create a function that returns a list of all cities and their respective number of votes for candidates from the ‘CDU’ party. Order by the number of valid votes.

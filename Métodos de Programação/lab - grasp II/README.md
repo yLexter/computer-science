@@ -1,17 +1,17 @@
-# Lab-4: Interface / Polimorfismo / Herança / Composição
+#Lab-4: Interface/Polymorphism/Inheritance/Composition
 
-Implementação de um sistema para controle de acesso aos funcionários da Globo Filmes. Os funcionários podem ter diferentes funções em cada filme. As funcionalidades incluem:
+Implementation of a system to control access to Globo Filmes employees. Employees can have different roles in each film. Features include:
 
-- Cadastrar os envolvidos em um filme, informando suas funções.
-- Informar a filmografia indicando sua função específica.
-- Informar todas as características de um filme.
+- Register those involved in a film, informing their roles.
+- Provide filmography indicating your specific role.
+- Inform all the characteristics of a film.
 
-## Estrutura do Projeto
+## Project Structure
 
-O projeto está estruturado da seguinte forma:
+The project is structured as follows:
 
-- `entities`: Contém as classes de Filme, Funcionario, Globoplay além das funções dos funcionarios.
-- `testes`: Todos os testes das figuras e singleton.
-- `interfaces`}: Interface para a função do funcionário.
-- `erros`: Exceções customizadas.
-- `Main`: Criação e resultados do Grasp II.
+- `entities`: Contains the Film, Employee, Globoplay classes in addition to the employee functions.
+- `tests`: All figure and singleton tests.
+- `interfaces`}: Interface for the employee role.
+- `errors`: Custom exceptions.
+- `Main`: Creation and results of Grasp II.

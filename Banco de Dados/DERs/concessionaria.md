@@ -1,17 +1,17 @@
-# Concessionária de Automóveis
+# Car Dealership
 
-- Crie um Diagrama de Entidade-Relacionamento (DER) para uma concessionária de automóveis. A concessionária vende tanto carros novos quanto usados, e opera uma oficina de serviços. Baseie seu design nas seguintes regras de negócio:
+- Create an Entity-Relationship Diagram (DER) for a car dealership. The dealership sells both new and used cars and operates a service shop. Base your design on the following business rules:
 
-1. Um vendedor pode vender muitos carros, mas cada carro é vendido por apenas um vendedor.
-2. Um cliente pode comprar muitos carros, mas cada carro é comprado por apenas um cliente.
-3. Um vendedor escreve uma única fatura para cada carro que ele ou ela vende.
-4. Um cliente recebe uma fatura para cada carro que ele ou ela compra.
-5. Um cliente pode ir apenas para fazer o serviço de seu carro; ou seja, um cliente não precisa comprar um carro para ser classificado como cliente.
-7. Quando um cliente leva um ou mais carros para reparo ou serviço, um ticket de serviço é escrito para cada carro.
-8. A concessionária mantém um histórico de serviço para cada um dos carros atendidos. Os registros de serviço são referenciados pelo número de série do carro.
-9. Um carro trazido para serviço pode ser trabalhado por muitos mecânicos, e cada mecânico pode trabalhar em muitos carros.
-10. Um carro que é atendido pode ou não precisar de peças (por exemplo, ajustar um carburador ou limpar um bico injetor de combustível não requer a disponibilização de novas peças).
+1. A seller can sell many cars, but each car is sold by only one seller.
+2. A customer can buy many cars, but each car is purchased by only one customer.
+3. A salesperson writes a single invoice for each car he or she sells.
+4. A customer receives an invoice for each car he or she purchases.
+5. A customer can just go to get their car serviced; that is, a customer does not need to buy a car to be classified as a customer.
+7. When a customer takes one or more cars for repair or service, a service ticket is written for each car.
+8. The dealership maintains a service history for each of the cars serviced. Service records are referenced by the car's serial number.
+9. A car brought in for service can be worked on by many mechanics, and each mechanic can work on many cars.
+10. A car that is serviced may or may not need parts (for example, adjusting a carburetor or cleaning a fuel injector does not require new parts to be made available).
 
 ---
 
-![Projeto Concessionária - DER](https://i.postimg.cc/x8HYQqtw/Diagrama-Carros.png)
+![Concessionaire Project - DER](https://i.postimg.cc/x8HYQqtw/Diagrama-Carros.png)

@@ -1,22 +1,22 @@
-# Algoritmos
+# Algorithms
 
-Este repositório é dedicado à disciplina de Algoritmos, onde exploramos conceitos básicos de programação em Python. Os tópicos abordados incluem estruturas de controle condicional (if), laços (while), funções, variáveis, boas práticas de programação, listas, operadores de multiplicação e outros conceitos fundamentais.
+This repository is dedicated to the Algorithms discipline, where we explore basic programming concepts in Python. Topics covered include conditional control structures (if), while loops, functions, variables, good programming practices, lists, multiplication operators, and other fundamental concepts.
 
-## Professor
-- **Professora:** Kézia Vasconcelos
+## Teacher
+- **Teacher:** Kézia Vasconcelos
 
-## Conteúdo da Disciplina
+## Subject Content
 
-Neste repositório, você encontrará exemplos e exercícios relacionados aos seguintes tópicos:
+In this repository you will find examples and exercises related to the following topics:
 
-- Estruturas de Controle Condicional (if statements)
-- Laços de Repetição (while loops)
-- Funções em Python
-- Manipulação de Variáveis
-- Boas Práticas de Programação
-- Listas e Manipulação de Listas
-- Operadores de Multiplicação e Aritméticos
+- Conditional Control Structures (if statements)
+- Repeat loops (while loops)
+- Functions in Python
+- Variable Manipulation
+- Good Programming Practices
+- Lists and List Manipulation
+- Multiplication and Arithmetic Operators
 
-## Como Usar
+## How to use
 
-Este repositório contém uma série de diretórios, cada um relacionado a um tópico específico. Dentro de cada diretório, você encontrará códigos de exemplo, resoluções de exercícios e para os tópicos correspondentes.
+This repository contains a series of directories, each related to a specific topic. Within each directory, you will find example codes, exercise resolutions, and solutions for the corresponding topics.

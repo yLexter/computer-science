@@ -1,24 +1,24 @@
-# Laboratório de Estrutura de Dados
+# Data Structure Lab
 
-Este é um repositório desenvolvido como parte da disciplina de Laboratório de Estrutura de Dados. O objetivo deste repositório é explorar conceitos e implementações relacionados a algoritmos, notação de complexidades, pilhas, filas, listas encadeadas, árvores binárias e tabelas hash.
+This is a repository developed as part of the Data Structures Laboratory discipline. The purpose of this repository is to explore concepts and implementations related to algorithms, complexities notation, stacks, queues, linked lists, binary trees and hash tables.
 
-## Professor
-- **Professor:** Daniel
+## Teacher
+- **Teacher:** Daniel
 
-## Conteúdo da Disciplina
+## Subject Content
 
-- Algoritmos: Implementações de algoritmos essenciais para ordenção de dados, tanto os lineares como os de divisão e conquista
+- Algorithms: Implementations of essential algorithms for ordering data, both linear and divide and conquer
 
-- Notação de Complexidade: Compreender e analisar a complexidade temporal e espacial dos algoritmos é fundamental para a eficiência de qualquer programa. Este projeto explora como avaliar e expressar a complexidade em notações como O(n), Θ(n), Ω(n), entre outras.
+- Complexity Notation: Understanding and analyzing the temporal and spatial complexity of algorithms is fundamental to the efficiency of any program. This project explores how to evaluate and express complexity in notations such as O(n), Θ(n), Ω(n), among others.
 
-- Pilhas e Filas: Implementações de pilhas (stacks) e filas (queues), estruturas de dados fundamentais para gerenciar dados em um contexto de LIFO (Last-In-First-Out) ou FIFO (First-In-First-Out).
+- Stacks and Queues: Implementations of stacks and queues, fundamental data structures for managing data in a LIFO (Last-In-First-Out) or FIFO (First-In-First-Out) context.
 
-- Listas Encadeadas: Estudo de listas encadeadas simples e duplas, incluindo inserção, remoção e busca em listas encadeadas.
+- Linked Lists: Study of single and double linked lists, including insertion, removal and search in linked lists.
 
-- Árvores Binárias: Exploração das árvores binárias, incluindo árvores de busca binária (BSTs), travessias em árvores, inserção e exclusão.
+- Binary Trees: Exploration of binary trees, including binary search trees (BSTs), tree traversal, insertion and deletion.
 
-- Tabelas Hash: Implementações de tabelas hash, estruturas de dados que permitem acesso rápido a dados por meio de funções de hash.
+- Hash Tables: Implementations of hash tables, data structures that allow fast access to data through hash functions.
 
-## Como Usar
+## How to use
 
-Este repositório contém uma série de diretórios, cada um relacionado a um tópico específico. Dentro de cada diretório, você encontrará códigos de exemplo, resoluções de exercícios e para os tópicos correspondentes.
+This repository contains a series of directories, each related to a specific topic. Within each directory, you will find example codes, exercise resolutions, and solutions for the corresponding topics.

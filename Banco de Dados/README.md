@@ -1,20 +1,20 @@
-# Bancos de Dados
+# Databases
 
-**Professor:** Fábio
+**Teacher:** Fábio
 
-## Descrição
+## Description
 
-A disciplina de Bancos de Dados aborda diversos conceitos fundamentais e práticos para o entendimento e a utilização de sistemas de gerenciamento de bancos de dados (SGBDs). Ao longo do curso, os seguintes tópicos são explorados:
+The Databases discipline addresses several fundamental and practical concepts for understanding and using database management systems (DBMSs). Throughout the course, the following topics are explored:
 
-## Conteúdo da Disciplina
+## Subject Content
 
-- **Álgebra Relacional:** Estudo das operações e estruturas utilizadas para manipular e consultar dados em bancos de dados relacionais.
-- **Projeto Relacional:** Princípios e técnicas de modelagem de bancos de dados, incluindo a normalização e a criação de esquemas relacionais eficientes.
-- **Dicionário de Dados:** Especificações de tabelas SQL
-- **Diagramas de Entidade-Relacionamento (DER):** Metodologia de modelagem conceitual para representar entidades, atributos e relacionamentos em um banco de dados.
-- **Linguagem SQL:** Instruções e comandos para definição, manipulação e consulta de dados em bancos de dados relacionais.
-- **SGBDs:** Estudo e uso de sistemas de gerenciamento de bancos de dados, com ênfase no PostgreSQL e outros SGBDs amplamente utilizados.
+- **Relational Algebra:** Study of operations and structures used to manipulate and query data in relational databases.
+- **Relational Project:** Database modeling principles and techniques, including normalization and the creation of efficient relational schemas.
+- **Data Dictionary:** SQL table specifications
+- **Entity-Relationship Diagrams (DER):** Conceptual modeling methodology to represent entities, attributes and relationships in a database.
+- **SQL language:** Instructions and commands for defining, manipulating and querying data in relational databases.
+- **DBMSs:** Study and use of database management systems, with an emphasis on PostgreSQL and other widely used DBMSs.
 
-## Como Usar
+## How to use
 
-Este repositório contém uma série de diretórios, cada um relacionado a um tópico específico. Dentro de cada diretório, você encontrará códigos de exemplo, resoluções de exercícios e para os tópicos correspondentes.
+This repository contains a series of directories, each related to a specific topic. Within each directory, you will find example codes, exercise resolutions, and solutions for the corresponding topics.

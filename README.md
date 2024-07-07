@@ -1,100 +1,100 @@
-# Repositório de Exercícios/Projetos - Curso de Computação (UEPB)
+# Repository of Exercises/Projects - Computing Course (UEPB)
 
-Este repositório abrange uma variedade de exercícios/projetos das disciplinas do curso de Computação da Universidade Estadual da Paraíba (UEPB):
+This repository covers a variety of exercises/projects from the subjects of the Computing course at the State University of Paraíba (UEPB):
 
-# 1. **Algoritmos (Python)**
-- Estruturas de Controle Condicional (if statements)
-- Laços de Repetição (while loops)
-- Funções em Python
-- Manipulação de Variáveis
-- Boas Práticas de Programação
-- Listas e Manipulação de Listas
-- Operadores de Multiplicação e Aritméticos
-- Pandas e Matplotlib
+# 1. **Algorithms (Python)**
+- Conditional Control Structures (if statements)
+- Repeat loops (while loops)
+- Functions in Python
+- Variable Manipulation
+- Good Programming Practices
+- Lists and List Manipulation
+- Multiplication and Arithmetic Operators
+- Pandas and Matplotlib
 
-# 2. **Linguagem I (C)**
-- Estruturas de Controle Condicional (if statements)
-- Laços de Repetição (while loops, for loops)
-- Funções
-- Manipulação de Variáveis
-- Boas Práticas de Programação
-- Listas e Manipulação de Listas
-- Alocação Dinâmica de Memória
-- Ponteiros
-- Structs
-- Manipulação de Arquivos
-- Estrutura de Dados (Árvores e Listas Encadeadas)
+# 2. **Language I (C)**
+- Conditional Control Structures (if statements)
+- Repeat loops (while loops, for loops)
+- Functions
+- Variable Manipulation
+- Good Programming Practices
+- Lists and List Manipulation
+- Dynamic Memory Allocation
+- Pointers
+- Structures
+- File Handling
+- Data Structure (Trees and Linked Lists)
 
-# 3. **Linguagem II (Java)**
-- Classes e Objetos:
-- Encapsulamento
-- Herança
-- Polimorfismo
-- Abstração
+# 3. **Language II (Java)**
+- Classes and Objects:
+- Encapsulation
+- Heritage
+- Polymorphism
+- Abstraction
 - Interfaces
-- Métodos e Propriedades
-- Construtores e Destrutores
-- Tratamento de Exceções
+- Methods and Properties
+- Constructors and Destructors
+- Exception Handling
 - JUnit
 
-# 4. **Estrutura de Dados**
-- Algoritmos de Ordenação (Bubble-Sort, Insertion-Sort, Selection-Sort, Merge-Sort, Quick-Sort, Couting-Sort) 
-- Analise de Complexidade (O(n), Θ(n), Ω(n), Teorema Mestre, Árvore de Recursão) 
-- Vector
-- Listas Encadeadas (Simples, Dupla e Circular)
-- Pilhas e Filas
-- Árvores Binárias (BSTs, AVL, Red Back & Splay) 
-- Tabelas Hash
+# 4. **Data Structure**
+- Sorting Algorithms (Bubble-Sort, Insertion-Sort, Selection-Sort, Merge-Sort, Quick-Sort, Couting-Sort)
+- Complexity Analysis (O(n), Θ(n), Ω(n), Master Theorem, Recursion Tree)
+-Vector
+- Linked Lists (Simple, Double and Circular)
+- Stacks and Queues
+- Binary Trees (BSTs, AVL, Red Back & Splay)
+- Hash Tables
 
-# 5. **Tecnologias de Interface Gráficas**
+# 5. **Graphic Interface Technologies**
 - HTML (Hypertext Markup Language)
 - CSS3 (Cascading Style Sheets)
 - JavaScript
 - React
 
-# 6. **Estatística I**
-- Cálculo da Média
-- Cálculo da Mediana
-- Cálculo da Moda
-- Distribuição Binomial
-- Distribuição de Poisson
-- Cálculos de Probabilidades
+# 6. **Statistics I**
+- Average Calculation
+- Calculation of the Median
+- Fashion Calculation
+- Binomial Distribution
+- Poisson distribution
+- Probability Calculations
 
-# 7. Métodos Avançados de Progamação
+# 7. Advanced Programming Methods
 - **[GRASP]** Creator & Expert
-- **[GRASP]** Coesão e Acoplamento
-- **[GRASP]** Interface / Polimorfismo / Herança / Composição
+- **[GRASP]** Cohesion and Coupling
+- **[GRASP]** Interface / Polymorphism / Inheritance / Composition
 - Visitor
 - Facade
 - Singleton
 - Adapter
 - Observer & MVC
-- Factory
+-Factory
 
-### Testes Unitários
-- Testes unitários feitos com JUnit para cada laboratório.
+### Unitary tests
+- Unit tests done with JUnit for each laboratory.
 
-# 8. Banco de Dados
-- Diagramas de Entidade-Relacionamento (DER):
-- Projeto Relacional
-- Álgebra Relacional
-- Dicionário de Dados
-- Linguagem SQL
-- SGBDs
+# 8. Database
+- Entity-Relationship Diagrams (DER):
+- Relational Project
+- Relational Algebra
+- Data dictionary
+- SQL language
+- DBMSs
 
-# 9. Técnicas de Análise de Algoritmos
-- Análise de Complexidade de Algoritmos
-- Análise Amortizada
-- Indução Matemática
-- Árvores de Recursão
-- Teorema Mestre
-- Invariantes de Laço
+# 9. Algorithm Analysis Techniques
+- Algorithm Complexity Analysis
+- Amortized Analysis
+- Mathematical Induction
+- Recursion Trees
+- Master Theorem
+- Loop Invariants
 - Backtracking
 - Branch and Bound
-- Problema da Mochila
-- Algoritmo de Huffman
-- Algoritmos Gulosos
+- Backpack Problem
+- Huffman Algorithm
+- Greedy Algorithms
 
 ---
 
-Cada diretório no repositório corresponde a uma disciplina específica e contém uma coleção de exercícios, problemas práticos e projetos relacionados ao respectivo tópico. Os exercícios foram desenvolvidos para auxiliar no aprimoramento de habilidades de programação e na compreensão dos conceitos fundamentais abordados em cada disciplina.
+Each directory in the repository corresponds to a specific discipline and contains a collection of exercises, practice problems, and projects related to the respective topic. The exercises were developed to help improve programming skills and understand the fundamental concepts covered in each discipline.

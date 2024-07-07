@@ -1,166 +1,163 @@
 # Lab 7
 
-Continuando o que vimos no roteiro anterior, aprofundaremos nossos conhecimentos para formular soluções elegantes utilizando funções com a linguagem C.
+Continuing what we saw in the previous itinerary, we will deepen our knowledge to formulate elegant solutions using functions in the C language.
 
-## Revisando o uso de funções
+## Reviewing the use of functions
 
-Usamos funções para modularizar programas combinando as novas funções que você escreve com funções de bibliotecas padrão de C, como, por exemplo, a biblioteca padrão `stdio.h`, com funções para tratar entrada e saída de dados.
+We use functions to modularize programs by combining new functions you write with functions from standard C libraries, such as the `stdio.h` standard library, with functions to handle data input and output.
 
-Note que, na linguagem C, além de definirmos uma função, modularizando a sua solução com o uso ou não de parâmetros, como estamos acostumados em linguagens mais simples, definimos um `prototype`, ou seja, uma espécie de "esqueleto" preparando o compilador para entender como será a nossa função. 
+Note that, in the C language, in addition to defining a function, modularizing its solution with or without the use of parameters, as we are used to in simpler languages, we define a `prototype`, that is, a kind of "skeleton" preparing the compiler to understand what our function will be like.
 
-Para relembrarmos esses conceitos, veja o exemplo de uma função para definir o maior dentre 3 números:
+To remember these concepts, see the example of a function to define the largest of 3 numbers:
 
 ```
 #include <stdio.h>
 
-int maximo(int x, int y, int z);
+int maximum(int x, int y, int z);
 
-int main(void) 
+int main(void)
 {
-  int n1 = 0, n2 = 0, n3 = 0;
-  printf("%s", "Digite três números inteiros: ");
-  scanf("%d%d%d", &n1, &n2, &n3);
-  
-  printf("Maximum is: %d\n", maximum(n1, n2, n3));
-  return 0;
+ int n1 = 0, n2 = 0, n3 = 0;
+ printf("%s", "Enter three integers: ");
+ scanf("%d%d%d", &n1, &n2, &n3);
+
+ printf("Maximum is: %d\n", maximum(n1, n2, n3));
+ return 0;
 }
 
-int maximo(int x, int y, int z) 
+int maximum(int x, int y, int z)
 {
-  int max = x;
-  
-  if (y > max) 
-    max = y; 
-  if (z > max) 
-    max = z; 
-    
-  return max;
+ int max = x;
+
+ if (y > max)
+ max = y;
+ if (z > max)
+ max = z;
+
+ returnmax;
 }
 ```
 
-**Exercício 1**: Escreva uma função para verificar se um ano é bissexto ou não. Utilize a seguinte regra: um ano bissexto é divisível por 4, mas não por 100, ou então é divisível por 400.
-Exemplo: 1988 é bissexto pois é divisível por 4 e não é por 100; 2000 é bissexto porque é divisível por 400.
+**Exercise 1**: Write a function to check whether a year is a leap year or not. Use the following rule: a leap year is divisible by 4, but not by 100, or it is divisible by 400.
+Example: 1988 is a leap year because it is divisible by 4 and not by 100; 2000 is a leap year because it is divisible by 400.
 
-**Exercício 2**: Escreva uma função chamada `imprimePotencias` que recebe três parâmetros: você irá fornecer o valor limitante inicial, o valor limitante final e qual será o expoente (nesta ordem). Por exemplo, ao receber os números 2, 5 e 2, serão impressos 4, 9, 16 e 25.
+**Exercise 2**: Write a function called `imprimePotencias` that takes three parameters: you will provide the initial limiting value, the final limiting value and what the exponent will be (in that order). For example, when receiving the numbers 2, 5 and 2, 4, 9, 16 and 25 will be printed.
 
-**Desafio 1**: Construa uma função que recebe um número inteiro como parâmetro e retorna 1 se ele for primo e 0 caso não seja. Dica: Para avaliar se um número é primo, utilize o Crivo de Erastóstenes.
+**Challenge 1**: Build a function that takes an integer as a parameter and returns 1 if it is prime and 0 otherwise. Tip: To assess whether a number is prime, use the Sieve of Erastosthenes.
 
-## Recursividade
+## Recursion
 
-Recursividade ou recursão é o uso de uma função que chama a si mesma. Sim, isto é possível, uma função pode invocar a si mesma!
-Mas, como funciona a recursividade?
+Recursion or recursion is the use of a function that calls itself. Yes, this is possible, a function can invoke itself!
+But how does recursion work?
 
 ![](recursion.jpg)
 
-Em uma função recursiva, a cada chamada é criada na memória uma nova ocorrência da função com comandos e variáveis “isolados” das ocorrências anteriores.
-A função é executada até que todas as ocorrências tenham sido resolvidas. _Em outras palavras, seria como dizer: para resolver um problema, eu recorro a mim mesmo para resolver da mesma forma o problema um pouco menor, e, para esse problema um pouco menor, faço o mesmo..._
+In a recursive function, with each call a new occurrence of the function is created in memory with commands and variables “isolated” from previous occurrences.
+The function runs until all occurrences have been resolved. _In other words, it would be like saying: to solve a problem, I turn to myself to solve the slightly smaller problem in the same way, and, for this slightly smaller problem, I do the same..._
 
-Porém um problema que surge ao usar a recursividade é _como fazê-la parar_. Caso o programador não tenha cuidado é fácil cair num loop infinito recursivo o qual pode inclusive esgotar a memória…
+However, a problem that arises when using recursion is _how to make it stop_. If the programmer is not careful, it is easy to fall into an infinite recursive loop which can even exhaust memory...
 
-Toda recursividade é composta por um **caso base** e pelas **chamadas recursivas**. O caso base é o caso mais simples. É usada uma condição em que se resolve o problema com facilidade. As chamadas Recursivas, por sua vez, procuram simplificar o problema de tal forma que convergem para o caso base.
+Every recursion is composed of a **base case** and **recursive calls**. The base case is the simplest case. A condition is used in which the problem is easily solved. Recursive calls, in turn, seek to simplify the problem in such a way that they converge to the base case.
 
-### Vantagens da recursividade
+### Advantages of recursion
 
-Torna a escrita do código mais simples e elegante, tornando-o fácil de entender e de manter.
+It makes writing code simpler and more elegant, making it easy to understand and maintain.
 
-### Desvantagens da recursividade
+### Disadvantages of recursion
 
-Quando o loop recursivo é muito grande é consumida muita memória nas chamadas a diversos níveis de recursão, pois cada chamada recursiva aloca memória para os parâmetros, variáveis locais e de controle. Por essa razão, em muitos casos, uma solução iterativa (utilizando laços) é indicada, pois gasta menos memória, e torna-se mais eficiente em termos de performance do que usar recursão.
+When the recursive loop is very large, a lot of memory is consumed in calls to different levels of recursion, as each recursive call allocates memory for parameters, local and control variables. For this reason, in many cases, an iterative solution (using loops) is recommended, as it uses less memory and is more efficient in terms of performance than using recursion.
 
-Para entender melhor, vamos recorrer ao exemplo mais famoso de recursividade, o cálculo de fatorial.
+To understand better, let's turn to the most famous example of recursion, the factorial calculation.
 
-## Exemplo de Recursividade: Fatorial
+## Example of Recursion: Factorial
 
-O cálculo de um número fatorial, representado pelo sinal de exclamação `!`, se dá com a multiplicação sucessiva de seus antecessores até chegar no número 1. Por exemplo, para calcular o fatorial de 5, temos: 5! = 5\*4\*3\*2\*1 = 120.
+The calculation of a factorial number, represented by the exclamation mark `!`, occurs with the successive multiplication of its predecessors until reaching the number 1. For example, to calculate the factorial of 5, we have: 5! = 5\*4\*3\*2\*1 = 120.
 
-Para expressar essa solução usando uma abordagem iterativa, nós teríamos o seguinte: 
+To express this solution using an iterative approach, we would have the following:
 
 ```
-//Cálculo de fatorial com função iterativa
+//Factorial calculation with iterative function
 #include <stdio.h>
 
-//protótipo da função fatorial
-double fatorial(int n);
+//prototype of the factorial function
+double factorial(int n);
 
 int main(void)
 {
-  int numero;
-  double f;
-  
-  printf("Digite o numero que deseja calcular o fatorial: ");
-  scanf("%d",&numero);
-  
-  //chamada da função fatorial
-  f = fatorial(numero);
-  
-  printf("Fatorial de %d = %.0lf",numero,f);
-  
-  return 0;
+ int number;
+ double f;
+
+ printf("Enter the number you want to calculate the factorial: ");
+ scanf("%d",&number);
+
+ // call the factorial function
+ f = factorial(number);
+
+ printf("Factorial of %d = %.0lf",number,f);
+
+ return 0;
 }
 
-//Função iterativa que calcula o fatorial
-//de um numero inteiro n
-double fatorial(int n)
+//Iterative function that calculates the factorial
+//of an integer n
+double factorial(int n)
 {
-  double vfat = 1;
-  for (; n >= 1; n--) {
-    vfat *= n;
-  }
-  
-  return vfat;
+ double vfat = 1;
+ for (; n >= 1; n--) {
+ vfat *= n;
+ }
+
+ return vfat;
 }
 ```
 
-Note que, ao expressarmos a solução na linguagem natural, nós citamos as duas partes importantes de uma função recursiva: as chamadas recursivas (multiplicação sucessiva dos antecessores) e o caso base (chegar no número 1). Compreendendo isto, podemos modificar nossa solução iterativa para uma recursiva:
-
-```
-// Cálculo de fatorial com função recursiva
+Note that, when expressing the solution in natural language, we mention the two important parts of a recursive function: the recursive calls (successive multiplication of predecessors) and the base case (arriving at number 1). Understanding this, we can modify our iterative solution to a recursive one: ```
+// Factorial calculation with recursive function
 #include <stdio.h>
 
-// Protótipo da função fatorial
-double fatorial(int n);
+// Factorial function prototype
+double factorial(int n);
 
 int main(void)
 {
-  int numero;
-  double f;
-  
-  printf("Digite o numero que deseja calcular o fatorial: ");
-  scanf("%d",&numero);
-  
-  // Chamada da função fatorial
-  f = fatorial(numero);
-  
-  printf("Fatorial de %d = %.0lf",numero,f);
-  
-  return 0;
+ int number;
+ double f;
+
+ printf("Enter the number you want to calculate the factorial: ");
+ scanf("%d",&number);
+
+ // Call the factorial function
+ f = factorial(number);
+
+ printf("Factorial of %d = %.0lf",number,f);
+
+ return 0;
 }
 
-// Função recursiva que calcula o fatorial de um numero inteiro n
-double fatorial(int n)
+// Recursive function that calculates the factorial of an integer n
+double factorial(int n)
 {
-  double vfat = 1;
-  
-  if ( n <= 1 ) // Caso base: fatorial de n <= 1 retorna 1
-    return 1;
-  else
-  {
-    // Chamada recursiva
-    vfat = n * fatorial(n - 1);
-    return vfat;
-  }
+ double vfat = 1;
+
+ if ( n <= 1 ) // Base case: factorial of n <= 1 returns 1
+ return 1;
+ else
+ {
+ // Recursive call
+ vfat = n * factorial(n - 1);
+ return vfat;
+ }
 }
 ```
 
-A execução desse código, de forma ilustrada, pode ser compreendida pela figura a seguir: 
+The execution of this code, in an illustrated way, can be understood in the following figure:
 
 ![](fibonacci.png)
 
-Note que o caso base se parece com a condição de parada de um laço, tendo a mesma função: impedir que o programa entre em loop infinito, estourando a memória. Logo, toda vez que tiver dificuldade de resolver uma função recursiva, uma alternativa é pensar na implementação iterativa. 
+Note that the base case looks like the stop condition of a loop, having the same function: preventing the program from entering an infinite loop, overflowing memory. Therefore, whenever you have difficulty solving a recursive function, an alternative is to think about iterative implementation.
 
-**Exercício 3**: Escreva uma função recursiva para calcular a somatória de todos os números de 1 até um determinado número n passado como parâmetro.
+**Exercise 3**: Write a recursive function to calculate the sum of all numbers from 1 to a given number n passed as a parameter.
 
-**Desafio 2**: Escreva uma função recursiva que resolva o problema da sequência de Fibonacci, passando como parâmetro o número da sequência que se deseja obter.
+**Challenge 2**: Write a recursive function that solves the Fibonacci sequence problem, passing as a parameter the number of the sequence you want to obtain.
 
-**Desafio 3**: Amplie o código do Desafio 1 deste roteiro para avaliar quantos números primos existem entre 1 e 100.
-
+**Challenge 3**: Expand the code from Challenge 1 of this script to evaluate how many prime numbers there are between 1 and 100.

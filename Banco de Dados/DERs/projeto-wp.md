@@ -1,13 +1,13 @@
-# Projeto - WP
+# Project - WP
 
-- Transferir a seguinte descrição verbal para um Modelo de Entidade-Relacionamento (MER):
+- Transfer the following verbal description to an Entity-Relationship Model (MER):
 
-1. Um projeto (Proj-#) consiste em vários pacotes de trabalho (WP-#).
-2. Os pacotes de trabalho são estruturados em uma estrutura hierárquica de decomposição do trabalho, onde um pacote de trabalho pode ser subdividido em vários outros pacotes de trabalho, enquanto cada pacote de trabalho é subordinado a exatamente um pacote de trabalho.
-3. Um ou mais funcionários (SI-ID) são atribuídos a cada pacote de trabalho, onde os funcionários também podem ser empregados em vários pacotes de trabalho. Os funcionários têm certas qualificações (Qual-ID) e são atribuídos de forma única a departamentos (Dept-ID).
-4. Um pacote de trabalho pode exigir uma ou mais qualificações.
-5. Cada projeto tem um funcionário como pessoa responsável; no entanto, um funcionário também pode ter responsabilidade por vários projetos.
+1. A project (Proj-#) consists of several work packages (WP-#).
+2. Work packages are structured in a hierarchical work decomposition structure, where a work package can be subdivided into several other work packages, while each work package is subordinate to exactly one work package.
+3. One or more employees (SI-ID) are assigned to each work package, where employees can also be employed in multiple work packages. Employees have certain qualifications (Qual-ID) and are uniquely assigned to departments (Dept-ID).
+4. A work package may require one or more qualifications.
+5. Each project has an employee as the responsible person; however, an employee may also have responsibility for multiple projects.
 
---- 
+---
 
-![Projeto WP - DER](https://i.imgur.com/kUtpblQ.png)
+![WP Project - DER](https://i.imgur.com/kUtpblQ.png)

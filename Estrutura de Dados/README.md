@@ -1,30 +1,30 @@
-# Estrutura de Dados
+# Data structure
 
-Este repositório é dedicado à disciplina de Estrutura de Dados, onde exploramos conceitos avançados de organização e manipulação de dados. O repositório abrange diversos tópicos, incluindo:
+This repository is dedicated to the Data Structure discipline, where we explore advanced concepts of data organization and manipulation. The repository covers a variety of topics, including:
 
-## Professor
-- **Professor:** Heron
+## Teacher
+- **Teacher:** Heron
 
-## Trabalho de Benchmarks
+## Benchmarks work
 
-- **Benchmarks de Algoritmos de Ordenação:** Este trabalho envolve a análise de desempenho de diferentes algoritmos de ordenação, como QuickSort, MergeSort, Heap Sort, Counting Sort e outros. Você encontrará códigos e resultados de benchmarks para avaliar a eficiência desses algoritmos.
+- **Benchmarks of Sorting Algorithms:** This work involves analyzing the performance of different sorting algorithms, such as QuickSort, MergeSort, Heap Sort, Counting Sort and others. You will find codes and benchmark results to evaluate the efficiency of these algorithms.
 
-- **Benchmarks de Árvores de Busca:** Neste trabalho, analisamos o desempenho de diferentes tipos de árvores de busca, incluindo AVL, Splay, Red-Black e a árvore padrão. Resolvemos questões como tempo de pesquisa, inserção e exclusão para cada tipo de árvore.
+- **Search Tree Benchmarks:** In this work, we analyze the performance of different types of search trees, including AVL, Splay, Red-Black and the standard tree. We resolve issues such as search time, insertion and deletion for each type of tree.
 
-- **Benchmarks de Tabelas Hash:**
+- **Hash Table Benchmarks:**
 
-    - **Implementação de Hash com Endereço Aberto:** Desenvolvemos um algoritmo de tabela hash com endereço aberto e um fator de carga igual a 10. Os benchmarks incluem análises de inserção, pesquisa e exclusão, além de avaliações de colisões.
+ - **Open Address Hash Implementation:** We developed an open address hash table algorithm with a load factor of 10. Benchmarks include insertion, search, and deletion analysis, as well as collision evaluations.
 
-    - **Implementação de Hash com Endereço Fechado (Hashing Duplo):** Criamos um algoritmo de tabela hash com endereço fechado usando hashing duplo. Os benchmarks avaliam o desempenho em termos de inserção, pesquisa e exclusão, considerando colisões.
+ - **Closed Address Hash Implementation (Double Hashing):** We created a closed address hash table algorithm using double hashing. Benchmarks evaluate performance in terms of insertion, search and deletion, considering collisions.
 
-## Exercícios Resolvidos
+## Solved Exercises
 
-- **Pilhas e Filas:** Você encontrará exemplos e resoluções de exercícios relacionados a estruturas de dados de pilhas (stacks) e filas (queues), bem como seu uso em situações do mundo real.
+- **Stacks and Queues:** You will find examples and resolutions of exercises related to stacks and queues data structures, as well as their use in real-world situations.
 
-- **Árvores Binárias:** Resolvemos exercícios relacionados a árvores binárias, incluindo travessias (inorder, pre-order, post-order), inserção e exclusão de nós.
+- **Binary Trees:** We solve exercises related to binary trees, including traversals (inorder, pre-order, post-order), insertion and deletion of nodes.
 
-- **Listas Encadeadas:** Exploramos as listas encadeadas, incluindo inserção, remoção e busca em listas encadeadas simples e duplas.
+- **Linked Lists:** We explore linked lists, including insertion, removal and searching in single and double linked lists.
 
-## Como Usar
+## How to use
 
-Este repositório contém uma série de diretórios, cada um relacionado a um tópico específico. Dentro de cada diretório, você encontrará códigos de exemplo, resoluções de exercícios e resultados de benchmarks para os tópicos correspondentes.
+This repository contains a series of directories, each related to a specific topic. Within each directory, you will find example code, exercise resolutions, and benchmark results for the corresponding topics.

@@ -1,62 +1,61 @@
-# Projeto de Algoritmos e Estruturas de Dados
+# Design of Algorithms and Data Structures
 
-## Parte 1: Heapsort e Comparação de Algoritmos
+## Part 1: Heapsort and Algorithm Comparison
 
 ### 1.1 Heapsort
 
-Implementação do algoritmo Heapsort em Python.
+Implementation of the Heapsort algorithm in Python.
 
-### 1.2 Melhores Algoritmos do Trabalho Anterior
+### 1.2 Best Algorithms from Previous Work
 
-Do trabalho anterior, foram selecionados os algoritmos A e B como os de melhor desempenho em cenários de números desordenados.
+From the previous work, algorithms A and B were selected as those with the best performance in scenarios with disordered numbers.
 
-### 1.3 Comparação de Desempenho
+### 1.3 Performance Comparison
 
-Realizou-se uma comparação do Heapsort com os algoritmos A e B em todos os cenários do trabalho anterior.
+A comparison of Heapsort was carried out with algorithms A and B in all scenarios from previous work.
 
-#### 1.3.1 Resultados da Comparação
+#### 1.3.1 Comparison Results
 
-Aqui estão os resultados da comparação de desempenho para cada massa de teste em relação aos três algoritmos.
+Here are the performance comparison results for each test mass against the three algorithms.
 
-### 1.4 Relatório
+### 1.4 Report
 
-Um relatório detalhado dos resultados da comparação, conclusões e insights obtidos.
+A detailed report of the comparison results, conclusions and insights obtained.
 
-## Parte 2: Algoritmos de Hashing
+## Part 2: Hashing Algorithms
 
-### 2.1 Hash com Endereço Aberto
+### 2.1 Hash with Open Address
 
-Implementação de um algoritmo de hash com endereço aberto, com um fator de carga de 10.
+Implementation of an open address hash algorithm with a load factor of 10.
 
-### 2.2 Hash com Endereço Fechado (Hashing Duplo)
+### 2.2 Hash with Closed Address (Double Hashing)
 
-Implementação de um algoritmo de hash com endereço fechado usando hashing duplo.
+Implementation of a closed address hashing algorithm using double hashing.
 
-### 2.3 Geração de Lista de Números Aleatórios
+### 2.3 Random Number List Generation
 
-Elaboração de uma lista de números aleatórios, não repetidos, com 30.000 elementos, no intervalo de valores entre 0 e 1.000.000.
+Preparation of a list of random, non-repeating numbers, with 30,000 elements, in the range of values ​​between 0 and 1,000,000.
 
-### 2.4 Execução dos Algoritmos
+### 2.4 Execution of Algorithms
 
-Execução dos algoritmos de hash com a lista gerada no item 2.3.
+Execution of hash algorithms with the list generated in item 2.3.
 
-### 2.5 Nova Lista de Números Aleatórios
+### 2.5 New Random Number List
 
-Geração de outra lista de números aleatórios, com 500.000 elementos, podendo ser repetidos, no mesmo intervalo de valores da lista do item 2.3.
+Generation of another list of random numbers, with 500,000 elements, which can be repeated, in the same range of values ​​as the list in item 2.3.
 
-### 2.6 Busca nos Algoritmos
+### 2.6 Search in Algorithms
 
-Realização da busca dos elementos da nova lista no item 2.5 nas estruturas obtidas no item 2.4.
+Carrying out a search for the elements of the new list in item 2.5 in the structures obtained in item 2.4.
 
-### 2.7 Relatório Comparativo
+### 2.7 Comparative Report
 
-Um relatório comparativo incluindo tempo de inserção e busca para ambos os algoritmos.
+A comparative report including insertion and search times for both algorithms.
 
-#### 2.7.1 Tempo de Inserção
+#### 2.7.1 Insertion Time
 
-Resultados do tempo de inserção para ambos os algoritmos.
+Insertion time results for both algorithms.
 
-#### 2.7.2 Tempo de Busca
+#### 2.7.2 Search Time
 
-Resultados do tempo de busca para ambos os algoritmos.
-
+Search time results for both algorithms.

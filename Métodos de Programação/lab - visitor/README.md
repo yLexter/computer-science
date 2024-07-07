@@ -1,27 +1,23 @@
-# Lab-7: Visitor
+#Lab-7: Visitor
 
-Este projeto implementa um exemplo do padrão de projeto Visitor, utilizando as figuras geométricas: Círculo, Triângulo, Retângulo e Trapézio.
+This project implements an example of the Visitor design pattern, using the geometric figures: Circle, Triangle, Rectangle and Trapezium.
 
-## Funcionalidades
+## Functionalities
 
-As operações implementadas para cada figura geométrica são:
+The operations implemented for each geometric figure are:
 
-- **Desenhar:** Mostra uma representação visual da figura.
-- **Calcular Área:** Calcula a área da figura.
-- **Calcular Perímetro:** Calcula o perímetro da figura.
-- **Maximizar Figura:** Duplica o raio (no caso do círculo), lado (triângulo), base e altura (retângulo e trapézio) da figura.
+- **Draw:** Shows a visual representation of the figure.
+- **Calculate Area:** Calculates the area of ​​the figure.
+- **Calculate Perimeter:** Calculates the perimeter of the figure.
+- **Maximize Figure:** Doubles the radius (in the case of a circle), side (triangle), base and height (rectangle and trapezoid) of the figure.
 
-## Estrutura do Projeto
+## Project Structure
 
-O projeto está estruturado da seguinte forma:
+The project is structured as follows:
 
-- `entities`: Contém as classes das figuras geométricas.
-- `visitors`: Implementações dos visitors para cada operação.
-- `testes`: Todos os testes das figura e visitors
-- `interfaces`: Interfaces de Visitor e AceitaVisitor
-- `erros`: Exceções customizadas
-- `Main`: Utiliza o padrão Visitor para operar sobre as figuras geométricas.
-
-
-
-
+- `entities`: Contains the classes of geometric figures.
+- `visitors`: Implementations of visitors for each operation.
+- `tests`: All figure and visitor tests
+- `interfaces`: Visitor and AceitaVisitor interfaces
+- `errors`: Custom exceptions
+- `Main`: Uses the Visitor pattern to operate on geometric figures.

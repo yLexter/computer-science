@@ -1,174 +1,174 @@
 # Lab 0
 
-Olá. Seja bem-vindo a disciplina de Laboratório de Programação 1. Estaremos praticando a linguagem C, uma linguagem de propósito geral e de alto nível (e que também provê recursos de baixo nível). 
+Hello. Welcome to the Programming Laboratory 1 subject. We will be practicing the C language, a general purpose and high-level language (which also provides low-level resources).
 
-Desenvolvida no ano de 1972 pelo cientista americano Dennis Ritchie dentro da Bell Laboratories (a empresa do inventor do telefone, Graham Bell, hoje pertencente a Nokia), pensada para a criação de compiladores e sistemas operacionais, sendo a principal do Unix (suas características estão presentes nos sistemas MacOS, Linux e Android). 
+Developed in 1972 by American scientist Dennis Ritchie within Bell Laboratories (the company owned by the telephone's inventor, Graham Bell, now owned by Nokia), designed for the creation of compilers and operating systems, the main one being Unix (its characteristics are present on MacOS, Linux and Android systems).
 
-Ela é considerada a "mãe" de muitas outras linguagens de alto nível conhecidas hoje, como C++, C#, Dart, Go, Java, PHP, Rust, Swift, entre outras, porém não deixou de ser atual, sendo ainda bastante utilizada nas áreas de seu propósito original e também em máquinas virtuais.
+It is considered the "mother" of many other high-level languages ​​known today, such as C++, C#, Dart, Go, Java, PHP, Rust, Swift, among others, but it is still current and is still widely used in the areas of its original purpose and also in virtual machines.
 
-É uma linguagem de processamento muito rápido, em comparação com outras linguagens, como Java e Python, muito versátil, pois irá te ajudar, inclusive, a conhecer outras linguagens de programação. Por isso é tão popular.
+It is a very fast processing language, compared to other languages, such as Java and Python, and is very versatile, as it will even help you learn about other programming languages. That's why it's so popular.
 
-## Nosso primeiro programa em C: Hello World
+## Our first C program: Hello World
 
-Para criarmos nosso primeiro programa, veja quais são os passos e a sintaxe do código:
-
-```
-#include <stdio.h>
-
-int main()
-{
-  printf("Hello, World!");
-  return 0;
-}
-```
-
-Na primeira linha, temos a inclusão da biblioteca padrão de entrada e saída de dados (muito importante na resolução de problemas), o Standard I/O.
-
-Como a maioria das linguagens de programação, C é composta por muitas funções, denotadas sempre que há uma palavra seguida de parênteses `()`. Nesse caso, estamos invocando a função principal, `main`, que é responsável por executar o código. Nela você poderá armazenar e manipular dados de entrada e saída.
-
-Note que a função é um bloco de código, e que deve estar dentro de chaves `{}`. E mais uma observação: a função `main` sempre retorna alguma coisa, por isso temos a palavra `return` na última linha. Ela sinaliza que será devolvido um valor, que nesse caso é um número inteiro. Por isso que antes do nome da função aparece uma palavra reservada `int`, que corresponde ao tipo de informação que será devolvido ao final da função.
-
-Ah, não esqueça que todo final de linha deve conter o ponto-e-vírgula `;`!
-
-Por fim, veja o núcleo da nossa função: "imprimir" na tela a frase "Hello, World!". Para tanto, utilizaremos a função `printf` da biblioteca `stdio.h` para realizar essa tarefa para nós. 
-
-Esse código pode ser escrito na sua máquina com a instalação de um compilador, como o CGC, por exemplo, e o uso de um editor de texto, como o Sublime. O arquivo deverá ter a extensão `.c`. 
-
-Dica: Utilize uma IDE, como o CodeBlocks ou Visual Studio Code, para tornar sua tarefa de codar mais produtiva, ou utilize ambientes online, sempre priorizando aqueles integrados ao `GitHub`, como o `repl.it`.
-
-**Exercício 1:** Como seria um programa para imprimir duas frases, tipo, uma saudação e seu nome? 
-
-## Um segundo programa: somando dois números
-
-Já que sabemos a forma de saída de dados, vejamos como realizar a inserção de informações no programa, ou seja, trabalhar com a entrada de dados.
-
-Consideremos o cenário de somar dois números. Para tanto, é necessário criar o espaço onde armazenaremos os dois números que queremos somar, da seguinte forma:
+To create our first program, see the steps and code syntax:
 
 ```
 #include <stdio.h>
 
 int main()
 {
-  int integer1 = 0;
-  int integer2 = 0;
+ printf("Hello, World!");
+ return 0;
 }
 ```
 
-Nós acabamos de criar duas _variáveis_, espaços na memória do computador para guardar informações necessárias para a resolução do problema. Como nosso problema é resolver uma soma de dois números, preciso memorizar quais são os dois números que irei somar (óbvio, não é mesmo)?
+In the first line, we have the inclusion of the standard data input and output library (very important when solving problems), Standard I/O.
 
-Dica: cuidado com o nome das variáveis: integer1 e INTEGER1 não são a mesma coisa. C é _case sensitive_.
+Like most programming languages, C is made up of many functions, denoted whenever there is a word followed by parentheses `()`. In this case, we are invoking the main function, `main`, which is responsible for executing the code. There you can store and manipulate input and output data.
 
-Após criar as variáveis, vamos inserir a maneira de coletar as informações, que, neste caso, são os dois números. Utilizaremos a função `scanf`:
+Note that the function is a block of code, and that it must be enclosed in braces `{}`. And one more observation: the `main` function always returns something, which is why we have the word `return` in the last line. It signals that a value will be returned, which in this case is an integer. That's why a reserved word `int` appears before the name of the function, which corresponds to the type of information that will be returned at the end of the function.
+
+Oh, don't forget that every end of line must contain the semicolon `;`!
+
+Finally, see the core of our function: "printing" the phrase "Hello, World!" on the screen. To do so, we will use the `printf` function from the `stdio.h` library to perform this task for us.
+
+This code can be written on your machine by installing a compiler, such as CGC, for example, and using a text editor, such as Sublime. The file must have the extension `.c`.
+
+Tip: Use an IDE, such as CodeBlocks or Visual Studio Code, to make your coding task more productive, or use online environments, always prioritizing those integrated with `GitHub`, such as `repl.it`.
+
+**Exercise 1:** What would a program look like to print two sentences, like a greeting and your name?
+
+## A second program: adding two numbers
+
+Since we know how to output data, let's see how to insert information into the program, that is, work with data entry.
+
+Let's consider the scenario of adding two numbers. To do so, it is necessary to create the space where we will store the two numbers we want to add, as follows:
 
 ```
 #include <stdio.h>
 
 int main()
 {
-  int integer1 = 0;
-  int integer2 = 0;
-
-  scanf("%d", &integer1);
-  scanf("%d", &integer2);
+ int integer1 = 0;
+ int integer2 = 0;
 }
 ```
 
-Beleza, agora já posso guardar o que eu digitar no teclado! Mas espere, tem algumas coisas que é preciso saber: a função `scanf` recebe dois _parâmetros_: o primeiro irá formatar o que você inserir do teclado - texto, mas que é chamado de `string`, para um `decimal integer` (por isso a letra d). O segundo parâmetro já é mais simples de entender: é o destino da informação (o nome da variável). Nesse caso, precisamos informar ao programa que será alocado espaço na memória para armazenar a informação, por isso o uso do símbolo `&`. Sem ele, nosso programa resultaria em um erro do tipo "segmentation fault" ou "access violation".
+We have just created two _variables_, spaces in the computer's memory to store information necessary to solve the problem. As our problem is solving a sum of two numbers, I need to memorize which two numbers I will add (obvious, right)?
 
-Por fim, precisamos armazenar a soma. Para tanto, iremos utilizar uma outra variável que irá guardar o resultado da operação aritimética:
+Tip: be careful with the name of the variables: integer1 and INTEGER1 are not the same thing. C is _case sensitive_.
+
+After creating the variables, we will insert the way to collect the information, which, in this case, are the two numbers. We will use the `scanf` function:
 
 ```
 #include <stdio.h>
 
 int main()
 {
-  int integer1 = 0;
-  int integer2 = 0;
+ int integer1 = 0;
+ int integer2 = 0;
 
-  scanf("%d", &integer1);
-  scanf("%d", &integer2);
-
-  int sum = 0; 
-  sum = integer1 + integer2;
+ scanf("%d", &integer1);
+ scanf("%d", &integer2);
 }
 ```
 
-Pronto, podemos rodar nosso programa. Mas ainda falta alguma coisa... imprimir o resultado na tela! Vamos utilizar novamente a função `printf`:
+Okay, now I can save what I type on the keyboard! But wait, there are some things you need to know: the `scanf` function takes two _parameters_: the first will format what you enter from the keyboard - text, but which is called a `string`, to a `decimal integer` (for that's the letter d). The second parameter is easier to understand: it is the destination of the information (the name of the variable). In this case, we need to inform the program that memory space will be allocated to store the information, hence the use of the `&` symbol. Without it, our program would result in a "segmentation fault" or "access violation" error.
+
+Finally, we need to store the sum. To do so, we will use another variable that will store the result of the arithmetic operation:
 
 ```
 #include <stdio.h>
 
 int main()
 {
-  int integer1 = 0;
-  int integer2 = 0;
+ int integer1 = 0;
+ int integer2 = 0;
 
-  scanf("%d", &integer1);
-  scanf("%d", &integer2);
+ scanf("%d", &integer1);
+ scanf("%d", &integer2);
 
-  int sum = 0; 
-  sum = integer1 + integer2;
-
-  printf("%d", sum);
+ int sum = 0;
+ sum = integer1 + integer2;
 }
 ```
 
-Certo, nosso programa funciona. Imprime a soma corretamente. Mas, se olharmos de fora do código, como apenas usuários e não como programadores, o que exatamente esse programa está fazendo? Poderia ser uma subtração, uma multiplicação, uma divisão, ou qualquer outra operação. 
-
-Para entender o que um programa faz, é necessário guiar o usuário, e isso também precisa ser programado. 
-
-Primeiramente, é preciso informar qual o dado que o usuário irá digitar, antes de pedir isso no teclado:
+Okay, we can run our program. But there's still something missing... printing the result on the screen! Let's use the `printf` function again:
 
 ```
 #include <stdio.h>
 
 int main()
 {
-  int integer1 = 0;
-  int integer2 = 0;
+ int integer1 = 0;
+ int integer2 = 0;
 
-  printf("Soma de dois números\n");
-  
-  printf("Digite o primeiro número: ");
-  scanf("%d", &integer1);
-  printf("Digite o segundo número: ");
-  scanf("%d", &integer2);
+ scanf("%d", &integer1);
+ scanf("%d", &integer2);
 
-  int sum = 0; 
-  sum = integer1 + integer2;
+ int sum = 0;
+ sum = integer1 + integer2;
 
-  printf("%d", sum);
+ printf("%d", sum);
 }
 ```
 
-Além disso, na última linha, ao informarmos o resultado, podemos imprimir uma mensagem indicando que aquela informação é a soma dos dois números:
+Okay, our program works. Prints the sum correctly. But if we look from outside the code, as just users and not programmers, what exactly is this program doing? It could be a subtraction, a multiplication, a division, or any other operation.
+
+To understand what a program does, it is necessary to guide the user, and this also needs to be programmed.
+
+Firstly, it is necessary to inform what data the user will enter, before asking for it on the keyboard:
 
 ```
 #include <stdio.h>
 
 int main()
 {
-  int integer1 = 0;
-  int integer2 = 0;
+ int integer1 = 0;
+ int integer2 = 0;
 
-  printf("Soma de dois números\n");
-  
-  printf("Digite o primeiro número: ");
-  scanf("%d", &integer1);
-  printf("Digite o segundo número: ");
-  scanf("%d", &integer2);
+ printf("Sum of two numbers\n");
 
-  int sum = 0; 
-  sum = integer1 + integer2;
+ printf("Enter the first number: ");
+ scanf("%d", &integer1);
+ printf("Enter the second number: ");
+ scanf("%d", &integer2);
 
-  printf("A soma é %d\n", sum);
+ int sum = 0;
+ sum = integer1 + integer2;
+
+ printf("%d", sum);
 }
 ```
 
-Note que utilizamos o mesmo símbolo de formatação para `decimal integer` que fizemos no `scanf`. Isso se dá por conta desse **f** nas funções de scan e print. É possível formatar informações, inserindo quantas forem necessárias.
+Furthermore, in the last line, when we inform the result, we can print a message indicating that that information is the sum of the two numbers:
 
-E o símbolo `\n` foi colocado para pular uma linha. Veja sem ele qual seria o resultado do seu programa.
+```
+#include <stdio.h>
 
-**Exercício 2**: Crie um programa para subtrair dois números e multiplicar por um terceiro.
+int main()
+{
+ int integer1 = 0;
+ int integer2 = 0;
 
-**Desafio**: Crie um programa para calcular potência de base 2, sendo a informação da base (2) sempre uma _constante_, e o expoente informado no telcado pelo usuário.
+ printf("Sum of two numbers\n");
+
+ printf("Enter the first number: ");
+ scanf("%d", &integer1);
+ printf("Enter the second number: ");
+ scanf("%d", &integer2);
+
+ int sum = 0;
+ sum = integer1 + integer2;
+
+ printf("The sum is %d\n", sum);
+}
+```
+
+Note that we used the same formatting symbol for `decimal integer` as we did in `scanf`. This is due to this **f** in the scan and print functions. It is possible to format information, inserting as many as necessary.
+
+And the symbol `\n` was placed to skip a line. See without it what the result of your program would be.
+
+**Exercise 2**: Create a program to subtract two numbers and multiply by a third.
+
+**Challenge**: Create a program to calculate power of base 2, with the base information (2) always being a _constant_, and the exponent informed on the keyboard by the user.

@@ -1,171 +1,171 @@
 # Lab 4
 
-Neste roteiro, iremos revisar o uso de condições nas soluções dos nossos programas em C, bem como iniciar o uso de repetições como estruturas de controle de fluxo.
+In this roadmap, we will review the use of conditions in our C program solutions, as well as begin using repetitions as flow control structures.
 
-## Revisando o Uso de Estruturas Condicionais
+## Reviewing the Use of Conditional Structures
 
-No roteiro "Lab 2" conhecemos a primeira forma de controle de fluxo de saídas em um programa, a estrutura `if-else`, que, basicamente, testa se uma expressão é verdadeira ou falsa (partindo da palavra reservada `if`), podendo ter ou não, uma válvula de escape (o conteúdo do bloco `else`).
+In the "Lab 2" script we see the first way to control the flow of outputs in a program, the `if-else` structure, which basically tests whether an expression is true or false (starting from the reserved word `if`), may or may not have an escape valve (the contents of the `else` block).
 
-Já o comando switch testa sucessivamente o valor de uma expressão contra uma lista de constantes inteiras ou de caractere. Quando o valor coincide, os comandos associados são executados. Um switch pode ter pelo menos 257 comandos case (C ANSI).
+The switch command successively tests the value of an expression against a list of integer or character constants. When the value matches, the associated commands are executed. A switch can have at least 257 case statements (C ANSI).
 
-Veja que, em ambas as estruturas, existem um bloco de código que estará associado a uma condição ser verdadeira. Para o `if-else` a construção é mais dinâmica, podendo ser substituído pelo operador ternário `?`; já no `switch` fica um pouco mais restrito a avaliação de cláusulas (cases) de valores constantes.
+Note that, in both structures, there is a block of code that will be associated with a condition being true. For `if-else` the construction is more dynamic, and can be replaced by the ternary operator `?`; In `switch`, it is a little more restricted to the evaluation of clauses (cases) with constant values.
 
-Para recapitular, veja o exemplo da resolução do problema "Bom dia, boa tarde ou boa noite" usando as estruturas que estudamos até aqui:
-
-```
-#include <stdio.h>
-
-int main() 
-{
-  int turno = 0;
-  printf("Digite 1-Matutino, 2-Vespertino e 3-Noturno: ");
-  scanf("%d", &turno);
-
-  // resolução usando if-else
-  if (turno == 1)
-    printf("Bom dia!");
-  else if (turno == 2)
-    printf("Boa tarde!");
-  else if (turno == 3)
-    printf("Boa noite!");
-  else 
-    printf("Valor Inválido!");
-
-  // resolução usando operador ternário
-  turno == 1 ? printf("Bom dia!") : turno == 2 ? printf("Boa tarde!") : turno == 3 ? printf("Boa noite!") : printf("Valor Inválido!");
-
-  // resolução usando switch cases
-  switch (turno) {
-    case 1:
-      printf("Bom dia!");
-      break;
-    case 2:
-      printf("Boa tarde!");
-      break;
-    case 3:
-      printf("Boa noite!");
-      break;
-    default:
-      printf("Valor Inválido!");
-      break;
-  }
-
-  return 0;
-}
-```
-
-**Exercício 1**: Faça um programa que pergunte o nome e o preço de dois produtos e informe qual produto você deve comprar, sabendo que a decisão é sempre pelo mais barato.
-
-**Exercício 2**: Aprimore a solução do programa anterior, perguntando o preço de três produtos e, em seguida, informe qual é o produto mais caro.
-
-**Desafio 1**: Faça um Programa que peça o valor dos 3 lados de um triângulo. O programa deverá informar se os valores podem ser um triângulo. Indique, caso os lados formem um triângulo, se o mesmo é: equilátero, isósceles ou escaleno. Três lados formam um triângulo quando a soma de quaisquer dois lados for maior que o terceiro. Dicas:
-- Triângulo Equilátero: três lados iguais;
-- Triângulo Isósceles: quaisquer dois lados iguais;
-- Triângulo Escaleno: três lados diferentes
-
-## Estruturas de Repetição: while
-
-As estruturas de repetição permitem que um conjunto de instruções seja executado até que ocorra uma certa condição ou até que determinada condição deixe de ser satisfeita. A primeira estrutura que iremos trabalhar, `while` (que quer dizer "enquanto"), tem o funcionamento muito parecido com o bloco `if`: a diferença é que, no `if`, o que está dentro do bloco é executado apenas uma vez. Já no bloco `while`, o que está dentro do bloco pode ser executado mais de uma vez.
-
-```
-  if (expressão) 
-  {
-    comando;
-  } 
-
-  while (expressão) 
-  {
-    comando;
-  } 
-```
-
-Como não se sabe quantas vezes a condição será satisfeita, dizemos que a estrutura de repetição `while` tem final em aberto.
-
-Vejamos um primeiro exemplo: um contador de números. Suponha que desejemos contar quantos números o usuário digita no teclado. Implementar essa solução sem saber quantas vezes exatamente o usuário irá digitar alguma coisa é complicado, não? 
+To recap, see the example of solving the problem "Good morning, good afternoon or good evening" using the structures we have studied so far:
 
 ```
 #include <stdio.h>
 
-int main() 
+int main()
 {
-  int contador = 0;
-  int numero = 0;
+ int shift = 0;
+ printf("Enter 1-Morning, 2-Evening and 3-Evening: ");
+ scanf("%d", &turn);
 
-  // quantas vezes preciso pedir ao usuário para digitar? 
-  printf("Digite um número: ");
-  scanf("%d", &numero); 
-  contador++;
+ // resolution using if-else
+ if (shift == 1)
+ printf("Good morning!");
+ else if (turn == 2)
+ printf("Good afternoon!");
+ else if (turn == 3)
+ printf("Good evening!");
+ else
+ printf("Invalid Value!");
 
-  printf("Digite um número: ");
-  scanf("%d", &numero); 
-  contador++;
+ // resolution using ternary operator
+ shift == 1 ? printf("Good morning!") : shift == 2 ? printf("Good afternoon!") : shift == 3 ? printf("Good evening!") : printf("Invalid Value!");
 
-  printf("Digite um número: ");
-  scanf("%d", &numero); 
-  contador++;
+ // resolution using switch cases
+ switch (shift) {
+ case 1:
+ printf("Good morning!");
+ break;
+ case 2:
+ printf("Good afternoon!");
+ break;
+ case 3:
+ printf("Good evening!");
+ break;
+ default:
+ printf("Invalid Value!");
+ break;
+ }
 
-  printf("Digite um número: ");
-  scanf("%d", &numero);
-  contador++;
-
-  // ... 
-
-  printf("Você digitou %d números", contador);
-  
-  return 0;
+ return 0;
 }
 ```
 
-Veja que temos alguns trechos de código repetidos. Fatalmente esses trechos serão suprimidos em um só dentro de um bloco `while`: 
+**Exercise 1**: Make a program that asks for the name and price of two products and tells you which product you should buy, knowing that the decision is always for the cheapest.
+
+**Exercise 2**: Improve the solution from the previous program by asking the price of three products and then informing which product is the most expensive.
+
+**Challenge 1**: Make a Program that asks for the value of the 3 sides of a triangle. The program should inform you whether the values ​​can be a triangle. Indicate, if the sides form a triangle, whether it is: equilateral, isosceles or scalene. Three sides form a triangle when the sum of any two sides is greater than the third. Tips:
+- Equilateral Triangle: three equal sides;
+- Isosceles Triangle: any two equal sides;
+- Scalene Triangle: three different sides
+
+## Repetition Structures: while
+
+Repetition structures allow a set of instructions to be executed until a certain condition occurs or until a certain condition is no longer satisfied. The first structure we will work on, `while` (which means "while"), works very similarly to the `if` block: the difference is that, in `if`, what is inside the block is only executed once. In the `while` block, what is inside the block can be executed more than once.
+
+```
+ if (expression)
+ {
+ command;
+ }
+
+ while (expression)
+ {
+ command;
+ }
+```
+
+As it is not known how many times the condition will be satisfied, we say that the `while` repetition structure has an open ending.
+
+Let's look at a first example: a number counter. Suppose we want to count how many numbers the user types on the keyboard. Implementing this solution without knowing exactly how many times the user will type something is complicated, right?
 
 ```
 #include <stdio.h>
 
-int main() 
+int main()
 {
-  int contador = 0;
-  int numero = 0;
-  
-  printf("Digite um número: ");
-  scanf("%d", &numero); 
+ int counter = 0;
+ int number = 0;
 
-  while () {
-    contador++;
-    printf("Digite um número: ");
-    scanf("%d", &numero); 
-  }
+ // how many times do I need to ask the user to type?
+ printf("Enter a number: ");
+ scanf("%d", &number);
+ counter++;
 
-  printf("Você digitou %d números", contador);
-  
-  return 0;
+ printf("Enter a number: ");
+ scanf("%d", &number);
+ counter++;
+
+ printf("Enter a number: ");
+ scanf("%d", &number);
+ counter++;
+
+ printf("Enter a number: ");
+ scanf("%d", &number);
+ counter++;
+
+ // ...
+
+ printf("You entered %d numbers", counter);
+
+ return 0;
 }
 ```
 
-Bem melhor, não? O que falta para completarmos nosso programa é estabelecer a condição de parada (ou de continuidade, depende do ponto de vista). Podemos pensar no seguinte: quando o usuário não digitar mais um número, a contagem deve ser encerrada. Logo, nossa condição para o programa continuar é: enquanto o usuário digitar um número. 
-
-Em C, temos o valor `EOF` (pode significar o Ctrl + Z, ^Z ou ainda -1) para determinar a ausência de dados, ou seja, quando o usuário simplesmente tecla Enter. Então, com o auxílio desse valor, nosso programa ficaria assim:
+See that we have some repeated code snippets. These sections will inevitably be suppressed as one within a `while` block:
 
 ```
 #include <stdio.h>
 
-int main() 
+int main()
 {
-  int contador = 0;
-  printf("Digite um número: ");
-  scanf("%d", &numero); 
+ int counter = 0;
+ int number = 0;
 
-  while (numero != EOF) {
-    contador++;
-    printf("Digite um número: ");
-    scanf("%d", &numero); 
-  }
+ printf("Enter a number: ");
+ scanf("%d", &number);
 
-  printf("Você digitou %d números", contador);
-  
-  return 0;
+ while () {
+ counter++;
+ printf("Enter a number: ");
+ scanf("%d", &number);
+ }
+
+ printf("You entered %d numbers", counter);
+
+ return 0;
 }
 ```
 
-~~**Exercício 3**: Faça um programa que leia um nome de usuário e a sua senha e não aceite a senha igual ao nome do usuário, mostrando uma mensagem de erro e voltando a pedir as informações.~~
+Much better, right? What remains to complete our program is to establish the stopping condition (or continuity, depending on your point of view). We can think about the following: when the user no longer enters a number, the count must end. Therefore, our condition for the program to continue is: as long as the user types a number.
 
-**Desafio 2**: Faça um programa contador de vogais maiúsculas e minúsculas. As consoantes e símbolos devem ser desprezadas, e, ao finnal do programa, mostre a quantidade de vogais maiúsculas e de minúsculas que o usuário digitou. _Dica: use switch case._ 
+In C, we have the value `EOF` (it can mean Ctrl + Z, ^Z or even -1) to determine the absence of data, that is, when the user simply presses Enter. So, with the help of this value, our program would look like this:
+
+```
+#include <stdio.h>
+
+int main()
+{
+ int counter = 0;
+ printf("Enter a number: ");
+ scanf("%d", &number);
+
+ while (number != EOF) {
+ counter++;
+ printf("Enter a number: ");
+ scanf("%d", &number);
+ }
+
+ printf("You entered %d numbers", counter);
+
+ return 0;
+}
+```
+
+~~**Exercise 3**: Write a program that reads a username and password and does not accept the password that is the same as the username, showing an error message and asking for the information again.~~
+
+**Challenge 2**: Make an uppercase and lowercase vowel counter program. Consonants and symbols must be ignored, and, at the end of the program, show the number of uppercase and lowercase vowels that the user entered. _Tip: use switch case._

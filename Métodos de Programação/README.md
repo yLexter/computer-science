@@ -1,24 +1,21 @@
-# Métodos Avançados de Programação
+# Advanced Programming Methods
 
-Esta disciplina aborda técnicas avançadas de análise e projeto de software orientado a objetos, bem como padrões de projeto, técnicas de refatoramento de software e conceitos sobre frameworks e desenvolvimento orientado a componentes.
+This subject covers advanced object-oriented software analysis and design techniques, as well as design patterns, software refactoring techniques and concepts about frameworks and component-oriented development.
 
-## Professor
-- **Professora:** Sabrina Souto
+## Teacher
+- **Teacher:** Sabrina Souto
 
-## Dupla
+## Pair
 - **Lisa Costa** ([GitHub](https://github.com/lisacsiqueira))
 
-## Conteúdo da Disciplina
+## Subject Content
 
-1. **Análise e Projeto de Software Orientado a Objetos:** Estudo avançado sobre análise e projeto de software, com foco em abordagens orientadas a objetos.
-2. **Padrões de Projeto:** Estudo e aplicação de padrões de projeto comuns, como Singleton, Factory Method, Observer, entre outros.
-3. **Técnicas de Refatoramento de Software:** Aprendizado e prática de técnicas para melhorar a estrutura e o design de código legado.
-4. **Frameworks:** Conceitos e práticas relacionadas a frameworks de desenvolvimento de software.
-5. **Desenvolvimento Orientado a Componentes:** Exploração de conceitos e práticas relacionadas ao desenvolvimento baseado em componentes reutilizáveis.
+1. **Object-Oriented Software Analysis and Design:** Advanced study of software analysis and design, with a focus on object-oriented approaches.
+2. **Design Patterns:** Study and application of common design patterns, such as Singleton, Factory Method, Observer, among others.
+3. **Software Refactoring Techniques:** Learning and practicing techniques to improve the structure and design of legacy code.
+4. **Frameworks:** Concepts and practices related to software development frameworks.
+5. **Component-Oriented Development:** Exploration of concepts and practices related to development based on reusable components.
 
-## Como Usar
+## How to use
 
-Este repositório contém uma série de diretórios, cada um relacionado a um tópico específico. Dentro de cada diretório, você encontrará códigos de exemplo, resoluções de exercícios e para os tópicos correspondentes.
-
-
-
+This repository contains a series of directories, each related to a specific topic. Within each directory, you will find example codes, exercise resolutions, and solutions for the corresponding topics.
