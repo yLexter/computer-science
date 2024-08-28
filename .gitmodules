@@ -4,7 +4,6 @@
 [submodule "Projects/Academic System"]
 	path = Projects/Academic System
 	url = https://github.com/yLexter/school-academic-system.git
-
 [submodule "Computer Graphics"]
 	path = Computer Graphics
 	url = https://github.com/yLexter/computer-graphics.git
